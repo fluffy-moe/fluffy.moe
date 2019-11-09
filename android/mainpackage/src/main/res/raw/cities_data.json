@@ -1,0 +1,27 @@
+{
+	"cities": ["Taipei City", "Keelung City", "New Taipei City", "Lienchiang County", "Yilan County", "Diauyutai", "Hsinchu City", "Hsinchu County", "Taoyuan City", "Miaoli County", "Taichung City", "Changhua County", "Nantou County", "Chiayi City", "Chiayi County", "Yunlin County", "Tainan City", "Kaohsiung City", "Nanhai", "Penghu County", "Kinmen County", "Pingtung County", "Taitung County", "Hualien County"],
+	"districts": {
+		"Taipei City": ["Zhongzheng", "Datong", "Zhongshan", "Songshan", "Da’an", "Wanhua", "Xinyi", "Shilin", "Beitou", "Neihu", "Nangang", "Wenshan"],
+		"Keelung City": ["Ren’ai", "Xinyi", "Zhongzheng", "Zhongshan", "Anle", "Nuannuan", "Qidu"],
+		"New Taipei City": ["Wanli", "Jinshan", "Banqiao", "Xizhi", "Shenkeng", "Shiding", "Ruifang", "Pingxi", "Shuangxi", "Gongliao", "Xindian", "Pinglin", "Wulai", "Yonghe", "Zhonghe", "Tucheng", "Sanxia", "Shulin", "Yingge", "Sanchong", "Xinzhuang", "Taishan", "Linkou", "Luzhou", "Wugu", "Bali", "Tamsui", "Sanzhi", "Shimen"],
+		"Lienchiang County": ["Nangan", "Beigan", "Juguang", "Dongyin"],
+		"Yilan County": ["Yilan", "Zhuangwei", "Toucheng", "Jiaoxi", "Yuanshan", "Luodong", "Sanxing", "Datong", "Wujie", "Dongshan", "Su’ao", "Nan’ao", "Diaoyutai"],
+		"Hsinchu City": ["East", "North", "Xiangshan"],
+		"Hsinchu County": ["Baoshan", "Zhubei", "Hukou", "Xinfeng", "Xinpu", "Guanxi", "Qionglin", "Zhudong", "Wufeng", "Hengshan", "Jianshi", "Beipu", "Emei"],
+		"Taoyuan City": ["Zhongli", "Pingzhen", "Longtan", "Yangmei", "Xinwu", "Guanyin", "Taoyuan", "Guishan", "Bade", "Daxi", "Fuxing", "Dayuan", "Luzhu"],
+		"Miaoli County": ["Zhunan", "Toufen", "Sanwan", "Nanzhuang", "Shitan", "Houlong", "Tongxiao", "Yuanli", "Miaoli", "Zaoqiao", "Touwu", "Gongguan", "Dahu", "Tai’an", "Tongluo", "Sanyi", "Xihu", "Zhuolan"],
+		"Taichung City": ["Central", "East", "South", "West", "North", "Beitun", "Xitun", "Nantun", "Taiping", "Dali", "Wufeng", "Wuri", "Fengyuan", "Houli", "Shigang", "Dongshi", "Heping", "Xinshe", "Tanzi", "Daya", "Shengang", "Dadu", "Shalu", "Longjing", "Wuqi", "Qingshui", "Dajia", "Waipu", "Da’an"],
+		"Changhua County": ["Changhua", "Fenyuan", "Huatan", "Xiushui", "Lukang", "Fuxing", "Xianxi", "Hemei", "Shengang", "Yuanlin", "Shetou", "Yongjing", "Puxin", "Xihu", "Dacun", "Puyan", "Tianzhong", "Beidou", "Tianwei", "Pitou", "Xizhou", "Zhutang", "Erlin", "Dacheng", "Fangyuan", "Ershui"],
+		"Nantou County": ["Nantou", "Zhongliao", "Caotun", "Guoxing", "Puli", "Ren’ai", "Mingjian", "Jiji", "Shuili", "Yuchi", "Xinyi", "Zhushan", "Lugu"],
+		"Chiayi City": ["West", "East"],
+		"Chiayi County": ["Fanlu", "Meishan", "Zhuqi", "Alishan", "Zhongpu", "Dapu", "Shuishang", "Lucao", "Taibao", "Puzi", "Dongshi", "Liujiao", "Xingang", "Minxiong", "Dalin", "Xikou", "Yizhu", "Budai"],
+		"Yunlin County": ["Dounan", "Dapi", "Huwei", "Tuku", "Baozhong", "Dongshi", "Taixi", "Lunbei", "Mailiao", "Douliu", "Linnei", "Gukeng", "Citong", "Xiluo", "Erlun", "Beigang", "Shuilin", "Kouhu", "Sihu", "Yuanchang"],
+		"Tainan City": ["West", "East", "South", "North", "Anping", "Annan", "Yongkang", "Guiren", "Xinhua", "Zuozhen", "Yujing", "Nanxi", "Nanhua", "Rende", "Guanmiao", "Longqi", "Guantian", "Madou", "Jiali", "Xigang", "Qigu", "Jiangjun", "Xuejia", "Beimen", "Xinying", "Houbi", "Baihe", "Dongshan", "Liujia", "Xiaying", "Liuying", "Yanshui", "Shanhua", "Xinshi", "Danei", "Shanshang", "Anding"],
+		"Kaohsiung City": ["Xinxing", "Qianjin", "Lingya", "Yancheng", "Gushan", "Qijin", "Qianzhen", "Sanmin", "Nanzi", "Xiaogang", "Zuoying", "Renwu", "Dashe", "Dongsha", "Nansha", "Gangshan", "Luzhu", "Alian", "Tianliao", "Yanchao", "Qiaotou", "Ziguan", "Mituo", "Yong’an", "Hunei", "Fengshan", "Daliao", "Linyuan", "Niaosong", "Dashu", "Qishan", "Meinong", "Liugui", "Neimen", "Shanlin", "Jiaxian", "Taoyuan", "Namaxia", "Maolin", "Qieding"],
+		"Penghu County": ["Magong", "Xiyu", "Wang’an", "Qimei", "Baisha", "Huxi"],
+		"Kinmen County": ["Jinsha", "Jinhu", "Jinning", "Jincheng", "Lieyu", "Wuqiu"],
+		"Pingtung County": ["Pingtung", "Sandimen", "Wutai", "Majia", "Jiuru", "Ligang", "Gaoshu", "Yanpu", "Changzhi", "Linluo", "Zhutian", "Neipu", "Wandan", "Chaozhou", "Taiwu", "Laiyi", "Wanluan", "Kanding", "Xinpi", "Nanzhou", "Linbian", "Donggang", "Liuqiu", "Jiadong", "Xinyuan", "Fangliao", "Fangshan", "Chunri", "Shizi", "Checheng", "Mudan", "Hengchun", "Manzhou"],
+		"Taitung County": ["Taitung", "Ludao", "Lanyu", "Yanping", "Beinan", "Luye", "Guanshan", "Haiduan", "Chishang", "Donghe", "Chenggong", "Changbin", "Taimali", "Jinfeng", "Dawu", "Daren"],
+		"Hualien County": ["Hualien", "Xincheng", "Xiulin", "Ji’an", "Shoufeng", "Fenglin", "Guangfu", "Fengbin", "Ruisui", "Wanrong", "Yuli", "Zhuoxi", "Fuli"]
+	}
+}

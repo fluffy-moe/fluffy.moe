@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".SearchActivity">
+
+	<ImageView
+		android:id="@+id/imgSearchBack"
+		android:layout_width="1440px"
+		android:layout_height="2560px"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/location" />
+
+	<TextView
+		android:id="@+id/textView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="128px"
+		android:layout_marginTop="94px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Clinic Search"
+		android:textColor="#565656"
+		android:textSize="101px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/btnSearch"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="153px"
+		android:layout_marginTop="634px"
+		android:background="@null"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/location_search" />
+
+	<TextView
+		android:id="@+id/txtSearchCity"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="175px"
+		android:layout_marginTop="321px"
+		android:fontFamily="@font/segoe_ui_bold"
+		android:text="City"
+		android:textColor="#595959"
+		android:textSize="60px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<Spinner
+		android:id="@+id/spinnerCity"
+		android:layout_width="191dp"
+		android:layout_height="39dp"
+		android:layout_marginStart="450px"
+		android:layout_marginTop="321px"
+		android:background="@drawable/scape"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<Spinner
+		android:id="@+id/spinnerDistrict"
+		android:layout_width="197dp"
+		android:layout_height="35dp"
+		android:layout_marginStart="450px"
+		android:layout_marginTop="461px"
+		android:background="@drawable/scape"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtSearchRegion"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="175px"
+		android:layout_marginTop="461px"
+		android:fontFamily="@font/segoe_ui_bold"
+		android:text="Region"
+		android:textColor="#595959"
+		android:textSize="60px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageView
+		android:id="@+id/imgSearchLocation"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="1019.7px"
+		android:layout_marginTop="661.px"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/point" />
+
+	<ImageView
+		android:id="@+id/imgSearchLine"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="368dp"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/line" />
+
+	<ListView
+		android:id="@+id/lvSearchResult"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="153px"
+		android:layout_marginTop="1309px"
+		android:background="@android:color/transparent"
+		android:divider="@drawable/divider_64px"
+		android:dividerHeight="64px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
