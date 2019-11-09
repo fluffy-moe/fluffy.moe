@@ -29,6 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -58,6 +59,7 @@ public class SearchActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		if (!is_inited_cities) {
+			boolean has_error = false;
 			JSONObject o = JSONParser.loadJSONFromAsset(getResources().openRawResource(R.raw.cities_data));
 			cities = new ArrayList<>();
 			districts_data = new HashMap<>();
@@ -69,7 +71,14 @@ public class SearchActivity extends AppCompatActivity {
 						// Get city name
 						cities.add(j.getString(i));
 						// Get district list
-						m = o.getJSONObject("districts").getJSONArray(j.getString(i));
+						try {
+							m = o.getJSONObject("districts").getJSONArray(j.getString(i));
+						} catch (JSONException e) {
+							// pervert read fail
+							has_error = true;
+							e.printStackTrace();
+							continue;
+						}
 						// Append district to array
 						for (int x = 0; x < m.length(); x++)
 							districts.add(m.getString(x));
@@ -78,9 +87,12 @@ public class SearchActivity extends AppCompatActivity {
 						districts_data.put(j.getString(i), districts);
 						// Finally clear temp stories
 					}
-					map_detail = JSONParser.loadJSONFromAsset(getResources().openRawResource(R.raw.location_sample));
+					map_detail = JSONParser.loadJSONFromAsset(getResources().openRawResource(R.raw.location));
 					Log.v(TAG, "init successful => " + cities.toString() + "\n" + districts_data.toString());
 					is_inited_cities = true;
+					if (BuildConfig.DEBUG && has_error) {
+						Toast.makeText(this, "Error while processing json.", Toast.LENGTH_SHORT).show();
+					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
