@@ -1,2 +1,3 @@
 include ':mainpackage'
 rootProject.name='Fluffy'
+include ':zxing-android-embedded'

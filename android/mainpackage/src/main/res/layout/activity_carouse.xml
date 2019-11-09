@@ -7,7 +7,7 @@
 	tools:context=".CarouseActivity">
 
 	<com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
-		android:id="@+id/hz"
+		android:id="@+id/horizontalInfiniteCycleViewPager"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		app:icvp_center_page_scale_offset="30dp"

@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
+import moe.fluffy.app.types.HttpRawResponse;
+
 public class JSONParser {
 	private static String TAG = "log_JSONParser";
 
@@ -42,6 +44,22 @@ public class JSONParser {
 			return null;
 		}
 		return json;
+	}
+
+
+	static public HttpRawResponse networkJsonDecode(String json_text) {
+		//Structure:
+		// RAW | STATUS | OPTIONS | ERRORS
+		HttpRawResponse httpRawResponse;
+		//Log.d(TAG, "networkJsonDecode: json_text => "+ json_text);
+		try{
+			JSONObject obj = new JSONObject(json_text);
+			httpRawResponse = new HttpRawResponse(obj);
+			return httpRawResponse;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
 

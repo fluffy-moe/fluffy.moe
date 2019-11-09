@@ -19,10 +19,10 @@
  */
 package moe.fluffy.app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -38,5 +38,8 @@ public class HomeActivity extends AppCompatActivity {
 				v -> startActivity(new Intent( HomeActivity.this, SearchActivity.class)));
 		findViewById(R.id.btnChangeToCarouseDemo).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, CarouseActivity.class)));
+		findViewById(R.id.btnChangeToScan).setOnClickListener(
+				v -> startActivity(new Intent(HomeActivity.this, BoostScanActivity.class)));
 	}
+
 }

@@ -1,7 +1,7 @@
 /*
  ** Copyright (C) 2019 KunoiSayami
  **
- ** This file is part of 1081-ezgraduate and is released under
+ ** This file is part of Fluffy and is released under
  ** the AGPL v3 License: https://www.gnu.org/licenses/agpl-3.0.txt
  **
  ** This program is free software: you can redistribute it and/or modify
