@@ -19,6 +19,9 @@
  */
 package moe.fluffy.app.types;
 
+import android.text.Editable;
+import android.widget.EditText;
+
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -61,6 +64,12 @@ public class NetworkRequestType {
 	public static NetworkRequestType generateRegisterParams(String user, String password)
 			throws NoSuchAlgorithmException{
 		return _generateAccountAction(user, password);
+	}
+
+	@NotNull
+	public static NetworkRequestType generateLoginParams(Editable user, Editable password)
+			throws NoSuchAlgorithmException{
+		return generateLoginParams(user.toString(), password.toString());
 	}
 
 	@NotNull

@@ -1,21 +1,21 @@
 package moe.fluffy.app;
 
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 
 import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.journeyapps.barcodescanner.ViewfinderView;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Random;
 
 /**
- * Custom Scannner Activity extending from Activity to display a custom layout form scanner view.
+ * Custom Scanner Activity extending from Activity to display a custom layout form scanner view.
  */
 public class ScanActivity extends Activity{
 
@@ -30,8 +30,6 @@ public class ScanActivity extends Activity{
 		setContentView(R.layout.activity_custom_scanner);
 
 		barcodeScannerView = findViewById(R.id.zxing_barcode_scanner);
-
-		//switchFlashlightButton = findViewById(R.id.switch_flashlight);
 
 		viewfinderView = findViewById(R.id.zxing_viewfinder_view);
 
@@ -62,7 +60,7 @@ public class ScanActivity extends Activity{
 	}
 
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
+	protected void onSaveInstanceState(@NotNull Bundle outState) {
 		super.onSaveInstanceState(outState);
 		capture.onSaveInstanceState(outState);
 	}

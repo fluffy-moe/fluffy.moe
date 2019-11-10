@@ -58,6 +58,13 @@ public class SearchActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		initData();
+		setContentView(R.layout.activity_search);
+		init();
+	}
+
+	void initData() {
 		if (!is_initialized_cities) {
 			boolean has_error = false;
 			JSONObject o = JSONParser.loadJSONFromAsset(getResources().openRawResource(R.raw.cities_data));
@@ -98,9 +105,6 @@ public class SearchActivity extends AppCompatActivity {
 				}
 			}
 		}
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_search);
-		init();
 	}
 
 	void init_spinner_district(int pos) {

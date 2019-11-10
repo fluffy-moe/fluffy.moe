@@ -61,7 +61,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:paddingStart="41px"
-        android:hint="user's email"
+        android:text="@string/users_email"
         android:textColor="#969696"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -87,7 +87,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:paddingStart="41px"
-        android:hint="user's password"
+        android:text="@string/users_password"
+        android:selectAllOnFocus="true"
         android:textColor="#969696"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

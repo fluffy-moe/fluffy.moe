@@ -1,0 +1,13 @@
+{
+	"articles": [
+		{
+			"category": "Dog",
+			"title": "Title",
+			"author": "Author",
+			"date": "Date",
+			"body": "Body",
+			"filename": "dog1",
+			"photo_filename": "dog12"
+		}
+	]
+}

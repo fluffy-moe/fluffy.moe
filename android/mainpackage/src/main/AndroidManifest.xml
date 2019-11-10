@@ -31,7 +31,7 @@
 		<activity android:name=".ShowArticleActivity" />
 
 		<service
-			android:name=".FirebaseMessageService"
+			android:name=".assistant.firebase.FirebaseMessageService"
 			android:enabled="true"
 			android:exported="true">
 			<intent-filter>

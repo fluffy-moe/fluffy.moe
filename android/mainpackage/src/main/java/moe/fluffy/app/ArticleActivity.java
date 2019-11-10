@@ -115,6 +115,7 @@ public class ArticleActivity extends AppCompatActivity {
 					JSONArray _articles = _articles_file.getJSONArray("articles");
 					for (int i = 0; i < _articles.length(); i++) {
 						JSONObject j = _articles.getJSONObject(i);
+						// https://stackoverflow.com/a/3476470
 						@DrawableRes int coverId =
 								getResources().getIdentifier(j.getString("filename"), "drawable", this.getPackageName());
 						@DrawableRes int headerId =

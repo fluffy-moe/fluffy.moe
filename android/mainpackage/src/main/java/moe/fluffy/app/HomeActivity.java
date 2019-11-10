@@ -29,6 +29,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.util.Objects;
+
+import cz.ackee.useragent.UserAgent;
+import moe.fluffy.app.assistant.Connect;
+import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.PopupDialog;
 
 public class HomeActivity extends AppCompatActivity {
@@ -46,6 +51,9 @@ public class HomeActivity extends AppCompatActivity {
 	}
 
 	void init() {
+		Connect.setUserAgent(UserAgent.getInstance(this).getUserAgentString(""));
+		ConnectPath.loadConfig(this);
+
 		findViewById(R.id.btnChangeToSearch).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, SearchActivity.class)));
 		findViewById(R.id.btnChangeToCarouseDemo).setOnClickListener(
@@ -63,15 +71,14 @@ public class HomeActivity extends AppCompatActivity {
 				.addOnCompleteListener(task -> {
 					if (!task.isSuccessful()) {
 						Log.w(TAG, "getInstanceId failed", task.getException());
-						PopupDialog.build(HomeActivity.this, task.getException());
+						PopupDialog.build(HomeActivity.this, Objects.requireNonNull(task.getException()));
 						return;
 					}
 
 					// Get new Instance ID token
 					String token;
 					try {
-						token = task.getResult().getToken();
-
+						token = Objects.requireNonNull(task.getResult()).getToken();
 						// Log and toast
 						String msg = String.format("token: %s", token);
 						Log.d(TAG, msg);

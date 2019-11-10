@@ -1,6 +1,9 @@
 package moe.fluffy.app;
 
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -22,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
 	EditText etUser, etPassword;
 	ImageButton imgbtnLogin;
 
+	private static String TAG = "log_Login";
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_login);
 		init();
-		Connect.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36");
 	}
 
 	void init() {
@@ -39,9 +43,39 @@ public class LoginActivity extends AppCompatActivity {
 		etPassword = findViewById(R.id.etLoginPassword);
 		imgbtnLogin = findViewById(R.id.imgbtnLogin);
 
+		etUser.setOnFocusChangeListener((v, hasFocus) -> {
+			if (hasFocus) {
+				if (etUser.getText().toString().equals(getString(R.string.users_email))) {
+					etUser.setText("");
+				}
+			} else {
+				if (etUser.getText().length() == 0) {
+					etUser.setText(R.string.users_email);
+				}
+			}
+		});
+
+		etPassword.setOnFocusChangeListener((v, hasFocus) -> {
+			Log.d(TAG, "init: " + etPassword.getInputType());
+			if (hasFocus) {
+				if (etPassword.getText().toString().equals(getString(R.string.users_password))) {
+					// clear default text
+					etPassword.setText("");
+					// https://stackoverflow.com/a/9893496
+					etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+				}
+			}
+			else {
+				if (etPassword.getText().length() == 0) {
+					etPassword.setText(R.string.users_password);
+					etPassword.setInputType(InputType.TYPE_CLASS_TEXT);
+				}
+			}
+		});
+
 		imgbtnLogin.setOnClickListener( v -> {
 			try {
-				new Connect(NetworkRequestType.generateLoginParams(etUser.getText().toString(), etPassword.getText().toString()), "login", new Callback() {
+				new Connect(NetworkRequestType.generateLoginParams(etUser.getText(), etPassword.getText()), "login", new Callback() {
 					@Override
 					public void onSuccess(Object o)  {
 						HttpRawResponse r = (HttpRawResponse) o;

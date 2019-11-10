@@ -146,7 +146,7 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 	void doConnect() throws IOException, ConnectException {
 		Log.d(TAG, "doConnect: target => " + requestPath);
 		StringBuilder stringBuilder = new StringBuilder();
-		URL url = new URL(requestPath);
+		URL url = new URL(ConnectPath.server_address + requestPath);
 		HttpsURLConnection client = null;
 		try {
 			client = (HttpsURLConnection) url.openConnection();

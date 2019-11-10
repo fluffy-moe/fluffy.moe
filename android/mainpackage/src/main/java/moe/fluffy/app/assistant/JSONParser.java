@@ -19,6 +19,8 @@
  */
 package moe.fluffy.app.assistant;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,14 +33,18 @@ import moe.fluffy.app.types.HttpRawResponse;
 public class JSONParser {
 	private static String TAG = "log_JSONParser";
 
+	static public String szloadJSONFromAsset(InputStream is) throws IOException {
+		int size = is.available();
+		byte[] buffer = new byte[size];
+		is.read(buffer);
+		is.close();
+			return new String(buffer, StandardCharsets.UTF_8);
+	}
+
 	static public JSONObject loadJSONFromAsset(InputStream is) {
 		JSONObject json;
 		try {
-			int size = is.available();
-			byte[] buffer = new byte[size];
-			is.read(buffer);
-			is.close();
-			json = new JSONObject(new String(buffer, StandardCharsets.UTF_8));
+			json = new JSONObject(szloadJSONFromAsset(is));
 		} catch (IOException | JSONException ex) {
 			ex.printStackTrace();
 			return null;
@@ -46,6 +52,15 @@ public class JSONParser {
 		return json;
 	}
 
+
+	static public JSONObject[] getJson(String json_text) throws JSONException{
+		JSONObject[] jsonObjects = new JSONObject[2];
+		JSONObject obj = new JSONObject(json_text);
+		JSONObject pageObj = obj.getJSONObject("pages");
+		jsonObjects[0] = obj;
+		jsonObjects[1] = pageObj;
+		return jsonObjects;
+	}
 
 	static public HttpRawResponse networkJsonDecode(String json_text) {
 		//Structure:
