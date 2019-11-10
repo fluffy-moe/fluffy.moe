@@ -35,7 +35,7 @@ public class BoostScanActivity extends AppCompatActivity {
 		} else {
 			Log.d("MainActivity", "Scanned");
 			Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-			finish();
 		}
+		finish();
 	}
 }

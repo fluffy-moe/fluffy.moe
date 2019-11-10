@@ -66,10 +66,6 @@ public class ImageAdapter extends PagerAdapter {
 	public Object instantiateItem(ViewGroup c, int position) {
 		View v = lay.inflate(R.layout.card_view, c, false);
 		ImageView imgView = v.findViewById(R.id.image_card);
-		for (int i = 0; i < c.getChildCount(); i++) {
-			if (i == position) continue;
-		//	c.getChildAt(i).setAlpha(0.5f);
-		}
 		imgView.setImageResource(mList.get(position));
 		c.addView(v);
 		return v;

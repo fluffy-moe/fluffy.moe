@@ -54,42 +54,13 @@ public class ArticleActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_article);
 
 		lst.add(R.drawable.c1);
-		lst.add(R.drawable.c2);
-		lst.add(R.drawable.b1);
+		lst.add(R.drawable.dog1);
+		lst.add(R.drawable.dog3);
+		lst.add(R.drawable.d41);
 
 		HorizontalInfiniteCycleViewPager h = findViewById(R.id.horizontalInfiniteCycleViewPager);
 		ImageAdapter i = new ImageAdapter(lst, getBaseContext());
 		h.setAdapter(i);
-		h.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-			@Override
-			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-				//Log.d(TAG, "onPageScrolled: ");
-			}
-
-			@Override
-			public void onPageSelected(int position) {
-			}
-
-			@Override
-			public void onPageScrollStateChanged(int state) {
-
-				// state 0 is stopped
-				/*int p = h.getRealItem();
-				int sz = h.getAdapter().getCount();
-				View v = h.getChildAt(h.getCurrentItem());
-				if (state != 0) return;
-				Log.d(TAG, "onPageScrollStateChanged: p => " + p + " sz => " + h.getCurrentItem() + " state => " + state);
-				for (int i = 0; i < h.getChildCount(); i++){
-					View r = h.getChildAt(i);
-					if (r.equals(v)) {
-						r.setAlpha(1.0f);
-						continue;
-					}
-					r.setAlpha(0.5f);
-
-				}*/
-			}
-		});
 	}
 
 }

@@ -17,12 +17,11 @@ import java.util.Random;
 /**
  * Custom Scannner Activity extending from Activity to display a custom layout form scanner view.
  */
-public class ScanActivity extends Activity implements
-		DecoratedBarcodeView.TorchListener {
+public class ScanActivity extends Activity{
 
 	private CaptureManager capture;
 	private DecoratedBarcodeView barcodeScannerView;
-	private Button switchFlashlightButton;
+	//private Button switchFlashlightButton;
 	private ViewfinderView viewfinderView;
 
 	@Override
@@ -31,17 +30,10 @@ public class ScanActivity extends Activity implements
 		setContentView(R.layout.activity_custom_scanner);
 
 		barcodeScannerView = findViewById(R.id.zxing_barcode_scanner);
-		barcodeScannerView.setTorchListener(this);
 
-		switchFlashlightButton = findViewById(R.id.switch_flashlight);
+		//switchFlashlightButton = findViewById(R.id.switch_flashlight);
 
 		viewfinderView = findViewById(R.id.zxing_viewfinder_view);
-
-		// if the device does not have flashlight in its camera,
-		// then remove the switch flashlight button...
-		if (!hasFlash()) {
-			switchFlashlightButton.setVisibility(View.GONE);
-		}
 
 		capture = new CaptureManager(this, barcodeScannerView);
 		capture.initializeFromIntent(getIntent(), savedInstanceState);
@@ -80,22 +72,6 @@ public class ScanActivity extends Activity implements
 		return barcodeScannerView.onKeyDown(keyCode, event) || super.onKeyDown(keyCode, event);
 	}
 
-	/**
-	 * Check if the device's camera has a Flashlight.
-	 * @return true if there is Flashlight, otherwise false.
-	 */
-	private boolean hasFlash() {
-		return getApplicationContext().getPackageManager()
-				.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-	}
-
-	public void switchFlashlight(View view) {
-		if (getString(R.string.turn_on_flashlight).equals(switchFlashlightButton.getText())) {
-			barcodeScannerView.setTorchOn();
-		} else {
-			barcodeScannerView.setTorchOff();
-		}
-	}
 
 	public void changeMaskColor(View view) {
 		Random rnd = new Random();
@@ -107,13 +83,4 @@ public class ScanActivity extends Activity implements
 		viewfinderView.setLaserVisibility(visible);
 	}
 
-	@Override
-	public void onTorchOn() {
-		switchFlashlightButton.setText(R.string.turn_off_flashlight);
-	}
-
-	@Override
-	public void onTorchOff() {
-		switchFlashlightButton.setText(R.string.turn_on_flashlight);
-	}
 }
