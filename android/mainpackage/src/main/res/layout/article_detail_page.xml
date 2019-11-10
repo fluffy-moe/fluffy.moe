@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efefef">
+
+    <ImageView
+        android:id="@+id/img_articlepic"
+        android:layout_width="1440px"
+        android:layout_height="920px"
+        android:layout_marginStart="0px"
+        android:layout_marginTop="0px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@null" />
+
+    <TextView
+        android:id="@+id/txtArticleTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="106px"
+        android:layout_marginStart="90px"
+        android:layout_marginTop="1053px"
+        android:fontFamily="@font/segoe_ui_bold"
+        android:textColor="#565656"
+        android:textSize="80px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="60px"
+        android:layout_marginStart="952px"
+        android:layout_marginTop="1203px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:textColor="#969696"
+        android:textSize="45px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtPublishTime"
+        android:layout_width="wrap_content"
+        android:layout_height="60px"
+        android:layout_marginStart="1162px"
+        android:layout_marginTop="1263px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:textColor="#969696"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageButton
+        android:id="@+id/imgbtnFavArticle"
+        android:layout_width="110px"
+        android:layout_height="110px"
+        android:layout_marginStart="1216px"
+        android:layout_marginTop="870px"
+        android:background="@null"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bookmark_gray" />
+
+    <ImageButton
+        android:id="@+id/imgbtnBackArticle"
+        android:layout_width="78px"
+        android:layout_height="78px"
+        android:layout_marginStart="51px"
+        android:layout_marginTop="79px"
+        android:background="@null"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_white" />
+
+    <ScrollView
+        android:layout_width="1273px"
+        android:layout_height="1204px"
+        android:layout_marginStart="90px"
+        android:layout_marginTop="1356px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtArticleContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_semibold"
+                android:scrollbars="vertical"
+                android:textColor="#969696"
+                android:textSize="48px"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

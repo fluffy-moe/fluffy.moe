@@ -24,4 +24,10 @@
 		android:layout_height="wrap_content"
 		android:text="Scan Barcode" />
 
+	<Button
+		android:id="@+id/btnChangeToLoginPage"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="Login" />
+
 </LinearLayout>

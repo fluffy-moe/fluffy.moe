@@ -22,6 +22,7 @@ package moe.fluffy.app.assistant;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -38,8 +39,62 @@ import java.util.Iterator;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import moe.fluffy.app.types.HttpRawResponse;
 import moe.fluffy.app.types.NetworkRequestType;
 
+class ConnectException extends Exception {
+	int status;
+	ConnectException(int _status) {
+		status = _status;
+	}
+
+	String getInfo() {
+		return "Server returned: " + status;
+	}
+}
+
+/*
+	used in perform api request
+ */
+class NetworkRequestException extends ConnectException {
+	int error_code;
+	String error_message;
+	NetworkRequestException(int _status, int _error_code, String _error_message) {
+		super(_status);
+		error_code = _error_code;
+		error_message = _error_message;
+	}
+
+	NetworkRequestException(int _status, JSONObject error_class) {
+		super(_status);
+		if (error_class != null) {
+			try {
+				error_code = error_class.getInt("code");
+				error_message = error_class.getString("info");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		else {
+			error_code = -1;
+			error_message = "Json object return null";
+		}
+	}
+
+	@Override
+	String getInfo() {
+		return "Server returned => " + status + " Error code: " + error_code + " Additional info: " + error_message;
+	}
+}
+
+/*
+	used in connect server
+ */
+class ServerException extends ConnectException {
+	ServerException(int _status) {
+		super(_status);
+	}
+}
 
 public class Connect extends AsyncTask<URL, Integer, Long> {
 	private static final String TAG = "log_Connect";
@@ -66,9 +121,9 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 		method = is_post? "POST" : "GET";
 	}
 
-	Connect(NetworkRequestType nrt,
-			String _requestPath,
-			Callback _listener) {
+	public Connect(NetworkRequestType nrt,
+				   String _requestPath,
+				   Callback _listener) {
 		headerParams = nrt.getHeaders();
 		postParams = nrt.getParams();
 		requestPath = _requestPath;
@@ -88,7 +143,7 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 	}
 
 	private
-	void doConnect() throws IOException {
+	void doConnect() throws IOException, ConnectException {
 		Log.d(TAG, "doConnect: target => " + requestPath);
 		StringBuilder stringBuilder = new StringBuilder();
 		URL url = new URL(requestPath);
@@ -143,6 +198,7 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 			}
 			else {
 				response = "{}";
+				throw new ServerException(responseCode);
 			}
 		}
 		catch (MalformedURLException e){
@@ -154,9 +210,16 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 			//Log.d(TAG, "postData: Finish");
 		}
 		//Log.d(TAG, "postData: Finish Response => " + response);
+		HttpRawResponse o = JSONParser.networkJsonDecode(response);
+		if (o!= null) {
+			if (o.getStatus() != 200)
+				throw new NetworkRequestException(o.getStatus(), o.getErrors());
+			}
+		else
+			throw new NetworkRequestException(200, null);
 	}
 
-	static
+	public static
 	void setUserAgent(String _userAgent) {
 		userAgent = _userAgent;
 	}
@@ -165,7 +228,7 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 	protected Long doInBackground(URL... params) {
 		try {
 			doConnect();
-		} catch (IOException e) {
+		} catch (IOException | ConnectException e) {
 			e.printStackTrace();
 			if (listener != null){
 				listener.onFailure(this, e);

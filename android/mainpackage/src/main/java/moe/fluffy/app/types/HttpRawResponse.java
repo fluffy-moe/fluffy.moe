@@ -33,7 +33,7 @@ public class HttpRawResponse {
 		errors = jsonObject.getJSONObject("errors");
 	}
 
-	int getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
@@ -41,7 +41,7 @@ public class HttpRawResponse {
 		return options;
 	}
 
-	JSONObject getErrors() {
+	public JSONObject getErrors() {
 		return errors;
 	}
 

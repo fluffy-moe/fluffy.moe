@@ -31,18 +31,21 @@ import androidx.viewpager.widget.PagerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Map;
 
 import moe.fluffy.app.R;
 
 public class ImageAdapter extends PagerAdapter {
 	List<Integer> mList;
+	Map<Integer, View.OnClickListener> mapRescoure;
 	Context context;
 	LayoutInflater lay;
 	private static String TAG = "log_ImageAdapter";
 
-	public ImageAdapter(List<Integer> l, Context c) {
+	public ImageAdapter(List<Integer> l, Map<Integer, View.OnClickListener> _mapResource, Context c) {
 		this.mList = l;
 		this.context = c;
+		this.mapRescoure = _mapResource;
 		lay = LayoutInflater.from(c);
 	}
 	@Override
@@ -66,6 +69,7 @@ public class ImageAdapter extends PagerAdapter {
 		View v = lay.inflate(R.layout.card_view, c, false);
 		ImageView imgView = v.findViewById(R.id.image_card);
 		imgView.setImageResource(mList.get(position));
+		imgView.setOnClickListener(mapRescoure.get(mList.get(position)));
 		c.addView(v);
 		return v;
 	}

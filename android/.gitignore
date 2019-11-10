@@ -81,4 +81,5 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 
-mainpackage/src/main/res/raw/location.json
+mainpackage/src/main/res/raw/*.json
+!mainpackage/src/main/res/raw/*_sample.json

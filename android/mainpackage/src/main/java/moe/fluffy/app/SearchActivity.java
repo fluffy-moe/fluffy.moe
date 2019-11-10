@@ -50,7 +50,7 @@ public class SearchActivity extends AppCompatActivity {
 	ImageButton btnSearch;
 	ListView lvSearchResult;
 
-	private static boolean is_inited_cities = false;
+	private static boolean is_initialized_cities = false;
 	private static ArrayList<String> cities;
 	private static HashMap<String, ArrayList<String>> districts_data;
 	private static JSONObject map_detail;
@@ -58,7 +58,7 @@ public class SearchActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		if (!is_inited_cities) {
+		if (!is_initialized_cities) {
 			boolean has_error = false;
 			JSONObject o = JSONParser.loadJSONFromAsset(getResources().openRawResource(R.raw.cities_data));
 			cities = new ArrayList<>();
@@ -89,7 +89,7 @@ public class SearchActivity extends AppCompatActivity {
 					}
 					map_detail = JSONParser.loadJSONFromAsset(getResources().openRawResource(R.raw.location));
 					Log.v(TAG, "init successful => " + cities.toString() + "\n" + districts_data.toString());
-					is_inited_cities = true;
+					is_initialized_cities = true;
 					if (BuildConfig.DEBUG && has_error) {
 						Toast.makeText(this, "Error while processing json.", Toast.LENGTH_SHORT).show();
 					}

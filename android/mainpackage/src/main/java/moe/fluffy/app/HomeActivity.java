@@ -21,12 +21,19 @@ package moe.fluffy.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import moe.fluffy.app.assistant.PopupDialog;
+
 public class HomeActivity extends AppCompatActivity {
+
+	private static String TAG = "log_HomeActivity";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +46,40 @@ public class HomeActivity extends AppCompatActivity {
 	}
 
 	void init() {
-
 		findViewById(R.id.btnChangeToSearch).setOnClickListener(
-				v -> startActivity(new Intent( HomeActivity.this, SearchActivity.class)));
+				v -> startActivity(new Intent(HomeActivity.this, SearchActivity.class)));
 		findViewById(R.id.btnChangeToCarouseDemo).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, ArticleActivity.class)));
 		findViewById(R.id.btnChangeToScan).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, BoostScanActivity.class)));
+		findViewById(R.id.btnChangeToLoginPage).setOnClickListener(
+				v -> startActivity(new Intent(HomeActivity.this, LoginActivity.class)));
+		initFirebase();
 	}
 
+
+	void initFirebase() {
+		FirebaseInstanceId.getInstance().getInstanceId()
+				.addOnCompleteListener(task -> {
+					if (!task.isSuccessful()) {
+						Log.w(TAG, "getInstanceId failed", task.getException());
+						PopupDialog.build(HomeActivity.this, task.getException());
+						return;
+					}
+
+					// Get new Instance ID token
+					String token;
+					try {
+						token = task.getResult().getToken();
+
+						// Log and toast
+						String msg = String.format("token: %s", token);
+						Log.d(TAG, msg);
+						//Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+					}
+					catch (NullPointerException e) {
+						PopupDialog.build(HomeActivity.this, null, "Token is null");
+					}
+				});
+	}
 }
