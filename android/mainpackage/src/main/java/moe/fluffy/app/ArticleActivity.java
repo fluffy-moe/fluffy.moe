@@ -21,19 +21,15 @@ package moe.fluffy.app;
 
 import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
-import com.gigamole.infinitecycleviewpager.OnInfiniteCyclePageTransformListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +38,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import moe.fluffy.app.assistant.JSONParser;
 import moe.fluffy.app.assistant.PopupDialog;
@@ -52,14 +47,20 @@ import moe.fluffy.app.types.adapter.ImageAdapter;
 
 public class ArticleActivity extends AppCompatActivity {
 
-
 	static private String TAG  = "log_ArticleActivity";
 	List<Integer> lst = new ArrayList<>();
 
-	HashMap<Integer, View.OnClickListener> mapResouce = new HashMap<>();
+	HashMap<Integer, View.OnClickListener> mapResource = new HashMap<>();
 
 	private static boolean is_articles_initialized = false;
 	private static ArticlesMap articles;
+
+	private static HashMap<String, Integer> countArticles = new HashMap<>();
+
+	private final static String[] categories = {"Dog", "Cat", "Bird", "Others"};
+
+	TextView txtCountDog, txtCountCat, txtCountBird, txtCountOther;
+	HorizontalInfiniteCycleViewPager articlesCarousel;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,21 +74,36 @@ public class ArticleActivity extends AppCompatActivity {
 		initView();
 	}
 
-
-	void initView() {
-		HorizontalInfiniteCycleViewPager h = findViewById(R.id.horizontalInfiniteCycleViewPager);
-		ImageAdapter im = new ImageAdapter(lst, mapResouce, getBaseContext());
+	void initCarousel() {
+		ImageAdapter im = new ImageAdapter(lst, mapResource, getBaseContext());
 		for (int i = 0;i < articles.getList().size(); i++) {
 			ArticleType a = articles.getList().get(i);
 			lst.add(a.getCoverId());
 			final int _i = i;
-			mapResouce.put(a.getCoverId(), v -> {
+			mapResource.put(a.getCoverId(), v -> {
 				Intent intent = new Intent(ArticleActivity.this, ShowArticleActivity.class);
 				intent.putExtra("articleIndex", _i);
 				startActivity(intent);
 			});
 		}
-		h.setAdapter(im);
+		articlesCarousel.setAdapter(im);
+	}
+
+	void initView() {
+		txtCountDog = findViewById(R.id.txtDogNumBook);
+		txtCountCat = findViewById(R.id.txtCatNumBook);
+		txtCountBird = findViewById(R.id.txtBirdNumBook);
+		txtCountOther = findViewById(R.id.txtOtherNumBook);
+		articlesCarousel = findViewById(R.id.horizontalInfiniteCycleViewPager);
+		initCarousel();
+		updateCount();
+	}
+
+	void updateCount() {
+		txtCountDog.setText(String.valueOf(countArticles.get(categories[0])));
+		txtCountCat.setText(String.valueOf(countArticles.get(categories[1])));
+		txtCountBird.setText(String.valueOf(countArticles.get(categories[2])));
+		txtCountOther.setText(String.valueOf(countArticles.get(categories[3])));
 	}
 
 	void initArticles() {
@@ -97,13 +113,21 @@ public class ArticleActivity extends AppCompatActivity {
 			if (_articles_file != null) {
 				try {
 					JSONArray _articles = _articles_file.getJSONArray("articles");
-					for (int i = 0; i< _articles.length(); i++) {
+					for (int i = 0; i < _articles.length(); i++) {
 						JSONObject j = _articles.getJSONObject(i);
 						@DrawableRes int coverId =
 								getResources().getIdentifier(j.getString("filename"), "drawable", this.getPackageName());
 						@DrawableRes int headerId =
 								getResources().getIdentifier(j.getString("photo_filename"), "drawable", this.getPackageName());
 						articles.push(new ArticleType(j, coverId, headerId));
+						String category = j.getString("category");
+						Integer count_category = countArticles.get(category);
+						if (count_category != null) {
+							countArticles.replace(category, count_category + 1);
+						}
+						else {
+							countArticles.put(category, 1);
+						}
 					}
 				} catch (JSONException e) {
 					PopupDialog.build(this, e);
