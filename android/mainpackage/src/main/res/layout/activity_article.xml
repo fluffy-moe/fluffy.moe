@@ -296,7 +296,7 @@
     <RelativeLayout
         android:layout_width="1440px"
         android:layout_height="1250px"
-        android:layout_marginTop="1100px"
+        android:layout_marginTop="1050px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

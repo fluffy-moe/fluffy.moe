@@ -53,10 +53,10 @@ public class ArticleActivity extends AppCompatActivity {
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		setContentView(R.layout.activity_article);
 
-		lst.add(R.drawable.c1);
+		lst.add(R.drawable.dog2);
 		lst.add(R.drawable.dog1);
 		lst.add(R.drawable.dog3);
-		lst.add(R.drawable.d41);
+		lst.add(R.drawable.dog4);
 
 		HorizontalInfiniteCycleViewPager h = findViewById(R.id.horizontalInfiniteCycleViewPager);
 		ImageAdapter i = new ImageAdapter(lst, getBaseContext());
