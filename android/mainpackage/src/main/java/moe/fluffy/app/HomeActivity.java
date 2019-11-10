@@ -21,6 +21,8 @@ package moe.fluffy.app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,15 +31,19 @@ public class HomeActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_home);
 		init();
 	}
 
 	void init() {
+
 		findViewById(R.id.btnChangeToSearch).setOnClickListener(
 				v -> startActivity(new Intent( HomeActivity.this, SearchActivity.class)));
 		findViewById(R.id.btnChangeToCarouseDemo).setOnClickListener(
-				v -> startActivity(new Intent(HomeActivity.this, CarouseActivity.class)));
+				v -> startActivity(new Intent(HomeActivity.this, ArticleActivity.class)));
 		findViewById(R.id.btnChangeToScan).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, BoostScanActivity.class)));
 	}

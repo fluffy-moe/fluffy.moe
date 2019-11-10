@@ -29,6 +29,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import moe.fluffy.app.R;
@@ -55,7 +57,7 @@ public class ImageAdapter extends PagerAdapter {
 	}
 
 	@Override
-	public void destroyItem(ViewGroup c, int position, Object obj) {
+	public void destroyItem(ViewGroup c, int position, @NotNull Object obj) {
 		c.removeView((View)obj);
 	}
 
@@ -64,9 +66,13 @@ public class ImageAdapter extends PagerAdapter {
 	public Object instantiateItem(ViewGroup c, int position) {
 		View v = lay.inflate(R.layout.card_view, c, false);
 		ImageView imgView = v.findViewById(R.id.image_card);
-		Log.d(TAG, "instantiateItem: =>" + imgView);
+		for (int i = 0; i < c.getChildCount(); i++) {
+			if (i == position) continue;
+		//	c.getChildAt(i).setAlpha(0.5f);
+		}
 		imgView.setImageResource(mList.get(position));
 		c.addView(v);
 		return v;
 	}
+
 }
