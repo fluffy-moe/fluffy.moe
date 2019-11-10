@@ -19,6 +19,7 @@
  */
 package moe.fluffy.app;
 
+import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -94,25 +95,16 @@ public class ArticleActivity extends AppCompatActivity {
 			articles = ArticlesMap.getInstance();
 			JSONObject _articles_file = JSONParser.loadJSONFromAsset(getResources().openRawResource(R.raw.articles));
 			if (_articles_file != null) {
-				// TODO: remove hardcode encoding
 				try {
 					JSONArray _articles = _articles_file.getJSONArray("articles");
-					articles.push(new ArticleType(_articles.getJSONObject(0), R.drawable.dog1, R.drawable.dog12));
-					articles.push(new ArticleType(_articles.getJSONObject(1), R.drawable.dog2, R.drawable.dog22));
-					articles.push(new ArticleType(_articles.getJSONObject(2), R.drawable.cat1, R.drawable.cat12));
-					articles.push(new ArticleType(_articles.getJSONObject(3), R.drawable.cat2, R.drawable.cat22));
-					articles.push(new ArticleType(_articles.getJSONObject(4), R.drawable.bird1, R.drawable.bird12));
-					articles.push(new ArticleType(_articles.getJSONObject(5), R.drawable.bird2, R.drawable.bird22));
-					articles.push(new ArticleType(_articles.getJSONObject(6), R.drawable.other1, R.drawable.other12));
-					articles.push(new ArticleType(_articles.getJSONObject(7), R.drawable.other2, R.drawable.other22));
-					articles.push(new ArticleType(_articles.getJSONObject(8), R.drawable.dog3, R.drawable.dog32));
-					articles.push(new ArticleType(_articles.getJSONObject(9), R.drawable.dog4, R.drawable.dog42));
-					articles.push(new ArticleType(_articles.getJSONObject(10), R.drawable.cat3, R.drawable.cat32));
-					articles.push(new ArticleType(_articles.getJSONObject(11), R.drawable.cat4, R.drawable.cat42));
-					articles.push(new ArticleType(_articles.getJSONObject(12), R.drawable.bird4, R.drawable.bird42));
-					articles.push(new ArticleType(_articles.getJSONObject(13), R.drawable.bird3, R.drawable.bird32));
-					articles.push(new ArticleType(_articles.getJSONObject(14), R.drawable.other3, R.drawable.other32));
-					articles.push(new ArticleType(_articles.getJSONObject(15), R.drawable.other4, R.drawable.other42));
+					for (int i = 0; i< _articles.length(); i++) {
+						JSONObject j = _articles.getJSONObject(i);
+						@DrawableRes int coverId =
+								getResources().getIdentifier(j.getString("filename"), "drawable", this.getPackageName());
+						@DrawableRes int headerId =
+								getResources().getIdentifier(j.getString("photo_filename"), "drawable", this.getPackageName());
+						articles.push(new ArticleType(j, coverId, headerId));
+					}
 				} catch (JSONException e) {
 					PopupDialog.build(this, e);
 				}
