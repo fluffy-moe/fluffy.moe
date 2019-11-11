@@ -2,21 +2,25 @@
 <resources xmlns:tools="http://schemas.android.com/tools"
 	tools:ignore="MissingTranslation">
 	<!-- Json field name -->
-	<string name="server_address_field" translatable="false">server_address</string>
-	<string name="login_field" translatable="false">login</string>
-	<string name="token_field" translatable="false">token</string>
-	<string name="do_field" translatable="false">token</string>
-	<string name="refresh_field" translatable="false">refresh</string>
-	<string name="register_field" translatable="false">register</string>
-	<string name="logout_field" translatable="false">logout</string>
-	<string name="firebase_id_register_field" translatable="false">firebase_register</string>
-	<string name="verify_session_field" translatable="false">verify_session</string>
-	<string name="fetch_notification_field" translatable="false">fetch_notification</string>
+	<string name="server_address_field">server_address</string>
+	<string name="login_field">login</string>
+	<string name="token_field">token</string>
+	<string name="do_field">token</string>
+	<string name="refresh_field">refresh</string>
+	<string name="register_field">register</string>
+	<string name="logout_field">logout</string>
+	<string name="firebase_id_register_field">firebase_register</string>
+	<string name="verify_session_field">verify_session</string>
+	<string name="fetch_notification_field">fetch_notification</string>
 	<!-- Json field name end -->
 
 	<string name="welcome_title_formatter">Welcome back! %s</string>
 	<string name="logout_text">Logout</string>
 
-	<string name="IntentFilter_login_success" translatable="false">loginSuccess</string>
-	<string name="IntentFilter_receive_notification" translatable="false">receiveNotification</string>
+	<string name="IntentFilter_login_success">loginSuccess</string>
+	<string name="IntentFilter_receive_notification">receiveNotification</string>
+
+	<string name="Intent_LoginSuccess">loginSuccess</string>
+	<string name="Intent_LoginErrorCode">loginErrorCode</string>
+	<string name="Intent_LoginErrorMessage">loginErrorMessage</string>
 </resources>

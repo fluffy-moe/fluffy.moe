@@ -24,8 +24,7 @@ import android.content.Context;
 
 import androidx.annotation.StringRes;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
+import static moe.fluffy.app.assistant.Utils.exceptionToString;
 
 public class PopupDialog {
 
@@ -46,9 +45,19 @@ public class PopupDialog {
 		build(context, context.getString(title_id), context.getString(body_id));
 	}
 
-	public static void build(Context context, Exception e) {
-		StringWriter sw = new StringWriter();
-		e.printStackTrace(new PrintWriter(sw));
-		build(context, "Exception occurred!", sw.toString());
+	public static void build(Context context, Throwable e) {
+		build(context, (Exception)e);
 	}
+
+	public static void build(Context context, String title, Throwable e) {
+		build(context, title, (Exception)e);
+	}
+	public static void build(Context context, String title, Exception e) {
+		build(context, title, exceptionToString(e));
+	}
+
+	public static void build(Context context, Exception e) {
+		build(context, "Exception occurred!", e);
+	}
+
 }

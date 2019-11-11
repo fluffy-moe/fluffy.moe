@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0EFF5"
+    tools:context=".Register2Activity">
+
+    <ImageView
+        android:id="@+id/imgBackgroundPage1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/grayer" />
+
+    <ImageView
+        android:id="@+id/imgPetBasicsDialogMain4"
+        android:layout_width="1203px"
+        android:layout_height="2183px"
+        android:layout_marginStart="119px"
+        android:layout_marginTop="60dp"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/register_petbasics_dialog" />
+
+    <TextView
+        android:id="@+id/txt_breed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="151px"
+        android:layout_marginTop="1147px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Breed"
+        android:textColor="#565656"
+        android:textSize="46px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="151px"
+        android:layout_marginTop="1423px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Gender"
+        android:textColor="#565656"
+        android:textSize="46px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_petbasics2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="514px"
+        android:layout_marginTop="250px"
+        android:fontFamily="@font/segoe_ui_bold"
+        android:text="Pet Basics"
+        android:textAlignment="center"
+        android:textColor="#565656"
+        android:textSize="90px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_give"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="314px"
+        android:layout_marginTop="542px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Give us\nthe basics about your pet"
+        android:textColor="#565656"
+        android:textSize="65px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="151px"
+        android:layout_marginTop="908px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Name"
+        android:textColor="#565656"
+        android:textSize="46px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_birthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="767px"
+        android:layout_marginTop="1140px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Birthday"
+        android:textColor="#565656"
+        android:textSize="46px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_spayed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="767px"
+        android:layout_marginTop="1416px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Spayed or Neutered"
+        android:textColor="#565656"
+        android:textSize="46px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="151px"
+        android:layout_marginTop="1687px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Weight"
+        android:textColor="#565656"
+        android:textSize="46px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_name"
+        android:layout_width="531px"
+        android:layout_height="103px"
+        android:layout_marginStart="151px"
+        android:layout_marginTop="988px"
+        android:background="@drawable/round_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingStart="41px"
+        android:text="Pet's name"
+        android:textColor="#969696"
+        android:textSize="44px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_breed"
+        android:layout_width="531px"
+        android:layout_height="103px"
+        android:layout_marginStart="151px"
+        android:layout_marginTop="1227px"
+        android:background="@drawable/round_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingStart="41px"
+        android:text="Pet's breed"
+        android:textColor="#969696"
+        android:textSize="44px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_birthday"
+        android:layout_width="531px"
+        android:layout_height="103px"
+        android:layout_marginStart="758px"
+        android:layout_marginTop="1227px"
+        android:background="@drawable/round_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingStart="41px"
+        android:text="MM/DD/YYYY"
+        android:textColor="#969696"
+        android:textSize="44px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160px"
+        android:layout_marginTop="1760px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/kg" />-->
+
+    <RadioGroup
+        android:id="@+id/rbg_weight"
+        android:layout_width="1120px"
+        android:layout_height="103px"
+        android:layout_marginStart="151px"
+        android:layout_marginTop="1767px"
+        android:background="@drawable/round_edittext"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/rb_10kg"
+            android:layout_width="279.75px"
+            android:layout_height="103px"
+            android:button="@null"
+            android:text="0-10kg"
+            android:textAlignment="center"
+            android:textColor="#565656" />
+
+        <RadioButton
+            android:id="@+id/rb_20kg"
+            android:layout_width="279.75px"
+            android:layout_height="103px"
+            android:button="@null"
+            android:text="10-20kg"
+            android:textAlignment="center"
+            android:textColor="#565656" />
+
+        <RadioButton
+            android:id="@+id/rb_30kg"
+            android:layout_width="279.75px"
+            android:layout_height="103px"
+            android:button="@null"
+            android:text="20-30kg"
+            android:textAlignment="center"
+            android:textColor="#565656" />
+
+        <RadioButton
+            android:id="@+id/rb_40kg"
+            android:layout_width="279.75px"
+            android:layout_height="103px"
+            android:button="@null"
+            android:text="30-40kg"
+            android:textAlignment="center"
+            android:textColor="#565656" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rbg_yes_no"
+        android:layout_width="531px"
+        android:layout_height="103px"
+        android:layout_marginStart="758px"
+        android:layout_marginTop="1503px"
+        android:background="@drawable/round_edittext"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/rb_yes"
+            android:layout_width="265.5px"
+            android:layout_height="103px"
+            android:button="@null"
+            android:text="Yes"
+            android:textAlignment="center"
+            android:textColor="#969696"
+            android:textSize="44px" />
+
+        <RadioButton
+            android:id="@+id/rb_no"
+            android:layout_width="265.5px"
+            android:layout_height="103px"
+            android:button="@null"
+            android:text="No"
+            android:textAlignment="center"
+            android:textColor="#969696"
+            android:textSize="44px" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rbg_gender"
+        android:layout_width="531px"
+        android:layout_height="103px"
+        android:layout_marginStart="151px"
+        android:layout_marginTop="1503px"
+        android:background="@drawable/round_edittext"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/rb_female"
+            android:layout_width="265.5px"
+            android:layout_height="103px"
+            android:button="@null"
+            android:text="Female"
+            android:textAlignment="center"
+            android:textColor="#969696"
+            android:textSize="44px" />
+
+        <RadioButton
+            android:id="@+id/rb_male"
+            android:layout_width="265.5px"
+            android:layout_height="103px"
+            android:button="@null"
+            android:text="Male"
+            android:textAlignment="center"
+            android:textColor="#969696"
+            android:textSize="44px" />
+    </RadioGroup>
+    <ImageButton
+        android:id="@+id/imgbtn_back_main4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="161px"
+        android:layout_marginTop="2193px"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back" />
+
+    <ImageButton
+        android:id="@+id/imgbtn_next_main4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="975px"
+        android:layout_marginTop="2192px"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/next" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0EFF5"
+    tools:context=".ChoosePetType">
+
+    <ImageView
+        android:id="@+id/imgBackgroundPage1"
+        android:layout_width="1440px"
+        android:layout_height="2560px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/grayer" />
+
+    <ImageView
+        android:id="@+id/imgPetBasicsDialogMain3"
+        android:layout_width="1203px"
+        android:layout_height="2196px"
+        android:layout_marginStart="119px"
+        android:layout_marginTop="207px"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/register_petbasics_dialog" />
+
+    <TextView
+        android:id="@+id/txt_petbasics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="514px"
+        android:layout_marginTop="250px"
+        android:fontFamily="@font/segoe_ui_bold"
+        android:text="Pet Basics"
+        android:textAlignment="center"
+        android:textColor="#545871"
+        android:textSize="90px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_nice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="350px"
+        android:layout_marginTop="487px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="\t\t\t\t\t\tNice to meet you,\nTell us all about your furry."
+        android:textColor="#545871"
+        android:textSize="65px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="392px"
+        android:layout_marginTop="819px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="What type of pet do you have?"
+        android:textColor="#9497A7"
+        android:textSize="47px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imgbtn_back_main3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="178px"
+        android:layout_marginTop="2230px"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back" />
+
+    <ImageButton
+        android:id="@+id/imgbtn_next_main3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="956px"
+        android:layout_marginTop="2230px"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/next" />
+
+    <ImageButton
+        android:id="@+id/imgbtn_dog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="385px"
+        android:layout_marginTop="998px"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dog" />
+
+    <ImageButton
+        android:id="@+id/imgbtncat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="785px"
+        android:layout_marginTop="998px"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cat" />
+
+    <ImageButton
+        android:id="@+id/imgbtn_bird"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="385px"
+        android:layout_marginTop="1459px"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bird" />
+
+    <ImageButton
+        android:id="@+id/imgbtn_other"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="785px"
+        android:layout_marginTop="1460px"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mouse" />
+
+    <TextView
+        android:id="@+id/txt_dog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="463px"
+        android:layout_marginTop="1273px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Dog"
+        android:textColor="#565656"
+        android:textSize="60px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/txt_cat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="876px"
+        android:layout_marginTop="1273px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Cat"
+        android:textColor="#565656"
+        android:textSize="60px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/txt_bird"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="466px"
+        android:layout_marginTop="1740px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Bird"
+        android:textColor="#565656"
+        android:textSize="60px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/txt_mouse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="847px"
+        android:layout_marginTop="1740px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Other"
+        android:textColor="#565656"
+        android:textSize="60px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

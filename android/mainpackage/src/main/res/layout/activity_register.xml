@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0EFF5"
+    tools:context=".RegisterActivity">
+
+    <ImageView
+        android:id="@+id/imgBackgroundPage1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/grayer" />
+
+    <ImageView
+        android:id="@+id/imgRegisterDialogMain2"
+        android:layout_width="1161px"
+        android:layout_height="2196px"
+        android:layout_marginStart="140px"
+        android:layout_marginTop="182px"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/register_login_dialog" />
+
+    <TextView
+        android:id="@+id/txtCreateNewAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="330px"
+        android:layout_marginTop="290px"
+        android:fontFamily="@font/segoe_ui_bold"
+        android:text="Create New Account"
+        android:textAlignment="center"
+        android:textColor="#565656"
+        android:textSize="80px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imgbtnConfirmMain2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="504px"
+        android:layout_marginTop="2173px"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/confirm" />
+
+    <TextView
+        android:id="@+id/txtNameMain2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="307px"
+        android:layout_marginTop="646px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Name"
+        android:textColor="#565656"
+        android:textSize="55px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etNameMain2"
+        android:layout_width="826px"
+        android:layout_height="125px"
+        android:layout_marginStart="307px"
+        android:layout_marginTop="742px"
+        android:background="@drawable/round_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingStart="41px"
+        android:text="user's name"
+        android:textColor="#969696"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="307px"
+        android:layout_marginTop="914px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Email"
+        android:textColor="#565656"
+        android:textSize="55px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="307px"
+        android:layout_marginTop="1168px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Password"
+        android:textColor="#565656"
+        android:textSize="55px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="307px"
+        android:layout_marginTop="1433px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Confirm again"
+        android:textColor="#565656"
+        android:textSize="55px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:layout_width="826px"
+        android:layout_height="125px"
+        android:layout_marginStart="307px"
+        android:layout_marginTop="1007px"
+        android:background="@drawable/round_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingStart="41px"
+        android:text="user's email"
+        android:textColor="#969696"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="826px"
+        android:layout_height="125px"
+        android:layout_marginStart="307px"
+        android:layout_marginTop="1261px"
+        android:background="@drawable/round_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingStart="41px"
+        android:text="user's password"
+        android:textColor="#969696"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etConfirm"
+        android:layout_width="826px"
+        android:layout_height="125px"
+        android:layout_marginStart="307px"
+        android:layout_marginTop="1526px"
+        android:background="@drawable/round_edittext"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingStart="41px"
+        android:text="@string/password_text"
+        android:textColor="#969696"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

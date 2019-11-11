@@ -45,7 +45,7 @@ public class HttpRawResponse {
 		return errors;
 	}
 
-	int getLastError() {
+	public int getLastError() {
 		try {
 			return errors.getInt("code");
 		} catch (JSONException e) {
@@ -54,7 +54,7 @@ public class HttpRawResponse {
 		return -1;
 	}
 
-	String getErrorString() {
+	public String getErrorString() {
 		try {
 			return errors.getString("info");
 		} catch (JSONException e) {

@@ -33,6 +33,9 @@ import java.security.NoSuchAlgorithmException;
 
 import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.assistant.Connect;
+import moe.fluffy.app.assistant.ConnectPath;
+import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.HttpRawResponse;
 import moe.fluffy.app.types.NetworkRequestType;
 
@@ -89,28 +92,47 @@ public class LoginActivity extends AppCompatActivity {
 			}
 		});
 
-		imgbtnLogin.setOnClickListener( v -> {
-			try {
-				new Connect(NetworkRequestType.generateLoginParams(etUser.getText(), etPassword.getText()), "login", new Callback() {
-					@Override
-					public void onSuccess(Object o)  {
-						HttpRawResponse r = (HttpRawResponse) o;
-						if (r.getStatus() == 200) {
-							Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
-						}
-					}
-
-					@Override
-					public void onFailure(Object o, Throwable e) {}
-
-					@Override
-					public void finish(Object o, Throwable e) {}
-				}).execute();
-			} catch (NoSuchAlgorithmException e){
-				e.printStackTrace();
-			}
-		});
+		imgbtnLogin.setOnClickListener( v -> login());
 
 		// TODO: Validation login
+	}
+
+
+	private void putExtras(boolean isLoginSuccess, int errorCode, String errorString) {
+		getIntent().putExtra(getString(R.string.Intent_LoginSuccess), isLoginSuccess);
+		getIntent().putExtra(getString(R.string.Intent_LoginErrorCode), errorCode);
+		getIntent().putExtra(getString(R.string.Intent_LoginErrorMessage), errorString);
+	}
+
+	private void login() {
+		try {
+			new Connect(NetworkRequestType.generateLoginParams(etUser.getText(), etPassword.getText()),
+					ConnectPath.login_path,
+					new Callback() {
+						@Override
+						public void onSuccess(Object o)  {
+							HttpRawResponse r = (HttpRawResponse) o;
+							if (r.getStatus() == 200) {
+								Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
+								putExtras(true, 0, "");
+							}
+							else {
+								PopupDialog.build(LoginActivity.this, "Login fail", r.getErrorString());
+								putExtras(false, r.getLastError(), r.getErrorString());
+							}
+						}
+
+						@Override
+						public void onFailure(Object o, Throwable e) {
+							PopupDialog.build(LoginActivity.this, e);
+							putExtras(false, -1, Utils.exceptionToString(e));
+						}
+
+						@Override
+						public void finish(Object o, Throwable e) {}
+			}).execute();
+		} catch (NoSuchAlgorithmException e){
+			e.printStackTrace();
+		}
 	}
 }
