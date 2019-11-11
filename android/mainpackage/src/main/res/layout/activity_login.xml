@@ -44,7 +44,7 @@
         android:layout_marginStart="550px"
         android:layout_marginTop="290px"
         android:fontFamily="@font/segoe_ui_bold"
-        android:text="Register"
+        android:text="@string/login_title"
         android:textAlignment="center"
         android:textColor="#565656"
         android:textSize="80px"

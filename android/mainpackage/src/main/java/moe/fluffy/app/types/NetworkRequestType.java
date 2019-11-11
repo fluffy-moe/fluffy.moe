@@ -20,7 +20,6 @@
 package moe.fluffy.app.types;
 
 import android.text.Editable;
-import android.widget.EditText;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +29,9 @@ import java.util.HashMap;
 
 import static moe.fluffy.app.assistant.SHA512Support.getHashedPassword;
 
+/**
+ *	NetworkRequest type class for network params
+ */
 public class NetworkRequestType {
 	private HashMap<String, String> params, headers;
 	NetworkRequestType(HashMap<String, String> _params, HashMap<String, String> _headers){
@@ -39,6 +41,7 @@ public class NetworkRequestType {
 		}
 		headers = _headers;
 	}
+
 	public HashMap<String, String> getParams() {
 		return params;
 	}
@@ -61,7 +64,7 @@ public class NetworkRequestType {
 	}
 
 	@NotNull
-	public static NetworkRequestType generateRegisterParams(String user, String password)
+	public static NetworkRequestType generateRegisterParams(String user, String password, String email)
 			throws NoSuchAlgorithmException{
 		return _generateAccountAction(user, password);
 	}
@@ -100,6 +103,16 @@ public class NetworkRequestType {
 		HashMap<String, String> params = new HashMap<>();
 		params.put("user", user);
 		params.put("password", getHashedPassword(password));
+		return new NetworkRequestType(params, null);
+	}
+
+	private
+	static NetworkRequestType _generateAccountAction(String user, String password, String email)
+			throws NoSuchAlgorithmException {
+		HashMap<String, String> params = new HashMap<>();
+		params.put("user", user);
+		params.put("password", getHashedPassword(password));
+		params.put("email", email);
 		return new NetworkRequestType(params, null);
 	}
 }

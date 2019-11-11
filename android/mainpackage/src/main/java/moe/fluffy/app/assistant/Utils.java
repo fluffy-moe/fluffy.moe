@@ -19,6 +19,14 @@
  */
 package moe.fluffy.app.assistant;
 
+import android.content.Context;
+import android.text.InputType;
+import android.widget.EditText;
+
+import androidx.annotation.StringRes;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -31,5 +39,23 @@ public class Utils {
 		StringWriter sw = new StringWriter();
 		e.printStackTrace(new PrintWriter(sw));
 		return sw.toString();
+	}
+
+	public static void onFocusChange(boolean hasFocus, Context context, @NotNull EditText et, @StringRes int original_string_id, boolean isPasswordField) {
+		if (hasFocus) {
+			if (et.getText().toString().equals(context.getString(original_string_id))) {
+				et.setText("");
+				// https://stackoverflow.com/a/9893496
+				if (isPasswordField)
+					et.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+			}
+		} else {
+			if (et.getText().length() == 0) {
+				et.setText(original_string_id);
+				if (isPasswordField)
+					et.setInputType(InputType.TYPE_CLASS_TEXT);
+
+			}
+		}
 	}
 }

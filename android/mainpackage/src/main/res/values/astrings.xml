@@ -2,5 +2,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools"
 	tools:ignore="MissingTranslation">
 	<string name="users_password">user\'s password</string>
+	<string name="users_confirm_password">confirm password</string>
 	<string name="users_email">user\'s email</string>
+	<string name="login_title">Login</string>
+	<string name="pets_name">Pet\'s name</string>
+	<string name="pets_breed">Pet\'s breed</string>
+	<string name="users_name">user\'s name</string>
 </resources>

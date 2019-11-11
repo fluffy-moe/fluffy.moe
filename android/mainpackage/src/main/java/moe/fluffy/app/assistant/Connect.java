@@ -101,7 +101,8 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 
 	private String response = "";
 	private String method, requestPath;
-	static private String userAgent;
+	private int responseCode;
+	private static String userAgent;
 
 
 	private Callback listener;
@@ -144,7 +145,7 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 
 	private
 	void doConnect() throws IOException, ConnectException {
-		Log.d(TAG, "doConnect: target => " + requestPath);
+		logRequest();
 		StringBuilder stringBuilder = new StringBuilder();
 		URL url = new URL(ConnectPath.server_address + requestPath);
 		HttpsURLConnection client = null;
@@ -181,7 +182,7 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 				os.close();
 			}
 
-			int responseCode = client.getResponseCode();
+			responseCode = client.getResponseCode();
 			if (responseCode == HttpsURLConnection.HTTP_OK) {
 				String line;
 				BufferedReader bufferedReader = new BufferedReader(
@@ -219,6 +220,9 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 			throw new NetworkRequestException(200, null);
 	}
 
+	/**
+	 * @param _userAgent should set in initiate stage
+	 */
 	public static
 	void setUserAgent(String _userAgent) {
 		userAgent = _userAgent;
@@ -240,11 +244,32 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 		return (long) result.length;
 	}
 
+	/**
+	 *	Method that will execute on success
+	 */
 	protected void onPostExecute(Long _reserved) {
 		super.onPostExecute(_reserved);
 		if (listener != null) {
 			listener.onSuccess(JSONParser.networkJsonDecode(response));
 			listener.finish(this, null);
 		}
+	}
+
+	/**
+	 * @return http response code which is returned by server
+	 */
+	public int getResponseCode() {
+		return responseCode;
+	}
+
+	/**
+	 * @return string that network raw response
+	 */
+	public String getResponse() {
+		return response;
+	}
+
+	public void logRequest() {
+		Log.v(TAG, "logRequest: Request path => " + requestPath + " Method => " + method);
 	}
 }

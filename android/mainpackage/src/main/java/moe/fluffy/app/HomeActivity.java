@@ -62,6 +62,8 @@ public class HomeActivity extends AppCompatActivity {
 				v -> startActivity(new Intent(HomeActivity.this, BoostScanActivity.class)));
 		findViewById(R.id.btnChangeToLoginPage).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, LoginActivity.class)));
+		findViewById(R.id.btnChangeToWelcome).setOnClickListener(
+				v -> startActivity(new Intent(HomeActivity.this, WelcomeActivity.class)));
 		initFirebase();
 	}
 

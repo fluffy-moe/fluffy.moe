@@ -19,12 +19,13 @@
  */
 package moe.fluffy.app;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,7 @@ import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.HttpRawResponse;
 import moe.fluffy.app.types.NetworkRequestType;
+import moe.fluffy.app.types.StaticDefinition;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -45,8 +47,11 @@ public class LoginActivity extends AppCompatActivity {
 	EditText etUser, etPassword;
 	ImageButton imgbtnLogin;
 
+	TextView txtCreateNewAccount;
+
 	private static String TAG = "log_Login";
 
+	private static int REGISTER_USER = 0x1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,46 +67,28 @@ public class LoginActivity extends AppCompatActivity {
 		etUser = findViewById(R.id.etLoginEmail);
 		etPassword = findViewById(R.id.etLoginPassword);
 		imgbtnLogin = findViewById(R.id.imgbtnLogin);
+		txtCreateNewAccount = findViewById(R.id.txtCreate);
 
-		etUser.setOnFocusChangeListener((v, hasFocus) -> {
-			if (hasFocus) {
-				if (etUser.getText().toString().equals(getString(R.string.users_email))) {
-					etUser.setText("");
-				}
-			} else {
-				if (etUser.getText().length() == 0) {
-					etUser.setText(R.string.users_email);
-				}
-			}
-		});
+		etUser.setOnFocusChangeListener((v, hasFocus) ->
+				Utils.onFocusChange(hasFocus, LoginActivity.this, etUser, R.string.users_email, false));
 
-		etPassword.setOnFocusChangeListener((v, hasFocus) -> {
-			if (hasFocus) {
-				if (etPassword.getText().toString().equals(getString(R.string.users_password))) {
-					// clear default text
-					etPassword.setText("");
-					// https://stackoverflow.com/a/9893496
-					etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-				}
-			}
-			else {
-				if (etPassword.getText().length() == 0) {
-					etPassword.setText(R.string.users_password);
-					etPassword.setInputType(InputType.TYPE_CLASS_TEXT);
-				}
-			}
-		});
+		etPassword.setOnFocusChangeListener((v, hasFocus) ->
+				Utils.onFocusChange(hasFocus,LoginActivity.this, etPassword, R.string.users_password, true));
 
 		imgbtnLogin.setOnClickListener( v -> login());
+
+		txtCreateNewAccount.setOnClickListener(v -> {
+			Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+			startActivityForResult(intent, REGISTER_USER);
+		});
 
 		// TODO: Validation login
 	}
 
-
 	private void putExtras(boolean isLoginSuccess, int errorCode, String errorString) {
-		getIntent().putExtra(getString(R.string.Intent_LoginSuccess), isLoginSuccess);
-		getIntent().putExtra(getString(R.string.Intent_LoginErrorCode), errorCode);
-		getIntent().putExtra(getString(R.string.Intent_LoginErrorMessage), errorString);
+		getIntent().putExtra(getString(R.string.Intent_EventSuccess), isLoginSuccess);
+		getIntent().putExtra(getString(R.string.Intent_EventErrorCode), errorCode);
+		getIntent().putExtra(getString(R.string.Intent_EventErrorMessage), errorString);
 	}
 
 	private void login() {
@@ -134,5 +121,26 @@ public class LoginActivity extends AppCompatActivity {
 		} catch (NoSuchAlgorithmException e){
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode != REGISTER_USER) {
+			super.onActivityResult(requestCode, resultCode, data);
+			return;
+		}
+
+		boolean isOk = data.getBooleanExtra(getString(R.string.Intent_EventSuccess), false);
+		int errorCode = data.getIntExtra(getString(R.string.Intent_EventErrorCode), StaticDefinition.ERROR_INTENT_ERROR);
+		String errorString = data.getStringExtra(getString(R.string.Intent_EventErrorCode));
+
+		if (errorCode != StaticDefinition.ERROR_INTENT_ERROR) {
+			if (isOk) {
+				// TODO: finish logic
+			}
+		}
+
+
+		finish();
 	}
 }

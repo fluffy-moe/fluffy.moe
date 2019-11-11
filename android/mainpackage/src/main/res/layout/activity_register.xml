@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imgbtnConfirmMain2"
+        android:id="@+id/imgbtnRegisterConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="504px"
@@ -65,7 +65,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etNameMain2"
+        android:id="@+id/etRegisterName"
         android:layout_width="826px"
         android:layout_height="125px"
         android:layout_marginStart="307px"
@@ -74,7 +74,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:paddingStart="41px"
-        android:text="user's name"
+        android:text="@string/users_name"
         android:textColor="#969696"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -119,7 +119,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/et_email"
+        android:id="@+id/etRegisterEmail"
         android:layout_width="826px"
         android:layout_height="125px"
         android:layout_marginStart="307px"
@@ -128,37 +128,39 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:paddingStart="41px"
-        android:text="user's email"
+        android:text="@string/users_email"
         android:textColor="#969696"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/et_password"
+        android:id="@+id/etRegisterPassword"
         android:layout_width="826px"
         android:layout_height="125px"
         android:layout_marginStart="307px"
         android:layout_marginTop="1261px"
+        android:selectAllOnFocus="true"
         android:background="@drawable/round_edittext"
         android:ems="10"
         android:inputType="textPersonName"
         android:paddingStart="41px"
-        android:text="user's password"
+        android:text="@string/users_password"
         android:textColor="#969696"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etConfirm"
+        android:id="@+id/etRegisterPassword2"
         android:layout_width="826px"
         android:layout_height="125px"
         android:layout_marginStart="307px"
         android:layout_marginTop="1526px"
+        android:selectAllOnFocus="true"
         android:background="@drawable/round_edittext"
         android:ems="10"
         android:inputType="textPersonName"
         android:paddingStart="41px"
-        android:text="@string/password_text"
+        android:text="@string/users_confirm_password"
         android:textColor="#969696"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
