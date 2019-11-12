@@ -22,10 +22,14 @@
 	<string name="Intent_EventErrorCode">eventErrorCode</string>
 	<string name="Intent_EventErrorMessage">eventErrorMessage</string>
 	<!-- Intent end -->
+
 	<!-- DATABASE -->
 	<string name="dbOptionSession">session</string>
 	<string name="dbOptionPetType">type</string>
 	<string name="dbOptionUser">user</string>
+	<string name="dbOptionsPetName">petName</string>
+	<string name="dbOptionsPetBreed">petBreed</string>
+	<string name="dbOptionsPetBirthday">petBirthday</string>
 
 	<string name="dbQueryKey">key = ?</string>
 	<string name="dbOptionsKeyName">key</string>

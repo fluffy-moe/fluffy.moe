@@ -19,10 +19,14 @@
  */
 package moe.fluffy.app.types;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import moe.fluffy.app.BuildConfig;
 
+@SuppressLint("DefaultLocale")
 public class Date {
 	private int year, month, day;
 	private static String TAG = "log_DateType";
@@ -58,5 +62,11 @@ public class Date {
 
 	public int getDay() {
 		return day;
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return String.format("%d/%d/%d", year, month, day);
 	}
 }

@@ -38,6 +38,7 @@ import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.HttpRawResponse;
 import moe.fluffy.app.types.NetworkRequestType;
+import moe.fluffy.app.types.PetInfo;
 
 /**
  *	Must start this activity with startActivityForResult();
@@ -149,6 +150,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 		imgbtnConfirm.setOnClickListener(v -> {
 			// some verify method here
+			PetInfo p = new PetInfo(etName.getText(), etBreed.getText(), etBirthday.getText());
 			putExtras(true,0,"");
 		});
 

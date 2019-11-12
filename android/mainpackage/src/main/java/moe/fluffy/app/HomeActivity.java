@@ -34,10 +34,12 @@ import java.util.Objects;
 import cz.ackee.useragent.UserAgent;
 import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
+import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.types.PetInfo;
 
 public class HomeActivity extends AppCompatActivity {
-
+	public static DatabaseHelper dbHelper;
 	private static String TAG = "log_HomeActivity";
 
 	@Override
@@ -53,6 +55,9 @@ public class HomeActivity extends AppCompatActivity {
 	void init() {
 		Connect.setUserAgent(UserAgent.getInstance(this).getUserAgentString(""));
 		ConnectPath.loadConfig(this);
+		PetInfo.initStrings(this);
+		if (!BuildConfig.DEBUG) // Not ready to work
+			dbHelper = new DatabaseHelper(this);
 
 		findViewById(R.id.btnChangeToSearch).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, SearchActivity.class)));
