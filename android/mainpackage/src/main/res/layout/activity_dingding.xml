@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/activity_main"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="#FFFFFF"
+	android:orientation="vertical"
+	tools:context="com.codbking.calendar.exaple.DingdingActivity">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="350px"
+		android:gravity="center_vertical"
+		android:orientation="horizontal">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginLeft="94px"
+			android:layout_weight="1"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/txtCalendarTitle"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="94px"
+				android:fontFamily="@font/segoe_ui_semibold"
+				android:textColor="#000000"
+				android:textSize="101px" />
+
+			<TextView
+				android:id="@+id/txtYearNumber"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:fontFamily="@font/segoe_ui_semibold"
+				android:gravity="top|left"
+				android:textSize="50px" />
+		</LinearLayout>
+
+		<View
+			android:layout_width="48dp"
+			android:layout_height="0dp" />
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="28dp"
+		android:layout_marginLeft="94px"
+		android:layout_marginRight="94px"
+		android:orientation="horizontal">
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:fontFamily="@font/segoe_ui_bold"
+			android:gravity="center"
+			android:text="SUN"
+			android:textColor="@color/calendarWeekTitle"
+			android:textSize="50px" />
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:fontFamily="@font/segoe_ui_bold"
+			android:gravity="center"
+			android:text="MON"
+			android:textColor="@color/calendarWeekTitle"
+			android:textSize="50px" />
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:fontFamily="@font/segoe_ui_bold"
+			android:gravity="center"
+			android:text="TUE"
+			android:textColor="@color/calendarWeekTitle"
+			android:textSize="50px" />
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:fontFamily="@font/segoe_ui_bold"
+			android:gravity="center"
+			android:text="WED"
+			android:textColor="@color/calendarWeekTitle"
+			android:textSize="50px" />
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:fontFamily="@font/segoe_ui_bold"
+			android:gravity="center"
+			android:text="THU"
+			android:textColor="@color/calendarWeekTitle"
+			android:textSize="50px" />
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:fontFamily="@font/segoe_ui_bold"
+			android:gravity="center"
+			android:text="FRI"
+			android:textColor="@color/calendarWeekTitle"
+			android:textSize="50px" />
+
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:fontFamily="@font/segoe_ui_bold"
+			android:gravity="center"
+			android:text="SAT"
+			android:textColor="@color/calendarWeekTitle"
+			android:textSize="50px" />
+
+	</LinearLayout>
+
+
+	<com.codbking.calendar.CalendarLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1">
+
+		<com.codbking.calendar.CalendarDateView
+			android:id="@+id/calendarDateView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content" />
+
+		<ListView
+			android:id="@+id/list"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="#ffffff" />
+
+	</com.codbking.calendar.CalendarLayout>
+
+
+</LinearLayout>

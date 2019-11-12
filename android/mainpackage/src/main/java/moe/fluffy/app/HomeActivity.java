@@ -98,4 +98,11 @@ public class HomeActivity extends AppCompatActivity {
 					}
 				});
 	}
+
+	@Override
+	protected void onDestroy() {
+		if (dbHelper != null)
+			dbHelper.close();
+		super.onDestroy();
+	}
 }

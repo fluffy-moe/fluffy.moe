@@ -4,4 +4,16 @@
 	<color name="colorPrimaryDark">#00574B</color>
 	<color name="colorAccent">#D81B60</color>
 	<color name="carouseText">#565656</color>
+
+	<!-- calendar -->
+	<color name="calendarWeekTitle">#969696</color>
+	<color name="calendarTodayColor">#E79E35</color>
+	<color name="calendarBlack">#565656</color>
+	<color name="event_c1">#E79E35</color>
+	<color name="event_c2">#FAD286</color>
+	<color name="event_c3">#7D8E9B</color>
+	<color name="event_c4">#85C5A7</color>
+	<color name="event_c5">#F29671</color>
+	<color name="calendarOnSelect">#FFFFFF</color>
+	<!-- calendar end -->
 </resources>

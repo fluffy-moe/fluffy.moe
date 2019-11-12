@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtDay"
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:background="@drawable/background_item"
+        android:gravity="center"
+        android:fontFamily="@font/segoe_ui_bold"
+        android:textSize="55px" />
+
+    <View
+        android:layout_width="100px"
+        android:layout_height="16px" />
+
+    <View
+        android:id="@+id/viewUnderLine"
+        android:layout_width="80px"
+        android:layout_height="7px"
+        android:background="@android:color/transparent" />
+
+</LinearLayout>

@@ -30,9 +30,6 @@ import androidx.annotation.StringRes;
 import moe.fluffy.app.R;
 import moe.fluffy.app.types.PetInfo;
 
-/**
- * `option` is key value mapping table
- */
 public class DatabaseHelper extends SQLiteOpenHelper {
 	private Context context;
 	private static final int DATABASE_VERSION = 1;
@@ -57,18 +54,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_OPTION);
+		db.execSQL(CREATE_PET);
 		ContentValues cv = new ContentValues();
 		for (String str: new String[]{getString(R.string.dbOptionUser),
-				getString(R.string.dbOptionSession),
-				getString(R.string.dbOptionsPetName),
-				getString(R.string.dbOptionsPetBreed),
-				getString(R.string.dbOptionsPetBirthday)}) {
+				getString(R.string.dbOptionSession)}) {
 			cv.put(getString(R.string.dbOptionsKeyName), str);
 			cv.put(getString(R.string.dbOptionsValueName), "");
 			db.insert(TABLE_OPTION, null, cv);
 		}
+		cv = new PetInfo("", "", getString(R.string.dbDefaultBirthday)).getContextValues();
+		db.insert(TABLE_PET, null, cv);
 	}
 
+	// TODO: backup then drop next time
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_OPTION);
@@ -144,9 +142,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return string;
 	}
 
+	private static String getCursorString(Cursor cursor, String column){
+		return cursor.getString(cursor.getColumnIndexOrThrow(column));
+	}
+
+
+	/**
+	 * Get Pet information from database by name
+	 *
+	 * @param name pet's name
+	 * @return {@link PetInfo} basic type for pet information
+	 */
 	PetInfo getPetInfo(String name) {
-		// TODO: finish this
-		return null;
+		PetInfo petInfo = null;
+		SQLiteDatabase s = this.getReadableDatabase();
+		Cursor cursor = s.rawQuery(getString(R.string.dbRawQueryPetInfo, TABLE_PET), new String[]{name});
+		if (cursor.getCount() != 0) {
+			cursor.moveToFirst();
+			petInfo = new PetInfo(
+					name,
+					getCursorString(cursor, getString(R.string.dbOptionsPetBreed)),
+					getCursorString(cursor, getString(R.string.dbOptionsPetBirthday))
+			);
+			cursor.close();
+		}
+		return petInfo;
 	}
 
 	void updatePetInfo(PetInfo p) {
@@ -164,6 +184,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			s.update(TABLE_PET, cv, getString(R.string.dbQuery, getString(R.string.dbOptionsPetName)), new String[]{petName});
 		}
 		cursor.close();
+		s.close();
 	}
 
 }

@@ -31,10 +31,12 @@
 	<string name="dbOptionsPetBreed">petBreed</string>
 	<string name="dbOptionsPetBirthday">petBirthday</string>
 
+	<string name="dbRawQueryPetInfo">SELECT * FROM `%s` WHERE `name` = ?</string>
 	<string name="dbQuery">%s = ?</string>
 	<string name="dbQueryKey">key = ?</string>
 	<string name="dbOptionsKeyName">key</string>
 	<string name="dbOptionsValueName">value</string>
+	<string name="dbDefaultBirthday">1970/01/01</string>
 	<!-- DATABASE END -->
 
 </resources>
