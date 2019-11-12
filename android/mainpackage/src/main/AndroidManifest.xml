@@ -14,9 +14,9 @@
 		android:label="@string/app_name"
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
-		android:theme="@style/Theme.AppCompat.NoActionBar"
+		android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 		tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-		<activity android:name=".CalendarActivity"></activity>
+		<activity android:name=".CalendarActivity" />
 		<activity android:name=".BottomPageActivity" />
 		<activity android:name=".RegisterActivity" />
 		<activity android:name=".WelcomeActivity" />
@@ -37,7 +37,8 @@
 		<service
 			android:name=".assistant.firebase.FirebaseMessageService"
 			android:enabled="true"
-			android:exported="true">
+			android:exported="true"
+			android:permission="android.permission.INTERNET">
 			<intent-filter>
 				<action android:name="com.google.firebase.MESSAGING_EVENT" />
 			</intent-filter>
