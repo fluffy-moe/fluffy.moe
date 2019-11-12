@@ -8,4 +8,23 @@
 	<string name="pets_name">Pet\'s name</string>
 	<string name="pets_breed">Pet\'s breed</string>
 	<string name="users_name">user\'s name</string>
+
+	<string name="petTypeNotSelected">You must select a pet type!</string>
+
+	<!-- types -->
+	<string name="typeDog">Dog</string>
+	<string name="typeCat">Cat</string>
+	<string name="typeBird">Bird</string>
+	<string name="typeOther">Other</string>
+	<!-- types end -->
+
+	<!-- INFORMATION -->
+	<string name="registerSuccess">Register Success</string>
+	<!-- INFORMATION END -->
+
+	<!-- ERRORS -->
+	<string name="ERROR_UNEXPECTED_VALUE">Unexpected selection</string>
+	<string name="ERROR_UNEXPECTED_LENGTH">Unexpected length</string>
+	<!-- ERRORS END -->
+
 </resources>

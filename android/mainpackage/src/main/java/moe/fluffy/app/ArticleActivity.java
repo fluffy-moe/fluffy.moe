@@ -99,7 +99,18 @@ public class ArticleActivity extends AppCompatActivity {
 		updateCount();
 	}
 
+	int getRandomCount() {
+		return (int)(Math.random() * 50 + 10);
+	}
+
 	void updateCount() {
+		txtCountDog.setText(String.valueOf(getRandomCount()));
+		txtCountCat.setText(String.valueOf(getRandomCount()));
+		txtCountBird.setText(String.valueOf(getRandomCount()));
+		txtCountOther.setText(String.valueOf(getRandomCount()));
+	}
+
+	void updateCountEx() {
 		txtCountDog.setText(String.valueOf(countArticles.get(categories[0])));
 		txtCountCat.setText(String.valueOf(countArticles.get(categories[1])));
 		txtCountBird.setText(String.valueOf(countArticles.get(categories[2])));

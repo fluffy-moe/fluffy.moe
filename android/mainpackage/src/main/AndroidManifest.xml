@@ -16,8 +16,7 @@
 		android:supportsRtl="true"
 		android:theme="@style/Theme.AppCompat.NoActionBar"
 		tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-		<activity android:name=".ChoosePetType"></activity>
-		<activity android:name=".Register2Activity" />
+		<activity android:name=".BottomPageActivity"></activity>
 		<activity android:name=".RegisterActivity" />
 		<activity android:name=".WelcomeActivity" />
 		<activity android:name=".ArticleActivity" />

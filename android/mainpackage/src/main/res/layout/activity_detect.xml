@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<TextView
+		android:id="@+id/txtScannerTitle"
+		android:layout_width="555px"
+		android:layout_height="106px"
+		android:layout_marginStart="443px"
+		android:layout_marginTop="72px"
+		android:fontFamily="@font/segoe_ui_bold"
+		android:text="Image Scanner"
+		android:textColor="#545871"
+		android:textSize="80px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtScannerContent"
+		android:layout_width="756px"
+		android:layout_height="156px"
+		android:layout_marginStart="342px"
+		android:layout_marginTop="1562px"
+		android:fontFamily="@font/segoe_ui_bold"
+		android:text="Line up to scan it with your\n         device's camera."
+		android:textColor="#545871"
+		android:textSize="58px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/imgbtnScannerRecord"
+		android:layout_width="490px"
+		android:layout_height="114px"
+		android:layout_marginStart="894px"
+		android:layout_marginTop="2400px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/browse" />
+
+	<ImageButton
+		android:id="@+id/imgbtnScannerDevice"
+		android:layout_width="490px"
+		android:layout_height="114px"
+		android:layout_marginStart="56px"
+		android:layout_marginTop="2400px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/select" />
+
+	<ImageButton
+		android:id="@+id/imgbtnScannerScan"
+		android:layout_width="120px"
+		android:layout_height="189px"
+		android:layout_marginStart="517px"
+		android:layout_marginTop="1798px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/scan" />
+
+	<ImageButton
+		android:id="@+id/imgbtnScannerTranslate"
+		android:layout_width="185px"
+		android:layout_height="189px"
+		android:layout_marginStart="782px"
+		android:layout_marginTop="1798px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/translate" />
+
+	<ImageButton
+		android:id="@+id/imgbtnScannerCross"
+		android:layout_width="66px"
+		android:layout_height="66px"
+		android:layout_marginStart="1315px"
+		android:layout_marginTop="86px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/cross" />
+
+	<ImageButton
+		android:id="@+id/imgbtnScannerBack"
+		android:layout_width="66px"
+		android:layout_height="66px"
+		android:layout_marginStart="41px"
+		android:layout_marginTop="86px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/up" />
+
+	<View
+		android:id="@+id/imgScannerPhoto"
+		android:layout_width="970px"
+		android:layout_height="970px"
+		android:layout_marginStart="235px"
+		android:layout_marginTop="485px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

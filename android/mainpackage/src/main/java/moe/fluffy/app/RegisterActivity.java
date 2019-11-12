@@ -24,6 +24,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,6 +48,17 @@ public class RegisterActivity extends AppCompatActivity {
 	EditText etName, etEmail, etPassword, etPassword2;
 	ImageButton imgbtnConfirm;
 
+	EditText etPetName, etBreed, etBirthday;
+	RadioGroup rgGender, rgSpyed;
+	// TODO: weight
+
+	ImageButton imgbtnCat, imgbtnDog, imgbtnBird, imgbtnOther;
+	ImageButton imgbtnPrevClicked, imgbtnBack;
+
+	private String selected_type;
+
+	private final float alphaValue = 0.5f;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,10 +66,10 @@ public class RegisterActivity extends AppCompatActivity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_register);
-		init();
+		initRegisterPage();
 	}
 
-	private void init() {
+	private void initRegisterPage() {
 		etName = findViewById(R.id.etRegisterName);
 		etEmail = findViewById(R.id.etRegisterEmail);
 		etPassword = findViewById(R.id.etRegisterPassword);
@@ -89,6 +101,8 @@ public class RegisterActivity extends AppCompatActivity {
 								if (h.getStatus() == 200) {
 									Toast.makeText(RegisterActivity.this, "Register success", Toast.LENGTH_SHORT).show();
 									putExtras(true, 0, "");
+									setContentView(R.layout.activity_choose_pet_type);
+									initChoosePetTypeView();
 								}
 								else {
 									Toast.makeText(RegisterActivity.this, h.getErrorString(), Toast.LENGTH_SHORT).show();
@@ -117,5 +131,79 @@ public class RegisterActivity extends AppCompatActivity {
 		getIntent().putExtra(getString(R.string.Intent_EventSuccess), isRegisterSuccess);
 		getIntent().putExtra(getString(R.string.Intent_EventErrorCode), errorCode);
 		getIntent().putExtra(getString(R.string.Intent_EventErrorMessage), errorString);
+	}
+
+	private void initCompleteRegisterView() {
+		etName = findViewById(R.id.et_name);
+		etBreed = findViewById(R.id.et_breed);
+		etBirthday = findViewById(R.id.et_birthday);
+		imgbtnBack = findViewById(R.id.imgbtnRegister2Back);
+		imgbtnConfirm = findViewById(R.id.imgbtnRegister2Next);
+
+		etPetName.setOnFocusChangeListener( (view, hasFocus) ->
+				Utils.onFocusChange(hasFocus, RegisterActivity.this, etPetName, R.string.pets_name, false));
+		etBreed.setOnFocusChangeListener( (view, hasFocus) ->
+				Utils.onFocusChange(hasFocus, RegisterActivity.this, etBreed, R.string.pets_breed, false));
+		etBirthday.setOnFocusChangeListener( (view, hasFocus) ->
+				Utils.onFocusChange(hasFocus, RegisterActivity.this, etBirthday, R.string.pets_name, false));
+
+		imgbtnConfirm.setOnClickListener(v -> {
+			// some verify method here
+			putExtras(true,0,"");
+		});
+
+		imgbtnBack.setOnClickListener( v -> {
+			setContentView(R.layout.activity_choose_pet_type);
+			initChoosePetTypeView();
+		});
+	}
+
+	private void alterAlpha(ImageButton imgbtnClicked) {
+		if (imgbtnPrevClicked != null) {
+			// reset other clicked
+			imgbtnPrevClicked.setAlpha(1.0f);
+		}
+		imgbtnClicked.setAlpha(alphaValue);
+		imgbtnPrevClicked = imgbtnClicked;
+	}
+
+	private void initChoosePetTypeView() {
+		imgbtnCat = findViewById(R.id.imgbtncat);
+		imgbtnDog = findViewById(R.id.imgbtn_dog);
+		imgbtnBird = findViewById(R.id.imgbtn_bird);
+		imgbtnOther = findViewById(R.id.imgbtn_other);
+		imgbtnBack = findViewById(R.id.imgbtnChooseTypeBack);
+		imgbtnConfirm = findViewById(R.id.imgbtnChooseTypeNext);
+
+		// Change alpha on click
+		imgbtnBird.setOnClickListener(v -> alterAlpha(imgbtnBird));
+		imgbtnDog.setOnClickListener(v -> alterAlpha(imgbtnDog));
+		imgbtnOther.setOnClickListener(v -> alterAlpha(imgbtnOther));
+		imgbtnCat.setOnClickListener(v -> alterAlpha(imgbtnCat));
+
+		imgbtnConfirm.setOnClickListener( v -> {
+			if ((imgbtnDog.getAlpha() == imgbtnCat.getAlpha()) && (imgbtnBird.getAlpha() == imgbtnOther.getAlpha())) {
+				Toast.makeText(RegisterActivity.this, R.string.petTypeNotSelected, Toast.LENGTH_SHORT).show();
+				return ;
+			}
+			if (imgbtnDog.getAlpha() == alphaValue) {
+				selected_type = getString(R.string.typeDog);
+			} else if (imgbtnCat.getAlpha() == alphaValue) {
+				selected_type = getString(R.string.typeCat);
+			} else if (imgbtnBird.getAlpha() == alphaValue) {
+				selected_type = getString(R.string.typeBird);
+			} else if (imgbtnOther.getAlpha() == alphaValue) {
+				selected_type = getString(R.string.typeOther);
+			} else {
+				throw new IllegalStateException(getString(R.string.ERROR_UNEXPECTED_VALUE));
+			}
+			setContentView(R.layout.activity_complete_register);
+			initCompleteRegisterView();
+		});
+
+		imgbtnBack.setOnClickListener( v -> {
+			setContentView(R.layout.activity_register);
+			initRegisterPage();
+		});
 	}
 }

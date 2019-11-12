@@ -17,22 +17,9 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app;
+package moe.fluffy.app.types;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
-
-public class Register2Activity extends AppCompatActivity {
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.activity_complete_register);
-	}
+public class ERROR {
+	public final static String UNEXPECTED_VALUE = "Unexpected value";
+	public final static String ERROR_UNEXPECTED_LENGTH = "Unexpected length";
 }

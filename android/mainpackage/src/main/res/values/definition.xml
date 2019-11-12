@@ -14,13 +14,22 @@
 	<string name="fetch_notification_field">fetch_notification</string>
 	<!-- Json field name end -->
 
-	<string name="welcome_title_formatter">Welcome back! %s</string>
-	<string name="logout_text">Logout</string>
-
+	<!-- Intent -->
 	<string name="IntentFilter_login_success">loginSuccess</string>
 	<string name="IntentFilter_receive_notification">receiveNotification</string>
 
 	<string name="Intent_EventSuccess">eventSuccess</string>
 	<string name="Intent_EventErrorCode">eventErrorCode</string>
 	<string name="Intent_EventErrorMessage">eventErrorMessage</string>
+	<!-- Intent end -->
+	<!-- DATABASE -->
+	<string name="dbOptionSession">session</string>
+	<string name="dbOptionPetType">type</string>
+	<string name="dbOptionUser">user</string>
+
+	<string name="dbQueryKey">key = ?</string>
+	<string name="dbOptionsKeyName">key</string>
+	<string name="dbOptionsValueName">value</string>
+	<!-- DATABASE END -->
+
 </resources>

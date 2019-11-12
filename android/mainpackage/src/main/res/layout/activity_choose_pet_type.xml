@@ -67,7 +67,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imgbtn_back_main3"
+        android:id="@+id/imgbtnChooseTypeBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="178px"
@@ -78,7 +78,7 @@
         app:srcCompat="@drawable/back" />
 
     <ImageButton
-        android:id="@+id/imgbtn_next_main3"
+        android:id="@+id/imgbtnChooseTypeNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="956px"
