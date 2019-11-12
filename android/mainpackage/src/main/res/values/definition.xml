@@ -31,6 +31,7 @@
 	<string name="dbOptionsPetBreed">petBreed</string>
 	<string name="dbOptionsPetBirthday">petBirthday</string>
 
+	<string name="dbQuery">%s = ?</string>
 	<string name="dbQueryKey">key = ?</string>
 	<string name="dbOptionsKeyName">key</string>
 	<string name="dbOptionsValueName">value</string>

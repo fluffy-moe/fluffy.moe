@@ -28,6 +28,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.StringRes;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.types.PetInfo;
 
 /**
  * `option` is key value mapping table
@@ -36,9 +37,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private Context context;
 	private static final int DATABASE_VERSION = 1;
 	private final static String DATABASE_NAME = "f1uf4y.db";
-	//private final static String TABLE_ACCOUNT = "Account";
-	private final static String TABLE_OPTION = "Option";
+	private final static String TABLE_PET = "pet";
+	private final static String TABLE_OPTION = "option";
 	private final static String CREATE_OPTION = "CREATE TABLE `option` (`key` TEXT PRIMARY KEY, `value` TEXT)";
+	private final static String CREATE_PET = "CREATE TABLE `pet` (`name` TEXT PRIMARY KEY, `birthday` TEXT, `breed` TEXT)";
 
 	private final static String TAG = "log_Database";
 
@@ -46,7 +48,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		super(context, name, factory, version);
 		this.context = context;
 	}
-
 
 	public DatabaseHelper(Context context){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -57,14 +58,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_OPTION);
 		ContentValues cv = new ContentValues();
-		cv.put(getString(R.string.dbOptionUser), "");
-		cv.put(getString(R.string.dbOptionSession), "");
-		db.insert(TABLE_OPTION, null, cv);
+		for (String str: new String[]{getString(R.string.dbOptionUser),
+				getString(R.string.dbOptionSession),
+				getString(R.string.dbOptionsPetName),
+				getString(R.string.dbOptionsPetBreed),
+				getString(R.string.dbOptionsPetBirthday)}) {
+			cv.put(getString(R.string.dbOptionsKeyName), str);
+			cv.put(getString(R.string.dbOptionsValueName), "");
+			db.insert(TABLE_OPTION, null, cv);
+		}
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_OPTION);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_PET);
 		onCreate(db);
 	}
 
@@ -76,6 +84,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 */
 	private String getString(@StringRes int id) {
 		return context.getString(id);
+	}
+
+	private String getString(@StringRes int id, Object... formatArgs) {
+		return context.getString(id, formatArgs);
 	}
 
 	/**
@@ -130,6 +142,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		String string = cursor.getString(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsValueName)));
 		cursor.close();
 		return string;
+	}
+
+	PetInfo getPetInfo(String name) {
+		// TODO: finish this
+		return null;
+	}
+
+	void updatePetInfo(PetInfo p) {
+		SQLiteDatabase s = this.getWritableDatabase();
+		ContentValues cv = p.getContextValues();
+		String petName = cv.getAsString(getString(R.string.dbOptionsPetName));
+		Cursor cursor = s.query(TABLE_PET, new String[]{getString(R.string.dbOptionsPetName)},
+				getString(R.string.dbQuery, getString(R.string.dbOptionsPetName)),
+				new String[]{petName},
+				null,null,null);
+
+		if (cursor.getCount() == 0){
+			s.insert(TABLE_PET, null, cv);
+		} else {
+			s.update(TABLE_PET, cv, getString(R.string.dbQuery, getString(R.string.dbOptionsPetName)), new String[]{petName});
+		}
+		cursor.close();
 	}
 
 }
