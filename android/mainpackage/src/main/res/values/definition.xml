@@ -14,9 +14,14 @@
 	<string name="fetch_notification_field">fetch_notification</string>
 	<!-- Json field name end -->
 
+
+
+
 	<!-- Intent -->
 	<string name="IntentFilter_login_success">loginSuccess</string>
 	<string name="IntentFilter_receive_notification">receiveNotification</string>
+
+	<string name="IntentArticleIndex">articleIndex</string>
 
 	<string name="Intent_EventSuccess">eventSuccess</string>
 	<string name="Intent_EventErrorCode">eventErrorCode</string>

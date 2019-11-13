@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
@@ -62,6 +63,8 @@ public class ArticleActivity extends AppCompatActivity {
 	TextView txtCountDog, txtCountCat, txtCountBird, txtCountOther;
 	HorizontalInfiniteCycleViewPager articlesCarousel;
 
+	ImageButton imgbtnDog, imgbtnBird, imgbtnCat, imgbtnOther;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,19 +77,25 @@ public class ArticleActivity extends AppCompatActivity {
 		initView();
 	}
 
-	void initCarousel() {
+	void initCarousel(String requireCategory) {
+		lst.clear();
 		ImageAdapter im = new ImageAdapter(lst, mapResource, getBaseContext());
 		for (int i = 0;i < articles.getList().size(); i++) {
 			ArticleType a = articles.getList().get(i);
+			if (requireCategory != null){
+				if (!a.category.equals(requireCategory))
+					continue;
+			}
 			lst.add(a.getCoverId());
 			final int _i = i;
 			mapResource.put(a.getCoverId(), v -> {
 				Intent intent = new Intent(ArticleActivity.this, ShowArticleActivity.class);
-				intent.putExtra("articleIndex", _i);
+				intent.putExtra(getString(R.string.IntentArticleIndex), _i);
 				startActivity(intent);
 			});
 		}
 		articlesCarousel.setAdapter(im);
+		articlesCarousel.notifyDataSetChanged();
 	}
 
 	void initView() {
@@ -95,7 +104,19 @@ public class ArticleActivity extends AppCompatActivity {
 		txtCountBird = findViewById(R.id.txtBirdNumBook);
 		txtCountOther = findViewById(R.id.txtOtherNumBook);
 		articlesCarousel = findViewById(R.id.horizontalInfiniteCycleViewPager);
-		initCarousel();
+		imgbtnDog = findViewById(R.id.imgbtnDogBook);
+		imgbtnBird = findViewById(R.id.imgbtnBirdBook);
+		imgbtnCat = findViewById(R.id.imgbtnCatBook);
+		imgbtnOther = findViewById(R.id.imgbtnOtherBook);
+		imgbtnDog.setOnClickListener(v ->
+				initCarousel("Dog"));
+		imgbtnCat.setOnClickListener(v ->
+				initCarousel("Cat"));
+		imgbtnBird.setOnClickListener(v ->
+				initCarousel("Bird"));
+		imgbtnOther.setOnClickListener(v ->
+				initCarousel("Others"));
+		initCarousel(null);
 		updateCount();
 	}
 

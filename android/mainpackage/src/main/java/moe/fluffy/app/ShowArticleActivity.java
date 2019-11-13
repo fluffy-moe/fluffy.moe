@@ -50,7 +50,7 @@ public class ShowArticleActivity extends Activity {
 		txtAuthor = findViewById(R.id.txtAuthor);
 		txtDay = findViewById(R.id.txtPublishTime);
 		txtBody = findViewById(R.id.txtArticleContent);
-		int index = getIntent().getIntExtra("articleIndex", -1);
+		int index = getIntent().getIntExtra(getString(R.string.IntentArticleIndex), -1);
 		if (index != -1) {
 			ArticleType a = ArticleActivity.getArticles(index);
 			imgHeader.setImageResource(a.getHeaderId());

@@ -26,15 +26,18 @@ import org.json.JSONObject;
 
 public class ArticleType {
 	public String title, author, date, body;
+	public String category;
 	@DrawableRes int coverId, headerId;
 	public ArticleType(JSONObject j, @DrawableRes int cover, @DrawableRes int header) throws JSONException {
 		title = j.getString("title");
 		author = j.getString("author").split("/")[0];
 		date = j.getString("date");
 		body = j.getString("body");
+		category = j.getString("category");
 		coverId = cover;
 		headerId = header;
 	}
+
 
 	public int getCoverId() {
 		return coverId;

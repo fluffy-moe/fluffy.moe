@@ -94,7 +94,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginStart="131px"
 		android:layout_marginTop="585px"
-		android:background="@drawable/Rectangle"
+		android:background="@drawable/rectangle"
 		android:ems="10"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:inputType="textPersonName"
