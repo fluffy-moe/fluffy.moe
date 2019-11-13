@@ -286,7 +286,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:paddingStart="73px"
-            android:text="search" />
+            android:text="@string/searchBookEditText" />
 
         <ImageButton
             android:id="@+id/imgbtnSearchBook"

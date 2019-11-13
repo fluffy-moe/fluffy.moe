@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -42,6 +43,7 @@ import java.util.List;
 
 import moe.fluffy.app.assistant.JSONParser;
 import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.ArticleType;
 import moe.fluffy.app.types.ArticlesMap;
 import moe.fluffy.app.types.adapter.ImageAdapter;
@@ -62,8 +64,10 @@ public class ArticleActivity extends AppCompatActivity {
 
 	TextView txtCountDog, txtCountCat, txtCountBird, txtCountOther;
 	HorizontalInfiniteCycleViewPager articlesCarousel;
+	EditText etSearchBook;
 
 	ImageButton imgbtnDog, imgbtnBird, imgbtnCat, imgbtnOther;
+	ImageButton imgbtnSearch;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +81,17 @@ public class ArticleActivity extends AppCompatActivity {
 		initView();
 	}
 
-	void initCarousel(String requireCategory) {
+	void initCarousel(String requireCategory, String searchTitle) {
 		lst.clear();
 		ImageAdapter im = new ImageAdapter(lst, mapResource, getBaseContext());
-		for (int i = 0;i < articles.getList().size(); i++) {
+		for (int i = 0; i < articles.getList().size(); i++) {
 			ArticleType a = articles.getList().get(i);
-			if (requireCategory != null){
+			if (requireCategory != null) {
 				if (!a.category.equals(requireCategory))
+					continue;
+			}
+			if (searchTitle != null) {
+				if (!a.title.toLowerCase().contains(searchTitle))
 					continue;
 			}
 			lst.add(a.getCoverId());
@@ -108,15 +116,24 @@ public class ArticleActivity extends AppCompatActivity {
 		imgbtnBird = findViewById(R.id.imgbtnBirdBook);
 		imgbtnCat = findViewById(R.id.imgbtnCatBook);
 		imgbtnOther = findViewById(R.id.imgbtnOtherBook);
+		imgbtnSearch = findViewById(R.id.imgbtnSearchBook);
+		etSearchBook = findViewById(R.id.etSearchBook);
+
+		etSearchBook.setOnFocusChangeListener((view, hasFocus) ->
+				Utils.onFocusChange(hasFocus, ArticleActivity.this, etSearchBook, R.string.searchBookEditText, false));
+
+		imgbtnSearch.setOnClickListener(v ->
+				initCarousel(null, etSearchBook.getText().toString()));
+
 		imgbtnDog.setOnClickListener(v ->
-				initCarousel("Dog"));
+				initCarousel("Dog", null));
 		imgbtnCat.setOnClickListener(v ->
-				initCarousel("Cat"));
+				initCarousel("Cat", null));
 		imgbtnBird.setOnClickListener(v ->
-				initCarousel("Bird"));
+				initCarousel("Bird", null));
 		imgbtnOther.setOnClickListener(v ->
-				initCarousel("Others"));
-		initCarousel(null);
+				initCarousel("Others", null));
+		initCarousel(null, null);
 		updateCount();
 	}
 
