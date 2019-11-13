@@ -1,3 +1,4 @@
+
 package moe.fluffy.app;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.codbking.calendar.CalendarDateView;
 import com.codbking.calendar.CalendarUtil;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.Date;
 
@@ -29,20 +32,28 @@ public class CalendarActivity extends AppCompatActivity {
 	TextView viewYear;
 	TextView lastSelected = null;
 
+	Button btnAddEvent;
+
 	private static String TAG = "log_dingding";
 
 	void find_view() {
 		mCalendarDateView = findViewById(R.id.calendarDateView);
-		mList = findViewById(R.id.list);
+		mList = findViewById(R.id.listEvents);
 		mTitle = findViewById(R.id.txtCalendarTitle);
 		viewYear = findViewById(R.id.txtYearNumber);
+		btnAddEvent = findViewById(R.id.btnAddEvent);
 	}
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_dingding);
+		setContentView(R.layout.activity_calendar_viewer);
 		find_view();
+		init();
+	}
+
+	void init() {
 		final DateWithMark[] dm = {
 				new DateWithMark("2019/11/11", R.color.event_c1),
 				new DateWithMark("2019/11/13", R.color.event_c2),
@@ -126,7 +137,15 @@ public class CalendarActivity extends AppCompatActivity {
 			}
 		});
 
+
+		btnAddEvent.setOnClickListener(v -> {
+			View viewAddEventPopup = getLayoutInflater().inflate(R.layout.calendar_addevent_bottom, null);
+			BottomSheetDialog dialog = new BottomSheetDialog(this);
+			dialog.setContentView(viewAddEventPopup);
+			dialog.show();
+		});
 	}
+
 	private
 	String getMonthString(int num) {
 		Log.d(TAG, "getMonthString: num => " + num);

@@ -4,8 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="1178px"
 	android:layout_height="1024px"
-	android:background="@drawable/ic_rectangle_93"
-	tools:context=".foodidentification">
+	android:background="@drawable/ic_rectangle_93">
 
 	<TextView
 		android:id="@+id/txtIdentificationTitle"

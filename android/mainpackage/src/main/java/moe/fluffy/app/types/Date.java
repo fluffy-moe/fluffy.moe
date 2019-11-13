@@ -28,7 +28,7 @@ import moe.fluffy.app.BuildConfig;
 
 @SuppressLint("DefaultLocale")
 public class Date {
-	private int year, month, day;
+	protected int year, month, day;
 	private static String TAG = "log_DateType";
 	Date(int _year, int _month, int _day) {
 		year = _year;

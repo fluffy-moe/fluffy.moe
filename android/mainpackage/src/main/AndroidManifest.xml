@@ -17,7 +17,6 @@
 		android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 		tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 		<activity android:name=".CalendarActivity" />
-		<activity android:name=".BottomPageActivity" />
 		<activity android:name=".RegisterActivity" />
 		<activity android:name=".WelcomeActivity" />
 		<activity android:name=".ArticleActivity" />

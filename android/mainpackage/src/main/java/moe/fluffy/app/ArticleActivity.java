@@ -126,13 +126,13 @@ public class ArticleActivity extends AppCompatActivity {
 				initCarousel(null, etSearchBook.getText().toString()));
 
 		imgbtnDog.setOnClickListener(v ->
-				initCarousel("Dog", null));
+				initCarousel(categories[0], null));
 		imgbtnCat.setOnClickListener(v ->
-				initCarousel("Cat", null));
+				initCarousel(categories[1], null));
 		imgbtnBird.setOnClickListener(v ->
-				initCarousel("Bird", null));
+				initCarousel(categories[2], null));
 		imgbtnOther.setOnClickListener(v ->
-				initCarousel("Others", null));
+				initCarousel(categories[3], null));
 		initCarousel(null, null);
 		updateCount();
 	}
