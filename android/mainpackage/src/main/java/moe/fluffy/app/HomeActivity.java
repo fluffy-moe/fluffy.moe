@@ -70,7 +70,7 @@ public class HomeActivity extends AppCompatActivity {
 		findViewById(R.id.btnChangeToWelcome).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, WelcomeActivity.class)));
 		findViewById(R.id.btnDymanic).setOnClickListener(
-				v -> startActivity(new Intent(HomeActivity.this, CalendarActivity.class)));
+				v -> startActivity(new Intent(HomeActivity.this, DatePickerTimePickerActivity.class)));
 		initFirebase();
 	}
 

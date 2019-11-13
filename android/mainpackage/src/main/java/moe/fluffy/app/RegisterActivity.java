@@ -19,17 +19,24 @@
  */
 package moe.fluffy.app;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.assistant.Connect;
@@ -88,6 +95,11 @@ public class RegisterActivity extends AppCompatActivity {
 
 		imgbtnConfirm.setOnClickListener(v -> {
 			// TODO: Validation register params
+			if (BuildConfig.DEBUG) {
+				setContentView(R.layout.activity_choose_pet_type);
+				initChoosePetTypeView();
+				return ;
+			}
 
 			try {
 				new Connect(
@@ -135,7 +147,7 @@ public class RegisterActivity extends AppCompatActivity {
 	}
 
 	private void initCompleteRegisterView() {
-		etName = findViewById(R.id.et_name);
+		etPetName = findViewById(R.id.et_name);
 		etBreed = findViewById(R.id.et_breed);
 		etBirthday = findViewById(R.id.et_birthday);
 		imgbtnBack = findViewById(R.id.imgbtnRegister2Back);
@@ -145,12 +157,42 @@ public class RegisterActivity extends AppCompatActivity {
 				Utils.onFocusChange(hasFocus, RegisterActivity.this, etPetName, R.string.pets_name, false));
 		etBreed.setOnFocusChangeListener( (view, hasFocus) ->
 				Utils.onFocusChange(hasFocus, RegisterActivity.this, etBreed, R.string.pets_breed, false));
-		etBirthday.setOnFocusChangeListener( (view, hasFocus) ->
-				Utils.onFocusChange(hasFocus, RegisterActivity.this, etBirthday, R.string.pets_name, false));
+		//etBirthday.setOnFocusChangeListener( (view, hasFocus) ->
+		//		Utils.onFocusChange(hasFocus, RegisterActivity.this, etBirthday, R.string.pets_name, false));
+
+		etBirthday.setOnFocusChangeListener((view, hasFocus) -> {
+			if (hasFocus) {
+				final View dialogView = View.inflate(RegisterActivity.this, R.layout.datetimepicker, null);
+				final AlertDialog alertDialog = new AlertDialog.Builder(RegisterActivity.this).create();
+				//long time;
+
+				dialogView.findViewById(R.id.date_time_set).setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+
+						DatePicker datePicker = dialogView.findViewById(R.id.date_picker);
+						TimePicker timePicker = dialogView.findViewById(R.id.time_picker);
+
+						Calendar calendar = new GregorianCalendar(datePicker.getYear(),
+								datePicker.getMonth(),
+								datePicker.getDayOfMonth(),
+								timePicker.getCurrentHour(),
+								timePicker.getCurrentMinute());
+
+						//time = calendar.getTimeInMillis();
+						alertDialog.dismiss();
+					}});
+				alertDialog.setView(dialogView);
+				alertDialog.show();
+			}
+		});
+
 
 		imgbtnConfirm.setOnClickListener(v -> {
 			// some verify method here
 			PetInfo p = new PetInfo(etName.getText(), etBreed.getText(), etBirthday.getText());
+			if (!BuildConfig.DEBUG)
+				HomeActivity.dbHelper.updatePetInfo(p);
 			putExtras(true,0,"");
 		});
 

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="1128px"
+	android:layout_height="1357px"
+	android:background="@drawable/ic_rectangle_288"
+	tools:context=".NewEvent">
+
+	<ImageButton
+		android:id="@+id/imgbtnNewEvent"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="104px"
+		android:layout_marginTop="105px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/Event" />
+
+	<ImageButton
+		android:id="@+id/imgbtnNewSymptom"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="105px"
+		android:layout_marginTop="419px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/symptom" />
+
+	<ImageButton
+		android:id="@+id/imgbtnNewNote"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="105px"
+		android:layout_marginTop="734px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/note" />
+
+	<ImageButton
+		android:id="@+id/imgbtnNewWater"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="105px"
+		android:layout_marginTop="1049px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/water" />
+
+	<ImageButton
+		android:id="@+id/imgbtnNewOut"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="1033px"
+		android:layout_marginTop="38px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/out" />
+
+	<ImageButton
+		android:id="@+id/imgbtnNewUpdate"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="412px"
+		android:layout_marginTop="1232px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/update" />
+
+	<EditText
+		android:id="@+id/etNewEvent"
+		android:layout_width="720px"
+		android:layout_height="277px"
+		android:layout_marginStart="304px"
+		android:layout_marginTop="104px"
+		android:background="@drawable/ic_rectangle_291"
+		android:ems="10"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:inputType="textMultiLine"
+		android:paddingStart="41px"
+		android:text="        Blood in urine\n           Runny nose\n       Reverse sneezing"
+		android:textColor="#565656"
+		android:textSize="52px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/etNewSymptom"
+		android:layout_width="720px"
+		android:layout_height="277px"
+		android:layout_marginStart="304px"
+		android:layout_marginTop="419px"
+		android:background="@drawable/ic_rectangle_291"
+		android:ems="10"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:inputType="textMultiLine"
+		android:paddingStart="41px"
+		android:text="        Blood in urine\n           Runny nose\n       Reverse sneezing"
+		android:textColor="#565656"
+		android:textSize="52px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/etNewNote"
+		android:layout_width="720px"
+		android:layout_height="277px"
+		android:layout_marginStart="304px"
+		android:layout_marginTop="734px"
+		android:background="@drawable/ic_rectangle_291"
+		android:ems="10"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:inputType="textMultiLine"
+		android:paddingStart="41px"
+		android:text="        Blood in urine\n           Runny nose\n       Reverse sneezing"
+		android:textColor="#565656"
+		android:textSize="52px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/etNewWater"
+		android:layout_width="720px"
+		android:layout_height="130px"
+		android:layout_marginStart="304px"
+		android:layout_marginTop="1049px"
+		android:background="@drawable/ic_rectangle_294"
+		android:ems="10"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:inputType="textMultiLine"
+		android:paddingStart="41px"
+		android:text="                  100                  ml"
+		android:textColor="#565656"
+		android:textSize="52px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="1160px"
+	android:layout_height="64px">
+
+	<TextView
+		android:id="@+id/txtBloodItemName"
+		android:layout_width="295px"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="TextView"
+		android:textAlignment="center"
+		android:textSize="48px" />
+
+	<View
+		android:layout_width="96px"
+		android:layout_height="wrap_content"
+		android:layout_weight="1" />
+
+	<TextView
+		android:id="@+id/txtBloodItemValue"
+		android:layout_width="183px"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="TextView"
+		android:textAlignment="center"
+		android:textSize="48px" />
+
+	<View
+		android:layout_width="87px"
+		android:layout_height="wrap_content"
+		android:layout_weight="1" />
+
+	<View
+		android:id="@+id/viewReference"
+		android:layout_width="409px"
+		android:layout_height="wrap_content"
+		android:layout_weight="1"
+		android:text="TextView" />
+
+</LinearLayout>

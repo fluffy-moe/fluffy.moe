@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="989px"
+    android:layout_height="473px"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imgVacCheckBackground"
+        android:layout_width="80px"
+        android:layout_height="80px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_medicalcheck_green" />
+
+    <TextView
+        android:id="@+id/txtVacTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="154px"
+        android:fontFamily="@font/segoe_ui_bold"
+        android:text="2018 / 12 / 20"
+        android:textColor="#545871"
+        android:textSize="57px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtVacProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="120px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="TextView"
+        android:textColor="#807878"
+        android:textSize="54px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtVacInjection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="237px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="TextView"
+        android:textColor="#807878"
+        android:textSize="54px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtVacDoctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="118dp"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="TextView"
+        android:textColor="#807878"
+        android:textSize="54px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtVacDoctorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="118dp"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="TextView"
+        android:textColor="#807878"
+        android:textSize="54px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtVacInjectionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="79dp"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="TextView"
+        android:textColor="#807878"
+        android:textSize="54px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtVacProductName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="TextView"
+        android:textColor="#807878"
+        android:textSize="54px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgMedicalDash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40px"
+        android:layout_marginTop="80px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dash" />
+
+    <View
+        android:id="@+id/viewVacLine"
+        android:layout_width="834.21px"
+        android:layout_height="2px"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="217px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#E79E35"
+         />
+
+    <View
+        android:id="@+id/viewVacLine2"
+        android:layout_width="834.21px"
+        android:layout_height="2px"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="329px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#E79E35"
+         />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -91,7 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	/**
 	 * @param user is logined in main activity
 	 */
-	void setLoginedUser(String user) {
+	public void setLoginedUser(String user) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues ct = new ContentValues();
 		ct.put(getString(R.string.dbOptionUser), user);
@@ -102,7 +102,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	/**
 	 * @return string that stored user name
 	 */
-	String getLoginedUser() {
+	public String getLoginedUser() {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor =db.query(TABLE_OPTION,
 				new String[]{getString(R.string.dbOptionsValueName)},
@@ -121,7 +121,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 *
 	 * @param sessionString session string returned by server
 	 */
-	void setSessionString(String sessionString) {
+	public void setSessionString(String sessionString) {
 		SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 		ContentValues contentValues = new ContentValues();
 		contentValues.put("value", sessionString);
@@ -129,7 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		sqLiteDatabase.close();
 	}
 
-	String getSessionString() {
+	public String getSessionString() {
 		SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 		Cursor cursor = sqLiteDatabase.query(TABLE_OPTION,
 				new String[]{getString(R.string.dbOptionsValueName)},
@@ -153,7 +153,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	 * @param name pet's name
 	 * @return {@link PetInfo} basic type for pet information
 	 */
-	PetInfo getPetInfo(String name) {
+	public PetInfo getPetInfo(String name) {
 		PetInfo petInfo = null;
 		SQLiteDatabase s = this.getReadableDatabase();
 		Cursor cursor = s.rawQuery(getString(R.string.dbRawQueryPetInfo, TABLE_PET), new String[]{name});
@@ -169,7 +169,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return petInfo;
 	}
 
-	void updatePetInfo(PetInfo p) {
+	public void updatePetInfo(PetInfo p) {
 		SQLiteDatabase s = this.getWritableDatabase();
 		ContentValues cv = p.getContextValues();
 		String petName = cv.getAsString(getString(R.string.dbOptionsPetName));

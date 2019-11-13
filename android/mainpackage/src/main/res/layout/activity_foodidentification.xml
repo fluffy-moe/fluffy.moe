@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="1178px"
+	android:layout_height="1024px"
+	android:background="@drawable/ic_rectangle_93"
+	tools:context=".foodidentification">
+
+	<TextView
+		android:id="@+id/txtIdentificationTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="127px"
+		android:layout_marginTop="131px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Title"
+		android:textColor="#9497A7"
+		android:textSize="50px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		app:layout_constraintGuide_begin="131px" />
+
+	<TextView
+		android:id="@+id/txtIdentificationDate"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="131px"
+		android:layout_marginTop="322px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Date"
+		android:textColor="#9497A7"
+		android:textSize="50px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtIdentificationNote"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="131px"
+		android:layout_marginTop="512px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Note"
+		android:textColor="#9497A7"
+		android:textSize="50px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/etIdentificationTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="131px"
+		android:layout_marginTop="204px"
+		android:background="@drawable/blank"
+		android:ems="10"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:inputType="textPersonName"
+		android:paddingStart="41px"
+		android:text="Food Title"
+		android:textColor="#E9DBBA"
+		android:textSize="35px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/etIdentificationDate"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="131px"
+		android:layout_marginTop="394px"
+		android:background="@drawable/blank"
+		android:ems="10"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:inputType="textPersonName"
+		android:paddingStart="41px"
+		android:text="MM/DD/YYYY"
+		android:textColor="#E9DBBA"
+		android:textSize="35px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/etIdentificationNote"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="131px"
+		android:layout_marginTop="585px"
+		android:background="@drawable/Rectangle"
+		android:ems="10"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:inputType="textPersonName"
+		android:paddingStart="41px"
+		android:text="Write down your note"
+		android:textColor="#E9DBBA"
+		android:textSize="35px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/imgbtnIdentificationConfirm"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="425px"
+		android:layout_marginTop="861px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/confirm" />
+
+	<ImageButton
+		android:id="@+id/imgbtnIdentificationOut"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="1082px"
+		android:layout_marginTop="38px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/out" />
+
+	<ImageButton
+		android:id="@+id/imgbtnIdentificatinPic"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="725px"
+		android:layout_marginTop="204px"
+		android:background="@null"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/pic" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

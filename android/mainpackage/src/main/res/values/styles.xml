@@ -8,4 +8,13 @@
 		<item name="colorAccent">@color/colorAccent</item>
 	</style>
 
+	<style name="TimePickerStyle" parent="@android:style/Widget.Material.TimePicker">
+		<!-- Attributes for new-style TimePicker. -->
+		<item name="android:headerBackground">#ff555555</item>
+		<item name="android:numbersTextColor">#8BC34A</item>
+		<item name="android:numbersInnerTextColor">#FFC107</item>
+		<item name="android:numbersSelectorColor">#FF0000</item>
+		<item name="android:numbersBackgroundColor">#42FF00</item>
+		<item name="android:amPmTextColor">#565656</item>
+	</style>
 </resources>

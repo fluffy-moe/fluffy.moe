@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    tools:context=".Medical">
+
+    <ImageView
+        android:id="@+id/imgMedicalTittleBackground"
+        android:layout_width="1440px"
+        android:layout_height="598px"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_imgmedicaltittlebackground" />
+
+    <TextView
+        android:id="@+id/txtMedicalPetWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1145px"
+        android:layout_marginTop="333px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="4.5kg"
+        android:textColor="#565656"
+        android:textSize="59px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtMedicalTittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="86px"
+        android:layout_marginTop="86.5px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Medical Examination"
+        android:textColor="#595959"
+        android:textSize="101px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtMedicalAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="826px"
+        android:layout_marginTop="412px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Age"
+        android:textColor="#969696"
+        android:textSize="58px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtMedicalWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1125px"
+        android:layout_marginTop="413px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Weight"
+        android:textColor="#969696"
+        android:textSize="58px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imgbtnMedicalClinicSearchIcon"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="1221px"
+        android:layout_marginTop="104px"
+        android:background="@null"
+        android:scaleType="fitStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/clinic_search_icon" />
+
+    <TextView
+        android:id="@+id/txtMedicalPetAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="805px"
+        android:layout_marginTop="340px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="1Y3M"
+        android:textColor="#565656"
+        android:textSize="59px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgMedicalPetBackground"
+        android:layout_width="579px"
+        android:layout_height="160px"
+        android:layout_marginStart="116px"
+        android:layout_marginTop="342px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_imgmedicalpetbackground" />
+
+    <TextView
+        android:id="@+id/txtMedicalPetName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="318px"
+        android:layout_marginTop="382px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Hi,Chubby"
+        android:textColor="#B96320"
+        android:textSize="60px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="160px"
+        android:layout_height="160px"
+        android:layout_marginStart="116px"
+        android:layout_marginTop="340px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtMedicalBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="143px"
+        android:layout_marginTop="678px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Vaccination"
+        android:textColor="#E79E35"
+        android:textSize="60px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtMedicalBar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="529px"
+        android:layout_marginTop="680px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Deinsectization"
+        android:textColor="#969696"
+        android:textSize="60px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtMedicalBar3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1019px"
+        android:layout_marginTop="680px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Blood Test"
+        android:textColor="#969696"
+        android:textSize="60px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgMedicalNextBackground"
+        android:layout_width="1160px"
+        android:layout_height="150px"
+        android:layout_marginStart="142px"
+        android:layout_marginTop="873px"
+        android:background="@drawable/ic_medicalnexttimebackground"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_imgmedicalnextbackground" />
+
+    <!--<ImageView
+        android:id="@+id/imgMedicalBarLine"
+        android:layout_width="312px"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="143.5px"
+        android:layout_marginTop="790.5px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_line_" />-->
+
+    <View
+        android:id="@+id/vacUnderline"
+        android:layout_width="312px"
+        android:layout_height="8px"
+        android:layout_marginStart="143.5px"
+        android:layout_marginTop="792.5px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#E79E35"/>
+
+    <View
+        android:id="@+id/deinUnderline"
+        android:layout_width="416px"
+        android:layout_height="8px"
+        android:layout_marginStart="529.5px"
+        android:layout_marginTop="792.5px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/bloodUnderline"
+        android:layout_width="269px"
+        android:layout_height="8px"
+        android:layout_marginStart="1026.5px"
+        android:layout_marginTop="792.5px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtMedicalNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="226px"
+        android:layout_marginTop="908px"
+        android:fontFamily="@font/segoe_ui_bold"
+        android:text="Next Time"
+        android:textColor="#545871"
+        android:textSize="60px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtMedicalNext2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="852px"
+        android:layout_marginTop="912px"
+        android:fontFamily="@font/segoe_ui_bold"
+        android:text="2019/ 04/ 04"
+        android:textColor="#545871"
+        android:textSize="55px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
