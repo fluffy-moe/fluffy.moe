@@ -162,26 +162,14 @@ public class RegisterActivity extends AppCompatActivity {
 
 		etBirthday.setOnFocusChangeListener((view, hasFocus) -> {
 			if (hasFocus) {
-				final View dialogView = View.inflate(RegisterActivity.this, R.layout.datetimepicker, null);
+				final View dialogView = View.inflate(RegisterActivity.this, R.layout.datetimepicker_with_button, null);
 				final AlertDialog alertDialog = new AlertDialog.Builder(RegisterActivity.this).create();
-				//long time;
 
-				dialogView.findViewById(R.id.date_time_set).setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View view) {
-
-						DatePicker datePicker = dialogView.findViewById(R.id.date_picker);
-						TimePicker timePicker = dialogView.findViewById(R.id.time_picker);
-
-						Calendar calendar = new GregorianCalendar(datePicker.getYear(),
-								datePicker.getMonth(),
-								datePicker.getDayOfMonth(),
-								timePicker.getCurrentHour(),
-								timePicker.getCurrentMinute());
-
-						//time = calendar.getTimeInMillis();
-						alertDialog.dismiss();
-					}});
+				dialogView.findViewById(R.id.btnPickConfirm).setOnClickListener(v -> {
+					DatePicker datePicker = dialogView.findViewById(R.id.datePickerExample);
+					etBirthday.setText(String.format("%s/%s/%s", datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth()));
+					alertDialog.dismiss();
+				});
 				alertDialog.setView(dialogView);
 				alertDialog.show();
 			}
@@ -190,9 +178,13 @@ public class RegisterActivity extends AppCompatActivity {
 
 		imgbtnConfirm.setOnClickListener(v -> {
 			// some verify method here
-			PetInfo p = new PetInfo(etName.getText(), etBreed.getText(), etBirthday.getText());
-			if (!BuildConfig.DEBUG)
-				HomeActivity.dbHelper.updatePetInfo(p);
+			try {
+				PetInfo p = new PetInfo(etName.getText(), etBreed.getText(), etBirthday.getText());
+				if (!BuildConfig.DEBUG)
+					HomeActivity.dbHelper.updatePetInfo(p);
+			} catch (Exception ignore) {
+
+			}
 			putExtras(true,0,"");
 		});
 

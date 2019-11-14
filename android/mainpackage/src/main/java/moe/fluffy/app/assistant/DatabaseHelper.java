@@ -19,15 +19,26 @@
  */
 package moe.fluffy.app.assistant;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
 
+import com.codbking.calendar.CalendarBean;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+
 import moe.fluffy.app.R;
+import moe.fluffy.app.types.Date;
+import moe.fluffy.app.types.EventsType;
 import moe.fluffy.app.types.PetInfo;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -36,8 +47,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private final static String DATABASE_NAME = "f1uf4y.db";
 	private final static String TABLE_PET = "pet";
 	private final static String TABLE_OPTION = "option";
+	private final static String TABLE_EVENTS = "events";
 	private final static String CREATE_OPTION = "CREATE TABLE `option` (`key` TEXT PRIMARY KEY, `value` TEXT)";
 	private final static String CREATE_PET = "CREATE TABLE `pet` (`name` TEXT PRIMARY KEY, `birthday` TEXT, `breed` TEXT)";
+	private final static String CREATE_EVENTS = "CREATE TABLE `events` (`key` INTEGER PRIMARY KEY AUTOINCREMENT, `year` INTEGER, `month` INTEGER, `day` INTEGER, `category` TEXT, `body` TEXT, `color` INTEGER)";
 
 	private final static String TAG = "log_Database";
 
@@ -55,6 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_OPTION);
 		db.execSQL(CREATE_PET);
+		db.execSQL(CREATE_EVENTS);
 		ContentValues cv = new ContentValues();
 		for (String str: new String[]{getString(R.string.dbOptionUser),
 				getString(R.string.dbOptionSession)}) {
@@ -187,4 +201,70 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		s.close();
 	}
 
+	public void insertEvent(EventsType event){
+		SQLiteDatabase s = this.getWritableDatabase();
+		s.insert(TABLE_EVENTS, null, event.getContentValues());
+		s.close();
+	}
+
+	public EventsType[] getCurrentAndFeatureEvent() {
+		SQLiteDatabase s = this.getReadableDatabase();
+		ArrayList<EventsType> arrayList = new ArrayList<>();
+		Date d = new Date(DateFormat.getDateTimeInstance().format(new SimpleDateFormat("yyyy/mm/dd")));
+		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsBeyondYear, new String[]{String.valueOf(d.getYear())}));
+		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsBeyondYearMonth, new String[]{String.valueOf(d.getYear()), String.valueOf(d.getMonth())}));
+		return (EventsType[]) arrayList.toArray();
+	}
+
+	public EventsType[] getEventInfo(int year, int month) {
+		SQLiteDatabase s = this.getReadableDatabase();
+		ArrayList<EventsType> arrayList = new ArrayList<>();
+
+		boolean need_add_year = false, need_dec_year = false;
+		// get between (month - 1, month, month + 1)
+		int month_up = month + 1, month_down = month - 1;
+		if (month_down == 0) {
+			need_dec_year = true;
+			month_down = 12;
+		}
+		if (month_up == 13) {
+			need_add_year = true;
+			month_up = 1;
+		}
+
+		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsFromYearMonth,
+				new String[]{String.valueOf(year), String.valueOf(month)}));
+		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsFromYearMonth,
+				new String[]{String.valueOf(need_add_year? year + 1: year), String.valueOf(month_up)}));
+		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsFromYearMonth,
+				new String[]{String.valueOf(need_dec_year? year - 1: year), String.valueOf(month_down)}));
+
+		return (EventsType[]) arrayList.toArray();
+	}
+
+	private ArrayList<EventsType> _getEvent(SQLiteDatabase s, @StringRes int strId, String[] args) {
+		ArrayList<EventsType> a = new ArrayList<>();
+		Cursor c = s.rawQuery(getString(strId, TABLE_EVENTS), args);
+		if (c.getCount() != 0) {
+			c.moveToFirst();
+			do {
+				a.add(new EventsType(c));
+			} while (c.moveToNext());
+		}
+		c.close();
+		return a;
+	}
+
+	@SuppressLint("DefaultLocale")
+	@ColorRes
+	public int getTodayColorID(int year, int month, int day) {
+		int color = android.R.color.transparent;
+		SQLiteDatabase s = this.getReadableDatabase();
+		Cursor c = s.rawQuery(getString(R.string.dbRawQueryAccurateDay, TABLE_EVENTS),
+				new String[]{String.valueOf(year), String.valueOf(month), String.valueOf(day)});
+		if (c.getCount() != 0)
+			color = c.getInt(c.getColumnIndexOrThrow(getString(R.string.dbEventColor)));
+		c.close();
+		return context.getResources().getIdentifier(String.format("event_%d", color), "color", context.getPackageName());
+	}
 }

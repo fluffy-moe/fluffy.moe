@@ -7,14 +7,6 @@
 	android:orientation="vertical">
 
 
-	<include
-		android:id="@+id/viewCalendarPick"
-		layout="@layout/dap"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
-
 	<EditText
 		android:id="@+id/etEventText"
 		android:layout_width="wrap_content"

@@ -100,11 +100,11 @@ public class LoginActivity extends AppCompatActivity {
 						public void onSuccess(Object o)  {
 							HttpRawResponse r = (HttpRawResponse) o;
 							if (r.getStatus() == 200) {
-								Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
+								Toast.makeText(LoginActivity.this, getString(R.string.fmtLoginStr, getString(R.string.strSuccess)), Toast.LENGTH_SHORT).show();
 								putExtras(true, 0, "");
 							}
 							else {
-								PopupDialog.build(LoginActivity.this, "Login fail", r.getErrorString());
+								PopupDialog.build(LoginActivity.this, getString(R.string.fmtLoginStr, getString(R.string.strFailure)), r.getErrorString());
 								putExtras(false, r.getLastError(), r.getErrorString());
 							}
 						}

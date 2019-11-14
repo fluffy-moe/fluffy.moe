@@ -14,9 +14,6 @@
 	<string name="fetch_notification_field">fetch_notification</string>
 	<!-- Json field name end -->
 
-
-
-
 	<!-- Intent -->
 	<string name="IntentFilter_login_success">loginSuccess</string>
 	<string name="IntentFilter_receive_notification">receiveNotification</string>
@@ -37,11 +34,28 @@
 	<string name="dbOptionsPetBirthday">petBirthday</string>
 
 	<string name="dbRawQueryPetInfo">SELECT * FROM `%s` WHERE `name` = ?</string>
+	<string name="dbRawQueryEventsFromYearMonth">SELECT * FROM `%s` WHERE `year` = ? AND `month` = ?</string>
+	<string name="dbRawQueryEventsBeyondYearMonth">SELECT * FROM `%s` WHERE `year` = ? AND `month` >= ?</string>
+	<string name="dbRawQueryAccurateDay">SELECT * FROM `%s` WHERE `year` = ? AND `month` = ? AND `day` = ?</string>
+	<string name="dbRawQueryEventsBeyondYear">SELECT * FROM `%s` WHERE `year` > ?</string>
 	<string name="dbQuery">%s = ?</string>
 	<string name="dbQueryKey">key = ?</string>
 	<string name="dbOptionsKeyName">key</string>
 	<string name="dbOptionsValueName">value</string>
 	<string name="dbDefaultBirthday">1970/01/01</string>
+
+	<string name="dbEventsYear">year</string>
+	<string name="dbEventsMonth">month</string>
+	<string name="dbEventsDay">day</string>
+	<string name="dbEventsCategory">category</string>
+	<string name="dbEventsBody">body</string>
+	<string name="dbEventColor">color</string>
 	<!-- DATABASE END -->
+
+	<!-- string in main application -->
+	<string name="fmtLoginStr">Login %s</string>
+	<string name="strSuccess">Success</string>
+	<string name="strFailure">Failure</string>
+	<!-- string end -->
 
 </resources>

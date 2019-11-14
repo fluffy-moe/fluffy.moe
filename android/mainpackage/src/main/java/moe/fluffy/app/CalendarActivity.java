@@ -8,15 +8,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.codbking.calendar.CalendarDateView;
 import com.codbking.calendar.CalendarUtil;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import moe.fluffy.app.types.DateWithMark;
@@ -48,6 +52,9 @@ public class CalendarActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_calendar_viewer);
 		find_view();
 		init();
@@ -75,26 +82,30 @@ public class CalendarActivity extends AppCompatActivity {
 
 			viewMonth.setText(String.valueOf(bean.day));
 
+
 			if (bean.mothFlag != 0) {
 				viewMonth.setTextColor(getColor(R.color.calendarWeekTitle));
 			} else {
 				viewMonth.setTextColor(getColor(R.color.calendarBlack));
 			}
 
-
-			// TODO: use another method to improve speed
-			for (DateWithMark d : dm) {
-				if (d.equals(bean)) {
-					underlineView.setBackgroundResource(d.getColor());
-					// marked
-					break;
+			if (BuildConfig.DEBUG)
+				underlineView.setBackgroundColor(
+						getColor(HomeActivity.dbHelper.getTodayColorID(bean.year, bean.moth, bean.day)));
+			else
+				// TODO: use another method to improve speed
+				for (DateWithMark d : dm) {
+					if (d.equals(bean)) {
+						underlineView.setBackgroundResource(d.getColor());
+						// marked
+						break;
+					}
 				}
-			}
 
 			return convertView;
 		});
 
-		mCalendarDateView.setOnItemClickListener((view, postion, bean) -> {
+		mCalendarDateView.setOnItemClickListener((view, position, bean) -> {
 			mTitle.setText(getMonthString(bean.moth));
 			viewYear.setText(String.valueOf(bean.year));
 			if (lastSelected != null) {
@@ -142,6 +153,11 @@ public class CalendarActivity extends AppCompatActivity {
 			View viewAddEventPopup = getLayoutInflater().inflate(R.layout.calendar_addevent_bottom, null);
 			BottomSheetDialog dialog = new BottomSheetDialog(this);
 			dialog.setContentView(viewAddEventPopup);
+			Window w = dialog.getWindow();
+			if (w != null)
+				w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+			TimePicker timePicker = viewAddEventPopup.findViewById(R.id.timePickerExample);
+			timePicker.setIs24HourView(true);
 			dialog.show();
 		});
 	}

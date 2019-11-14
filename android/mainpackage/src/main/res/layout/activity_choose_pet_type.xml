@@ -75,7 +75,7 @@
         android:background="@null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back" />
+        app:srcCompat="@drawable/back_register" />
 
     <ImageButton
         android:id="@+id/imgbtnChooseTypeNext"

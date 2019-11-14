@@ -69,6 +69,8 @@ public class ArticleActivity extends AppCompatActivity {
 	ImageButton imgbtnDog, imgbtnBird, imgbtnCat, imgbtnOther;
 	ImageButton imgbtnSearch;
 
+	ImageButton imgbtnSetting, imgbtnCalendar, imgbtnScanner, imgbtnBooldtest;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -106,18 +108,31 @@ public class ArticleActivity extends AppCompatActivity {
 		articlesCarousel.notifyDataSetChanged();
 	}
 
+	void initBottomView() {
+		imgbtnBooldtest = findViewById(R.id.imgbtnMedicalBook);
+		imgbtnScanner = findViewById(R.id.imgbtnCameraBook);
+		imgbtnSetting = findViewById(R.id.imgbtnUserBook);
+		imgbtnCalendar = findViewById(R.id.imgbtnCalendarBook);
+
+		imgbtnScanner.setOnClickListener(v ->
+				startActivity(new Intent(ArticleActivity.this, BoostScanActivity.class)));
+		imgbtnCalendar.setOnClickListener(v ->
+				startActivity(new Intent(ArticleActivity.this, CalendarActivity.class)));
+	}
+
 	void initView() {
 		txtCountDog = findViewById(R.id.txtDogNumBook);
 		txtCountCat = findViewById(R.id.txtCatNumBook);
 		txtCountBird = findViewById(R.id.txtBirdNumBook);
 		txtCountOther = findViewById(R.id.txtOtherNumBook);
-		articlesCarousel = findViewById(R.id.horizontalInfiniteCycleViewPager);
+		articlesCarousel = findViewById(R.id.articlesCarousel);
 		imgbtnDog = findViewById(R.id.imgbtnDogBook);
 		imgbtnBird = findViewById(R.id.imgbtnBirdBook);
 		imgbtnCat = findViewById(R.id.imgbtnCatBook);
 		imgbtnOther = findViewById(R.id.imgbtnOtherBook);
 		imgbtnSearch = findViewById(R.id.imgbtnSearchBook);
 		etSearchBook = findViewById(R.id.etSearchBook);
+		initBottomView();
 
 		etSearchBook.setOnFocusChangeListener((view, hasFocus) ->
 				Utils.onFocusChange(hasFocus, ArticleActivity.this, etSearchBook, R.string.searchBookEditText, false));

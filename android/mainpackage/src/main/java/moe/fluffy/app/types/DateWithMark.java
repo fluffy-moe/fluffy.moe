@@ -20,9 +20,6 @@
 package moe.fluffy.app.types;
 
 import androidx.annotation.ColorRes;
-import androidx.annotation.Nullable;
-
-import com.codbking.calendar.CalendarBean;
 
 public class DateWithMark extends Date {
 	@ColorRes protected int color;
@@ -37,10 +34,5 @@ public class DateWithMark extends Date {
 
 	public int getColor() {
 		return color;
-	}
-
-	public boolean equals(@Nullable CalendarBean c) {
-		if (c == null) return false;
-		return (c.year == this.year) && (c.moth == this.month) && (c.day == this.day);
 	}
 }

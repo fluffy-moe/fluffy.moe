@@ -31,6 +31,17 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
+
+	<include
+		android:id="@+id/viewCalendarPick"
+		layout="@layout/dap"
+		android:layout_width="373dp"
+		android:layout_height="225dp"
+		android:layout_marginTop="88dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
 	<TextView
 		android:id="@+id/txtCalendarTitle"
 		android:layout_width="wrap_content"

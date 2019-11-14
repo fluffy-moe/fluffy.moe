@@ -23,6 +23,9 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.codbking.calendar.CalendarBean;
 
 import moe.fluffy.app.BuildConfig;
 
@@ -41,11 +44,11 @@ public class Date {
 	 *
 	 * @param dateString query from database
 	 */
-	Date(String dateString) {
+	public Date(String dateString) {
 		String[] s = dateString.split("/");
 		if (BuildConfig.DEBUG && s.length != 3) {
-			Log.e(TAG, "Date: " + ERROR.UNEXPECTED_VALUE);
-			throw new AssertionError(ERROR.ERROR_UNEXPECTED_LENGTH);
+			Log.e(TAG, "Date: " + ERROR.UNEXPECTED_LENGTH);
+			throw new AssertionError(ERROR.UNEXPECTED_LENGTH);
 		}
 		year = Integer.parseInt(s[0]);
 		month = Integer.parseInt(s[1]);
@@ -62,6 +65,11 @@ public class Date {
 
 	public int getDay() {
 		return day;
+	}
+
+	public boolean equals(@Nullable CalendarBean c) {
+		if (c == null) return false;
+		return (c.year == this.year) && (c.moth == this.month) && (c.day == this.day);
 	}
 
 	@NonNull

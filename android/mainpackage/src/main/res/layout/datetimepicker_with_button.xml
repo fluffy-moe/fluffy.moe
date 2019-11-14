@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+
+	<DatePicker
+		android:id="@+id/datePickerExample"
+		android:layout_width="wrap_content"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:calendarViewShown="false"
+		android:datePickerMode="spinner"
+		android:endYear="2100"
+		android:maxDate="12/31/2100"
+		android:minDate="01/01/2000"
+		android:spinnersShown="true"
+		android:startYear="2000" />
+	<Button
+		android:id="@+id/btnPickConfirm"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="set" />
+</LinearLayout>

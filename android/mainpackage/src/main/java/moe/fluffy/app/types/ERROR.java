@@ -21,5 +21,5 @@ package moe.fluffy.app.types;
 
 public class ERROR {
 	public final static String UNEXPECTED_VALUE = "Unexpected value";
-	public final static String ERROR_UNEXPECTED_LENGTH = "Unexpected length";
+	public final static String UNEXPECTED_LENGTH = "Unexpected length";
 }
