@@ -47,6 +47,8 @@
 	<string name="dbEventsYear">year</string>
 	<string name="dbEventsMonth">month</string>
 	<string name="dbEventsDay">day</string>
+	<string name="dbEventsHour">hour</string>
+	<string name="dbEventsMinute">minute</string>
 	<string name="dbEventsCategory">category</string>
 	<string name="dbEventsBody">body</string>
 	<string name="dbEventColor">color</string>

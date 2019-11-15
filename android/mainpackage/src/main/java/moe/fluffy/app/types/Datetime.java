@@ -20,12 +20,37 @@
 package moe.fluffy.app.types;
 
 public class Datetime extends Date {
-	int hour, minute, second, millionSecond;
+	protected int hour, minute, second, millionSecond;
 	Datetime(int _year, int _month, int _day, int _hour, int _minute, int _second, int _millionSecond) {
 		super(_year, _month, _day);
 		hour = _hour;
 		minute = _minute;
 		second = _second;
 		millionSecond = _millionSecond;
+	}
+
+	Datetime(String s, String t) {
+		super(s);
+		String[] y = t.split(":");
+		hour = Integer.valueOf(y[0]);
+		minute = Integer.valueOf(y[1]);
+		second = Integer.valueOf(y[2]);
+		millionSecond = 0;
+	}
+
+	public int getHour() {
+		return hour;
+	}
+
+	public int getMinute() {
+		return minute;
+	}
+
+	public int getSecond() {
+		return second;
+	}
+
+	public int getMillionSecond() {
+		return millionSecond;
 	}
 }

@@ -1,14 +1,29 @@
+/*
+ ** Copyright (C) 2019 KunoiSayami
+ **
+ ** This file is part of Fluffy and is released under
+ ** the AGPL v3 License: https://www.gnu.org/licenses/agpl-3.0.txt
+ **
+ ** This program is free software: you can redistribute it and/or modify
+ ** it under the terms of the GNU Affero General Public License as published by
+ ** the Free Software Foundation, either version 3 of the License, or
+ ** any later version.
+ **
+ ** This program is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ ** GNU Affero General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Affero General Public License
+ ** along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package moe.fluffy.app.types;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
 
-import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
-
-import java.util.Calendar;
 
 import moe.fluffy.app.R;
 
@@ -18,7 +33,7 @@ public class EventsType {
 	private String category;
 	private String body;
 
-	private static String columnYear, columnMonth, columnDay, columnCategory, columnBody, columnColor;
+	private static String columnYear, columnMonth, columnDay, columnCategory, columnBody, columnHour, columnMinute, columnColor;
 
 	void getColumnName(Context c){
 		columnYear = c.getString(R.string.dbEventsYear);
@@ -26,6 +41,9 @@ public class EventsType {
 		columnDay = c.getString(R.string.dbEventsDay);
 		columnCategory = c.getString(R.string.dbEventsCategory);
 		columnBody = c.getString(R.string.dbEventsBody);
+		columnHour = c.getString(R.string.dbEventsHour);
+		columnMinute = c.getString(R.string.dbEventsMinute);
+		columnColor = c.getString(R.string.dbEventColor);
 	}
 
 	EventsType(DateWithMark d, String c, String b) {
@@ -34,18 +52,20 @@ public class EventsType {
 		body = b;
 	}
 
-	EventsType(String dateStr, int color, String c, String b) {
-		date = new DateWithMark(dateStr, color);
+	EventsType(String strDate, String strTime, int color, String c, String b) {
+		date = new DateWithMark(strDate, strTime, color);
 		category = c;
 		body = b;
 	}
 
 	public EventsType(Cursor cursor) {
-		int year, month, day;
+		int year, month, day, hour, minute;
 		year = cursor.getInt(cursor.getColumnIndexOrThrow(columnYear));
 		month = cursor.getInt(cursor.getColumnIndexOrThrow(columnMonth));
 		day = cursor.getInt(cursor.getColumnIndexOrThrow(columnDay));
-		date = new DateWithMark(year, month, day, cursor.getInt(cursor.getColumnIndexOrThrow(columnColor)));
+		hour = cursor.getInt(cursor.getColumnIndexOrThrow(columnHour));
+		minute = cursor.getInt(cursor.getColumnIndexOrThrow(columnMinute));
+		date = new DateWithMark(year, month, day, hour, minute, 0, 0, cursor.getInt(cursor.getColumnIndexOrThrow(columnColor)));
 		category = cursor.getString(cursor.getColumnIndexOrThrow(columnCategory));
 		body = cursor.getString(cursor.getColumnIndexOrThrow(columnBody));
 	}
@@ -84,6 +104,8 @@ public class EventsType {
 		cv.put(columnYear, date.getYear());
 		cv.put(columnMonth, date.getMonth());
 		cv.put(columnDay, date.getDay());
+		cv.put(columnHour, date.getHour());
+		cv.put(columnMinute, date.getMinute());
 		cv.put(columnCategory, category);
 		cv.put(columnBody, body);
 		cv.put(columnColor, date.getColor());
@@ -91,26 +113,6 @@ public class EventsType {
 	}
 
 	public String getDayOfWeek() {
-		Calendar c = Calendar.getInstance();
-		c.set(date.getYear(), date.getMonth(), date.getDay());
-		int w = c.get(Calendar.DAY_OF_WEEK);
-		switch (w) {
-			case 1:
-				return Date.Monday;
-			case 2:
-				return Date.Tuesday;
-			case 3:
-				return Date.Wednesday;
-			case 4:
-				return Date.Thursday;
-			case 5:
-				return Date.Friday;
-			case 6:
-				return Date.Saturday;
-			case 7:
-				return Date.Sunday;
-			default:
-				throw new IllegalStateException(String.format("%s => %s", ERROR.UNEXPECTED_VALUE, w));
-		}
+		return Date.getDayOfWeekString(date.getDayOfWeek());
 	}
 }

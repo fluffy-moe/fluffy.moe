@@ -28,6 +28,8 @@ import androidx.annotation.Nullable;
 
 import com.codbking.calendar.CalendarBean;
 
+import java.util.Calendar;
+
 import moe.fluffy.app.BuildConfig;
 import moe.fluffy.app.R;
 
@@ -84,6 +86,33 @@ public class Date {
 	public boolean equals(@Nullable CalendarBean c) {
 		if (c == null) return false;
 		return (c.year == this.year) && (c.moth == this.month) && (c.day == this.day);
+	}
+
+	public int getDayOfWeek() {
+		Calendar c = Calendar.getInstance();
+		c.set(year, month, day);
+		return c.get(Calendar.DAY_OF_WEEK);
+	}
+
+	public static String getDayOfWeekString(int dayOfWeek) {
+		switch (dayOfWeek) {
+			case 1:
+				return Date.Monday;
+			case 2:
+				return Date.Tuesday;
+			case 3:
+				return Date.Wednesday;
+			case 4:
+				return Date.Thursday;
+			case 5:
+				return Date.Friday;
+			case 6:
+				return Date.Saturday;
+			case 7:
+				return Date.Sunday;
+			default:
+				throw new IllegalStateException(String.format("%s => %s", ERROR.UNEXPECTED_VALUE, dayOfWeek));
+		}
 	}
 
 	@NonNull

@@ -61,11 +61,11 @@ public class CalendarActivity extends AppCompatActivity {
 
 	void init() {
 		final DateWithMark[] dm = {
-				new DateWithMark("2019/11/11", R.color.event_c1),
-				new DateWithMark("2019/11/13", R.color.event_c2),
-				new DateWithMark("2019/11/15", R.color.event_c3),
-				new DateWithMark("2019/11/17", R.color.event_c4),
-				new DateWithMark("2019/11/16", R.color.event_c5),
+				new DateWithMark("2019/11/11", "00:00:00", R.color.event_c1),
+				new DateWithMark("2019/11/13", "00:00:00", R.color.event_c2),
+				new DateWithMark("2019/11/15", "00:00:00", R.color.event_c3),
+				new DateWithMark("2019/11/17", "00:00:00", R.color.event_c4),
+				new DateWithMark("2019/11/16", "00:00:00", R.color.event_c5),
 		};
 		mCalendarDateView.setAdapter((convertView, parentView, bean) -> {
 			TextView viewMonth;

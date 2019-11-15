@@ -21,18 +21,18 @@ package moe.fluffy.app.types;
 
 import androidx.annotation.ColorRes;
 
-public class DateWithMark extends Date {
+public class DateWithMark extends Datetime {
 	@ColorRes protected int color;
-	public DateWithMark(int _year, int _month, int _day, int _color) {
-		super(_year, _month, _day);
+	public DateWithMark(int _year, int _month, int _day, int _hour, int _minute, int _second, int _millionSecond, int _color) {
+		super(_year, _month, _day, _hour, _minute, _second, _millionSecond);
 		color = _color;
 	}
-	public DateWithMark(String s, int _color) {
-		super(s);
+	public DateWithMark(String strDate, String strTime, int _color) {
+		super(strDate, strTime);
 		color = _color;
 	}
 
-
+	@ColorRes
 	public int getColor() {
 		return color;
 	}

@@ -31,6 +31,8 @@ import androidx.annotation.StringRes;
 
 import com.codbking.calendar.CalendarBean;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -138,7 +140,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void setSessionString(String sessionString) {
 		SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 		ContentValues contentValues = new ContentValues();
-		contentValues.put("value", sessionString);
+		contentValues.put(getString(R.string.dbOptionSession), sessionString);
 		sqLiteDatabase.update(TABLE_OPTION, contentValues, getString(R.string.dbQueryKey), new String[]{getString(R.string.dbOptionSession)});
 		sqLiteDatabase.close();
 	}
@@ -156,7 +158,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return string;
 	}
 
-	private static String getCursorString(Cursor cursor, String column){
+	private static String getCursorString(@NotNull Cursor cursor, String column){
 		return cursor.getString(cursor.getColumnIndexOrThrow(column));
 	}
 
