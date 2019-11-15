@@ -8,7 +8,7 @@ android {
         applicationId "moe.fluffy.app"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 1
+        versionCode 2
         versionName '0.2'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         versionNameSuffix = '.alpha'
@@ -46,4 +46,5 @@ dependencies {
     implementation project(path: ':android-user-agent')
     implementation 'com.google.android.material:material:1.0.0'
     implementation project(path: ':codbking-calendar-lib')
+    implementation project(path: ':WrapContentListView-master')
 }

@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
+    <org.mazhuang.wrapcontentlistview.WrapContentListView
         android:id="@+id/lvEventList"
         android:layout_width="1366px"
         android:layout_height="wrap_content"

@@ -135,11 +135,9 @@
 		<com.codbking.calendar.CalendarDateView
 			android:id="@+id/calendarDateView"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content" >
+			android:layout_height="wrap_content" />
 
-		</com.codbking.calendar.CalendarDateView>
-
-		<ListView
+		<org.mazhuang.wrapcontentlistview.WrapContentListView
 			android:id="@+id/listEvents"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"

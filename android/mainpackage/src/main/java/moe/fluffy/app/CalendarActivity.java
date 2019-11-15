@@ -20,6 +20,8 @@ import com.codbking.calendar.CalendarDateView;
 import com.codbking.calendar.CalendarUtil;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import org.mazhuang.wrapcontentlistview.WrapContentListView;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,14 +39,14 @@ public class CalendarActivity extends AppCompatActivity {
 
 
 	CalendarDateView mCalendarDateView;
-	ListView mList;
+	WrapContentListView mList;
 	TextView mTitle;
 	TextView viewYear;
 	TextView lastSelected = null;
 
 	Button btnAddEvent;
 
-	private static String TAG = "log_dingding";
+	private static String TAG = "log_CalendarViewActivity";
 
 	void find_view() {
 		mCalendarDateView = findViewById(R.id.calendarDateView);
@@ -127,9 +129,13 @@ public class CalendarActivity extends AppCompatActivity {
 		viewYear.setText(String.valueOf(data[0]));
 
 		ArrayList<EventView> es = new ArrayList<>();
-		es.add(new EventView(false, new ArrayList<>(Arrays.asList(dm))));
+		ArrayList<EventsType> s = new ArrayList<>(Arrays.asList(dm));
+		es.add(new EventView(true, new ArrayList<>(Arrays.asList(dm))));
+		s.addAll(Arrays.asList(dm));
+		es.add(new EventView(false, s));
 		EventViewAdapter ea = new EventViewAdapter(this, es);
 		mList.setAdapter(ea);
+
 
 		btnAddEvent.setOnClickListener(v -> {
 			View viewAddEventPopup = getLayoutInflater().inflate(R.layout.calendar_addevent_bottom, null);

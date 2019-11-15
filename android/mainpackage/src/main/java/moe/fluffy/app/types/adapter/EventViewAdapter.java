@@ -24,8 +24,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import org.mazhuang.wrapcontentlistview.WrapContentListView;
 
 import java.util.ArrayList;
 
@@ -43,7 +44,7 @@ public class EventViewAdapter extends ArrayAdapter<EventView> {
 		EventView it = getItem(position);
 
 		TextView txtView;
-		ListView lvTasks;
+		WrapContentListView lvTasks;
 
 		if (covertView == null) {
 			covertView = LayoutInflater.from(getContext()).inflate(R.layout.event_today, parent, false);
