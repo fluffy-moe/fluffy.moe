@@ -36,6 +36,7 @@ import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.PetInfo;
 
 public class HomeActivity extends AppCompatActivity {
@@ -56,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
 		Connect.setUserAgent(UserAgent.getInstance(this).getUserAgentString(""));
 		ConnectPath.loadConfig(this);
 		PetInfo.initStrings(this);
+		Date.initWeekName(this);
 		if (!BuildConfig.DEBUG) // Not ready to work
 			dbHelper = new DatabaseHelper(this);
 

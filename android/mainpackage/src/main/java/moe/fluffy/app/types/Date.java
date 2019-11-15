@@ -20,6 +20,7 @@
 package moe.fluffy.app.types;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -28,9 +29,12 @@ import androidx.annotation.Nullable;
 import com.codbking.calendar.CalendarBean;
 
 import moe.fluffy.app.BuildConfig;
+import moe.fluffy.app.R;
 
 @SuppressLint("DefaultLocale")
 public class Date {
+	public static String Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday;
+
 	protected int year, month, day;
 	private static String TAG = "log_DateType";
 	Date(int _year, int _month, int _day) {
@@ -53,6 +57,16 @@ public class Date {
 		year = Integer.parseInt(s[0]);
 		month = Integer.parseInt(s[1]);
 		day = Integer.parseInt(s[2]);
+	}
+
+	public static void initWeekName(Context context) {
+		Monday = context.getString(R.string.strMonday);
+		Tuesday = context.getString(R.string.strTuesday);
+		Wednesday = context.getString(R.string.strWednesday);
+		Thursday = context.getString(R.string.strThursday);
+		Friday = context.getString(R.string.strFriday);
+		Saturday = context.getString(R.string.strSaturday);
+		Sunday = context.getString(R.string.strSunday);
 	}
 
 	public int getYear() {

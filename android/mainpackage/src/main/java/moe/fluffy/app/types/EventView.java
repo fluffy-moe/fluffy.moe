@@ -19,21 +19,22 @@
  */
 package moe.fluffy.app.types;
 
-import androidx.annotation.ColorRes;
+import java.util.ArrayList;
 
-public class DateWithMark extends Date {
-	@ColorRes protected int color;
-	public DateWithMark(int _year, int _month, int _day, int _color) {
-		super(_year, _month, _day);
-		color = _color;
-	}
-	public DateWithMark(String s, int _color) {
-		super(s);
-		color = _color;
+public class EventView {
+	String title;
+	ArrayList<EventsType> events;
+
+	public EventView(boolean isToday, ArrayList<EventsType> _events) {
+		title = isToday? "Today": "Coming soon";
+		events = _events;
 	}
 
+	public String getTitle() {
+		return title;
+	}
 
-	public int getColor() {
-		return color;
+	public ArrayList<EventsType> getEvents() {
+		return events;
 	}
 }

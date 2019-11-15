@@ -19,4 +19,12 @@
 		<item>November</item>
 		<item>December</item>
 	</string-array>
+
+	<string name="strMonday">Monday</string>
+	<string name="strTuesday">Tuesday</string>
+	<string name="strWednesday">Wednesday</string>
+	<string name="strThursday">Thursday</string>
+	<string name="strFriday">Friday</string>
+	<string name="strSaturday">Saturday</string>
+	<string name="strSunday">Sunday</string>
 </resources>

@@ -24,47 +24,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.types.EventsType;
+import moe.fluffy.app.types.EventView;
 
-public class EventAdapter extends ArrayAdapter<EventsType> {
-
-	public EventAdapter(Context context, ArrayList<EventsType> adapters) {
-		super(context, android.R.layout.simple_list_item_1, adapters);
+public class EventViewAdapter extends ArrayAdapter<EventView> {
+	EventAdapter ea;
+	EventViewAdapter(Context context, ArrayList<EventView> adapters) {
+		super(context, android.R.layout.simple_list_item_1,adapters);
 	}
 
-	@NotNull
 	@Override
-	public View getView(int position, View covertView, @NotNull ViewGroup parent) {
-		EventsType it = getItem(position);
+	public View getView(int position, View covertView, ViewGroup parent) {
+		EventView it = getItem(position);
 
-		TextView txtDay, txtWeek, txtTime, txtEvent;
-		View viewSideColor;
+		TextView txtView;
+		ListView lvTasks;
 
 		if (covertView == null) {
 			covertView = LayoutInflater.from(getContext()).inflate(R.layout.event_items, parent, false);
 		}
 
-		txtDay = covertView.findViewById(R.id.txtDateEventItems);
-		txtWeek = covertView.findViewById(R.id.txtWeekEventItems);
+		txtView = covertView.findViewById(R.id.txtCalendarViewTitle);
+		lvTasks = covertView.findViewById(R.id.lvEventList);
 
-		txtTime = covertView.findViewById(R.id.txtTimeEventItems);
-		txtEvent = covertView.findViewById(R.id.txtEventItems);
+		ea = new EventAdapter(getContext(), it.getEvents());
+		lvTasks.setAdapter(ea);
 
-		viewSideColor = covertView.findViewById(R.id.viewTodayLineColor2);
-
-		viewSideColor.setBackgroundColor(it.getColor());
-
-		txtDay.setText(it.getDay());
-		txtWeek.setText(it.getDayOfWeek());
-		txtEvent.setText(it.getBody());
-		//txtView.setText(it);
+		txtView.setText(it.getTitle());
 
 		return covertView;
 	}

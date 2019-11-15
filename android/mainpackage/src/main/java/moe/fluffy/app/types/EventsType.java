@@ -3,9 +3,12 @@ package moe.fluffy.app.types;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
+
+import java.util.Calendar;
 
 import moe.fluffy.app.R;
 
@@ -67,6 +70,10 @@ public class EventsType {
 		return body;
 	}
 
+	public int getColor() {
+		return date.getColor();
+	}
+
 	@Override
 	public boolean equals(@Nullable Object o) {
 		return date.equals(o);
@@ -81,5 +88,29 @@ public class EventsType {
 		cv.put(columnBody, body);
 		cv.put(columnColor, date.getColor());
 		return cv;
+	}
+
+	public String getDayOfWeek() {
+		Calendar c = Calendar.getInstance();
+		c.set(date.getYear(), date.getMonth(), date.getDay());
+		int w = c.get(Calendar.DAY_OF_WEEK);
+		switch (w) {
+			case 1:
+				return Date.Monday;
+			case 2:
+				return Date.Tuesday;
+			case 3:
+				return Date.Wednesday;
+			case 4:
+				return Date.Thursday;
+			case 5:
+				return Date.Friday;
+			case 6:
+				return Date.Saturday;
+			case 7:
+				return Date.Sunday;
+			default:
+				throw new IllegalStateException(String.format("%s => %s", ERROR.UNEXPECTED_VALUE, w));
+		}
 	}
 }

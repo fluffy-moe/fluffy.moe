@@ -20,7 +20,6 @@ import com.codbking.calendar.CalendarDateView;
 import com.codbking.calendar.CalendarUtil;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import moe.fluffy.app.types.DateWithMark;
@@ -72,7 +71,7 @@ public class CalendarActivity extends AppCompatActivity {
 			TextView viewMonth;
 			View underlineView;
 			if (convertView == null) {
-				convertView = LayoutInflater.from(parentView.getContext()).inflate(R.layout.item_calendar, null);
+				convertView = LayoutInflater.from(parentView.getContext()).inflate(R.layout.event_item_calendar, null);
 				ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(px(55), px(55));
 				convertView.setLayoutParams(params);
 			}
