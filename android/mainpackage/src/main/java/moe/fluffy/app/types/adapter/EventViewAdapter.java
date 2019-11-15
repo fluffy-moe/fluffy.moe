@@ -34,7 +34,7 @@ import moe.fluffy.app.types.EventView;
 
 public class EventViewAdapter extends ArrayAdapter<EventView> {
 	EventAdapter ea;
-	EventViewAdapter(Context context, ArrayList<EventView> adapters) {
+	public EventViewAdapter(Context context, ArrayList<EventView> adapters) {
 		super(context, android.R.layout.simple_list_item_1,adapters);
 	}
 
@@ -46,16 +46,15 @@ public class EventViewAdapter extends ArrayAdapter<EventView> {
 		ListView lvTasks;
 
 		if (covertView == null) {
-			covertView = LayoutInflater.from(getContext()).inflate(R.layout.event_items, parent, false);
+			covertView = LayoutInflater.from(getContext()).inflate(R.layout.event_today, parent, false);
 		}
 
 		txtView = covertView.findViewById(R.id.txtCalendarViewTitle);
 		lvTasks = covertView.findViewById(R.id.lvEventList);
 
+		txtView.setText(it.getTitle());
 		ea = new EventAdapter(getContext(), it.getEvents());
 		lvTasks.setAdapter(ea);
-
-		txtView.setText(it.getTitle());
 
 		return covertView;
 	}

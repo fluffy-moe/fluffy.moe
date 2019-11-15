@@ -24,7 +24,7 @@ import static com.codbking.calendar.CalendarFactory.getMonthOfDayList;
 public class CalendarDateView extends ViewPager implements CalendarTopView {
 
     HashMap<Integer, CalendarView> views = new HashMap<>();
-    private CaledarTopViewChangeListener mCaledarLayoutChangeListener;
+    private CaledarTopViewChangeListener mCalendarLayoutChangeListener;
     private CalendarView.OnItemClickListener onItemClickListener;
 
     private LinkedList<CalendarView> cache = new LinkedList();
@@ -124,7 +124,7 @@ public class CalendarDateView extends ViewPager implements CalendarTopView {
                     onItemClickListener.onItemClick((View) obs[0], (int) obs[1], (CalendarBean) obs[2]);
                 }
 
-                mCaledarLayoutChangeListener.onLayoutChange(CalendarDateView.this);
+                mCalendarLayoutChangeListener.onLayoutChange(CalendarDateView.this);
             }
         });
     }
@@ -137,7 +137,7 @@ public class CalendarDateView extends ViewPager implements CalendarTopView {
     }
 
     @Override
-    public int[] getCurrentSelectPositon() {
+    public int[] getCurrentSelectPosition() {
         CalendarView view = views.get(getCurrentItem());
         if (view == null) {
             view = (CalendarView) getChildAt(0);
@@ -154,8 +154,8 @@ public class CalendarDateView extends ViewPager implements CalendarTopView {
     }
 
     @Override
-    public void setCaledarTopViewChangeListener(CaledarTopViewChangeListener listener) {
-        mCaledarLayoutChangeListener = listener;
+    public void setCalendarTopViewChangeListener(CaledarTopViewChangeListener listener) {
+        mCalendarLayoutChangeListener = listener;
     }
 
 

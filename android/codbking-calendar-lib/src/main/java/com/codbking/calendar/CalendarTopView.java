@@ -9,10 +9,10 @@ package com.codbking.calendar;
 
 public interface CalendarTopView {
 
-    int[] getCurrentSelectPositon();
+    int[] getCurrentSelectPosition();
 
     int getItemHeight();
 
-    void setCaledarTopViewChangeListener(CaledarTopViewChangeListener listener);
+    void setCalendarTopViewChangeListener(CaledarTopViewChangeListener listener);
 
 }

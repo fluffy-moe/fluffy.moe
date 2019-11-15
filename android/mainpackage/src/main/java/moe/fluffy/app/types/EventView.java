@@ -19,9 +19,14 @@
  */
 package moe.fluffy.app.types;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class EventView {
+
+	private static String TAG = "log_EventView";
+
 	String title;
 	ArrayList<EventsType> events;
 
@@ -35,6 +40,7 @@ public class EventView {
 	}
 
 	public ArrayList<EventsType> getEvents() {
+		Log.d(TAG, "getEvents: size => " + events.size());
 		return events;
 	}
 }

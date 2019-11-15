@@ -59,9 +59,9 @@ public class EventAdapter extends ArrayAdapter<EventsType> {
 
 		viewSideColor = covertView.findViewById(R.id.viewTodayLineColor2);
 
-		viewSideColor.setBackgroundColor(it.getColor());
+		viewSideColor.setBackgroundColor(getContext().getColor(it.getColor()));
 
-		txtDay.setText(it.getDay());
+		txtDay.setText(String.valueOf(it.getDay()));
 		txtWeek.setText(it.getDayOfWeek());
 		txtEvent.setText(it.getBody());
 		//txtView.setText(it);

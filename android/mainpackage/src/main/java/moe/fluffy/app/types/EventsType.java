@@ -23,7 +23,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
+
+import com.codbking.calendar.CalendarBean;
 
 import moe.fluffy.app.R;
 
@@ -46,13 +49,13 @@ public class EventsType {
 		columnColor = c.getString(R.string.dbEventColor);
 	}
 
-	EventsType(DateWithMark d, String c, String b) {
+	public EventsType(DateWithMark d, String c, String b) {
 		date = d;
 		category = c;
 		body = b;
 	}
 
-	EventsType(String strDate, String strTime, int color, String c, String b) {
+	public EventsType(String strDate, String strTime, int color, String c, String b) {
 		date = new DateWithMark(strDate, strTime, color);
 		category = c;
 		body = b;
@@ -90,8 +93,13 @@ public class EventsType {
 		return body;
 	}
 
+	@ColorRes
 	public int getColor() {
 		return date.getColor();
+	}
+
+	public boolean equals(@Nullable CalendarBean b) {
+		return b != null && date.equals(b);
 	}
 
 	@Override
@@ -113,6 +121,6 @@ public class EventsType {
 	}
 
 	public String getDayOfWeek() {
-		return Date.getDayOfWeekString(date.getDayOfWeek());
+		return Date.getShortDayOfWeekString(date.getDayOfWeek());
 	}
 }

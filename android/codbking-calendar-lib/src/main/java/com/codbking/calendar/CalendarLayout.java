@@ -78,7 +78,7 @@ public class CalendarLayout extends FrameLayout {
         view1 = (View) viewPager;
         view2 = (ViewGroup) getChildAt(1);
 
-        mTopView.setCaledarTopViewChangeListener(new CaledarTopViewChangeListener() {
+        mTopView.setCalendarTopViewChangeListener(new CaledarTopViewChangeListener() {
             @Override
             public void onLayoutChange(CalendarTopView topView) {
                 CalendarLayout.this.requestLayout();
@@ -304,7 +304,7 @@ public class CalendarLayout extends FrameLayout {
     }
 
     private int[] getSelectRect() {
-        return mTopView.getCurrentSelectPositon();
+        return mTopView.getCurrentSelectPosition();
     }
 
     private void move(int dy) {

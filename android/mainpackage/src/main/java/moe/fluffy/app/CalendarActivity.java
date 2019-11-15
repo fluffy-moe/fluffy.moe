@@ -20,9 +20,16 @@ import com.codbking.calendar.CalendarDateView;
 import com.codbking.calendar.CalendarUtil;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import moe.fluffy.app.types.DateWithMark;
+import moe.fluffy.app.types.EventView;
+import moe.fluffy.app.types.EventsType;
+import moe.fluffy.app.types.adapter.EventAdapter;
+import moe.fluffy.app.types.adapter.EventViewAdapter;
 
 import static moe.fluffy.app.assistant.Utils.px;
 
@@ -60,12 +67,12 @@ public class CalendarActivity extends AppCompatActivity {
 	}
 
 	void init() {
-		final DateWithMark[] dm = {
-				new DateWithMark("2019/11/11", "00:00:00", R.color.event_c1),
-				new DateWithMark("2019/11/13", "00:00:00", R.color.event_c2),
-				new DateWithMark("2019/11/15", "00:00:00", R.color.event_c3),
-				new DateWithMark("2019/11/17", "00:00:00", R.color.event_c4),
-				new DateWithMark("2019/11/16", "00:00:00", R.color.event_c5),
+		final EventsType[] dm = {
+				new EventsType(new DateWithMark("2019/11/21", "00:00:00", R.color.event_c1), "c", "bbb"),
+				new EventsType(new DateWithMark("2019/11/31", "00:00:00", R.color.event_c2), "c", "bbb"),
+				new EventsType(new DateWithMark("2019/11/15", "00:00:00", R.color.event_c3), "c", "bbb"),
+				new EventsType(new DateWithMark("2019/11/17", "00:00:00", R.color.event_c4), "c", "bbb"),
+				new EventsType(new DateWithMark("2019/11/16", "00:00:00", R.color.event_c5), "c", "bbb"),
 		};
 		mCalendarDateView.setAdapter((convertView, parentView, bean) -> {
 			TextView viewMonth;
@@ -89,17 +96,18 @@ public class CalendarActivity extends AppCompatActivity {
 			}
 
 			if (BuildConfig.DEBUG)
-				underlineView.setBackgroundColor(
-						getColor(HomeActivity.dbHelper.getTodayColorID(bean.year, bean.moth, bean.day)));
-			else
-				// TODO: use another method to improve speed
-				for (DateWithMark d : dm) {
-					if (d.equals(bean)) {
-						underlineView.setBackgroundResource(d.getColor());
-						// marked
-						break;
+				if (BuildConfig.enableDatabase)
+					underlineView.setBackgroundColor(
+							getColor(HomeActivity.dbHelper.getTodayColorID(bean.year, bean.moth, bean.day)));
+				else
+					// TODO: use another method to improve speed
+					for (EventsType d : dm) {
+						if (d.equals(bean)) {
+							underlineView.setBackgroundResource(d.getColor());
+							// marked
+							break;
+						}
 					}
-				}
 
 			return convertView;
 		});
@@ -118,35 +126,10 @@ public class CalendarActivity extends AppCompatActivity {
 		mTitle.setText(getMonthString(data[1]));
 		viewYear.setText(String.valueOf(data[0]));
 
-		mList.setAdapter(new BaseAdapter() {
-			@Override
-			public int getCount() {
-				return 100;
-			}
-
-			@Override
-			public Object getItem(int position) {
-				return null;
-			}
-
-			@Override
-			public long getItemId(int position) {
-				return 0;
-			}
-
-			@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
-				if (convertView == null) {
-					convertView = LayoutInflater.from(CalendarActivity.this).inflate(android.R.layout.simple_list_item_1, null);
-				}
-
-				TextView textView = (TextView) convertView;
-				textView.setText("item" + position);
-
-				return convertView;
-			}
-		});
-
+		ArrayList<EventView> es = new ArrayList<>();
+		es.add(new EventView(false, new ArrayList<>(Arrays.asList(dm))));
+		EventViewAdapter ea = new EventViewAdapter(this, es);
+		mList.setAdapter(ea);
 
 		btnAddEvent.setOnClickListener(v -> {
 			View viewAddEventPopup = getLayoutInflater().inflate(R.layout.calendar_addevent_bottom, null);

@@ -27,4 +27,12 @@
 	<string name="strFriday">Friday</string>
 	<string name="strSaturday">Saturday</string>
 	<string name="strSunday">Sunday</string>
+
+	<string name="strMiniMonday">MON</string>
+	<string name="strMiniTuesday">TUE</string>
+	<string name="strMiniWednesday">WED</string>
+	<string name="strMiniThursday">THU</string>
+	<string name="strMiniFriday">FRI</string>
+	<string name="strMiniSaturday">SAT</string>
+	<string name="strMiniSunday">SUN</string>
 </resources>

@@ -35,7 +35,8 @@ import moe.fluffy.app.R;
 
 @SuppressLint("DefaultLocale")
 public class Date {
-	public static String Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday;
+	public static String Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday,
+		miniMonday, miniTuesday, miniWednesday, miniThursday, miniFriday, miniSaturday, miniSunday;
 
 	protected int year, month, day;
 	private static String TAG = "log_DateType";
@@ -69,6 +70,13 @@ public class Date {
 		Friday = context.getString(R.string.strFriday);
 		Saturday = context.getString(R.string.strSaturday);
 		Sunday = context.getString(R.string.strSunday);
+		miniMonday = context.getString(R.string.strMiniMonday);
+		miniTuesday = context.getString(R.string.strMiniTuesday);
+		miniWednesday = context.getString(R.string.strMiniWednesday);
+		miniThursday = context.getString(R.string.strMiniThursday);
+		miniFriday = context.getString(R.string.strMiniFriday);
+		miniSaturday = context.getString(R.string.strMiniSaturday);
+		miniSunday = context.getString(R.string.strMiniSunday);
 	}
 
 	public int getYear() {
@@ -114,6 +122,28 @@ public class Date {
 				throw new IllegalStateException(String.format("%s => %s", ERROR.UNEXPECTED_VALUE, dayOfWeek));
 		}
 	}
+
+	public static String getShortDayOfWeekString(int dayOfWeek) {
+		switch (dayOfWeek) {
+			case 1:
+				return Date.miniMonday;
+			case 2:
+				return Date.miniTuesday;
+			case 3:
+				return Date.miniWednesday;
+			case 4:
+				return Date.miniThursday;
+			case 5:
+				return Date.miniFriday;
+			case 6:
+				return Date.miniSaturday;
+			case 7:
+				return Date.miniSunday;
+			default:
+				throw new IllegalStateException(String.format("%s => %s", ERROR.UNEXPECTED_VALUE, dayOfWeek));
+		}
+	}
+
 
 	@NonNull
 	@Override
