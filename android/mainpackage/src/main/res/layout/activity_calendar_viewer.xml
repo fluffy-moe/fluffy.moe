@@ -59,7 +59,7 @@
 			android:layout_weight="1"
 			android:fontFamily="@font/segoe_ui_bold"
 			android:gravity="center"
-			android:text="SUN"
+			android:text="@string/strMiniSunday"
 			android:textColor="@color/calendarWeekTitle"
 			android:textSize="50px" />
 
@@ -69,7 +69,7 @@
 			android:layout_weight="1"
 			android:fontFamily="@font/segoe_ui_bold"
 			android:gravity="center"
-			android:text="MON"
+			android:text="@string/strMiniMonday"
 			android:textColor="@color/calendarWeekTitle"
 			android:textSize="50px" />
 
@@ -79,7 +79,7 @@
 			android:layout_weight="1"
 			android:fontFamily="@font/segoe_ui_bold"
 			android:gravity="center"
-			android:text="TUE"
+			android:text="@string/strMiniTuesday"
 			android:textColor="@color/calendarWeekTitle"
 			android:textSize="50px" />
 
@@ -89,7 +89,7 @@
 			android:layout_weight="1"
 			android:fontFamily="@font/segoe_ui_bold"
 			android:gravity="center"
-			android:text="WED"
+			android:text="@string/strMiniWednesday"
 			android:textColor="@color/calendarWeekTitle"
 			android:textSize="50px" />
 
@@ -99,7 +99,7 @@
 			android:layout_weight="1"
 			android:fontFamily="@font/segoe_ui_bold"
 			android:gravity="center"
-			android:text="THU"
+			android:text="@string/strMiniThursday"
 			android:textColor="@color/calendarWeekTitle"
 			android:textSize="50px" />
 
@@ -109,7 +109,7 @@
 			android:layout_weight="1"
 			android:fontFamily="@font/segoe_ui_bold"
 			android:gravity="center"
-			android:text="FRI"
+			android:text="@string/strMiniFriday"
 			android:textColor="@color/calendarWeekTitle"
 			android:textSize="50px" />
 
@@ -119,7 +119,7 @@
 			android:layout_weight="1"
 			android:fontFamily="@font/segoe_ui_bold"
 			android:gravity="center"
-			android:text="SAT"
+			android:text="@string/strMiniSaturday"
 			android:textColor="@color/calendarWeekTitle"
 			android:textSize="50px" />
 
@@ -135,13 +135,16 @@
 		<com.codbking.calendar.CalendarDateView
 			android:id="@+id/calendarDateView"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content" />
+			android:layout_height="wrap_content" >
 
-		<org.mazhuang.wrapcontentlistview.WrapContentListView
+		</com.codbking.calendar.CalendarDateView>
+
+		<ListView
 			android:id="@+id/listEvents"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:background="#ffffff" />
+			android:background="#FFFFFF" />
+
 
 	</com.codbking.calendar.CalendarLayout>
 

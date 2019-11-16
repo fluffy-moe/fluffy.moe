@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,9 +19,6 @@ import com.codbking.calendar.CalendarDateView;
 import com.codbking.calendar.CalendarUtil;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import org.mazhuang.wrapcontentlistview.WrapContentListView;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -30,7 +26,6 @@ import java.util.Date;
 import moe.fluffy.app.types.DateWithMark;
 import moe.fluffy.app.types.EventView;
 import moe.fluffy.app.types.EventsType;
-import moe.fluffy.app.types.adapter.EventAdapter;
 import moe.fluffy.app.types.adapter.EventViewAdapter;
 
 import static moe.fluffy.app.assistant.Utils.px;
@@ -39,9 +34,9 @@ public class CalendarActivity extends AppCompatActivity {
 
 
 	CalendarDateView mCalendarDateView;
-	WrapContentListView mList;
-	TextView mTitle;
-	TextView viewYear;
+	ListView lvEventDashboard;
+	TextView txtMonth;
+	TextView txtYear;
 	TextView lastSelected = null;
 
 	Button btnAddEvent;
@@ -50,9 +45,9 @@ public class CalendarActivity extends AppCompatActivity {
 
 	void find_view() {
 		mCalendarDateView = findViewById(R.id.calendarDateView);
-		mList = findViewById(R.id.listEvents);
-		mTitle = findViewById(R.id.txtCalendarTitle);
-		viewYear = findViewById(R.id.txtYearNumber);
+		lvEventDashboard = findViewById(R.id.listEvents);
+		txtMonth = findViewById(R.id.txtCalendarTitle);
+		txtYear = findViewById(R.id.txtYearNumber);
 		btnAddEvent = findViewById(R.id.btnAddEvent);
 	}
 
@@ -115,8 +110,8 @@ public class CalendarActivity extends AppCompatActivity {
 		});
 
 		mCalendarDateView.setOnItemClickListener((view, position, bean) -> {
-			mTitle.setText(getMonthString(bean.moth));
-			viewYear.setText(String.valueOf(bean.year));
+			txtMonth.setText(getMonthString(bean.moth));
+			txtYear.setText(String.valueOf(bean.year));
 			if (lastSelected != null) {
 				lastSelected.setTextColor(getColor(R.color.calendarBlack));
 			}
@@ -125,8 +120,8 @@ public class CalendarActivity extends AppCompatActivity {
 		});
 
 		int[] data = CalendarUtil.getYMD(new Date());
-		mTitle.setText(getMonthString(data[1]));
-		viewYear.setText(String.valueOf(data[0]));
+		txtMonth.setText(getMonthString(data[1]));
+		txtYear.setText(String.valueOf(data[0]));
 
 		ArrayList<EventView> es = new ArrayList<>();
 		ArrayList<EventsType> s = new ArrayList<>(Arrays.asList(dm));
@@ -134,7 +129,7 @@ public class CalendarActivity extends AppCompatActivity {
 		s.addAll(Arrays.asList(dm));
 		es.add(new EventView(false, s));
 		EventViewAdapter ea = new EventViewAdapter(this, es);
-		mList.setAdapter(ea);
+		lvEventDashboard.setAdapter(ea);
 
 
 		btnAddEvent.setOnClickListener(v -> {
