@@ -19,9 +19,11 @@
  */
 package moe.fluffy.app.types;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
@@ -33,22 +35,23 @@ import com.codbking.calendar.CalendarBean;
 import moe.fluffy.app.R;
 
 public class EventsType {
-	//private int year, month, day;
 	private DateWithMark date;
 	private String category;
 	private String body;
 
 	private static String columnYear, columnMonth, columnDay, columnCategory, columnBody, columnHour, columnMinute, columnColor;
 
-	void getColumnName(Context c){
-		columnYear = c.getString(R.string.dbEventsYear);
-		columnMonth = c.getString(R.string.dbEventsMonth);
-		columnDay = c.getString(R.string.dbEventsDay);
-		columnCategory = c.getString(R.string.dbEventsCategory);
-		columnBody = c.getString(R.string.dbEventsBody);
-		columnHour = c.getString(R.string.dbEventsHour);
-		columnMinute = c.getString(R.string.dbEventsMinute);
-		columnColor = c.getString(R.string.dbEventColor);
+	private static String TAG = "log_EventsType";
+
+	public static void getColumnName(Context context){
+		columnYear = context.getString(R.string.dbEventsYear);
+		columnMonth = context.getString(R.string.dbEventsMonth);
+		columnDay = context.getString(R.string.dbEventsDay);
+		columnCategory = context.getString(R.string.dbEventsCategory);
+		columnBody = context.getString(R.string.dbEventsBody);
+		columnHour = context.getString(R.string.dbEventsHour);
+		columnMinute = context.getString(R.string.dbEventsMinute);
+		columnColor = context.getString(R.string.dbEventColor);
 	}
 
 	public EventsType(DateWithMark d, String c, String b) {
@@ -99,12 +102,24 @@ public class EventsType {
 		return date.getDay();
 	}
 
+	public Date getDayBody() {
+		return date;
+	}
+
 	public String getCategory() {
 		return category;
 	}
 
 	public String getBody() {
 		return body;
+	}
+
+	public int getHour() {
+		return date.getHour();
+	}
+
+	public int getMinute() {
+		return date.getMinute();
 	}
 
 	@ColorRes
@@ -116,12 +131,12 @@ public class EventsType {
 		return b != null && date.equals(b);
 	}
 
-	@Override
-	public boolean equals(@Nullable Object o) {
-		return date.equals(o);
+	public boolean equals(@Nullable Date d) {
+		return date.equals(d);
 	}
 
 	public ContentValues getContentValues() {
+		Log.d(TAG, "getContentValues: " + getEventDetail());
 		ContentValues cv = new ContentValues();
 		cv.put(columnYear, date.getYear());
 		cv.put(columnMonth, date.getMonth());
@@ -132,6 +147,12 @@ public class EventsType {
 		cv.put(columnBody, body);
 		cv.put(columnColor, date.getColor());
 		return cv;
+	}
+
+	@SuppressLint("DefaultLocale")
+	public String getEventDetail() {
+		return String.format("Event: %s; Date: %04d/%02d/%02d Time: %02d:%02d; Category: %s; color: %d",
+				body, date.getYear(), date.getMonth(), getDay(), getHour(), getMinute(), category, date.getColor());
 	}
 
 	public String getDayOfWeek() {

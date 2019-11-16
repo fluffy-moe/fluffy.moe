@@ -1,15 +1,10 @@
 package com.codbking.calendar;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-import static android.R.attr.listDivider;
-import static android.R.attr.max;
-import static android.R.attr.y;
-import static android.R.id.list;
 import static com.codbking.calendar.CalendarUtil.getDayOfWeek;
 
 
@@ -39,7 +34,7 @@ public class CalendarFactory {
 
         //计算出一月第一天是星期几
         int fweek = getDayOfWeek(y, m, 1);
-        int total = CalendarUtil.getDayOfMaonth(y, m);
+        int total = CalendarUtil.getDayOfMonth(y, m);
 
         //根据星期推出前面还有几个显示
         for (int i = fweek - 1; i > 0; i--) {

@@ -27,7 +27,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.codbking.calendar.CalendarBean;
+import com.codbking.calendar.CalendarUtil;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import moe.fluffy.app.BuildConfig;
@@ -38,12 +42,28 @@ public class Date {
 	public static String Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday,
 		miniMonday, miniTuesday, miniWednesday, miniThursday, miniFriday, miniSaturday, miniSunday;
 
+	public static Date today;
+
 	protected int year, month, day;
 	private static String TAG = "log_DateType";
-	Date(int _year, int _month, int _day) {
+
+	public static Date getToday() {
+		if (today == null) {
+			today = new Date(CalendarUtil.getYMD(new java.util.Date()));
+			Log.v(TAG, "Today is " + today.year + "/" + today.month + "/" + today.day);
+		}
+		return today;
+	}
+	public Date(int _year, int _month, int _day) {
 		year = _year;
 		month = _month;
 		day = _day;
+	}
+
+	public Date(int[] s) {
+		year = s[0];
+		month = s[1];
+		day = s[2];
 	}
 
 	/**
@@ -96,10 +116,46 @@ public class Date {
 		return (c.year == this.year) && (c.moth == this.month) && (c.day == this.day);
 	}
 
+	public boolean equals(@Nullable Date d) {
+		return d != null && (d.year == this.year) && (d.month == this.month) && (d.day == this.day);
+	}
+
+
 	public int getDayOfWeek() {
 		Calendar c = Calendar.getInstance();
 		c.set(year, month, day);
 		return c.get(Calendar.DAY_OF_WEEK);
+	}
+
+	public long toTimestamp() {
+		try {
+			DateFormat f = new SimpleDateFormat("yyyy/MM/dd");
+			java.util.Date date = f.parse(String.format("%d/%02d/%02d", year, month, day));
+			return date.getTime();
+		} catch (ParseException | NullPointerException e){
+			Log.e(TAG, "toTimestamp: Error while parse timestamp", e);
+			return 0;
+		}
+	}
+
+	public boolean moreThan(Date d) {
+		return toTimestamp() > d.toTimestamp();
+	}
+
+	public boolean moreThanOrEqual(Date d) {
+		return equals(d) || moreThan(d);
+	}
+
+	public boolean smallThan(Date d) {
+		return !moreThanOrEqual(d);
+	}
+
+	public boolean smallThanOrEqual(Date d) {
+		return !moreThan(d);
+	}
+
+	public boolean different(Date d) {
+		return !equals(d);
 	}
 
 	public static String getDayOfWeekString(int dayOfWeek) {

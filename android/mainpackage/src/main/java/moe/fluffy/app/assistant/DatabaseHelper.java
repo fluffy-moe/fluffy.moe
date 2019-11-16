@@ -31,6 +31,7 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
 
 import com.codbking.calendar.CalendarBean;
+import com.codbking.calendar.CalendarUtil;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -53,7 +54,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private final static String TABLE_EVENTS = "events";
 	private final static String CREATE_OPTION = "CREATE TABLE `option` (`key` TEXT PRIMARY KEY, `value` TEXT)";
 	private final static String CREATE_PET = "CREATE TABLE `pet` (`name` TEXT PRIMARY KEY, `birthday` TEXT, `breed` TEXT)";
-	private final static String CREATE_EVENTS = "CREATE TABLE `events` (`key` INTEGER PRIMARY KEY AUTOINCREMENT, `year` INTEGER, `month` INTEGER, `day` INTEGER, `category` TEXT, `body` TEXT, `color` INTEGER)";
+	private final static String CREATE_EVENTS = "CREATE TABLE `events` (" +
+			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `hour` INTEGER, `minute` INTEGER, " +
+			"`category` TEXT, `body` TEXT, `color` INTEGER)";
 
 	private final static String TAG = "log_Database";
 
@@ -88,6 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_OPTION);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_PET);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
 		onCreate(db);
 	}
 
@@ -206,17 +210,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public void insertEvent(EventsType event){
 		SQLiteDatabase s = this.getWritableDatabase();
+		// TODO: should we limit an event per a day?
 		s.insert(TABLE_EVENTS, null, event.getContentValues());
 		s.close();
 	}
 
-	public EventsType[] getCurrentAndFeatureEvent() {
+	public ArrayList<EventsType> getCurrentAndFeatureEvent() {
 		SQLiteDatabase s = this.getReadableDatabase();
 		ArrayList<EventsType> arrayList = new ArrayList<>();
-		Date d = new Date(DateFormat.getDateTimeInstance().format(new SimpleDateFormat("yyyy/mm/dd")));
+		Date d = new Date(CalendarUtil.getYMD(new java.util.Date()));
 		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsBeyondYear, new String[]{String.valueOf(d.getYear())}));
 		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsBeyondYearMonth, new String[]{String.valueOf(d.getYear()), String.valueOf(d.getMonth())}));
-		return (EventsType[]) arrayList.toArray();
+		return arrayList;
 	}
 
 	public EventsType[] getEventInfo(int year, int month) {
@@ -264,10 +269,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		SQLiteDatabase s = this.getReadableDatabase();
 		Cursor c = s.rawQuery(getString(R.string.dbRawQueryAccurateDay, TABLE_EVENTS),
 				new String[]{String.valueOf(year), String.valueOf(month), String.valueOf(day)});
-		if (c.getCount() != 0)
+		if (c.getCount() != 0) {
+			c.moveToFirst();
 			color = c.getInt(c.getColumnIndexOrThrow(getString(R.string.dbEventColor)));
+		}
 		c.close();
-		Log.d(TAG, "getTodayColorID: Color => " + color);
+		//Log.d(TAG, "getTodayColorID: Color => " + color);
 		if (color != android.R.color.transparent)
 			return context.getResources().getIdentifier(String.format("event_%d", color), "color", context.getPackageName());
 		return color;

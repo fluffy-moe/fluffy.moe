@@ -20,6 +20,7 @@
 package moe.fluffy.app.types;
 
 import androidx.annotation.ColorRes;
+import androidx.annotation.Nullable;
 
 public class DateWithMark extends Datetime {
 	@ColorRes protected int color;
@@ -35,5 +36,10 @@ public class DateWithMark extends Datetime {
 	@ColorRes
 	public int getColor() {
 		return color;
+	}
+
+	@Override
+	public boolean equals(@Nullable Object obj) {
+		return super.equals(obj);
 	}
 }

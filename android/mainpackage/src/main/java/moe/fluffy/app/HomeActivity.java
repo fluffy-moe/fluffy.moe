@@ -37,6 +37,7 @@ import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.types.Date;
+import moe.fluffy.app.types.EventsType;
 import moe.fluffy.app.types.PetInfo;
 
 public class HomeActivity extends AppCompatActivity {
@@ -58,8 +59,9 @@ public class HomeActivity extends AppCompatActivity {
 		ConnectPath.loadConfig(this);
 		PetInfo.initStrings(this);
 		Date.initWeekName(this);
+		EventsType.getColumnName(this);
 		if (BuildConfig.enableDatabase)
-			dbHelper = new DatabaseHelper(this);
+			HomeActivity.dbHelper = new DatabaseHelper(this);
 
 		findViewById(R.id.btnChangeToSearch).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, SearchActivity.class)));
@@ -103,8 +105,8 @@ public class HomeActivity extends AppCompatActivity {
 
 	@Override
 	protected void onDestroy() {
-		if (dbHelper != null)
-			dbHelper.close();
+		if (HomeActivity.dbHelper != null)
+			HomeActivity.dbHelper.close();
 		super.onDestroy();
 	}
 }

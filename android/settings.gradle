@@ -1,5 +1,5 @@
-include ':mainpackage', 'WrapContentListView-master'
+include ':mainpackage', ':WrapContentListView-master'
 rootProject.name='Fluffy'
 include ':zxing-android-embedded'
 include ':android-user-agent'
-include 'codbking-calendar-lib'
+include ':codbking-calendar-lib'

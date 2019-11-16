@@ -19,6 +19,7 @@
  */
 package moe.fluffy.app.types.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import moe.fluffy.app.R;
 import moe.fluffy.app.types.EventsType;
 
+@SuppressLint("DefaultLocale")
 public class EventAdapter extends ArrayAdapter<EventsType> {
 
 	public EventAdapter(Context context, ArrayList<EventsType> adapters) {
@@ -59,12 +61,14 @@ public class EventAdapter extends ArrayAdapter<EventsType> {
 
 		viewSideColor = covertView.findViewById(R.id.viewTodayLineColor2);
 
-		viewSideColor.setBackgroundColor(getContext().getColor(it.getColor()));
+		viewSideColor.setBackgroundColor(getContext().getColor(
+				getContext().getResources().getIdentifier(String.format("event_c%d",
+						it.getColor()), "color", getContext().getPackageName())));
 
 		txtDay.setText(String.valueOf(it.getDay()));
 		txtWeek.setText(it.getDayOfWeek());
 		txtEvent.setText(it.getBody());
-		//txtView.setText(it);
+		txtTime.setText(String.format("%02d:%02d", it.getHour(), it.getMinute()));
 
 		return covertView;
 	}

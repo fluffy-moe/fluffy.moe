@@ -23,14 +23,14 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-public class EventView {
+public class EventDashboardType {
 
 	private static String TAG = "log_EventView";
 
 	String title;
 	ArrayList<EventsType> events;
 
-	public EventView(boolean isToday, ArrayList<EventsType> _events) {
+	public EventDashboardType(boolean isToday, ArrayList<EventsType> _events) {
 		title = isToday? "Today": "Coming soon";
 		events = _events;
 	}

@@ -1,9 +1,25 @@
-
+/*
+ ** Copyright (C) 2019 KunoiSayami
+ **
+ ** This file is part of Fluffy and is released under
+ ** the AGPL v3 License: https://www.gnu.org/licenses/agpl-3.0.txt
+ **
+ ** This program is free software: you can redistribute it and/or modify
+ ** it under the terms of the GNU Affero General Public License as published by
+ ** the Free Software Foundation, either version 3 of the License, or
+ ** any later version.
+ **
+ ** This program is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ ** GNU Affero General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Affero General Public License
+ ** along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package moe.fluffy.app;
 
-import androidx.annotation.ColorRes;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,23 +36,27 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.annotation.ColorRes;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.codbking.calendar.CalendarDateView;
-import com.codbking.calendar.CalendarUtil;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
+import moe.fluffy.app.assistant.Utils;
+import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.DateWithMark;
-import moe.fluffy.app.types.EventView;
+import moe.fluffy.app.types.EventDashboardType;
 import moe.fluffy.app.types.EventsType;
-import moe.fluffy.app.types.adapter.EventViewAdapter;
+import moe.fluffy.app.types.adapter.EventDashboardAdapter;
 
 import static moe.fluffy.app.assistant.Utils.px;
 
 public class CalendarActivity extends AppCompatActivity {
 
+	private static String TAG = "log_CalendarViewActivity";
 
 	CalendarDateView mCalendarDateView;
 	ListView lvEventDashboard;
@@ -50,7 +70,19 @@ public class CalendarActivity extends AppCompatActivity {
 	private String categorySelectedText;
 	@ColorRes int colorSelected;
 
-	private static String TAG = "log_CalendarViewActivity";
+	private static ArrayList<EventsType> planedEvents;
+	ArrayList<EventsType> todayEvent = new ArrayList<>(), featureEvent = new ArrayList<>();
+	ArrayList<EventDashboardType> eventDashboardTypes = new ArrayList<>();
+	EventDashboardAdapter eventDashboardAdapter;
+
+
+	private static final EventsType[] dm = {
+			new EventsType(new DateWithMark("2019/11/21", "00:00:00", R.color.event_c1), "c", "bbb"),
+			new EventsType(new DateWithMark("2019/11/31", "00:00:00", R.color.event_c2), "c", "bbb"),
+			new EventsType(new DateWithMark("2019/11/15", "00:00:00", R.color.event_c3), "c", "bbb"),
+			new EventsType(new DateWithMark("2019/11/17", "00:00:00", R.color.event_c4), "c", "bbb"),
+			new EventsType(new DateWithMark("2019/11/16", "00:00:00", R.color.event_c5), "c", "bbb"),
+	};
 
 	void find_view() {
 		mCalendarDateView = findViewById(R.id.calendarDateView);
@@ -73,13 +105,11 @@ public class CalendarActivity extends AppCompatActivity {
 	}
 
 	void init() {
-		final EventsType[] dm = {
-				new EventsType(new DateWithMark("2019/11/21", "00:00:00", R.color.event_c1), "c", "bbb"),
-				new EventsType(new DateWithMark("2019/11/31", "00:00:00", R.color.event_c2), "c", "bbb"),
-				new EventsType(new DateWithMark("2019/11/15", "00:00:00", R.color.event_c3), "c", "bbb"),
-				new EventsType(new DateWithMark("2019/11/17", "00:00:00", R.color.event_c4), "c", "bbb"),
-				new EventsType(new DateWithMark("2019/11/16", "00:00:00", R.color.event_c5), "c", "bbb"),
-		};
+
+		eventDashboardAdapter = new EventDashboardAdapter(this, eventDashboardTypes);
+		updateEventsDashboard(false);
+		lvEventDashboard.setAdapter(eventDashboardAdapter);
+
 		mCalendarDateView.setAdapter((convertView, parentView, bean) -> {
 			TextView viewMonth;
 			View underlineView;
@@ -127,44 +157,106 @@ public class CalendarActivity extends AppCompatActivity {
 			lastDateSelected.setTextColor(getColor(R.color.calendarOnSelect));
 		});
 
-		// init title
-		int[] data = CalendarUtil.getYMD(new Date());
-		txtMonth.setText(getMonthString(data[1]));
-		txtYear.setText(String.valueOf(data[0]));
 
-		// init events
-		ArrayList<EventView> es = new ArrayList<>();
-		ArrayList<EventsType> s = new ArrayList<>(Arrays.asList(dm));
-		es.add(new EventView(true, new ArrayList<>(Arrays.asList(dm))));
-		s.addAll(Arrays.asList(dm));
-		es.add(new EventView(false, s));
-		EventViewAdapter ea = new EventViewAdapter(this, es);
-		lvEventDashboard.setAdapter(ea);
+
+		txtMonth.setText(getMonthString(Date.getToday().getMonth()));
+		txtYear.setText(String.valueOf(Date.getToday().getYear()));
 
 
 		btnAddEvent.setOnClickListener(_v -> {
+
 			View viewAddEventPopup = getLayoutInflater().inflate(R.layout.calendar_addevent_bottom, null);
+			TimePicker timePicker = viewAddEventPopup.findViewById(R.id.tpEventInsert);
+			DatePicker datePicker = viewAddEventPopup.findViewById(R.id.dpEventInsert);
+			ImageButton btnConfirm = viewAddEventPopup.findViewById(R.id.imgbtnCalendarSave);
+			EditText etBody = viewAddEventPopup.findViewById(R.id.etCalendarBody);
 			BottomSheetDialog dialog = new BottomSheetDialog(this);
 			Window w = dialog.getWindow();
+
 			if (w != null) {
 				w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 				w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 						WindowManager.LayoutParams.FLAG_FULLSCREEN);
 				w.requestFeature(Window.FEATURE_NO_TITLE);
 			}
+
 			dialog.setContentView(viewAddEventPopup);
-			TimePicker timePicker = viewAddEventPopup.findViewById(R.id.tpEventInsert);
-			DatePicker datePicker = viewAddEventPopup.findViewById(R.id.dpEventInsert);
 			timePicker.setIs24HourView(true);
-			ImageButton btnConfirm = viewAddEventPopup.findViewById(R.id.imgbtnCalendarSave);
-			EditText etBody = viewAddEventPopup.findViewById(R.id.etCalendarBody);
 			initPopupColorPick(viewAddEventPopup);
+			initCategoryButton(viewAddEventPopup);
+			etBody.setOnFocusChangeListener((view, hasFocus) ->
+					Utils.onFocusChange(hasFocus, CalendarActivity.this, etBody, R.string.etCalendarAddEventHint, false));
 			btnConfirm.setOnClickListener( l -> {
-				HomeActivity.dbHelper.insertEvent(new EventsType(datePicker, timePicker, 0, "", etBody.getText().toString()));
+				EventsType et = new EventsType(datePicker, timePicker, colorSelected, categorySelectedText, etBody.getText().toString());
+				HomeActivity.dbHelper.insertEvent(et);
+				//planedEvents.add(et);
+				if (et.getDayBody().moreThan(Date.getToday())) {
+					Log.d(TAG, "init: More then today");
+					/*if (et.getDayBody().equals(Date.getToday())) {
+						todayEvent.add(et);
+					} else {
+						featureEvent.add(et);
+					}*/
+					planedEvents.add(et);
+					updateEventsDashboard(true);
+				}
 				Log.d(TAG, "init: Insert successful");
 			});
 			dialog.show();
 		});
+	}
+
+	void updateEventsDashboard(boolean requestUpdateAdapter) {
+		// Check is database enabled
+		if (!requestUpdateAdapter)
+			if (BuildConfig.enableDatabase) {
+				planedEvents = HomeActivity.dbHelper.getCurrentAndFeatureEvent();
+			} else {
+				planedEvents = new ArrayList<>(Arrays.asList(dm));
+			}
+
+		todayEvent.clear();
+		featureEvent.clear();
+
+		planedEvents.forEach(eventsType -> {
+			if (eventsType.equals(Date.getToday())) {
+				todayEvent.add(eventsType);
+			} else {
+				featureEvent.add(eventsType);
+			}
+		});
+		if (todayEvent.size() != 0) {
+			eventDashboardTypes.add(new EventDashboardType(true, todayEvent));
+		}
+		if (featureEvent.size() != 0) {
+			eventDashboardTypes.add(new EventDashboardType(false, featureEvent));
+		}
+
+		if (requestUpdateAdapter)
+			eventDashboardAdapter.notifyDataSetChanged();
+	}
+
+	void initCategoryButton(View viewAddEventPopup) {
+		Button btnEvent, btnNote, btnSymptom, btnWater;
+		btnEvent = viewAddEventPopup.findViewById(R.id.btnCalendarEvent);
+		btnNote = viewAddEventPopup.findViewById(R.id.btnCalendarNote);
+		btnSymptom = viewAddEventPopup.findViewById(R.id.btnCalendarSymptom);
+		btnWater = viewAddEventPopup.findViewById(R.id.btnCalendarWater);
+		categorySelectedText = getString(R.string.categoryEvent);
+		btnEvent.setOnClickListener(v ->
+				categoryOnClick(btnEvent, getString(R.string.categoryEvent)));
+		btnNote.setOnClickListener(v ->
+				categoryOnClick(btnNote, getString(R.string.categoryNote)));
+		btnSymptom.setOnClickListener(v ->
+				categoryOnClick(btnSymptom, getString(R.string.categorySymptom)));
+		btnWater.setOnClickListener(v ->
+				categoryOnClick(btnWater, getString(R.string.categoryWater)));
+	}
+
+	void categoryOnClick(Button btn, String category) {
+		Log.v(TAG, "categoryOnClick => " + category);
+		// do something
+		categorySelectedText = category;
 	}
 
 	void initPopupColorPick(View viewAddEventPopup) {
@@ -174,16 +266,16 @@ public class CalendarActivity extends AppCompatActivity {
 		imgbtnColor3 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarBlue);
 		imgbtnColor4 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarGreen);
 		imgbtnColor5 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarPink);
-		initColorPick(imgbtnColor1, R.color.event_c1);
-		initColorPick(imgbtnColor2, R.color.event_c2);
-		initColorPick(imgbtnColor3, R.color.event_c3);
-		initColorPick(imgbtnColor4, R.color.event_c4);
-		initColorPick(imgbtnColor5, R.color.event_c5);
+		initColorPick(imgbtnColor1, 1);
+		initColorPick(imgbtnColor2, 2);
+		initColorPick(imgbtnColor3, 3);
+		initColorPick(imgbtnColor4, 4);
+		initColorPick(imgbtnColor5, 5);
 
 		// let button 1 to color default
 		changeClickColor(imgbtnColor1, R.color.event_c1);
 		btnColorSelected = imgbtnColor1;
-		colorSelected = R.color.event_c1;
+		colorSelected = 1;
 	}
 
 	/**
@@ -204,17 +296,23 @@ public class CalendarActivity extends AppCompatActivity {
 		((GradientDrawable)v.getBackground()).setColor(getColor(color));
 	}
 
-	private void colorOnClickListener(ImageButton imgbtn, @ColorRes int color) {
+	private void colorOnClickListener(ImageButton imgbtn, int color) {
 		if (btnColorSelected != null && btnColorSelected != imgbtn) {
 			changeClickColor(btnColorSelected, android.R.color.transparent);
 		}
-		changeClickColor(imgbtn, color);
+		changeClickColor(imgbtn, getColorRes(color));
 		btnColorSelected = imgbtn;
 		colorSelected = color;
 	}
 
-	private void initColorPick(ImageButton imgbtn, @ColorRes int color) {
-		changeStrokeColor(imgbtn, color);
+	@SuppressLint("DefaultLocale")
+	@ColorRes
+	private int getColorRes(int id) {
+		return getResources().getIdentifier(String.format("event_c%d", id), "color", getPackageName());
+	}
+
+	private void initColorPick(ImageButton imgbtn, int color) {
+		changeStrokeColor(imgbtn, getColorRes(color));
 		imgbtn.setOnClickListener(v ->
 				colorOnClickListener(imgbtn, color));
 	}
@@ -222,6 +320,7 @@ public class CalendarActivity extends AppCompatActivity {
 	private
 	String getMonthString(int num) {
 		if (BuildConfig.DEBUG && !(num > 0 && num < 13)) {
+			Log.e(TAG, "getMonthString: assert error occurred. num => " + num);
 			throw new AssertionError();
 		}
 		return getResources().getStringArray(R.array.month)[num - 1];

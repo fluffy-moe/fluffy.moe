@@ -26,27 +26,22 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.Px;
-
-import com.journeyapps.barcodescanner.Util;
-
 import org.mazhuang.wrapcontentlistview.WrapContentListView;
 
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.assistant.Utils;
-import moe.fluffy.app.types.EventView;
+import moe.fluffy.app.types.EventDashboardType;
 
-public class EventViewAdapter extends ArrayAdapter<EventView> {
+public class EventDashboardAdapter extends ArrayAdapter<EventDashboardType> {
 	EventAdapter ea;
-	public EventViewAdapter(Context context, ArrayList<EventView> adapters) {
+	public EventDashboardAdapter(Context context, ArrayList<EventDashboardType> adapters) {
 		super(context, android.R.layout.simple_list_item_1,adapters);
 	}
 
 	@Override
 	public View getView(int position, View covertView, ViewGroup parent) {
-		EventView it = getItem(position);
+		EventDashboardType it = getItem(position);
 
 		TextView txtView;
 		WrapContentListView lvTasks;

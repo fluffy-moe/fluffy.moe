@@ -19,6 +19,8 @@
  */
 package moe.fluffy.app.types;
 
+import androidx.annotation.Nullable;
+
 public class Datetime extends Date {
 	protected int hour, minute, second, millionSecond;
 	Datetime(int _year, int _month, int _day, int _hour, int _minute, int _second, int _millionSecond) {
@@ -52,5 +54,10 @@ public class Datetime extends Date {
 
 	public int getMillionSecond() {
 		return millionSecond;
+	}
+
+	@Override
+	public boolean equals(@Nullable Object obj) {
+		return super.equals(obj);
 	}
 }

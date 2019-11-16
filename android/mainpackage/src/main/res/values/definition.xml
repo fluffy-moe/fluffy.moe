@@ -67,4 +67,12 @@
 	<string name="jsonTitleImageResourceName">photo_filename</string>
 	<!-- article json field end -->
 
+	<!-- category string -->
+	<string name="categoryEvent">Event</string>
+	<string name="categoryNote">Note</string>
+	<string name="categorySymptom">Symptom</string>
+	<string name="categoryWater">Water</string>
+	<!-- category string end -->
+
+
 </resources>

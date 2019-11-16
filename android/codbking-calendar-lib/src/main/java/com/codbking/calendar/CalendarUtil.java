@@ -18,7 +18,7 @@ public class CalendarUtil {
     }
 
     //获取一月最大天数
-    public static int getDayOfMaonth(int y, int m) {
+    public static int getDayOfMonth(int y, int m) {
         Calendar cal = Calendar.getInstance();
         cal.set(y, m - 1, 1);
         int dateOfMonth = cal.getActualMaximum(Calendar.DATE);

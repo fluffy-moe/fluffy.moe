@@ -26,6 +26,7 @@
 	<string name="ERROR_UNEXPECTED_VALUE">Unexpected selection</string>
 	<string name="ERROR_UNEXPECTED_LENGTH">Unexpected length</string>
 	<string name="searchBookEditText">search</string>
+	<string name="etCalendarAddEventHint">Write the title</string>
 	<!-- ERRORS END -->
 
 </resources>
