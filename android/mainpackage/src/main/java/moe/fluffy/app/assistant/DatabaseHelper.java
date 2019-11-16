@@ -25,6 +25,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
@@ -258,7 +259,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	@SuppressLint("DefaultLocale")
-	@ColorRes
 	public int getTodayColorID(int year, int month, int day) {
 		int color = android.R.color.transparent;
 		SQLiteDatabase s = this.getReadableDatabase();
@@ -267,6 +267,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if (c.getCount() != 0)
 			color = c.getInt(c.getColumnIndexOrThrow(getString(R.string.dbEventColor)));
 		c.close();
-		return context.getResources().getIdentifier(String.format("event_%d", color), "color", context.getPackageName());
+		Log.d(TAG, "getTodayColorID: Color => " + color);
+		if (color != android.R.color.transparent)
+			return context.getResources().getIdentifier(String.format("event_%d", color), "color", context.getPackageName());
+		return color;
 	}
 }

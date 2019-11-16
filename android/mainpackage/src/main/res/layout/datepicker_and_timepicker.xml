@@ -18,7 +18,7 @@
 				android:orientation="horizontal">
 
 				<DatePicker
-					android:id="@+id/datePickerExample"
+					android:id="@+id/dpEventInsert"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_weight="1"
@@ -31,7 +31,7 @@
 					android:startYear="2000" />
 
 				<TimePicker
-					android:id="@+id/timePickerExample"
+					android:id="@+id/tpEventInsert"
 					style="@style/TimePickerStyle"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
@@ -41,10 +41,5 @@
 
 			</LinearLayout>
 
-			<TextView
-				android:id="@+id/textViewShowDateTime"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:text="" />
 		</LinearLayout>
 </ScrollView>

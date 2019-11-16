@@ -20,7 +20,6 @@
 package moe.fluffy.app;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -29,14 +28,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.assistant.Connect;
@@ -166,7 +162,7 @@ public class RegisterActivity extends AppCompatActivity {
 				final AlertDialog alertDialog = new AlertDialog.Builder(RegisterActivity.this).create();
 
 				dialogView.findViewById(R.id.btnPickConfirm).setOnClickListener(v -> {
-					DatePicker datePicker = dialogView.findViewById(R.id.datePickerExample);
+					DatePicker datePicker = dialogView.findViewById(R.id.dpEventInsert);
 					etBirthday.setText(String.format("%s/%s/%s", datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth()));
 					alertDialog.dismiss();
 				});

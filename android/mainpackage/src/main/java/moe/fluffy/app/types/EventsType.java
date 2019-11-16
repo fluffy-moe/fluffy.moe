@@ -22,6 +22,8 @@ package moe.fluffy.app.types;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
@@ -51,6 +53,18 @@ public class EventsType {
 
 	public EventsType(DateWithMark d, String c, String b) {
 		date = d;
+		category = c;
+		body = b;
+	}
+
+	public EventsType(int _year, int _month, int _day, int _hour, int _minute, int color, String c, String b) {
+		date = new DateWithMark(_year, _month, _day, _hour, _minute, 0,0, color);
+		category = c;
+		body = b;
+	}
+
+	public EventsType(DatePicker dp, TimePicker tp, int color, String c, String b) {
+		date = new DateWithMark(dp.getYear(), dp.getMonth(), dp.getDayOfMonth(), tp.getHour(), tp.getMinute(), 0, 0, color);
 		category = c;
 		body = b;
 	}

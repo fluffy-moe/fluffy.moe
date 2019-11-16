@@ -1,8 +1,10 @@
 
 package moe.fluffy.app;
 
+import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -40,6 +45,10 @@ public class CalendarActivity extends AppCompatActivity {
 	TextView lastSelected = null;
 
 	Button btnAddEvent;
+
+	private ImageButton btnColorSelected, categorySelected;
+	private String categorySelectedText;
+	@ColorRes int colorSeleted;
 
 	private static String TAG = "log_CalendarViewActivity";
 
@@ -131,15 +140,39 @@ public class CalendarActivity extends AppCompatActivity {
 		lvEventDashboard.setAdapter(ea);
 
 
-		btnAddEvent.setOnClickListener(v -> {
+		btnAddEvent.setOnClickListener(_v -> {
 			View viewAddEventPopup = getLayoutInflater().inflate(R.layout.calendar_addevent_bottom, null);
 			BottomSheetDialog dialog = new BottomSheetDialog(this);
 			dialog.setContentView(viewAddEventPopup);
 			Window w = dialog.getWindow();
 			if (w != null)
 				w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-			TimePicker timePicker = viewAddEventPopup.findViewById(R.id.timePickerExample);
+			TimePicker timePicker = viewAddEventPopup.findViewById(R.id.tpEventInsert);
+			DatePicker datePicker = viewAddEventPopup.findViewById(R.id.dpEventInsert);
+			/*ImageButton imgbtnColor1, imgbtnColor2, imgbtnColor3, imgbtnColor4, imgbtnColor5;
+			imgbtnColor1 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarOrange);
+			imgbtnColor2 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarRed);
+			imgbtnColor3 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarBlue);
+			imgbtnColor4 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarGreen);
+			imgbtnColor5 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarPink);
+
+			imgbtnColor1.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (btnColorSelected != null) {
+						btnColorSelected = imgbtnColor1;
+					}
+					GradientDrawable gd = (GradientDrawable)v.getBackground();
+					gd.setStroke(5, getColor(R.color.event_c1));
+				}
+			});*/
 			timePicker.setIs24HourView(true);
+			ImageButton btnConfirm = viewAddEventPopup.findViewById(R.id.imgbtnCalendarSave);
+			EditText etBody = viewAddEventPopup.findViewById(R.id.etCalendarBody);
+			btnConfirm.setOnClickListener( l -> {
+				HomeActivity.dbHelper.insertEvent(new EventsType(datePicker, timePicker, 0, "", etBody.getText().toString()));
+				Log.d(TAG, "init: Insert successful");
+			});
 			dialog.show();
 		});
 	}
@@ -151,5 +184,7 @@ public class CalendarActivity extends AppCompatActivity {
 		}
 		return getResources().getStringArray(R.array.month)[num - 1];
 	}
+
+
 
 }

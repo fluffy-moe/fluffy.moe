@@ -34,7 +34,7 @@
 
 	<include
 		android:id="@+id/viewCalendarPick"
-		layout="@layout/dap"
+		layout="@layout/datepicker_and_timepicker"
 		android:layout_width="373dp"
 		android:layout_height="225dp"
 		android:layout_marginTop="88dp"
@@ -82,7 +82,7 @@
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<EditText
-		android:id="@+id/etCalendarTitle"
+		android:id="@+id/etCalendarBody"
 		android:layout_width="719px"
 		android:layout_height="104.93px"
 		android:layout_marginStart="359px"
@@ -248,7 +248,7 @@
 		android:layout_height="65px"
 		android:layout_marginStart="357px"
 		android:layout_marginTop="1267px"
-		android:background="@drawable/ic_ellipse_19"
+		android:background="@drawable/hollow_color"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
@@ -259,7 +259,7 @@
 		android:layout_height="65px"
 		android:layout_marginStart="553px"
 		android:layout_marginTop="1267px"
-		android:background="@drawable/ic_ellipse_19"
+		android:background="@drawable/hollow_color"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -267,31 +267,31 @@
 		android:id="@+id/rdbtnCalendarGreen"
 		android:layout_width="65px"
 		android:layout_height="65px"
-		android:background="@drawable/ic_ellipse_19"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
 		android:layout_marginStart="651px"
-		android:layout_marginTop="1267px" />
+		android:layout_marginTop="1267px"
+		android:background="@drawable/hollow_color"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<ImageButton
 		android:id="@+id/rdbtnCalendarRed"
 		android:layout_width="65px"
 		android:layout_height="65px"
-		android:background="@drawable/ic_ellipse_19"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
 		android:layout_marginStart="455px"
-		android:layout_marginTop="1267px" />
+		android:layout_marginTop="1267px"
+		android:background="@drawable/hollow_color"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<ImageButton
 		android:id="@+id/rdbtnCalendarPink"
 		android:layout_width="65px"
 		android:layout_height="65px"
-		android:background="@drawable/ic_ellipse_19"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
 		android:layout_marginStart="749px"
-		android:layout_marginTop="1267px" />
+		android:layout_marginTop="1267px"
+		android:background="@drawable/hollow_color"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<androidx.constraintlayout.widget.Guideline
 		android:id="@+id/guideline2"

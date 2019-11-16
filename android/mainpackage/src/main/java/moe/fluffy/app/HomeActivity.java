@@ -58,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
 		ConnectPath.loadConfig(this);
 		PetInfo.initStrings(this);
 		Date.initWeekName(this);
-		if (BuildConfig.enableDatabase) // Not ready to work
+		if (BuildConfig.enableDatabase)
 			dbHelper = new DatabaseHelper(this);
 
 		findViewById(R.id.btnChangeToSearch).setOnClickListener(

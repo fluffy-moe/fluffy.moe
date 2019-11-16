@@ -29,9 +29,9 @@
 	<string name="dbOptionSession">session</string>
 	<string name="dbOptionPetType">type</string>
 	<string name="dbOptionUser">user</string>
-	<string name="dbOptionsPetName">petName</string>
-	<string name="dbOptionsPetBreed">petBreed</string>
-	<string name="dbOptionsPetBirthday">petBirthday</string>
+	<string name="dbOptionsPetName">name</string>
+	<string name="dbOptionsPetBreed">breed</string>
+	<string name="dbOptionsPetBirthday">birthday</string>
 
 	<string name="dbRawQueryPetInfo">SELECT * FROM `%s` WHERE `name` = ?</string>
 	<string name="dbRawQueryEventsFromYearMonth">SELECT * FROM `%s` WHERE `year` = ? AND `month` = ?</string>

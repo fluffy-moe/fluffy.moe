@@ -29,7 +29,7 @@ public class DatePickerTimePickerActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.dap);
+		setContentView(R.layout.datepicker_and_timepicker);
 
 		// Get current calendar date and time.
 		Calendar currCalendar = Calendar.getInstance();
@@ -47,7 +47,7 @@ public class DatePickerTimePickerActivity extends AppCompatActivity {
 		showUserSelectDateTime();
 
 		// Get date picker object.
-		DatePicker datePicker = findViewById(R.id.datePickerExample);
+		DatePicker datePicker = findViewById(R.id.dpEventInsert);
 		datePicker.init(year - 1, month  + 1, day + 5, new DatePicker.OnDateChangedListener() {
 			@Override
 			public void onDateChanged(DatePicker datePicker, int year, int month, int day) {
@@ -60,7 +60,7 @@ public class DatePickerTimePickerActivity extends AppCompatActivity {
 		});
 
 		// Get time picker object.
-		TimePicker timePicker = findViewById(R.id.timePickerExample);
+		TimePicker timePicker = findViewById(R.id.tpEventInsert);
 		timePicker.setHour(this.hour);
 		timePicker.setMinute(this.minute);
 
