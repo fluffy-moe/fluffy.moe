@@ -60,8 +60,7 @@ public class HomeActivity extends AppCompatActivity {
 		PetInfo.initStrings(this);
 		Date.initWeekName(this);
 		EventsType.getColumnName(this);
-		if (BuildConfig.enableDatabase)
-			HomeActivity.dbHelper = new DatabaseHelper(this);
+		HomeActivity.dbHelper = new DatabaseHelper(this);
 
 		findViewById(R.id.btnChangeToSearch).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, SearchActivity.class)));

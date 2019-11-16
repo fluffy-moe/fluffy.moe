@@ -43,11 +43,9 @@ import com.codbking.calendar.CalendarDateView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.Date;
-import moe.fluffy.app.types.DateWithMark;
 import moe.fluffy.app.types.EventDashboardType;
 import moe.fluffy.app.types.EventsType;
 import moe.fluffy.app.types.adapter.EventDashboardAdapter;
@@ -74,15 +72,6 @@ public class CalendarActivity extends AppCompatActivity {
 	ArrayList<EventsType> todayEvent = new ArrayList<>(), featureEvent = new ArrayList<>();
 	ArrayList<EventDashboardType> eventDashboardTypes = new ArrayList<>();
 	EventDashboardAdapter eventDashboardAdapter;
-
-
-	private static final EventsType[] dm = {
-			new EventsType(new DateWithMark("2019/11/21", "00:00:00", R.color.event_c1), "c", "bbb"),
-			new EventsType(new DateWithMark("2019/11/31", "00:00:00", R.color.event_c2), "c", "bbb"),
-			new EventsType(new DateWithMark("2019/11/15", "00:00:00", R.color.event_c3), "c", "bbb"),
-			new EventsType(new DateWithMark("2019/11/17", "00:00:00", R.color.event_c4), "c", "bbb"),
-			new EventsType(new DateWithMark("2019/11/16", "00:00:00", R.color.event_c5), "c", "bbb"),
-	};
 
 	void find_view() {
 		mCalendarDateView = findViewById(R.id.calendarDateView);
@@ -131,18 +120,9 @@ public class CalendarActivity extends AppCompatActivity {
 				viewMonth.setTextColor(getColor(R.color.calendarBlack));
 			}
 
-			if (BuildConfig.enableDatabase)
-				underlineView.setBackgroundColor(
-						getColor(HomeActivity.dbHelper.getTodayColorID(bean.year, bean.moth, bean.day)));
-			else
-				// TODO: use another method to improve speed
-				for (EventsType d : dm) {
-					if (d.equals(bean)) {
-						underlineView.setBackgroundResource(d.getColor());
-						// marked
-						break;
-					}
-				}
+			//Log.d(TAG, "init: color_id => " + color_id);
+			underlineView.setBackgroundColor(
+					getColor(HomeActivity.dbHelper.getTodayColorID(bean.year, bean.moth, bean.day)));
 
 			return convertView;
 		});
@@ -167,7 +147,7 @@ public class CalendarActivity extends AppCompatActivity {
 
 			View viewAddEventPopup = getLayoutInflater().inflate(R.layout.calendar_addevent_bottom, null);
 			TimePicker timePicker = viewAddEventPopup.findViewById(R.id.tpEventInsert);
-			DatePicker datePicker = viewAddEventPopup.findViewById(R.id.dpEventInsert);
+			DatePicker datePicker = viewAddEventPopup.findViewById(R.id.dpCalendarEventInsert);
 			ImageButton btnConfirm = viewAddEventPopup.findViewById(R.id.imgbtnCalendarSave);
 			EditText etBody = viewAddEventPopup.findViewById(R.id.etCalendarBody);
 			BottomSheetDialog dialog = new BottomSheetDialog(this);
@@ -190,17 +170,14 @@ public class CalendarActivity extends AppCompatActivity {
 				EventsType et = new EventsType(datePicker, timePicker, colorSelected, categorySelectedText, etBody.getText().toString());
 				HomeActivity.dbHelper.insertEvent(et);
 				//planedEvents.add(et);
-				if (et.getDayBody().moreThan(Date.getToday())) {
-					Log.d(TAG, "init: More then today");
-					/*if (et.getDayBody().equals(Date.getToday())) {
-						todayEvent.add(et);
-					} else {
-						featureEvent.add(et);
-					}*/
+				if (et.getDayBody().moreThanOrEqual(Date.getToday())) {
 					planedEvents.add(et);
 					updateEventsDashboard(true);
 				}
-				Log.d(TAG, "init: Insert successful");
+				//Log.d(TAG, "init: Insert successful");
+				btnColorSelected = null;
+				colorSelected = 0;
+				dialog.dismiss();
 			});
 			dialog.show();
 		});
@@ -209,14 +186,11 @@ public class CalendarActivity extends AppCompatActivity {
 	void updateEventsDashboard(boolean requestUpdateAdapter) {
 		// Check is database enabled
 		if (!requestUpdateAdapter)
-			if (BuildConfig.enableDatabase) {
-				planedEvents = HomeActivity.dbHelper.getCurrentAndFeatureEvent();
-			} else {
-				planedEvents = new ArrayList<>(Arrays.asList(dm));
-			}
+			planedEvents = HomeActivity.dbHelper.getCurrentAndFeatureEvent();
 
 		todayEvent.clear();
 		featureEvent.clear();
+		eventDashboardTypes.clear();
 
 		planedEvents.forEach(eventsType -> {
 			if (eventsType.equals(Date.getToday())) {
@@ -313,6 +287,8 @@ public class CalendarActivity extends AppCompatActivity {
 
 	private void initColorPick(ImageButton imgbtn, int color) {
 		changeStrokeColor(imgbtn, getColorRes(color));
+		// Make sure circle is hollow
+		changeClickColor(imgbtn, android.R.color.transparent);
 		imgbtn.setOnClickListener(v ->
 				colorOnClickListener(imgbtn, color));
 	}

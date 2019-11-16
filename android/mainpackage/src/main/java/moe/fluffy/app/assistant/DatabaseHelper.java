@@ -276,7 +276,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		c.close();
 		//Log.d(TAG, "getTodayColorID: Color => " + color);
 		if (color != android.R.color.transparent)
-			return context.getResources().getIdentifier(String.format("event_%d", color), "color", context.getPackageName());
+			return context.getResources().getIdentifier(String.format("event_c%d", color), "color", context.getPackageName());
 		return color;
 	}
 }

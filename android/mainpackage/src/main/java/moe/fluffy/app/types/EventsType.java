@@ -67,7 +67,7 @@ public class EventsType {
 	}
 
 	public EventsType(DatePicker dp, TimePicker tp, int color, String c, String b) {
-		date = new DateWithMark(dp.getYear(), dp.getMonth(), dp.getDayOfMonth(), tp.getHour(), tp.getMinute(), 0, 0, color);
+		date = new DateWithMark(dp.getYear(), dp.getMonth() + 1, dp.getDayOfMonth(), tp.getHour(), tp.getMinute(), 0, 0, color);
 		category = c;
 		body = b;
 	}

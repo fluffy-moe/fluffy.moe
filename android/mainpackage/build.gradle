@@ -25,9 +25,9 @@ android {
     }
 
     // Reference: https://proandroiddev.com/advanced-android-flavors-part-5-the-buildconfig-strikes-back-6230ef4e0d29
-    applicationVariants.all { variant ->
+    /*applicationVariants.all { variant ->
         variant.buildConfigField 'boolean', 'enableDatabase', 'true'
-    }
+    }*/
 }
 
 dependencies {
