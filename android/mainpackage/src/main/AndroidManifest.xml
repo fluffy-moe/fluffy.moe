@@ -21,7 +21,6 @@
 		<activity android:name=".WelcomeActivity" />
 		<activity android:name=".ArticleActivity" />
 		<activity android:name=".BoostScanActivity" />
-		<activity android:name=".DatePickerTimePickerActivity" />
 		<activity android:name=".HomeActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

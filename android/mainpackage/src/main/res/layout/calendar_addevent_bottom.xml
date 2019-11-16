@@ -248,7 +248,7 @@
 		android:layout_height="65px"
 		android:layout_marginStart="357px"
 		android:layout_marginTop="1267px"
-		android:background="@drawable/hollow_color"
+		android:background="@drawable/hollow_circle"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
@@ -259,7 +259,7 @@
 		android:layout_height="65px"
 		android:layout_marginStart="553px"
 		android:layout_marginTop="1267px"
-		android:background="@drawable/hollow_color"
+		android:background="@drawable/hollow_circle"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -269,7 +269,7 @@
 		android:layout_height="65px"
 		android:layout_marginStart="651px"
 		android:layout_marginTop="1267px"
-		android:background="@drawable/hollow_color"
+		android:background="@drawable/hollow_circle"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -279,7 +279,7 @@
 		android:layout_height="65px"
 		android:layout_marginStart="455px"
 		android:layout_marginTop="1267px"
-		android:background="@drawable/hollow_color"
+		android:background="@drawable/hollow_circle"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -289,7 +289,7 @@
 		android:layout_height="65px"
 		android:layout_marginStart="749px"
 		android:layout_marginTop="1267px"
-		android:background="@drawable/hollow_color"
+		android:background="@drawable/hollow_circle"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 

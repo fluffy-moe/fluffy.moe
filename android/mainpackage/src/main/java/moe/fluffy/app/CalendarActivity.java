@@ -42,13 +42,13 @@ public class CalendarActivity extends AppCompatActivity {
 	ListView lvEventDashboard;
 	TextView txtMonth;
 	TextView txtYear;
-	TextView lastSelected = null;
+	TextView lastDateSelected = null;
 
 	Button btnAddEvent;
 
 	private ImageButton btnColorSelected, categorySelected;
 	private String categorySelectedText;
-	@ColorRes int colorSeleted;
+	@ColorRes int colorSelected;
 
 	private static String TAG = "log_CalendarViewActivity";
 
@@ -120,17 +120,19 @@ public class CalendarActivity extends AppCompatActivity {
 		mCalendarDateView.setOnItemClickListener((view, position, bean) -> {
 			txtMonth.setText(getMonthString(bean.moth));
 			txtYear.setText(String.valueOf(bean.year));
-			if (lastSelected != null) {
-				lastSelected.setTextColor(getColor(R.color.calendarBlack));
+			if (lastDateSelected != null) {
+				lastDateSelected.setTextColor(getColor(R.color.calendarBlack));
 			}
-			lastSelected = view.findViewById(R.id.txtDay);
-			lastSelected.setTextColor(getColor(R.color.calendarOnSelect));
+			lastDateSelected = view.findViewById(R.id.txtDay);
+			lastDateSelected.setTextColor(getColor(R.color.calendarOnSelect));
 		});
 
+		// init title
 		int[] data = CalendarUtil.getYMD(new Date());
 		txtMonth.setText(getMonthString(data[1]));
 		txtYear.setText(String.valueOf(data[0]));
 
+		// init events
 		ArrayList<EventView> es = new ArrayList<>();
 		ArrayList<EventsType> s = new ArrayList<>(Arrays.asList(dm));
 		es.add(new EventView(true, new ArrayList<>(Arrays.asList(dm))));
@@ -143,38 +145,78 @@ public class CalendarActivity extends AppCompatActivity {
 		btnAddEvent.setOnClickListener(_v -> {
 			View viewAddEventPopup = getLayoutInflater().inflate(R.layout.calendar_addevent_bottom, null);
 			BottomSheetDialog dialog = new BottomSheetDialog(this);
-			dialog.setContentView(viewAddEventPopup);
 			Window w = dialog.getWindow();
-			if (w != null)
+			if (w != null) {
 				w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+				w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+						WindowManager.LayoutParams.FLAG_FULLSCREEN);
+				w.requestFeature(Window.FEATURE_NO_TITLE);
+			}
+			dialog.setContentView(viewAddEventPopup);
 			TimePicker timePicker = viewAddEventPopup.findViewById(R.id.tpEventInsert);
 			DatePicker datePicker = viewAddEventPopup.findViewById(R.id.dpEventInsert);
-			/*ImageButton imgbtnColor1, imgbtnColor2, imgbtnColor3, imgbtnColor4, imgbtnColor5;
-			imgbtnColor1 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarOrange);
-			imgbtnColor2 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarRed);
-			imgbtnColor3 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarBlue);
-			imgbtnColor4 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarGreen);
-			imgbtnColor5 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarPink);
-
-			imgbtnColor1.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					if (btnColorSelected != null) {
-						btnColorSelected = imgbtnColor1;
-					}
-					GradientDrawable gd = (GradientDrawable)v.getBackground();
-					gd.setStroke(5, getColor(R.color.event_c1));
-				}
-			});*/
 			timePicker.setIs24HourView(true);
 			ImageButton btnConfirm = viewAddEventPopup.findViewById(R.id.imgbtnCalendarSave);
 			EditText etBody = viewAddEventPopup.findViewById(R.id.etCalendarBody);
+			initPopupColorPick(viewAddEventPopup);
 			btnConfirm.setOnClickListener( l -> {
 				HomeActivity.dbHelper.insertEvent(new EventsType(datePicker, timePicker, 0, "", etBody.getText().toString()));
 				Log.d(TAG, "init: Insert successful");
 			});
 			dialog.show();
 		});
+	}
+
+	void initPopupColorPick(View viewAddEventPopup) {
+		ImageButton imgbtnColor1, imgbtnColor2, imgbtnColor3, imgbtnColor4, imgbtnColor5;
+		imgbtnColor1 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarOrange);
+		imgbtnColor2 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarRed);
+		imgbtnColor3 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarBlue);
+		imgbtnColor4 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarGreen);
+		imgbtnColor5 = viewAddEventPopup.findViewById(R.id.rdbtnCalendarPink);
+		initColorPick(imgbtnColor1, R.color.event_c1);
+		initColorPick(imgbtnColor2, R.color.event_c2);
+		initColorPick(imgbtnColor3, R.color.event_c3);
+		initColorPick(imgbtnColor4, R.color.event_c4);
+		initColorPick(imgbtnColor5, R.color.event_c5);
+
+		// let button 1 to color default
+		changeClickColor(imgbtnColor1, R.color.event_c1);
+		btnColorSelected = imgbtnColor1;
+		colorSelected = R.color.event_c1;
+	}
+
+	/**
+	 * Reference: https://stackoverflow.com/a/29204632
+	 *  @param v image button
+	 * @param color color from color resource file id
+	 */
+	private void changeStrokeColor(View v, @ColorRes int color) {
+		((GradientDrawable) v.getBackground()).setStroke(5, getColor(color));
+	}
+
+	/**
+	 * Reference https://stackoverflow.com/a/17825210
+	 *
+	 * @see #changeStrokeColor(View, int)
+	 */
+	private void changeClickColor(View v, @ColorRes int color) {
+		((GradientDrawable)v.getBackground()).setColor(getColor(color));
+	}
+
+	private void colorOnClickListener(ImageButton imgbtn, @ColorRes int color) {
+		if (btnColorSelected != null && btnColorSelected != imgbtn) {
+			changeClickColor(btnColorSelected, android.R.color.transparent);
+		}
+		changeClickColor(imgbtn, color);
+		btnColorSelected = imgbtn;
+		colorSelected = color;
+	}
+
+	private void initColorPick(ImageButton imgbtn, @ColorRes int color) {
+		changeStrokeColor(imgbtn, color);
+		imgbtn.setOnClickListener(v ->
+				colorOnClickListener(imgbtn, color));
 	}
 
 	private
@@ -184,7 +226,5 @@ public class CalendarActivity extends AppCompatActivity {
 		}
 		return getResources().getStringArray(R.array.month)[num - 1];
 	}
-
-
 
 }
