@@ -15,5 +15,6 @@
 	<color name="event_c4">#85C5A7</color>
 	<color name="event_c5">#F29671</color>
 	<color name="calendarOnSelect">#FFFFFF</color>
+	<color name="calendarEventViewBackground">#EFEFEF</color>
 	<!-- calendar end -->
 </resources>

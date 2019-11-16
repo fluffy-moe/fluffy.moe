@@ -139,11 +139,10 @@
 
 		</com.codbking.calendar.CalendarDateView>
 
-		<ListView
-			android:id="@+id/listEvents"
+		<include
+			layout="@layout/listview_events_view"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:background="#FFFFFF" />
+			android:layout_height="wrap_content" />
 
 
 	</com.codbking.calendar.CalendarLayout>

@@ -69,7 +69,7 @@ public class ArticleActivity extends AppCompatActivity {
 	ImageButton imgbtnDog, imgbtnBird, imgbtnCat, imgbtnOther;
 	ImageButton imgbtnSearch;
 
-	ImageButton imgbtnSetting, imgbtnCalendar, imgbtnScanner, imgbtnBooldtest;
+	ImageButton imgbtnSetting, imgbtnCalendar, imgbtnScanner, imgbtnBloodTest;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,10 +88,12 @@ public class ArticleActivity extends AppCompatActivity {
 		ImageAdapter im = new ImageAdapter(lst, mapResource, getBaseContext());
 		for (int i = 0; i < articles.getList().size(); i++) {
 			ArticleType a = articles.getList().get(i);
+			// Check request article category type
 			if (requireCategory != null) {
 				if (!a.category.equals(requireCategory))
 					continue;
 			}
+			// Check keyword in title
 			if (searchTitle != null) {
 				if (!a.title.toLowerCase().contains(searchTitle))
 					continue;
@@ -109,7 +111,7 @@ public class ArticleActivity extends AppCompatActivity {
 	}
 
 	void initBottomView() {
-		imgbtnBooldtest = findViewById(R.id.imgbtnMedicalBook);
+		imgbtnBloodTest = findViewById(R.id.imgbtnMedicalBook);
 		imgbtnScanner = findViewById(R.id.imgbtnCameraBook);
 		imgbtnSetting = findViewById(R.id.imgbtnUserBook);
 		imgbtnCalendar = findViewById(R.id.imgbtnCalendarBook);
@@ -176,16 +178,16 @@ public class ArticleActivity extends AppCompatActivity {
 			JSONObject _articles_file = JSONParser.loadJSONFromAsset(getResources().openRawResource(R.raw.articles));
 			if (_articles_file != null) {
 				try {
-					JSONArray _articles = _articles_file.getJSONArray("articles");
+					JSONArray _articles = _articles_file.getJSONArray(getString(R.string.jsonArticle));
 					for (int i = 0; i < _articles.length(); i++) {
 						JSONObject j = _articles.getJSONObject(i);
 						// https://stackoverflow.com/a/3476470
 						@DrawableRes int coverId =
-								getResources().getIdentifier(j.getString("filename"), "drawable", this.getPackageName());
+								getResources().getIdentifier(j.getString(getString(R.string.jsonCarouseResourceName)), "drawable", this.getPackageName());
 						@DrawableRes int headerId =
-								getResources().getIdentifier(j.getString("photo_filename"), "drawable", this.getPackageName());
+								getResources().getIdentifier(j.getString(getString(R.string.jsonTitleImageResourceName)), "drawable", this.getPackageName());
 						articles.push(new ArticleType(j, coverId, headerId));
-						String category = j.getString("category");
+						String category = j.getString(getString(R.string.jsonCategory));
 						Integer count_category = countArticles.get(category);
 						if (count_category != null) {
 							countArticles.replace(category, count_category + 1);

@@ -92,19 +92,18 @@ public class CalendarActivity extends AppCompatActivity {
 				viewMonth.setTextColor(getColor(R.color.calendarBlack));
 			}
 
-			if (BuildConfig.DEBUG)
-				if (BuildConfig.enableDatabase)
-					underlineView.setBackgroundColor(
-							getColor(HomeActivity.dbHelper.getTodayColorID(bean.year, bean.moth, bean.day)));
-				else
-					// TODO: use another method to improve speed
-					for (EventsType d : dm) {
-						if (d.equals(bean)) {
-							underlineView.setBackgroundResource(d.getColor());
-							// marked
-							break;
-						}
+			if (BuildConfig.enableDatabase)
+				underlineView.setBackgroundColor(
+						getColor(HomeActivity.dbHelper.getTodayColorID(bean.year, bean.moth, bean.day)));
+			else
+				// TODO: use another method to improve speed
+				for (EventsType d : dm) {
+					if (d.equals(bean)) {
+						underlineView.setBackgroundResource(d.getColor());
+						// marked
+						break;
 					}
+				}
 
 			return convertView;
 		});
@@ -147,7 +146,6 @@ public class CalendarActivity extends AppCompatActivity {
 
 	private
 	String getMonthString(int num) {
-		Log.d(TAG, "getMonthString: num => " + num);
 		if (BuildConfig.DEBUG && !(num > 0 && num < 13)) {
 			throw new AssertionError();
 		}

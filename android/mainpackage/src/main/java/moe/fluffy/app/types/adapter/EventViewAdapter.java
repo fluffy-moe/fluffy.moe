@@ -26,11 +26,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.Px;
+
+import com.journeyapps.barcodescanner.Util;
+
 import org.mazhuang.wrapcontentlistview.WrapContentListView;
 
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.EventView;
 
 public class EventViewAdapter extends ArrayAdapter<EventView> {
@@ -55,6 +60,8 @@ public class EventViewAdapter extends ArrayAdapter<EventView> {
 
 		txtView.setText(it.getTitle());
 		ea = new EventAdapter(getContext(), it.getEvents());
+		lvTasks.setDivider(getContext().getDrawable(R.drawable.divider_61px));
+		lvTasks.setDividerHeight(61);
 		lvTasks.setAdapter(ea);
 
 		return covertView;
