@@ -33,6 +33,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -150,14 +151,15 @@ public class CalendarActivity extends AppCompatActivity {
 			DatePicker datePicker = viewAddEventPopup.findViewById(R.id.dpCalendarEventInsert);
 			ImageButton btnConfirm = viewAddEventPopup.findViewById(R.id.imgbtnCalendarSave);
 			EditText etBody = viewAddEventPopup.findViewById(R.id.etCalendarBody);
+			Switch swAlarm = viewAddEventPopup.findViewById(R.id.swCalendarAlarm);
 			BottomSheetDialog dialog = new BottomSheetDialog(this);
 			Window w = dialog.getWindow();
 
 			if (w != null) {
 				w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-				w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				/*w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 						WindowManager.LayoutParams.FLAG_FULLSCREEN);
-				w.requestFeature(Window.FEATURE_NO_TITLE);
+				w.requestFeature(Window.FEATURE_NO_TITLE);*/
 			}
 
 			dialog.setContentView(viewAddEventPopup);
@@ -167,12 +169,14 @@ public class CalendarActivity extends AppCompatActivity {
 			etBody.setOnFocusChangeListener((view, hasFocus) ->
 					Utils.onFocusChange(hasFocus, CalendarActivity.this, etBody, R.string.etCalendarAddEventHint, false));
 			btnConfirm.setOnClickListener( l -> {
-				EventsType et = new EventsType(datePicker, timePicker, colorSelected, categorySelectedText, etBody.getText().toString());
+				EventsType et = new EventsType(datePicker, timePicker, colorSelected, categorySelectedText,
+						etBody.getText().toString(), swAlarm.isChecked());
 				HomeActivity.dbHelper.insertEvent(et);
 				//planedEvents.add(et);
 				if (et.getDayBody().moreThanOrEqual(Date.getToday())) {
 					planedEvents.add(et);
 					updateEventsDashboard(true);
+					mCalendarDateView.updateView();
 				}
 				//Log.d(TAG, "init: Insert successful");
 				btnColorSelected = null;
@@ -184,7 +188,6 @@ public class CalendarActivity extends AppCompatActivity {
 	}
 
 	void updateEventsDashboard(boolean requestUpdateAdapter) {
-		// Check is database enabled
 		if (!requestUpdateAdapter)
 			planedEvents = HomeActivity.dbHelper.getCurrentAndFeatureEvent();
 
@@ -254,7 +257,8 @@ public class CalendarActivity extends AppCompatActivity {
 
 	/**
 	 * Reference: https://stackoverflow.com/a/29204632
-	 *  @param v image button
+	 *
+	 * @param v image button
 	 * @param color color from color resource file id
 	 */
 	private void changeStrokeColor(View v, @ColorRes int color) {
@@ -282,7 +286,7 @@ public class CalendarActivity extends AppCompatActivity {
 	@SuppressLint("DefaultLocale")
 	@ColorRes
 	private int getColorRes(int id) {
-		return getResources().getIdentifier(String.format("event_c%d", id), "color", getPackageName());
+		return getResources().getIdentifier(getString(R.string.fmt_event_color, id), "color", getPackageName());
 	}
 
 	private void initColorPick(ImageButton imgbtn, int color) {

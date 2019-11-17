@@ -52,6 +52,7 @@
 	<string name="dbEventsCategory">category</string>
 	<string name="dbEventsBody">body</string>
 	<string name="dbEventColor">color</string>
+	<string name="dbEventNeedAlarm">alarm</string>
 	<!-- DATABASE END -->
 
 	<!-- string in main application -->
@@ -72,6 +73,7 @@
 	<string name="categoryNote">Note</string>
 	<string name="categorySymptom">Symptom</string>
 	<string name="categoryWater">Water</string>
+	<string name="fmt_event_color">event_c%d</string>
 	<!-- category string end -->
 
 

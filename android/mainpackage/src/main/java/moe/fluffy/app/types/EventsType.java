@@ -38,8 +38,10 @@ public class EventsType {
 	private DateWithMark date;
 	private String category;
 	private String body;
+	private boolean alarm;
 
-	private static String columnYear, columnMonth, columnDay, columnCategory, columnBody, columnHour, columnMinute, columnColor;
+	private static String columnYear, columnMonth, columnDay, columnCategory, columnBody, columnHour,
+			columnMinute, columnColor, columnAlarm;
 
 	private static String TAG = "log_EventsType";
 
@@ -52,30 +54,35 @@ public class EventsType {
 		columnHour = context.getString(R.string.dbEventsHour);
 		columnMinute = context.getString(R.string.dbEventsMinute);
 		columnColor = context.getString(R.string.dbEventColor);
+		columnAlarm = context.getString(R.string.dbEventNeedAlarm);
 	}
 
-	public EventsType(DateWithMark d, String c, String b) {
+	public EventsType(DateWithMark d, String c, String b, boolean _alarm) {
 		date = d;
 		category = c;
 		body = b;
+		alarm = _alarm;
 	}
 
-	public EventsType(int _year, int _month, int _day, int _hour, int _minute, int color, String c, String b) {
+	public EventsType(int _year, int _month, int _day, int _hour, int _minute, int color, String c, String b, boolean _alarm) {
 		date = new DateWithMark(_year, _month, _day, _hour, _minute, 0,0, color);
 		category = c;
 		body = b;
+		alarm = _alarm;
 	}
 
-	public EventsType(DatePicker dp, TimePicker tp, int color, String c, String b) {
+	public EventsType(DatePicker dp, TimePicker tp, int color, String c, String b, boolean _alarm) {
 		date = new DateWithMark(dp.getYear(), dp.getMonth() + 1, dp.getDayOfMonth(), tp.getHour(), tp.getMinute(), 0, 0, color);
 		category = c;
 		body = b;
+		alarm = _alarm;
 	}
 
-	public EventsType(String strDate, String strTime, int color, String c, String b) {
+	public EventsType(String strDate, String strTime, int color, String c, String b, boolean _alarm) {
 		date = new DateWithMark(strDate, strTime, color);
 		category = c;
 		body = b;
+		alarm = _alarm;
 	}
 
 	public EventsType(Cursor cursor) {
@@ -88,6 +95,7 @@ public class EventsType {
 		date = new DateWithMark(year, month, day, hour, minute, 0, 0, cursor.getInt(cursor.getColumnIndexOrThrow(columnColor)));
 		category = cursor.getString(cursor.getColumnIndexOrThrow(columnCategory));
 		body = cursor.getString(cursor.getColumnIndexOrThrow(columnBody));
+		alarm = cursor.getString(cursor.getColumnIndexOrThrow(columnAlarm)).equals("true");
 	}
 
 	public int getYear() {
@@ -146,6 +154,7 @@ public class EventsType {
 		cv.put(columnCategory, category);
 		cv.put(columnBody, body);
 		cv.put(columnColor, date.getColor());
+		cv.put(columnAlarm, alarm ? "true": "false");
 		return cv;
 	}
 

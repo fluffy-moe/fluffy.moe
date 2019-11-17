@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.types.ColorCache;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.EventsType;
 import moe.fluffy.app.types.PetInfo;
@@ -56,13 +57,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private final static String CREATE_PET = "CREATE TABLE `pet` (`name` TEXT PRIMARY KEY, `birthday` TEXT, `breed` TEXT)";
 	private final static String CREATE_EVENTS = "CREATE TABLE `events` (" +
 			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `hour` INTEGER, `minute` INTEGER, " +
-			"`category` TEXT, `body` TEXT, `color` INTEGER)";
+			"`category` TEXT, `body` TEXT, `color` INTEGER, `alarm` TEXT)";
 
 	private final static String TAG = "log_Database";
+	private ColorCache colorCache;
 
 	DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
 		super(context, name, factory, version);
 		this.context = context;
+		ColorCache.initColumnName(context);
 	}
 
 	public DatabaseHelper(Context context){
@@ -224,30 +227,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return arrayList;
 	}
 
-	public EventsType[] getEventInfo(int year, int month) {
+	public static int getYearBeforeMonth(int year, int month) {
+		return month != 1 ? year: year -1;
+	}
+
+	public static int getYearAfterMonth(int year, int month) {
+		return month != 12 ? year: year + 1;
+	}
+
+	public static int getBeforeMonth(int month) {
+		return month != 1 ? month - 1 : 12;
+	}
+
+	public static int getAfterMonth(int month) {
+		return month != 12 ? month + 1 : 1;
+	}
+
+	public ArrayList<EventsType> getEventInfo(int year, int month) {
 		SQLiteDatabase s = this.getReadableDatabase();
 		ArrayList<EventsType> arrayList = new ArrayList<>();
-
-		boolean need_add_year = false, need_dec_year = false;
-		// get between (month - 1, month, month + 1)
-		int month_up = month + 1, month_down = month - 1;
-		if (month_down == 0) {
-			need_dec_year = true;
-			month_down = 12;
-		}
-		if (month_up == 13) {
-			need_add_year = true;
-			month_up = 1;
-		}
 
 		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsFromYearMonth,
 				new String[]{String.valueOf(year), String.valueOf(month)}));
 		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsFromYearMonth,
-				new String[]{String.valueOf(need_add_year? year + 1: year), String.valueOf(month_up)}));
+				new String[]{String.valueOf(getYearAfterMonth(year, month)), String.valueOf(getAfterMonth(month))}));
 		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsFromYearMonth,
-				new String[]{String.valueOf(need_dec_year? year - 1: year), String.valueOf(month_down)}));
+				new String[]{String.valueOf(getYearBeforeMonth(year, month)), String.valueOf(getBeforeMonth(month))}));
 
-		return (EventsType[]) arrayList.toArray();
+		return arrayList;
 	}
 
 	private ArrayList<EventsType> _getEvent(SQLiteDatabase s, @StringRes int strId, String[] args) {
@@ -276,7 +283,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		c.close();
 		//Log.d(TAG, "getTodayColorID: Color => " + color);
 		if (color != android.R.color.transparent)
-			return context.getResources().getIdentifier(String.format("event_c%d", color), "color", context.getPackageName());
+			return context.getResources().getIdentifier(getString(R.string.fmt_event_color, color), "color", context.getPackageName());
 		return color;
 	}
 }

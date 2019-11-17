@@ -55,6 +55,10 @@ public class CalendarDateView extends ViewPager implements CalendarTopView {
         init();
     }
 
+    public void updateView() {
+        getAdapter().notifyDataSetChanged();
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -133,7 +137,6 @@ public class CalendarDateView extends ViewPager implements CalendarTopView {
     private void initData() {
         setCurrentItem(Integer.MAX_VALUE/2, false);
         getAdapter().notifyDataSetChanged();
-
     }
 
     @Override
