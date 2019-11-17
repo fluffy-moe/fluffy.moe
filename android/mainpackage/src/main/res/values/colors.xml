@@ -5,6 +5,9 @@
 	<color name="colorAccent">#D81B60</color>
 	<color name="carouseText">#565656</color>
 
+	<color name="colorMain">#E79E35</color>
+	<color name="colorBackground">#969696</color>
+
 	<!-- calendar -->
 	<color name="calendarWeekTitle">#969696</color>
 	<color name="calendarTodayColor">#E79E35</color>
@@ -17,4 +20,12 @@
 	<color name="calendarOnSelect">#FFFFFF</color>
 	<color name="calendarEventViewBackground">#EFEFEF</color>
 	<!-- calendar end -->
+
+
+	<!-- vaccination color -->
+	<color name="colorVacRed">#FF0000</color>
+	<color name="colorVacGreen">#00FF00</color>
+	<color name="colorVacUndefined">#969696</color>
+	<!-- vaccination color end -->
+
 </resources>

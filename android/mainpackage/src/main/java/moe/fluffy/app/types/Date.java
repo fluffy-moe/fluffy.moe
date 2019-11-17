@@ -29,6 +29,9 @@ import androidx.annotation.Nullable;
 import com.codbking.calendar.CalendarBean;
 import com.codbking.calendar.CalendarUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -64,6 +67,12 @@ public class Date {
 		year = s[0];
 		month = s[1];
 		day = s[2];
+	}
+
+	public Date(JSONObject j) throws JSONException {
+		year = j.getInt("year");
+		month = j.getInt("month");
+		day = j.getInt("day");
 	}
 
 	/**

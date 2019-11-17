@@ -26,38 +26,45 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.mazhuang.wrapcontentlistview.WrapContentListView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.types.EventDashboardType;
+import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.types.BloodTestSubType;
 
-public class EventDashboardAdapter extends ArrayAdapter<EventDashboardType> {
-	EventAdapter ea;
-	public EventDashboardAdapter(Context context, ArrayList<EventDashboardType> adapters) {
-		super(context, android.R.layout.simple_list_item_1, adapters);
+public class BloodTestSubAdapter extends ArrayAdapter<BloodTestSubType> {
+	BloodTestSubAdapter(Context context, ArrayList<BloodTestSubType> l) {
+		super(context, android.R.layout.simple_list_item_1, l);
 	}
 
+	@NonNull
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		EventDashboardType it = getItem(position);
+	public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+		BloodTestSubType it = getItem(position);
 
-		TextView txtView;
-		WrapContentListView lvTasks;
+		TextView txtItemName, txtItemValue;
+		View vReferenceView;
+
 
 		if (convertView == null) {
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_today, parent, false);
 		}
 
-		txtView = convertView.findViewById(R.id.txtCalendarViewTitle);
-		lvTasks = convertView.findViewById(R.id.lvEventList);
+		txtItemName = convertView.findViewById(R.id.txtBloodItemName);
+		txtItemValue = convertView.findViewById(R.id.txtBloodItemValue);
+		vReferenceView = convertView.findViewById(R.id.viewReference);
 
-		txtView.setText(it.getTitle());
-		ea = new EventAdapter(getContext(), it.getEvents());
-		lvTasks.setDivider(getContext().getDrawable(R.drawable.divider_61px));
-		lvTasks.setDividerHeight(61);
-		lvTasks.setAdapter(ea);
+		if (it != null) {
+			txtItemName.setText(it.getExamineItem());
+			txtItemValue.setText(String.valueOf(it.getResult()));
+		} else {
+			NullPointerException e = new NullPointerException("Vaccination type return null");
+			PopupDialog.build(getContext(), e);
+			throw e;
+		}
 
 		return convertView;
 	}

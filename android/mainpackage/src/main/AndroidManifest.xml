@@ -16,6 +16,7 @@
 		android:supportsRtl="true"
 		android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 		tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+		<activity android:name=".MedicalActivity"></activity>
 		<activity android:name=".CalendarActivity" />
 		<activity android:name=".RegisterActivity" />
 		<activity android:name=".WelcomeActivity" />

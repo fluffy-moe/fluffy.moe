@@ -34,7 +34,7 @@
         android:layout_marginStart="154px"
         android:layout_marginTop="120px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="TextView"
+        android:text="Nobivac"
         android:textColor="#807878"
         android:textSize="54px"
         app:layout_constraintStart_toStartOf="parent"

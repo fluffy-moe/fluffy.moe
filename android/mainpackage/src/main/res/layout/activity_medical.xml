@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
-    tools:context=".Medical">
+    android:background="#F5F5F5">
 
     <ImageView
         android:id="@+id/imgMedicalTittleBackground"
@@ -117,7 +115,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/imgMediacalPetAvatar"
         android:layout_width="160px"
         android:layout_height="160px"
         android:layout_marginStart="116px"
@@ -131,6 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="143px"
         android:layout_marginTop="678px"
+        android:clickable="true"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="Vaccination"
         android:textColor="#E79E35"
@@ -144,6 +143,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="529px"
         android:layout_marginTop="680px"
+        android:clickable="true"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="Deinsectization"
         android:textColor="#969696"
@@ -157,6 +157,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="1019px"
         android:layout_marginTop="680px"
+        android:clickable="true"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="Blood Test"
         android:textColor="#969696"
@@ -228,7 +229,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtMedicalNext2"
+        android:id="@+id/txtMedicalNextTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="852px"

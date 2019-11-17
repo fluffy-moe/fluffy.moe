@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="1160px"
-	android:layout_height="876px">
+	android:layout_height="wrap_content">
 
 	<EditText
-		android:id="@+id/etBloodHematology"
+		android:id="@+id/txtBloodTestName"
 		android:layout_width="1160px"
 		android:layout_height="150px"
 		android:layout_marginStart="0px"
@@ -22,7 +22,7 @@
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<EditText
-		android:id="@+id/etBloodDate"
+		android:id="@+id/txtBloodTestDate"
 		android:layout_width="376px"
 		android:layout_height="76px"
 		android:layout_marginTop="16dp"
@@ -89,7 +89,8 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
-	<ListView
+	<org.mazhuang.wrapcontentlistview.WrapContentListView
+		android:id="@+id/lvTestItems"
 		android:layout_width="1005px"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="155px"

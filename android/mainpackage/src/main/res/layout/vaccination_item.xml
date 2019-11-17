@@ -14,6 +14,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_medicalcheck_green" />
 
+    <ImageView
+        android:id="@+id/imgVacCheck"
+        android:layout_width="80px"
+        android:layout_height="80px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_check_white" />
+
     <TextView
         android:id="@+id/txtVacTime"
         android:layout_width="wrap_content"
@@ -33,7 +41,7 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="120px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="TextView"
+        android:text="Nobivac"
         android:textColor="#807878"
         android:textSize="54px"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +54,7 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="237px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="TextView"
+        android:text="Injection Site"
         android:textColor="#807878"
         android:textSize="54px"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +67,7 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="118dp"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="TextView"
+        android:text="Doctor"
         android:textColor="#807878"
         android:textSize="54px"
         app:layout_constraintStart_toStartOf="parent"

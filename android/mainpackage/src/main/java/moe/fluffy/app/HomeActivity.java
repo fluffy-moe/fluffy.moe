@@ -37,8 +37,10 @@ import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.types.Date;
+import moe.fluffy.app.types.DeinsectizaionType;
 import moe.fluffy.app.types.EventsType;
 import moe.fluffy.app.types.PetInfo;
+import moe.fluffy.app.types.VaccinationType;
 
 public class HomeActivity extends AppCompatActivity {
 	public static DatabaseHelper dbHelper;
@@ -60,6 +62,8 @@ public class HomeActivity extends AppCompatActivity {
 		PetInfo.initStrings(this);
 		Date.initWeekName(this);
 		EventsType.getColumnName(this);
+		VaccinationType.initColumn(this);
+		DeinsectizaionType.initColumnName(this);
 		HomeActivity.dbHelper = new DatabaseHelper(this);
 
 		findViewById(R.id.btnChangeToSearch).setOnClickListener(
@@ -74,6 +78,8 @@ public class HomeActivity extends AppCompatActivity {
 				v -> startActivity(new Intent(HomeActivity.this, WelcomeActivity.class)));
 		findViewById(R.id.btnDymanic).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, CalendarActivity.class)));
+		findViewById(R.id.btnChangeToMedical).setOnClickListener(
+				v -> startActivity(new Intent(HomeActivity.this, MedicalActivity.class)));
 		initFirebase();
 	}
 

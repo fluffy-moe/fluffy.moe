@@ -76,5 +76,21 @@
 	<string name="fmt_event_color">event_c%d</string>
 	<!-- category string end -->
 
+	<!-- Medical string -->
+	<string name="jsonVaccinationRoot">vaccination</string>
+	<string name="jsonFieldNobivac">nobivac</string>
+	<string name="jsonFieldInjectionSite">injection_site</string>
+	<string name="jsonFieldDoctor">doctor</string>
+	<string name="jsonFieldDate">date</string>
+	<string name="jsonFieldStatus">status</string>
+	<string name="jsonFieldExamineItem">examine_item</string>
+	<string name="jsonFieldBloodTestResultValue">value</string>
+	<string name="jsonFieldBloodTestResultReference">reference</string>
+	<string name="jsonFieldBloodTestName">name</string>
+	<string name="jsonBloodTestRoot">blood_test</string>
+	<string name="jsonFieldBloodTestResult">result</string>
+	<string name="fmt_date">%04d / %02d / %02d</string>
+	<string name="jsonDeinsectizaionRoot">deinsectizaion</string>
+	<!-- Medical string end -->
 
 </resources>
