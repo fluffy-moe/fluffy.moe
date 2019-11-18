@@ -20,6 +20,7 @@
 package moe.fluffy.app;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -94,7 +95,17 @@ public class CalendarActivity extends AppCompatActivity {
 		imgbtnNavBarArticle = findViewById(R.id.imgbtnArticlePage);
 		imgbtnNavBarUser = findViewById(R.id.imgbtnUserPage);
 
-		imgbtnNavBarCalendar.setBackground(getDrawable(R.drawable.calendar_orange));
+		imgbtnNavBarCalendar.setImageResource(R.drawable.calendar_orange);
+
+
+		imgbtnNavBarCamera.setOnClickListener(v ->
+				startActivity(new Intent(CalendarActivity.this, BoostScanActivity.class)));
+
+		imgbtnNavBarArticle.setOnClickListener(v ->
+				startActivity(new Intent(CalendarActivity.this, ArticleActivity.class)));
+
+		imgbtnNavBarMedical.setOnClickListener(v ->
+				startActivity(new Intent(CalendarActivity.this, MedicalActivity.class)));
 
 	}
 

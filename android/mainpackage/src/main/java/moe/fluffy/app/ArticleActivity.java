@@ -120,11 +120,12 @@ public class ArticleActivity extends AppCompatActivity {
 
 		imgbtnNavBarArticle.setImageResource(R.drawable.book_orange);
 
-
 		imgbtnNavBarCamera.setOnClickListener(v ->
 				startActivity(new Intent(ArticleActivity.this, BoostScanActivity.class)));
 		imgbtnNavBarCalendar.setOnClickListener(v ->
 				startActivity(new Intent(ArticleActivity.this, CalendarActivity.class)));
+		imgbtnNavBarMedical.setOnClickListener(v ->
+				startActivity(new Intent(ArticleActivity.this, MedicalActivity.class)));
 
 	}
 

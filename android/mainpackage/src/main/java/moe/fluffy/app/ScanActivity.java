@@ -1,9 +1,7 @@
 package moe.fluffy.app;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;

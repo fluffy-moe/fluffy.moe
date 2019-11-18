@@ -95,7 +95,7 @@ public class MedicalActivity extends AppCompatActivity {
 		imgbtnNavBarArticle = findViewById(R.id.imgbtnArticlePage);
 		imgbtnNavBarUser = findViewById(R.id.imgbtnUserPage);
 
-		imgbtnNavBarMedical.setBackground(getDrawable(R.drawable.medical_orange));
+		imgbtnNavBarMedical.setImageResource(R.drawable.medical_orange);
 
 		imgbtnNavBarCamera.setOnClickListener(v ->
 				startActivity(new Intent(MedicalActivity.this, BoostScanActivity.class)));
