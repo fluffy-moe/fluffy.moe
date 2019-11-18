@@ -69,7 +69,8 @@ public class ArticleActivity extends AppCompatActivity {
 	ImageButton imgbtnDog, imgbtnBird, imgbtnCat, imgbtnOther;
 	ImageButton imgbtnSearch;
 
-	ImageButton imgbtnSetting, imgbtnCalendar, imgbtnScanner, imgbtnBloodTest;
+	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
+			imgbtnNavBarArticle, imgbtnNavBarUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,16 +112,22 @@ public class ArticleActivity extends AppCompatActivity {
 	}
 
 	void initBottomView() {
-		imgbtnBloodTest = findViewById(R.id.imgbtnMedicalBook);
-		imgbtnScanner = findViewById(R.id.imgbtnCameraBook);
-		imgbtnSetting = findViewById(R.id.imgbtnUserBook);
-		imgbtnCalendar = findViewById(R.id.imgbtnCalendarBook);
+		imgbtnNavBarCamera = findViewById(R.id.imgbtnCameraPage);
+		imgbtnNavBarMedical = findViewById(R.id.imgbtnMedicalPage);
+		imgbtnNavBarCalendar = findViewById(R.id.imgbtnCalendarPage);
+		imgbtnNavBarArticle = findViewById(R.id.imgbtnArticlePage);
+		imgbtnNavBarUser = findViewById(R.id.imgbtnUserPage);
 
-		imgbtnScanner.setOnClickListener(v ->
+		imgbtnNavBarArticle.setImageResource(R.drawable.book_orange);
+
+
+		imgbtnNavBarCamera.setOnClickListener(v ->
 				startActivity(new Intent(ArticleActivity.this, BoostScanActivity.class)));
-		imgbtnCalendar.setOnClickListener(v ->
+		imgbtnNavBarCalendar.setOnClickListener(v ->
 				startActivity(new Intent(ArticleActivity.this, CalendarActivity.class)));
+
 	}
+
 
 	void initView() {
 		txtCountDog = findViewById(R.id.txtDogNumBook);

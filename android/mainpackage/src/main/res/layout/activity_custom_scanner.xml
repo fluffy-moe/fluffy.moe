@@ -38,11 +38,10 @@
         android:layout_height="114px"
         android:layout_marginStart="894px"
         android:layout_marginTop="2400px"
-        android:background="@android:color/transparent"
+        android:background="@drawable/browse"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/browse" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/imgbtnScannerDevice"
@@ -50,11 +49,10 @@
         android:layout_height="114px"
         android:layout_marginStart="56px"
         android:layout_marginTop="2400px"
-        android:background="@android:color/transparent"
+        android:background="@drawable/select"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/select" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/imgbtnScannerScan"
@@ -62,12 +60,10 @@
         android:layout_height="189px"
         android:layout_marginStart="517px"
         android:layout_marginTop="1798px"
-        android:background="@color/zxing_transparent"
+        android:background="@drawable/scan"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/scan"
-        tools:srcCompat="@drawable/scan" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/imgbtnScannerTranslate"
@@ -75,11 +71,10 @@
         android:layout_height="189px"
         android:layout_marginStart="782px"
         android:layout_marginTop="1798px"
-        android:background="@android:color/transparent"
+        android:background="@drawable/translate"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/translate" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/imgbtnScannerCross"
@@ -87,11 +82,10 @@
         android:layout_height="66px"
         android:layout_marginStart="1315px"
         android:layout_marginTop="86px"
-        android:background="@android:color/transparent"
+        android:background="@drawable/cross"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cross" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/imgbtnScannerBack"
@@ -99,11 +93,11 @@
         android:layout_height="66px"
         android:layout_marginStart="41px"
         android:layout_marginTop="86px"
-        android:background="@android:color/transparent"
+        android:background="@drawable/up"
         android:scaleType="fitXY"
+        android:src="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/up" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/zxing_barcode_scanner"

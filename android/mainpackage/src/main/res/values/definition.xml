@@ -63,7 +63,7 @@
 
 	<!-- article json field -->
 	<string name="jsonCategory">category</string>
-	<string name="jsonArticle">Article</string>
+	<string name="jsonArticle">articles</string>
 	<string name="jsonCarouseResourceName">filename</string>
 	<string name="jsonTitleImageResourceName">photo_filename</string>
 	<!-- article json field end -->

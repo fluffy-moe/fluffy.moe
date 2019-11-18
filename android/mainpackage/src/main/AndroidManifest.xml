@@ -13,10 +13,9 @@
 		android:icon="@mipmap/ic_launcher"
 		android:label="@string/app_name"
 		android:roundIcon="@mipmap/ic_launcher_round"
-		android:supportsRtl="true"
 		android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 		tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-		<activity android:name=".MedicalActivity"></activity>
+		<activity android:name=".MedicalActivity" />
 		<activity android:name=".CalendarActivity" />
 		<activity android:name=".RegisterActivity" />
 		<activity android:name=".WelcomeActivity" />

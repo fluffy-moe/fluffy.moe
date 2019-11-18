@@ -46,6 +46,9 @@ public class MedicalActivity extends AppCompatActivity {
 
 	ImageView imgPet, imgBackground;
 
+	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
+			imgbtnNavBarArticle, imgbtnNavBarUser;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -75,12 +78,34 @@ public class MedicalActivity extends AppCompatActivity {
 		txtNextTimeTxt = findViewById(R.id.txtMedicalNext);
 		txtNextDate = findViewById(R.id.txtMedicalNextTime);
 
+		initNavigationBar();
+
 		txtBar1.setOnClickListener( v -> setOnClickChangeView(txtBar1, vBarUnderline1, View.VISIBLE));
 		txtBar2.setOnClickListener( v -> setOnClickChangeView(txtBar2, vBarUnderline2, View.VISIBLE));
 		txtBar3.setOnClickListener( v -> setOnClickChangeView(txtBar3, vBarUnderline3, View.INVISIBLE));
 
 		imgbtnSearchHospital.setOnClickListener(v ->
 				startActivity(new Intent(MedicalActivity.this, SearchActivity.class)));
+	}
+
+	void initNavigationBar() {
+		imgbtnNavBarCamera = findViewById(R.id.imgbtnCameraPage);
+		imgbtnNavBarMedical = findViewById(R.id.imgbtnMedicalPage);
+		imgbtnNavBarCalendar = findViewById(R.id.imgbtnCalendarPage);
+		imgbtnNavBarArticle = findViewById(R.id.imgbtnArticlePage);
+		imgbtnNavBarUser = findViewById(R.id.imgbtnUserPage);
+
+		imgbtnNavBarMedical.setBackground(getDrawable(R.drawable.medical_orange));
+
+		imgbtnNavBarCamera.setOnClickListener(v ->
+				startActivity(new Intent(MedicalActivity.this, BoostScanActivity.class)));
+
+		imgbtnNavBarArticle.setOnClickListener(v ->
+				startActivity(new Intent(MedicalActivity.this, ArticleActivity.class)));
+
+		imgbtnNavBarCalendar.setOnClickListener(v ->
+				startActivity(new Intent(MedicalActivity.this, CalendarActivity.class)));
+
 	}
 
 	private void setBarVisibility(int visibility) {

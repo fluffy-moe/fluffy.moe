@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ArticleActivity">
+
+    <ImageView
+        android:id="@+id/imgbackgroundBook"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/article_background" />
+
+    <TextView
+        android:id="@+id/txtArticle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128px"
+        android:layout_marginTop="94px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Article"
+        android:textColor="#565656"
+        android:textSize="101px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imgbtnDogBook"
+        android:layout_width="257px"
+        android:layout_height="242px"
+        android:layout_marginStart="114px"
+        android:layout_marginTop="595px"
+        android:background="@null"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dog_article" />
+
+    <ImageButton
+        android:id="@+id/imgbtnCatBook"
+        android:layout_width="257px"
+        android:layout_height="242px"
+        android:layout_marginStart="433px"
+        android:layout_marginTop="595px"
+        android:background="@null"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cat_article" />
+
+    <ImageButton
+        android:id="@+id/imgbtnBirdBook"
+        android:layout_width="257px"
+        android:layout_height="242px"
+        android:layout_marginStart="751px"
+        android:layout_marginTop="594px"
+        android:background="@null"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bird_article" />
+
+    <ImageButton
+        android:id="@+id/imgbtnOtherBook"
+        android:layout_width="257px"
+        android:layout_height="242px"
+        android:layout_marginStart="1070px"
+        android:layout_marginTop="594px"
+        android:background="@null"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/other_article" />
+
+    <TextView
+        android:id="@+id/txtDogBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="195px"
+        android:layout_marginTop="746px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Dog"
+        android:textColor="#565656"
+        android:textSize="50px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtCatBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="525px"
+        android:layout_marginTop="746px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Cat"
+        android:textColor="#565656"
+        android:textSize="50px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtBirdBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="834px"
+        android:layout_marginTop="746px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Bird"
+        android:textColor="#565656"
+        android:textSize="50px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtOtherBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1134px"
+        android:layout_marginTop="746px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Other"
+        android:textColor="#565656"
+        android:textSize="50px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtDogNumBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="189px"
+        android:layout_marginTop="617px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="42"
+        android:textAlignment="center"
+        android:textColor="#565656"
+        android:textSize="95px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtCatNumBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="510px"
+        android:layout_marginTop="617px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="28"
+        android:textAlignment="center"
+        android:textColor="#565656"
+        android:textSize="95px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtBirdNumBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="834px"
+        android:layout_marginTop="617px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="22"
+        android:textAlignment="center"
+        android:textColor="#565656"
+        android:textSize="95px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtOtherNumBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1147px"
+        android:layout_marginTop="617px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="30"
+        android:textAlignment="center"
+        android:textColor="#565656"
+        android:textSize="95px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtTipsForKeepingBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="98px"
+        android:layout_marginTop="965px"
+        android:fontFamily="@font/segoe_ui_semibold"
+        android:text="Tips for Keeping Pets"
+        android:textColor="#565656"
+        android:textSize="75px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="791px"
+        android:layout_height="110px"
+        android:layout_marginStart="116px"
+        android:layout_marginTop="322px"
+        android:background="@drawable/article_search_linearlayout"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/etSearchBook"
+            android:layout_width="613px"
+            android:layout_height="110px"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:paddingStart="73px"
+            android:text="@string/searchBookEditText" />
+
+        <ImageButton
+            android:id="@+id/imgbtnSearchBook"
+            android:layout_width="71px"
+            android:layout_height="71px"
+            android:background="@null"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/article_search" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="1440px"
+        android:layout_height="1250px"
+        android:layout_marginTop="1050px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
+            android:id="@+id/articlesCarousel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:icvp_center_page_scale_offset="30dp"
+            app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"
+            app:icvp_max_page_scale="0.8"
+            app:icvp_medium_scaled="true"
+            app:icvp_min_page_scale="0.5"
+            app:icvp_min_page_scale_offset="5dp" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

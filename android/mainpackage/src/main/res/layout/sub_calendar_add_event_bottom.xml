@@ -239,6 +239,8 @@
 		android:layout_marginStart="1120px"
 		android:layout_marginTop="1275px"
 		android:textColor="#CED244"
+		android:textColorHighlight="#CED244"
+		android:textColorLink="#CED244"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 

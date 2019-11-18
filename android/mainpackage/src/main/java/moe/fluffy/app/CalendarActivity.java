@@ -69,6 +69,9 @@ public class CalendarActivity extends AppCompatActivity {
 	private String categorySelectedText;
 	@ColorRes int colorSelected;
 
+	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
+			imgbtnNavBarArticle, imgbtnNavBarUser;
+
 	private static ArrayList<EventsType> planedEvents;
 	ArrayList<EventsType> todayEvent = new ArrayList<>(), featureEvent = new ArrayList<>();
 	ArrayList<EventDashboardType> eventDashboardTypes = new ArrayList<>();
@@ -80,8 +83,20 @@ public class CalendarActivity extends AppCompatActivity {
 		txtMonth = findViewById(R.id.txtCalendarTitle);
 		txtYear = findViewById(R.id.txtYearNumber);
 		btnAddEvent = findViewById(R.id.btnAddEvent);
+		findNavigationBar();
 	}
 
+
+	void findNavigationBar() {
+		imgbtnNavBarCamera = findViewById(R.id.imgbtnCameraPage);
+		imgbtnNavBarMedical = findViewById(R.id.imgbtnMedicalPage);
+		imgbtnNavBarCalendar = findViewById(R.id.imgbtnCalendarPage);
+		imgbtnNavBarArticle = findViewById(R.id.imgbtnArticlePage);
+		imgbtnNavBarUser = findViewById(R.id.imgbtnUserPage);
+
+		imgbtnNavBarCalendar.setBackground(getDrawable(R.drawable.calendar_orange));
+
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -146,7 +161,7 @@ public class CalendarActivity extends AppCompatActivity {
 
 		btnAddEvent.setOnClickListener(_v -> {
 
-			View viewAddEventPopup = getLayoutInflater().inflate(R.layout.calendar_addevent_bottom, null);
+			View viewAddEventPopup = getLayoutInflater().inflate(R.layout.calendar_add_event_bottom, null);
 			TimePicker timePicker = viewAddEventPopup.findViewById(R.id.tpEventInsert);
 			DatePicker datePicker = viewAddEventPopup.findViewById(R.id.dpCalendarEventInsert);
 			ImageButton btnConfirm = viewAddEventPopup.findViewById(R.id.imgbtnCalendarSave);

@@ -1,12 +1,17 @@
 package moe.fluffy.app;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
@@ -26,6 +31,8 @@ public class ScanActivity extends Activity{
 	//private Button switchFlashlightButton;
 	private ViewfinderView viewfinderView;
 
+	TextView txtTitle, txtHint;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,12 +45,21 @@ public class ScanActivity extends Activity{
 
 		viewfinderView = findViewById(R.id.zxing_viewfinder_view);
 
+		init();
 		capture = new CaptureManager(this, barcodeScannerView);
 		capture.initializeFromIntent(getIntent(), savedInstanceState);
 		capture.decode();
 
 		changeMaskColor(null);
 		changeLaserVisibility(true);
+	}
+
+	void init() {
+		txtTitle = findViewById(R.id.txtScannerTitle);
+		txtHint = findViewById(R.id.txtScannerContent);
+
+		txtTitle.setTypeface(ResourcesCompat.getFont(this, R.font.segoe_ui_bold));
+		txtHint.setTypeface(ResourcesCompat.getFont(this, R.font.segoe_ui_bold));
 	}
 
 	@Override
