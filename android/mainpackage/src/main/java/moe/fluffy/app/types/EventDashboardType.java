@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class EventDashboardType {
 
-	private static String TAG = "log_EventView";
+	private static String TAG = "log_EventDashboard";
 
 	String title;
 	ArrayList<EventsType> events;
@@ -40,7 +40,7 @@ public class EventDashboardType {
 	}
 
 	public ArrayList<EventsType> getEvents() {
-		Log.d(TAG, "getEvents: size => " + events.size());
+		//Log.d(TAG, "getEvents: size => " + events.size());
 		return events;
 	}
 }

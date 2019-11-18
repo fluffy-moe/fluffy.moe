@@ -20,6 +20,8 @@
 package moe.fluffy.app;
 
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -174,14 +176,17 @@ public class RegisterActivity extends AppCompatActivity {
 
 		imgbtnConfirm.setOnClickListener(v -> {
 			// some verify method here
-			try {
-				PetInfo p = new PetInfo(etName.getText(), etBreed.getText(), etBirthday.getText());
-				if (!BuildConfig.DEBUG)
+			if (!BuildConfig.isDemoMode) {
+				try {
+					PetInfo p = new PetInfo(etName.getText(), etBreed.getText(), etBirthday.getText());
 					HomeActivity.dbHelper.updatePetInfo(p);
-			} catch (Exception ignore) {
+				} catch (Exception ignore) {
 
+				}
+				putExtras(true, 0, "");
 			}
-			putExtras(true,0,"");
+			else
+				startActivity(new Intent(RegisterActivity.this, CalendarActivity.class));
 		});
 
 		imgbtnBack.setOnClickListener( v -> {
