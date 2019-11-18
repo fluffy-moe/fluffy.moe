@@ -77,17 +77,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imgbtnScannerCross"
-        android:layout_width="66px"
-        android:layout_height="66px"
-        android:layout_marginStart="1315px"
-        android:layout_marginTop="86px"
-        android:background="@drawable/cross"
-        android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
         android:id="@+id/imgbtnScannerBack"
         android:layout_width="66px"
         android:layout_height="66px"

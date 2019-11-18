@@ -60,10 +60,10 @@ public class MedicalActivity extends AppCompatActivity {
 	}
 
 	private void init() {
-		txtBar1 = findViewById(R.id.txtMedicalBar);
+		previousClickText = txtBar1 = findViewById(R.id.txtMedicalBar);
 		txtBar2 = findViewById(R.id.txtMedicalBar2);
 		txtBar3 = findViewById(R.id.txtMedicalBar3);
-		vBarUnderline1 = findViewById(R.id.vacUnderline);
+		previousView = vBarUnderline1 = findViewById(R.id.vacUnderline);
 		vBarUnderline2 = findViewById(R.id.deinUnderline);
 		vBarUnderline3 = findViewById(R.id.bloodUnderline);
 
@@ -119,7 +119,7 @@ public class MedicalActivity extends AppCompatActivity {
 			previousClickText.setTextColor(getColor(R.color.colorBackground));
 		}
 		if (previousView != null) {
-			previousView.setBackgroundColor(getColor(R.color.colorBackground));
+			previousView.setBackgroundColor(getColor(android.R.color.transparent));
 		}
 		tView.setTextColor(getColor(R.color.colorMain));
 		vUnderline.setBackgroundColor(getColor(R.color.colorMain));

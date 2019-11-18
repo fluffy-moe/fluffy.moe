@@ -47,7 +47,7 @@ public class ScanActivity extends Activity{
 
 	TextView txtTitle, txtHint;
 
-	ImageButton imgbtnBack, imgbtnClose, imgbtnChooseFromGallery;
+	ImageButton imgbtnBack, imgbtnChooseFromGallery;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +74,11 @@ public class ScanActivity extends Activity{
 		txtTitle = findViewById(R.id.txtScannerTitle);
 		txtHint = findViewById(R.id.txtScannerContent);
 		imgbtnBack = findViewById(R.id.imgbtnScannerBack);
-		imgbtnClose = findViewById(R.id.imgbtnScannerCross);
 		imgbtnChooseFromGallery = findViewById(R.id.imgbtnScannerDevice);
 
 		// https://stackoverflow.com/a/55938561
 		txtTitle.setTypeface(ResourcesCompat.getFont(this, R.font.segoe_ui_bold));
 		txtHint.setTypeface(ResourcesCompat.getFont(this, R.font.segoe_ui_bold));
-		imgbtnClose.setOnClickListener(v -> finish());
 		imgbtnBack.setOnClickListener(v -> finish());
 		imgbtnChooseFromGallery.setOnClickListener(v -> {
 			LocalBroadcastManager.getInstance(ScanActivity.this).sendBroadcast(
