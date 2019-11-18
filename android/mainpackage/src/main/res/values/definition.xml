@@ -17,6 +17,7 @@
 	<!-- Intent -->
 	<string name="IntentFilter_login_success">loginSuccess</string>
 	<string name="IntentFilter_receive_notification">receiveNotification</string>
+	<string name="IntentFilter_request_choose_from_gallery">requestGallery</string>
 
 	<string name="IntentArticleIndex">articleIndex</string>
 

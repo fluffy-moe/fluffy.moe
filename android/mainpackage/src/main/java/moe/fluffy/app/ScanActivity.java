@@ -1,23 +1,38 @@
 package moe.fluffy.app;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.google.zxing.client.android.Intents;
 import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.journeyapps.barcodescanner.ViewfinderView;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Random;
+
+import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.assistant.Utils;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
  * Custom Scanner Activity extending from Activity to display a custom layout form scanner view.
@@ -29,7 +44,10 @@ public class ScanActivity extends Activity{
 	//private Button switchFlashlightButton;
 	private ViewfinderView viewfinderView;
 
+
 	TextView txtTitle, txtHint;
+
+	ImageButton imgbtnBack, imgbtnClose, imgbtnChooseFromGallery;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +73,20 @@ public class ScanActivity extends Activity{
 	void init() {
 		txtTitle = findViewById(R.id.txtScannerTitle);
 		txtHint = findViewById(R.id.txtScannerContent);
+		imgbtnBack = findViewById(R.id.imgbtnScannerBack);
+		imgbtnClose = findViewById(R.id.imgbtnScannerCross);
+		imgbtnChooseFromGallery = findViewById(R.id.imgbtnScannerDevice);
 
+		// https://stackoverflow.com/a/55938561
 		txtTitle.setTypeface(ResourcesCompat.getFont(this, R.font.segoe_ui_bold));
 		txtHint.setTypeface(ResourcesCompat.getFont(this, R.font.segoe_ui_bold));
+		imgbtnClose.setOnClickListener(v -> finish());
+		imgbtnBack.setOnClickListener(v -> finish());
+		imgbtnChooseFromGallery.setOnClickListener(v -> {
+			LocalBroadcastManager.getInstance(ScanActivity.this).sendBroadcast(
+					new Intent(getString(R.string.IntentFilter_request_choose_from_gallery)));
+			finish();
+		});
 	}
 
 	@Override

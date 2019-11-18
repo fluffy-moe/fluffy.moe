@@ -151,11 +151,11 @@ public class SearchActivity extends AppCompatActivity {
 				JSONArray a = map_detail.getJSONObject("data")
 						.getJSONObject(select_city)
 						.getJSONArray(select_district);
-				ArrayList<AddressInfoType> infos = new ArrayList<>();
+				ArrayList<AddressInfoType> addressInfoList = new ArrayList<>();
 				for (int i=0; i< a.length();i++) {
-					infos.add(new AddressInfoType(a.getJSONObject(i)));
+					addressInfoList.add(new AddressInfoType(a.getJSONObject(i)));
 				}
-				init_listView(infos);
+				init_listView(addressInfoList);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -169,10 +169,10 @@ public class SearchActivity extends AppCompatActivity {
 		});
 	}
 
-	void init_listView(ArrayList<AddressInfoType> infos) {
+	void init_listView(ArrayList<AddressInfoType> addressInfoArray) {
 		final AddressAdapter addressAdapter = new AddressAdapter(this, new ArrayList<>());
 		this.lvSearchResult.setAdapter(addressAdapter);
-		for (AddressInfoType a: infos) {
+		for (AddressInfoType a: addressInfoArray) {
 			addressAdapter.add(a);
 		}
 	}

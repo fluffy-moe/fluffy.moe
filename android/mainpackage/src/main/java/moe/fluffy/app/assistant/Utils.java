@@ -20,25 +20,45 @@
 package moe.fluffy.app.assistant;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.net.Uri;
 import android.text.InputType;
 import android.view.WindowManager;
 import android.widget.EditText;
 
 import androidx.annotation.StringRes;
 
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.ChecksumException;
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.RGBLuminanceSource;
+import com.google.zxing.Reader;
+import com.google.zxing.Result;
+import com.google.zxing.client.android.Intents;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.oned.MultiFormatUPCEANReader;
+
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 public class Utils {
+
+	private static final String TAG = "log_Utils";
+
 	/* copied from com.codbking.calendar.example */
 	public static  int getColor(Context context,int res){
 		Resources r=context.getResources();
@@ -131,7 +151,7 @@ public class Utils {
 
 		return drawable;
 	}
-	/* end */
+	/* copied from com.codbking.calendar.example end */
 
 	public static String exceptionToString(Throwable e) {
 		return exceptionToString((Exception)e);
@@ -143,7 +163,11 @@ public class Utils {
 		return sw.toString();
 	}
 
-	public static void onFocusChange(boolean hasFocus, Context context, @NotNull EditText et, @StringRes int original_string_id, boolean isPasswordField) {
+	public static void onFocusChange(boolean hasFocus,
+									 Context context,
+									 @NotNull EditText et,
+									 @StringRes int original_string_id,
+									 boolean isPasswordField) {
 		if (hasFocus) {
 			if (et.getText().toString().equals(context.getString(original_string_id))) {
 				et.setText("");
@@ -159,5 +183,39 @@ public class Utils {
 
 			}
 		}
+	}
+
+	public static Bitmap getBitmap(Context context, Intent intent) throws IOException {
+		Uri u = intent.getData();
+		InputStream is;
+		Bitmap bmp = null;
+		if (u != null) {
+			is = context.getContentResolver().openInputStream(u);
+			bmp = BitmapFactory.decodeStream(is);
+		}
+		return bmp;
+	}
+
+	public static String realDecode(Bitmap bitmap) {
+		int width = bitmap.getWidth(), height = bitmap.getHeight();
+		int[] pixels = new int[width*height];
+		bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
+		RGBLuminanceSource source = new RGBLuminanceSource(width, height, pixels);
+		BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(source));
+		Reader reader = new MultiFormatUPCEANReader(null);
+		Result result = null;
+		try {
+			result = reader.decode(binaryBitmap);
+		} catch (NotFoundException | ChecksumException | FormatException e) {
+			e.printStackTrace();
+		}
+		String text;
+		if (result != null) {
+			text = result.getText();
+			//Log.d(TAG, "realDecode: text => " + text);
+		} else {
+			throw new NullPointerException();
+		}
+		return text;
 	}
 }
