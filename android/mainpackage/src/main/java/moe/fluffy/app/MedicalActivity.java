@@ -24,11 +24,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import moe.fluffy.app.assistant.JSONParser;
+import moe.fluffy.app.types.DeinsectizaionType;
+import moe.fluffy.app.types.VaccinationType;
+import moe.fluffy.app.types.adapter.DeinsectizaionAdapter;
+import moe.fluffy.app.types.adapter.VaccinationAdapter;
 
 public class MedicalActivity extends AppCompatActivity {
 
@@ -49,6 +63,13 @@ public class MedicalActivity extends AppCompatActivity {
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
 
+	ListView lvItems;
+
+
+	JSONObject medicalObject;
+	ArrayList<VaccinationType> vacArray;
+	ArrayList<DeinsectizaionType> deiArray;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,7 +77,28 @@ public class MedicalActivity extends AppCompatActivity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_medical);
+		initJson();
 		init();
+	}
+
+	private void initJson() {
+		if (medicalObject == null) {
+			vacArray = new ArrayList<>();
+			deiArray = new ArrayList<>();
+			medicalObject = JSONParser.loadJSONFromAsset(getResources().openRawResource(R.raw.medical));
+			try {
+				JSONArray m = medicalObject.getJSONArray(getString(R.string.jsonDeinsectizaionRoot));
+				for (int i=0;i<m.length();i++) {
+					deiArray.add(new DeinsectizaionType(m.getJSONObject(i)));
+				}
+				m = medicalObject.getJSONArray(getString(R.string.jsonVaccinationRoot));
+				for (int i=0;i<m.length();i++) {
+					vacArray.add(new VaccinationType(m.getJSONObject(i)));
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private void init() {
@@ -77,12 +119,18 @@ public class MedicalActivity extends AppCompatActivity {
 		imgBackground = findViewById(R.id.imgMedicalNextBackground);
 		txtNextTimeTxt = findViewById(R.id.txtMedicalNext);
 		txtNextDate = findViewById(R.id.txtMedicalNextTime);
+		lvItems = findViewById(R.id.lvMedicalItems);
 
 		initNavigationBar();
 
-		txtBar1.setOnClickListener( v -> setOnClickChangeView(txtBar1, vBarUnderline1, View.VISIBLE));
-		txtBar2.setOnClickListener( v -> setOnClickChangeView(txtBar2, vBarUnderline2, View.VISIBLE));
-		txtBar3.setOnClickListener( v -> setOnClickChangeView(txtBar3, vBarUnderline3, View.INVISIBLE));
+		txtBar1.setOnClickListener( v -> setOnClickChangeView(txtBar1, vBarUnderline1, View.VISIBLE,
+				new VaccinationAdapter(this, vacArray)));
+		txtBar2.setOnClickListener( v -> setOnClickChangeView(txtBar2, vBarUnderline2, View.VISIBLE,
+				new DeinsectizaionAdapter(this, deiArray)));
+		txtBar3.setOnClickListener( v -> setOnClickChangeView(txtBar3, vBarUnderline3, View.INVISIBLE,
+				null));
+
+		lvItems.setAdapter(new VaccinationAdapter(this, vacArray));
 
 		imgbtnSearchHospital.setOnClickListener(v ->
 				startActivity(new Intent(MedicalActivity.this, SearchActivity.class)));
@@ -114,7 +162,7 @@ public class MedicalActivity extends AppCompatActivity {
 		txtNextDate.setVisibility(visibility);
 	}
 
-	private void setOnClickChangeView(TextView tView, View vUnderline, int barVisibility) {
+	private void setOnClickChangeView(TextView tView, View vUnderline, int barVisibility, ArrayAdapter<?> arrayAdapter) {
 		if (previousClickText != null) {
 			previousClickText.setTextColor(getColor(R.color.colorBackground));
 		}
@@ -126,5 +174,7 @@ public class MedicalActivity extends AppCompatActivity {
 		previousClickText = tView;
 		previousView = vUnderline;
 		setBarVisibility(barVisibility);
+		if (arrayAdapter != null)
+			lvItems.setAdapter(arrayAdapter);
 	}
 }

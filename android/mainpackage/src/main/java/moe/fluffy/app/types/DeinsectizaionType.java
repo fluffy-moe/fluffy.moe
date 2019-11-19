@@ -45,7 +45,7 @@ public class DeinsectizaionType {
 		status = _status;
 	}
 
-	DeinsectizaionType(JSONObject j) throws JSONException {
+	public DeinsectizaionType(JSONObject j) throws JSONException {
 		date = new Date(j.getJSONObject(columnDate));
 		deinsectizaion = j.getString(columnNobivac);
 		status = j.getInt(columnStatus);

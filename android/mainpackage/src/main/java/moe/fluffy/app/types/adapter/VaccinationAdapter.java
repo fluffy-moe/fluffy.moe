@@ -39,7 +39,7 @@ import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.types.VaccinationType;
 
 public class VaccinationAdapter extends ArrayAdapter<VaccinationType> {
-	VaccinationAdapter(Context context, ArrayList<VaccinationType> arrayList) {
+	public VaccinationAdapter(Context context, ArrayList<VaccinationType> arrayList) {
 		super(context, android.R.layout.simple_list_item_1, arrayList);
 	}
 
@@ -65,7 +65,7 @@ public class VaccinationAdapter extends ArrayAdapter<VaccinationType> {
 
 
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_today, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.vaccination_item, parent, false);
 		}
 
 		txtDate = convertView.findViewById(R.id.txtVacTime);
@@ -79,7 +79,7 @@ public class VaccinationAdapter extends ArrayAdapter<VaccinationType> {
 			txtNobivac.setText(it.getNobivac());
 			txtInjectSite.setText(it.getInjectionSite());
 			txtDoctor.setText(it.getDoctor());
-			((GradientDrawable)imgBackground.getBackground()).setColor(getContext().getColor(getColorRes(it.getStatus())));
+			//((GradientDrawable)imgBackground.getBackground()).setColor(getContext().getColor(getColorRes(it.getStatus())));
 		} else {
 			NullPointerException e = new NullPointerException("Vaccination type return null");
 			PopupDialog.build(getContext(), e);

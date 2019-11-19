@@ -40,7 +40,7 @@ import moe.fluffy.app.types.DeinsectizaionType;
 import moe.fluffy.app.types.VaccinationType;
 
 public class DeinsectizaionAdapter extends ArrayAdapter<DeinsectizaionType> {
-	DeinsectizaionAdapter(Context context, ArrayList<DeinsectizaionType> arrayList) {
+	public DeinsectizaionAdapter(Context context, ArrayList<DeinsectizaionType> arrayList) {
 		super(context, android.R.layout.simple_list_item_1, arrayList);
 	}
 
@@ -66,7 +66,7 @@ public class DeinsectizaionAdapter extends ArrayAdapter<DeinsectizaionType> {
 
 
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_today, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.deinsectization_item, parent, false);
 		}
 
 		txtDate = convertView.findViewById(R.id.txtDeinTime);
@@ -76,7 +76,7 @@ public class DeinsectizaionAdapter extends ArrayAdapter<DeinsectizaionType> {
 		if (it != null) {
 			txtDate.setText(getContext().getString(R.string.fmt_date, it.getYear(), it.getMonth(), it.getDay()));
 			txtNobivac.setText(it.getDeinsectizaion());
-			((GradientDrawable)imgBackground.getBackground()).setColor(getContext().getColor(getColorRes(it.getStatus())));
+			//((GradientDrawable)imgBackground.getBackground()).setColor(getContext().getColor(getColorRes(it.getStatus())));
 		} else {
 			NullPointerException e = new NullPointerException("Deinsectizaion type return null");
 			PopupDialog.build(getContext(), e);

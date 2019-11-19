@@ -59,7 +59,7 @@ public class VaccinationType {
 	 * @param j json from server
 	 * @throws JSONException Exception while get json value
 	 */
-	VaccinationType(JSONObject j) throws JSONException {
+	public VaccinationType(JSONObject j) throws JSONException {
 		date = new Date(j.getJSONObject(columnDate));
 		nobivac = j.getString(columnNobivac);
 		injectionSite = j.getString(columnInjectionSite);
