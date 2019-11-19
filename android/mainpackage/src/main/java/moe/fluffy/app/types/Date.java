@@ -21,6 +21,7 @@ package moe.fluffy.app.types;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -57,6 +58,7 @@ public class Date {
 		}
 		return today;
 	}
+
 	public Date(int _year, int _month, int _day) {
 		year = _year;
 		month = _month;

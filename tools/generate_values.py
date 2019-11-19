@@ -47,6 +47,7 @@ for _ in range(100):
 	out['deinsectizaion'].append(generate_deinsectizaion())
 
 out['vaccination'] = sorted(out['vaccination'], key=itemgetter('timestamp'))
+out['deinsectizaion'] = sorted(out['deinsectizaion'], key=itemgetter('timestamp'))
 
 with open('medical.json', 'w', encoding='utf8') as fout:
 	json.dump(out, fout, indent='\t', separators=(',', ': '), sort_keys=True)

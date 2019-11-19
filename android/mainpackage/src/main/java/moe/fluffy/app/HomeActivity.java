@@ -39,6 +39,7 @@ import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.DeinsectizaionType;
 import moe.fluffy.app.types.EventsType;
+import moe.fluffy.app.types.FoodViewType;
 import moe.fluffy.app.types.PetInfo;
 import moe.fluffy.app.types.VaccinationType;
 
@@ -64,6 +65,7 @@ public class HomeActivity extends AppCompatActivity {
 		EventsType.getColumnName(this);
 		VaccinationType.initColumn(this);
 		DeinsectizaionType.initColumnName(this);
+		FoodViewType.initColumn(this);
 		HomeActivity.dbHelper = new DatabaseHelper(this);
 
 		findViewById(R.id.btnChangeToSearch).setOnClickListener(

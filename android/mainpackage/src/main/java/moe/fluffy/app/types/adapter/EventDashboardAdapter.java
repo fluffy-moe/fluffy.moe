@@ -26,6 +26,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.mazhuang.wrapcontentlistview.WrapContentListView;
 
 import java.util.ArrayList;
@@ -39,8 +42,9 @@ public class EventDashboardAdapter extends ArrayAdapter<EventDashboardType> {
 		super(context, android.R.layout.simple_list_item_1, adapters);
 	}
 
+	@NonNull
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 		EventDashboardType it = getItem(position);
 
 		TextView txtView;

@@ -7,7 +7,7 @@
 
 	<Space
 		android:layout_width="match_parent"
-		android:layout_height="61px" />
+		android:layout_height="94px" />
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -15,7 +15,7 @@
 		android:orientation="horizontal">
 
 		<Space
-			android:layout_width="64px"
+			android:layout_width="74px"
 			android:layout_height="wrap_content"
 			android:layout_weight="1" />
 
@@ -25,6 +25,6 @@
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:divider="@drawable/divider_141px"
-			android:dividerHeight="141px"/>
+			android:dividerHeight="82px" />
 	</LinearLayout>
 </LinearLayout>

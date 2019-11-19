@@ -53,11 +53,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private final static String TABLE_PET = "pet";
 	private final static String TABLE_OPTION = "option";
 	private final static String TABLE_EVENTS = "events";
+	private final static String TABLE_FOOD_HISTORY = "food";
 	private final static String CREATE_OPTION = "CREATE TABLE `option` (`key` TEXT PRIMARY KEY, `value` TEXT)";
 	private final static String CREATE_PET = "CREATE TABLE `pet` (`name` TEXT PRIMARY KEY, `birthday` TEXT, `breed` TEXT)";
 	private final static String CREATE_EVENTS = "CREATE TABLE `events` (" +
 			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `hour` INTEGER, `minute` INTEGER, " +
 			"`category` TEXT, `body` TEXT, `color` INTEGER, `alarm` TEXT)";
+	private final static String CREATE_FOOD_HISTORY = "CREATE TABLE `food` (" +
+			"`year` INTEGER, `month` INTEGER`, `day` INTEGER, `name` TEXT, `note` TEXT, `liked` TEXT, `SOURCE` TEXT)";
 
 	private final static String TAG = "log_Database";
 	private ColorCache colorCache;
@@ -244,6 +247,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	public ArrayList<EventsType> getEventInfo(int year, int month) {
+		//colorCache = new ColorCache(year, month);
 		SQLiteDatabase s = this.getReadableDatabase();
 		ArrayList<EventsType> arrayList = new ArrayList<>();
 
@@ -281,7 +285,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			color = c.getInt(c.getColumnIndexOrThrow(getString(R.string.dbEventColor)));
 		}
 		c.close();
-		//Log.d(TAG, "getTodayColorID: Color => " + color);
+		//Log.d(TAG, "getTodayColorID: month => " +  month + " day => "+ day + " Color => " + color);
 		if (color != android.R.color.transparent)
 			return context.getResources().getIdentifier(getString(R.string.fmt_event_color, color), "color", context.getPackageName());
 		return color;

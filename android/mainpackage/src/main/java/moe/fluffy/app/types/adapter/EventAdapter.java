@@ -27,6 +27,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -41,28 +44,28 @@ public class EventAdapter extends ArrayAdapter<EventsType> {
 		super(context, android.R.layout.simple_list_item_1, adapters);
 	}
 
-	@NotNull
+	@NonNull
 	@Override
-	public View getView(int position, View covertView, @NotNull ViewGroup parent) {
+	public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 		EventsType it = getItem(position);
 
 		TextView txtDay, txtWeek, txtTime, txtEvent;
 		View viewSideColor;
 
-		if (covertView == null) {
-			covertView = LayoutInflater.from(getContext()).inflate(R.layout.event_items, parent, false);
+		if (convertView == null) {
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_items, parent, false);
 		}
 
-		txtDay = covertView.findViewById(R.id.txtDateEventItems);
-		txtWeek = covertView.findViewById(R.id.txtWeekEventItems);
+		txtDay = convertView.findViewById(R.id.txtDateEventItems);
+		txtWeek = convertView.findViewById(R.id.txtWeekEventItems);
 
-		txtTime = covertView.findViewById(R.id.txtTimeEventItems);
-		txtEvent = covertView.findViewById(R.id.txtEventItems);
+		txtTime = convertView.findViewById(R.id.txtTimeEventItems);
+		txtEvent = convertView.findViewById(R.id.txtEventItems);
 
-		viewSideColor = covertView.findViewById(R.id.viewTodayLineColor2);
+		viewSideColor = convertView.findViewById(R.id.viewTodayLineColor2);
 
 		viewSideColor.setBackgroundColor(getContext().getColor(
-				getContext().getResources().getIdentifier(String.format("event_c%d",
+				getContext().getResources().getIdentifier(getContext().getString(R.string.fmt_event_color,
 						it.getColor()), "color", getContext().getPackageName())));
 
 		txtDay.setText(String.valueOf(it.getDay()));
@@ -70,6 +73,6 @@ public class EventAdapter extends ArrayAdapter<EventsType> {
 		txtEvent.setText(it.getBody());
 		txtTime.setText(String.format("%02d:%02d", it.getHour(), it.getMinute()));
 
-		return covertView;
+		return convertView;
 	}
 }

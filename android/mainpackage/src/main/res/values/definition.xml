@@ -54,6 +54,11 @@
 	<string name="dbEventsBody">body</string>
 	<string name="dbEventColor">color</string>
 	<string name="dbEventNeedAlarm">alarm</string>
+
+	<string name="dbFoodHistoryName">name</string>
+	<string name="dbFoodHistoryNote">note</string>
+	<string name="dbFoodHistoryImage">source</string>
+	<string name="dbFoodHistoryLiked">like</string>
 	<!-- DATABASE END -->
 
 	<!-- string in main application -->
@@ -93,5 +98,8 @@
 	<string name="fmt_date">%04d / %02d / %02d</string>
 	<string name="jsonDeinsectizaionRoot">deinsectizaion</string>
 	<!-- Medical string end -->
+
+	<!-- Food history -->
+	<!-- Food history end -->
 
 </resources>

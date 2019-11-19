@@ -23,9 +23,9 @@
 
 
 	<!-- vaccination color -->
-	<color name="colorVacRed">#FF0000</color>
-	<color name="colorVacGreen">#00FF00</color>
-	<color name="colorVacUndefined">#969696</color>
+	<color name="colorVacRed">#F29671</color>
+	<color name="colorVacGreen">#85C5A7</color>
+	<color name="colorVacUndefined">#7D8E9B</color>
 	<!-- vaccination color end -->
 
 </resources>
