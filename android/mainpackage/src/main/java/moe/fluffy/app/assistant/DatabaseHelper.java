@@ -25,23 +25,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
 
-import com.codbking.calendar.CalendarBean;
 import com.codbking.calendar.CalendarUtil;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.types.ColorCache;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.EventsType;
 import moe.fluffy.app.types.PetInfo;
@@ -60,15 +53,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `hour` INTEGER, `minute` INTEGER, " +
 			"`category` TEXT, `body` TEXT, `color` INTEGER, `alarm` TEXT)";
 	private final static String CREATE_FOOD_HISTORY = "CREATE TABLE `food` (" +
-			"`year` INTEGER, `month` INTEGER`, `day` INTEGER, `name` TEXT, `note` TEXT, `liked` TEXT, `SOURCE` TEXT)";
+			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `name` TEXT, `note` TEXT, `liked` TEXT, `SOURCE` TEXT)";
 
 	private final static String TAG = "log_Database";
-	private ColorCache colorCache;
 
 	DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
 		super(context, name, factory, version);
 		this.context = context;
-		ColorCache.initColumnName(context);
 	}
 
 	public DatabaseHelper(Context context){
@@ -81,6 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_OPTION);
 		db.execSQL(CREATE_PET);
 		db.execSQL(CREATE_EVENTS);
+		db.execSQL(CREATE_FOOD_HISTORY);
 		ContentValues cv = new ContentValues();
 		for (String str: new String[]{getString(R.string.dbOptionUser),
 				getString(R.string.dbOptionSession)}) {
@@ -98,6 +90,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_OPTION);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_PET);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOOD_HISTORY);
 		onCreate(db);
 	}
 
