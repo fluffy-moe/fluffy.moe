@@ -60,10 +60,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `hour` INTEGER, `minute` INTEGER, " +
 			"`category` TEXT, `body` TEXT, `color` INTEGER, `alarm` TEXT)";
 	private final static String CREATE_FOOD_HISTORY = "CREATE TABLE `food` (" +
-			"`year` INTEGER, `month` INTEGER`, `day` INTEGER, `name` TEXT, `note` TEXT, `liked` TEXT, `SOURCE` TEXT)";
+			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `name` TEXT, `note` TEXT, `liked` TEXT, `SOURCE` TEXT)";
 
 	private final static String TAG = "log_Database";
-	private ColorCache colorCache;
+	private static ColorCache colorCache;
 
 	DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
 		super(context, name, factory, version);
@@ -74,6 +74,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public DatabaseHelper(Context context){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.context = context;
+		if (colorCache == null) {
+			ColorCache.initColumnName(context);
+			colorCache = new ColorCache();
+		}
 	}
 
 	@Override
@@ -81,6 +85,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_OPTION);
 		db.execSQL(CREATE_PET);
 		db.execSQL(CREATE_EVENTS);
+		db.execSQL(CREATE_FOOD_HISTORY);
 		ContentValues cv = new ContentValues();
 		for (String str: new String[]{getString(R.string.dbOptionUser),
 				getString(R.string.dbOptionSession)}) {
@@ -98,6 +103,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_OPTION);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_PET);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOOD_HISTORY);
 		onCreate(db);
 	}
 
@@ -276,16 +282,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@SuppressLint("DefaultLocale")
 	public int getTodayColorID(int year, int month, int day) {
-		int color = android.R.color.transparent;
-		SQLiteDatabase s = this.getReadableDatabase();
-		Cursor c = s.rawQuery(getString(R.string.dbRawQueryAccurateDay, TABLE_EVENTS),
-				new String[]{String.valueOf(year), String.valueOf(month), String.valueOf(day)});
-		if (c.getCount() != 0) {
-			c.moveToFirst();
-			color = c.getInt(c.getColumnIndexOrThrow(getString(R.string.dbEventColor)));
+		int color;
+		if (!colorCache.checkMonthInCache(year, month)) {
+			SQLiteDatabase s = this.getReadableDatabase();
+			Cursor c = s.rawQuery(getString(R.string.dbRawQueryEventsFromYearMonth, TABLE_EVENTS),
+					new String[]{String.valueOf(year), String.valueOf(month)});
+			if (c.getCount() != 0) {
+				colorCache.push(year, month, c);
+			}
+			c.close();
+			//Log.d(TAG, "getTodayColorID: month => " +  month + " day => "+ day + " Color => " + color);
 		}
-		c.close();
-		//Log.d(TAG, "getTodayColorID: month => " +  month + " day => "+ day + " Color => " + color);
+		color = colorCache.getColor(year, month, day);
 		if (color != android.R.color.transparent)
 			return context.getResources().getIdentifier(getString(R.string.fmt_event_color, color), "color", context.getPackageName());
 		return color;

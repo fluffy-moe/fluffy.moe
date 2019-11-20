@@ -22,12 +22,14 @@ package moe.fluffy.app.types;
 import android.content.Context;
 import android.database.Cursor;
 import android.util.ArrayMap;
+import android.util.Log;
 
 import androidx.annotation.ColorRes;
 
 import com.codbking.calendar.CalendarBean;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import moe.fluffy.app.R;
 
@@ -35,41 +37,53 @@ public class ColorCache {
 
 	private static final String TAG = "log_ColorCache";
 
-	// Calendar require at least 5 month to get color
-	private static final int cache_size = 5;
+	private HashMap<MonthType, ArrayMap<Integer, Integer>> cacheMap;
 
-	private int year, month;
-
-	private ArrayMap<Integer, ArrayMap<Integer, Integer>> integerArrayMapArrayMap;
-
-	private static String columnColor;
+	private static String columnDay, columnColor;
 
 	public static void initColumnName(Context context) {
+		columnDay = context.getString(R.string.dbEventsDay);
 		columnColor = context.getString(R.string.dbEventColor);
 	}
 
-	public void push(int _month, ArrayMap<Integer, Integer> items) {
-		integerArrayMapArrayMap.put(_month, items);
+	public void push(int year, int month, ArrayMap<Integer, Integer> items) {
+		cacheMap.put(new MonthType(year, month), items);
 	}
 
-	public ColorCache(int _year, int _month) {
-		year = _year;
-		month = _month;
-		integerArrayMapArrayMap = new ArrayMap<>();
+	/**
+	 * Insert cache
+	 *
+	 * @param year cached year
+	 * @param month cached month
+	 * @param cursor checked cursor (must not none)
+	 */
+	public void push(int year, int month, Cursor cursor) {
+		ArrayMap<Integer, Integer> current_month_cache = new ArrayMap<>();
+		//Log.d(TAG, "safe_push: cursor size => " + cursor.getCount());
+		cursor.moveToFirst();
+		do {
+			current_month_cache.put(
+					cursor.getInt(cursor.getColumnIndexOrThrow(columnDay)),
+					cursor.getInt(cursor.getColumnIndexOrThrow(columnColor))
+			);
+		} while (cursor.moveToNext());
+		cacheMap.put(new MonthType(year, month), current_month_cache);
 	}
 
-	public void init() {
-		if (integerArrayMapArrayMap.size() != cache_size) {
-			throw new RuntimeException("Cache size not matched");
-		}
+	public ColorCache() {
+		cacheMap = new HashMap<>();
 	}
 
-	public Integer getColor(CalendarBean bean) {
-	Integer color_id = android.R.color.transparent;
-	ArrayMap<Integer, Integer> _current = integerArrayMapArrayMap.get(bean.moth);
+	public boolean checkMonthInCache(int year, int month) {
+		return cacheMap.get(new MonthType(year, month)) != null;
+	}
+
+	public Integer getColor(int year, int month, int day) {
+		Integer color_id = android.R.color.transparent;
+		ArrayMap<Integer, Integer> _current = cacheMap.get(new MonthType(year, month));
 		if (_current != null) {
-		color_id = _current.get(bean.day);
-	}
+			color_id = _current.get(day);
+		}
 		return color_id == null ? android.R.color.transparent : color_id;
-}
+	}
 }
