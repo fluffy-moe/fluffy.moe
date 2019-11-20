@@ -243,11 +243,22 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/lvMedicalItems"
-        android:layout_width="478dp"
-        android:layout_height="510dp"
-        android:layout_marginStart="50dp"
+        android:id="@+id/lvMedicalNextTimeRecord"
+        android:layout_width="1040px"
+        android:layout_height="1272px"
+        android:layout_marginStart="192px"
+        android:layout_marginTop="1082px"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgMedicalNextBackground" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/lvBloodTestRecord"
+        android:layout_width="1160px"
+        android:layout_height="1465px"
+        android:layout_marginStart="142px"
+        android:layout_marginTop="873px"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

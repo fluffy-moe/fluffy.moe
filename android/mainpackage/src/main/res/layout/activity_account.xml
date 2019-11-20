@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<TextView
+		android:id="@+id/txtAccountTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="128px"
+		android:layout_marginTop="77px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Account"
+		android:textColor="#565656"
+		android:textSize="101px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAccountEditProfile"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="147px"
+		android:layout_marginTop="273px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Edit Profile"
+		android:textColor="#565656"
+		android:textSize="70px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAccountType"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="151px"
+		android:layout_marginTop="455px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Type"
+		android:textColor="#565656"
+		android:textSize="46px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageView
+		android:id="@+id/imgAccountType"
+		android:layout_width="1138px"
+		android:layout_height="0px"
+		android:layout_marginStart="151.5px"
+		android:layout_marginTop="395.5px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/accountline" />
+
+	<ImageView
+		android:id="@+id/imgAccountChangePassword"
+		android:layout_width="1138px"
+		android:layout_height="0px"
+		android:layout_marginStart="151.5px"
+		android:layout_marginTop="2042.5px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/accountline" />
+
+	<ImageView
+		android:id="@+id/imgAccountNotification"
+		android:layout_width="1138px"
+		android:layout_height="0px"
+		android:layout_marginStart="151.5px"
+		android:layout_marginTop="2484.5px"
+		android:background="@null"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/accountline" />
+
+	<ImageButton
+		android:id="@+id/imgbtnAccountDog"
+		android:layout_width="165px"
+		android:layout_height="165px"
+		android:layout_marginStart="151px"
+		android:layout_marginTop="577px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/accountdog" />
+
+	<ImageButton
+		android:id="@+id/imgbtnAccountCat"
+		android:layout_width="166px"
+		android:layout_height="165px"
+		android:layout_marginStart="381px"
+		android:layout_marginTop="577px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/accountcat" />
+
+	<ImageButton
+		android:id="@+id/imgbtnAccountBird"
+		android:layout_width="166px"
+		android:layout_height="165px"
+		android:layout_marginStart="606px"
+		android:layout_marginTop="577px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/accountbird" />
+
+	<ImageButton
+		android:id="@+id/imgbtnAccountOther"
+		android:layout_width="165px"
+		android:layout_height="165px"
+		android:layout_marginStart="837px"
+		android:layout_marginTop="577px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/accountother" />
+
+	<TextView
+		android:id="@+id/txtAccountDog"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="199px"
+		android:layout_marginTop="746px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Dog"
+		android:textColor="#565656"
+		android:textSize="36px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAccountCat"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="438px"
+		android:layout_marginTop="746px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Cat"
+		android:textColor="#565656"
+		android:textSize="36px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAccountBird"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="656px"
+		android:layout_marginTop="746px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Bird"
+		android:textColor="#565656"
+		android:textSize="36px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAccountOther"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="873px"
+		android:layout_marginTop="746px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Other"
+		android:textColor="#565656"
+		android:textSize="36px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAccountName"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="151px"
+		android:layout_marginTop="854px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Name"
+		android:textColor="#565656"
+		android:textSize="46px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAccountBreed"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="151px"
+		android:layout_marginTop="1093px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Breed"
+		android:textColor="#565656"
+		android:textSize="46px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAccountBirthday"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="758px"
+		android:layout_marginTop="1093px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Birthday"
+		android:textColor="#565656"
+		android:textSize="46px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAccountGender"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="151px"
+		android:layout_marginTop="1369px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Gender"
+		android:textColor="#565656"
+		android:textSize="46px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAccountSpayedOrNeutered"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="758px"
+		android:layout_marginTop="1369px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Spayed or Neutered"
+		android:textColor="#565656"
+		android:textSize="46px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAccountWeight"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="151px"
+		android:layout_marginTop="1633px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Weight"
+		android:textColor="#565656"
+		android:textSize="46px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAccountChangePassword"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="147px"
+		android:layout_marginTop="1920px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Change Password"
+		android:textColor="#565656"
+		android:textSize="70px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAccountNewPassword"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="151px"
+		android:layout_marginTop="2096px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="New Password"
+		android:textColor="#565656"
+		android:textSize="46px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAccountNotification"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="147px"
+		android:layout_marginTop="2364px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Notification"
+		android:textColor="#565656"
+		android:textSize="70px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/imgbtnAccountBack"
+		android:layout_width="66px"
+		android:layout_height="66px"
+		android:layout_marginStart="36px"
+		android:layout_marginTop="116px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/accountback" />
+
+	<Switch
+		android:id="@+id/swAccountNotification"
+		android:layout_width="141px"
+		android:layout_height="70px"
+		android:layout_marginStart="1158px"
+		android:layout_marginTop="2389px"
+		android:textColor="#E79E35"
+		android:textColorHighlight="#E79E35"
+		android:textColorLink="#E79E35"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/etAccountName"
+		android:layout_width="531px"
+		android:layout_height="103px"
+		android:layout_marginStart="151px"
+		android:layout_marginTop="934px"
+		android:background="@drawable/ic_path_4"
+		android:ems="10"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:inputType="textMultiLine"
+		android:paddingStart="41px"
+		android:text="Pet's name"
+		android:textColor="#969696"
+		android:textSize="44px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/etAccountBreed"
+		android:layout_width="531px"
+		android:layout_height="103px"
+		android:layout_marginStart="151px"
+		android:layout_marginTop="1173px"
+		android:background="@drawable/ic_path_4"
+		android:ems="10"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:inputType="textMultiLine"
+		android:paddingStart="41px"
+		android:text="Pet's breed"
+		android:textColor="#969696"
+		android:textSize="44px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/etAccountBirthday"
+		android:layout_width="531px"
+		android:layout_height="103px"
+		android:layout_marginStart="758px"
+		android:layout_marginTop="1173px"
+		android:background="@drawable/ic_path_4"
+		android:ems="10"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:inputType="textMultiLine"
+		android:paddingStart="41px"
+		android:text="MM/DD/YYYY"
+		android:textColor="#969696"
+		android:textSize="44px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<EditText
+		android:id="@+id/etAccountWeight"
+		android:layout_width="531px"
+		android:layout_height="103px"
+		android:layout_marginStart="151px"
+		android:layout_marginTop="1713px"
+		android:background="@drawable/ic_path_4"
+		android:ems="10"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:inputType="textMultiLine"
+		android:paddingStart="41px"
+		android:text="kilogram"
+		android:textColor="#969696"
+		android:textSize="44px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<RadioGroup
+		android:id="@+id/rbg_yes_no"
+		android:layout_width="531px"
+		android:layout_height="103px"
+		android:layout_marginStart="758px"
+		android:layout_marginTop="1449px"
+		android:background="@drawable/round_edittext"
+		android:orientation="horizontal"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<RadioButton
+			android:id="@+id/rb_yes"
+			android:layout_width="265.5px"
+			android:layout_height="103px"
+			android:button="@null"
+			android:fontFamily="@font/segoe_ui_semibold"
+			android:text="Yes"
+			android:textAlignment="center"
+			android:textColor="#545871"
+			android:textSize="44px" />
+
+		<RadioButton
+			android:id="@+id/rb_no"
+			android:layout_width="265.5px"
+			android:layout_height="103px"
+			android:button="@null"
+			android:fontFamily="@font/segoe_ui_semibold"
+			android:text="No"
+			android:textAlignment="center"
+			android:textColor="#545871"
+			android:textSize="44px" />
+	</RadioGroup>
+
+	<RadioGroup
+		android:id="@+id/rbg_gender"
+		android:layout_width="531px"
+		android:layout_height="103px"
+		android:layout_marginStart="151px"
+		android:layout_marginTop="1449px"
+		android:background="@drawable/round_edittext"
+		android:orientation="horizontal"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<RadioButton
+			android:id="@+id/rb_female"
+			android:layout_width="265.5px"
+			android:layout_height="103px"
+			android:button="@null"
+			android:fontFamily="@font/segoe_ui_semibold"
+			android:text="Female"
+			android:textAlignment="center"
+			android:textColor="#545871"
+			android:textSize="44px" />
+
+		<RadioButton
+			android:id="@+id/rb_male"
+			android:layout_width="265.5px"
+			android:layout_height="103px"
+			android:button="@null"
+			android:fontFamily="@font/segoe_ui_semibold"
+			android:text="Male"
+			android:textAlignment="center"
+			android:textColor="#545871"
+			android:textSize="44px" />
+	</RadioGroup>
+
+	<EditText
+		android:id="@+id/etAccountNewPassword"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="151px"
+		android:layout_marginTop="2176px"
+		android:background="@drawable/round_edittext"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:text="******"
+		android:paddingStart="41px"
+		android:textColor="#969696"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

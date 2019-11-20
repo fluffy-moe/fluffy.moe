@@ -119,7 +119,7 @@ public class MedicalActivity extends AppCompatActivity {
 		imgBackground = findViewById(R.id.imgMedicalNextBackground);
 		txtNextTimeTxt = findViewById(R.id.txtMedicalNext);
 		txtNextDate = findViewById(R.id.txtMedicalNextTime);
-		lvItems = findViewById(R.id.lvMedicalItems);
+		lvItems = findViewById(R.id.lvMedicalNextTimeRecord);
 
 		initNavigationBar();
 
