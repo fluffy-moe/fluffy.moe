@@ -127,6 +127,8 @@
 	<string name="title_choose_date">Choose date</string>
 	<string name="text_category">Category</string>
 	<string name="text_title_for_calendar">Title</string>
+	<string name="text_title_for_water">ml</string>
+	<string name="etCalendarAddWaterHint">Write the number</string>
 	<string name="text_color">Color</string>
 	<string name="text_alarm">Alarm</string>
 	<string name="text_year">Year</string>

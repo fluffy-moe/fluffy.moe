@@ -39,6 +39,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import moe.fluffy.app.assistant.JSONParser;
+import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.types.DeinsectizaionType;
 import moe.fluffy.app.types.VaccinationType;
 import moe.fluffy.app.types.adapter.DeinsectizaionAdapter;
@@ -63,7 +64,7 @@ public class MedicalActivity extends AppCompatActivity {
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
 
-	ListView lvItems;
+	ListView lvItems, lvBloodTestItems;
 
 
 	JSONObject medicalObject;
@@ -96,7 +97,7 @@ public class MedicalActivity extends AppCompatActivity {
 					vacArray.add(new VaccinationType(m.getJSONObject(i)));
 				}
 			} catch (JSONException e) {
-				e.printStackTrace();
+				PopupDialog.build(this, e);
 			}
 		}
 	}
@@ -119,16 +120,18 @@ public class MedicalActivity extends AppCompatActivity {
 		imgBackground = findViewById(R.id.imgMedicalNextBackground);
 		txtNextTimeTxt = findViewById(R.id.txtMedicalNext);
 		txtNextDate = findViewById(R.id.txtMedicalNextTime);
+
 		lvItems = findViewById(R.id.lvMedicalNextTimeRecord);
+		lvBloodTestItems = findViewById(R.id.lvBloodTestRecord);
 
 		initNavigationBar();
 
 		txtBar1.setOnClickListener( v -> setOnClickChangeView(txtBar1, vBarUnderline1, View.VISIBLE,
-				new VaccinationAdapter(this, vacArray)));
+				new VaccinationAdapter(this, vacArray), null));
 		txtBar2.setOnClickListener( v -> setOnClickChangeView(txtBar2, vBarUnderline2, View.VISIBLE,
-				new DeinsectizaionAdapter(this, deiArray)));
+				new DeinsectizaionAdapter(this, deiArray), null));
 		txtBar3.setOnClickListener( v -> setOnClickChangeView(txtBar3, vBarUnderline3, View.INVISIBLE,
-				null));
+				null, null));
 
 		lvItems.setAdapter(new VaccinationAdapter(this, vacArray));
 
@@ -162,7 +165,7 @@ public class MedicalActivity extends AppCompatActivity {
 		txtNextDate.setVisibility(visibility);
 	}
 
-	private void setOnClickChangeView(TextView tView, View vUnderline, int barVisibility, ArrayAdapter<?> arrayAdapter) {
+	private void setOnClickChangeView(TextView tView, View vUnderline, int barVisibility, ArrayAdapter<?> arrayAdapter1, ArrayAdapter<?> arrayAdapter2) {
 		if (previousClickText != null) {
 			previousClickText.setTextColor(getColor(R.color.colorBackground));
 		}
@@ -174,7 +177,15 @@ public class MedicalActivity extends AppCompatActivity {
 		previousClickText = tView;
 		previousView = vUnderline;
 		setBarVisibility(barVisibility);
-		if (arrayAdapter != null)
-			lvItems.setAdapter(arrayAdapter);
+		if (arrayAdapter1 != null) {
+			lvBloodTestItems.setVisibility(View.INVISIBLE);
+			lvItems.setVisibility(View.VISIBLE);
+			lvItems.setAdapter(arrayAdapter1);
+		}
+		if (arrayAdapter2 != null) {
+			lvItems.setVisibility(View.INVISIBLE);
+			lvBloodTestItems.setVisibility(View.VISIBLE);
+			lvBloodTestItems.setAdapter(arrayAdapter2);
+		}
 	}
 }

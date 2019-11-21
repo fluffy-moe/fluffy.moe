@@ -28,4 +28,9 @@
 	<color name="colorVacUndefined">#7D8E9B</color>
 	<!-- vaccination color end -->
 
+	<!-- add event -->
+	<color name="colorSelect">#565656</color>
+	<color name="colorNotSelect">#969696</color>
+	<!-- add event end -->
+
 </resources>

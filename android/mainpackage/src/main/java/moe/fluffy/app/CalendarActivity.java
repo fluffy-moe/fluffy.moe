@@ -39,6 +39,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.ColorRes;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.codbking.calendar.CalendarDateView;
@@ -66,9 +67,11 @@ public class CalendarActivity extends AppCompatActivity {
 
 	Button btnAddEvent;
 
-	private ImageButton btnColorSelected, categorySelected;
+	private ImageButton btnColorSelected;
+	private Button categorySelected;
 	private String categorySelectedText;
 	@ColorRes int colorSelected;
+	@StringRes int water;
 
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
@@ -246,20 +249,30 @@ public class CalendarActivity extends AppCompatActivity {
 		btnSymptom = viewAddEventPopup.findViewById(R.id.btnCalendarSymptom);
 		btnWater = viewAddEventPopup.findViewById(R.id.btnCalendarWater);
 		categorySelectedText = getString(R.string.categoryEvent);
+		categorySelected = btnEvent;
 		btnEvent.setOnClickListener(v ->
-				categoryOnClick(btnEvent, getString(R.string.categoryEvent)));
+				categoryOnClick(btnEvent, getString(R.string.categoryEvent), viewAddEventPopup));
 		btnNote.setOnClickListener(v ->
-				categoryOnClick(btnNote, getString(R.string.categoryNote)));
+				categoryOnClick(btnNote, getString(R.string.categoryNote), viewAddEventPopup));
 		btnSymptom.setOnClickListener(v ->
-				categoryOnClick(btnSymptom, getString(R.string.categorySymptom)));
+				categoryOnClick(btnSymptom, getString(R.string.categorySymptom), viewAddEventPopup));
 		btnWater.setOnClickListener(v ->
-				categoryOnClick(btnWater, getString(R.string.categoryWater)));
+				categoryOnClick(btnWater, getString(R.string.categoryWater), viewAddEventPopup));
 	}
 
-	void categoryOnClick(Button btn, String category) {
-		Log.v(TAG, "categoryOnClick => " + category);
-		// do something
+	void categoryOnClick(Button btn, String category, View viewAddEventPopup) {
+		//Log.v(TAG, "categoryOnClick => " + category);
+		if (categorySelected != null) {
+			categorySelected.setBackgroundResource(R.drawable.ic_rectangle_225);
+			categorySelected.setTextColor(getColor(R.color.colorNotSelect));
+		}
+		btn.setBackgroundResource(R.drawable.ic_rectangle_227);
+		btn.setTextColor(getColor(R.color.colorSelect));
 		categorySelectedText = category;
+		categorySelected = btn;
+		if (category.equals(getString(R.string.categoryWater))) {
+			((TextView)viewAddEventPopup.findViewById(R.id.txtCalendarTitle)).setText(R.string.);
+		}
 	}
 
 	void initPopupColorPick(View viewAddEventPopup) {

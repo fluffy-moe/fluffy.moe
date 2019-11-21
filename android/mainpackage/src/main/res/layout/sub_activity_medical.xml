@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5">
@@ -242,22 +241,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--<ListView
+    <ListView
         android:id="@+id/lvMedicalNextTimeRecord"
         android:layout_width="1040px"
         android:layout_height="1272px"
         android:layout_marginStart="192px"
         android:layout_marginTop="1082px"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
+        app:layout_constraintTop_toTopOf="parent"
+        android:divider="@drawable/divider_61px"
+        android:dividerHeight="63px"/>
 
     <ListView
-        android:id="@+id/lvMedicalNextTimeRecord"
+        android:id="@+id/lvBloodTestRecord"
         android:layout_width="1160px"
         android:layout_height="1465px"
         android:layout_marginStart="142px"
         android:layout_marginTop="873px"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"
+        android:divider="@drawable/divider_61px"
+        android:dividerHeight="51px"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
