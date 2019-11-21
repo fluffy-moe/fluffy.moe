@@ -33,7 +33,7 @@
         android:layout_marginStart="514px"
         android:layout_marginTop="250px"
         android:fontFamily="@font/segoe_ui_bold"
-        android:text="Pet Basics"
+        android:text="@string/text_pet_basics"
         android:textAlignment="center"
         android:textColor="#545871"
         android:textSize="90px"
@@ -47,7 +47,8 @@
         android:layout_marginStart="350px"
         android:layout_marginTop="487px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="\t\t\t\t\t\tNice to meet you,\nTell us all about your furry."
+        android:text="@string/hint_for_choosepet"
+        android:textAlignment="center"
         android:textColor="#545871"
         android:textSize="65px"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +61,7 @@
         android:layout_marginStart="392px"
         android:layout_marginTop="819px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="What type of pet do you have?"
+        android:text="@string/introduction_for_choosepet"
         android:textColor="#9497A7"
         android:textSize="47px"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,11 +140,12 @@
         android:layout_marginStart="463px"
         android:layout_marginTop="1273px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="Dog"
+        android:text="@string/typeDog"
         android:textColor="#565656"
         android:textSize="60px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/txt_cat"
         android:layout_width="wrap_content"
@@ -151,11 +153,12 @@
         android:layout_marginStart="876px"
         android:layout_marginTop="1273px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="Cat"
+        android:text="@string/typeCat"
         android:textColor="#565656"
         android:textSize="60px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/txt_bird"
         android:layout_width="wrap_content"
@@ -163,11 +166,12 @@
         android:layout_marginStart="466px"
         android:layout_marginTop="1740px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="Bird"
+        android:text="@string/typeBird"
         android:textColor="#565656"
         android:textSize="60px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/txt_mouse"
         android:layout_width="wrap_content"
@@ -175,7 +179,7 @@
         android:layout_marginStart="847px"
         android:layout_marginTop="1740px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="Other"
+        android:text="@string/typeOther"
         android:textColor="#565656"
         android:textSize="60px"
         app:layout_constraintStart_toStartOf="parent"

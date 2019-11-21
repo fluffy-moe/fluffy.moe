@@ -9,7 +9,7 @@
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
 		android:fontFamily="@font/segoe_ui_semibold"
-		android:text="TextView"
+		android:text="@string/text_examine_item_for_bloodtest"
 		android:textAlignment="center"
 		android:textSize="48px" />
 
@@ -24,7 +24,7 @@
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
 		android:fontFamily="@font/segoe_ui_semibold"
-		android:text="TextView"
+		android:text="@string/text_result_for_bloodtest"
 		android:textAlignment="center"
 		android:textSize="48px" />
 

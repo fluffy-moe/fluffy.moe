@@ -11,7 +11,7 @@
 		android:layout_marginStart="273px"
 		android:layout_marginTop="182px"
 		android:fontFamily="@font/segoe_ui_semibold"
-		android:text="Log out of fluffy ?"
+		android:text="@string/text_log_out_of_fluffy"
 		android:textColor="#565656"
 		android:textSize="70px"
 		app:layout_constraintStart_toStartOf="parent"

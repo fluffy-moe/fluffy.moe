@@ -11,7 +11,7 @@
 		android:layout_marginStart="368px"
 		android:layout_marginTop="113px"
 		android:fontFamily="@font/segoe_ui_bold"
-		android:text="Change pets"
+		android:text="@string/text_change_pets"
 		android:textColor="#565656"
 		android:textSize="70px"
 		app:layout_constraintStart_toStartOf="parent"

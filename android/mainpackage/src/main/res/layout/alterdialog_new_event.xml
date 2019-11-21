@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="1128px"
 	android:layout_height="1357px"
-	android:background="@drawable/ic_rectangle_288"
-	tools:context=".NewEvent">
+	android:background="@drawable/ic_rectangle_288">
 
 	<ImageButton
 		android:id="@+id/imgbtnNewEvent"
@@ -90,7 +88,8 @@
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:inputType="textMultiLine"
 		android:paddingStart="41px"
-		android:text="        Blood in urine\n           Runny nose\n       Reverse sneezing"
+		android:text="@string/hint_for_new_event"
+		android:textAlignment="center"
 		android:textColor="#565656"
 		android:textSize="52px"
 		app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +106,8 @@
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:inputType="textMultiLine"
 		android:paddingStart="41px"
-		android:text="        Blood in urine\n           Runny nose\n       Reverse sneezing"
+		android:text="@string/hint_for_new_symptom"
+		android:textAlignment="center"
 		android:textColor="#565656"
 		android:textSize="52px"
 		app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +124,8 @@
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:inputType="textMultiLine"
 		android:paddingStart="41px"
-		android:text="        Blood in urine\n           Runny nose\n       Reverse sneezing"
+		android:text="@string/hint_for_new_note"
+		android:textAlignment="center"
 		android:textColor="#565656"
 		android:textSize="52px"
 		app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +142,22 @@
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:inputType="textMultiLine"
 		android:paddingStart="41px"
-		android:text="                  100                  ml"
+		android:text="@string/text_100_ml"
+		android:textAlignment="center"
+		android:textColor="#565656"
+		android:textSize="52px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtNewEventml"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="918px"
+		android:layout_marginTop="1079px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="@string/text_ml"
+		android:textAlignment="center"
 		android:textColor="#565656"
 		android:textSize="52px"
 		app:layout_constraintStart_toStartOf="parent"

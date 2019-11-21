@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0EFF5"
-    tools:context=".Register2Activity">
+    android:background="#F0EFF5">
 
     <ImageView
         android:id="@+id/imgBackgroundPage1"
@@ -33,7 +31,7 @@
         android:layout_marginStart="151px"
         android:layout_marginTop="1147px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="Breed"
+        android:text="@string/dpOptionsPetBreed"
         android:textColor="#565656"
         android:textSize="46px"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +44,7 @@
         android:layout_marginStart="151px"
         android:layout_marginTop="1423px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="Gender"
+        android:text="@string/dpOptionsPetGender"
         android:textColor="#565656"
         android:textSize="46px"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +57,7 @@
         android:layout_marginStart="514px"
         android:layout_marginTop="250px"
         android:fontFamily="@font/segoe_ui_bold"
-        android:text="Pet Basics"
+        android:text="@string/title_pet_basics"
         android:textAlignment="center"
         android:textColor="#565656"
         android:textSize="90px"
@@ -73,7 +71,7 @@
         android:layout_marginStart="314px"
         android:layout_marginTop="542px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="Give us\nthe basics about your pet"
+        android:text="@string/introduction_petbasics"
         android:textColor="#565656"
         android:textSize="65px"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +84,7 @@
         android:layout_marginStart="151px"
         android:layout_marginTop="908px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="Name"
+        android:text="@string/dpOptionsPetName"
         android:textColor="#565656"
         android:textSize="46px"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +97,7 @@
         android:layout_marginStart="767px"
         android:layout_marginTop="1140px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="Birthday"
+        android:text="@string/dpOptionsPetBirthday"
         android:textColor="#565656"
         android:textSize="46px"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +110,7 @@
         android:layout_marginStart="767px"
         android:layout_marginTop="1416px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="Spayed or Neutered"
+        android:text="@string/dpOptionsPetSpayed"
         android:textColor="#565656"
         android:textSize="46px"
         app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +123,7 @@
         android:layout_marginStart="151px"
         android:layout_marginTop="1687px"
         android:fontFamily="@font/segoe_ui_semibold"
-        android:text="Weight"
+        android:text="@string/dpOptionsPetWeight"
         android:textColor="#565656"
         android:textSize="46px"
         app:layout_constraintStart_toStartOf="parent"
@@ -206,7 +204,7 @@
             android:layout_width="279.75px"
             android:layout_height="103px"
             android:button="@null"
-            android:text="0-10kg"
+            android:text="@string/text_0_10kg"
             android:textAlignment="center"
             android:textColor="#565656" />
 
@@ -215,7 +213,7 @@
             android:layout_width="279.75px"
             android:layout_height="103px"
             android:button="@null"
-            android:text="10-20kg"
+            android:text="@string/text_10_20kg"
             android:textAlignment="center"
             android:textColor="#565656" />
 
@@ -224,7 +222,7 @@
             android:layout_width="279.75px"
             android:layout_height="103px"
             android:button="@null"
-            android:text="20-30kg"
+            android:text="@string/text_20_30kg"
             android:textAlignment="center"
             android:textColor="#565656" />
 
@@ -233,7 +231,7 @@
             android:layout_width="279.75px"
             android:layout_height="103px"
             android:button="@null"
-            android:text="30-40kg"
+            android:text="@string/text_30_40kg"
             android:textAlignment="center"
             android:textColor="#565656" />
     </RadioGroup>
@@ -254,7 +252,7 @@
             android:layout_width="265.5px"
             android:layout_height="103px"
             android:button="@null"
-            android:text="Yes"
+            android:text="@string/text_yes"
             android:textAlignment="center"
             android:textColor="#969696"
             android:textSize="44px" />
@@ -264,7 +262,7 @@
             android:layout_width="265.5px"
             android:layout_height="103px"
             android:button="@null"
-            android:text="No"
+            android:text="@string/text_no"
             android:textAlignment="center"
             android:textColor="#969696"
             android:textSize="44px" />
@@ -286,7 +284,7 @@
             android:layout_width="265.5px"
             android:layout_height="103px"
             android:button="@null"
-            android:text="Female"
+            android:text="@string/text_female"
             android:textAlignment="center"
             android:textColor="#969696"
             android:textSize="44px" />
@@ -296,7 +294,7 @@
             android:layout_width="265.5px"
             android:layout_height="103px"
             android:button="@null"
-            android:text="Male"
+            android:text="@string/text_male"
             android:textAlignment="center"
             android:textColor="#969696"
             android:textSize="44px" />

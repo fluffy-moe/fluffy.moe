@@ -11,7 +11,7 @@
 		android:layout_marginStart="443px"
 		android:layout_marginTop="72px"
 		android:fontFamily="@font/segoe_ui_bold"
-		android:text="Image Scanner"
+		android:text="@string/title_for_scanner"
 		android:textColor="#545871"
 		android:textSize="80px"
 		app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,8 @@
 		android:layout_marginStart="342px"
 		android:layout_marginTop="1562px"
 		android:fontFamily="@font/segoe_ui_bold"
-		android:text="Line up to scan it with your\n         device's camera."
+		android:text="@string/hint_for_scanner"
+		android:textAlignment="center"
 		android:textColor="#545871"
 		android:textSize="58px"
 		app:layout_constraintStart_toStartOf="parent"
@@ -77,6 +78,18 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:srcCompat="@drawable/translate" />
+
+	<ImageButton
+		android:id="@+id/imgbtnScannerCross"
+		android:layout_width="66px"
+		android:layout_height="66px"
+		android:layout_marginStart="1315px"
+		android:layout_marginTop="86px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/cross" />
 
 	<ImageButton
 		android:id="@+id/imgbtnScannerBack"
