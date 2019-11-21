@@ -262,6 +262,8 @@ public class CalendarActivity extends AppCompatActivity {
 
 	void categoryOnClick(Button btn, String category, View viewAddEventPopup) {
 		//Log.v(TAG, "categoryOnClick => " + category);
+		EditText etBody = viewAddEventPopup.findViewById(R.id.etCalendarBody);
+		TextView txtTitle = viewAddEventPopup.findViewById(R.id.txtCalendarTitle);
 		if (categorySelected != null) {
 			categorySelected.setBackgroundResource(R.drawable.ic_rectangle_225);
 			categorySelected.setTextColor(getColor(R.color.colorNotSelect));
@@ -271,7 +273,16 @@ public class CalendarActivity extends AppCompatActivity {
 		categorySelectedText = category;
 		categorySelected = btn;
 		if (category.equals(getString(R.string.categoryWater))) {
-			((TextView)viewAddEventPopup.findViewById(R.id.txtCalendarTitle)).setText(R.string.);
+			txtTitle.setText(R.string.title_for_water);
+			etBody.setText(R.string.etCalendarAddWaterHint);
+			etBody.setOnFocusChangeListener((view, hasFocus) ->
+					Utils.onFocusChange(hasFocus, CalendarActivity.this, etBody, R.string.etCalendarAddWaterHint, false));
+
+		} else {
+			txtTitle.setText(R.string.text_title_for_calendar);
+			etBody.setText(R.string.etCalendarAddEventHint);
+			etBody.setOnFocusChangeListener((view, hasFocus) ->
+					Utils.onFocusChange(hasFocus, CalendarActivity.this, etBody, R.string.etCalendarAddEventHint, false));
 		}
 	}
 
