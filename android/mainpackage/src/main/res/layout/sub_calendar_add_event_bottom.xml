@@ -3,7 +3,8 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="1400px"
-	android:layout_height="1700px" >
+	android:layout_height="1700px"
+	tools:ignore="PxUsage"  >
 
 	<TextView
 		android:id="@+id/txtCalendarChoosedate"
@@ -53,7 +54,7 @@
 		android:textColor="#565656"
 		android:textSize="65px"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+		app:layout_constraintTop_toTopOf="parent"/>
 
 	<TextView
 		android:id="@+id/txtCalendarColor"

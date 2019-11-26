@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="989px"
     android:layout_height="473px"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="PxUsage" >
 
     <ImageView
         android:id="@+id/imgVacCheckBackground"
@@ -12,15 +13,17 @@
         android:layout_height="80px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_medicalcheck_green" />
+        android:background="@drawable/medical_shape" />
 
     <ImageView
         android:id="@+id/imgVacCheck"
-        android:layout_width="80px"
-        android:layout_height="80px"
+        android:layout_width="60px"
+        android:layout_height="60px"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/tick"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_check_white" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtVacTime"
@@ -32,7 +35,7 @@
         android:textColor="#545871"
         android:textSize="57px"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/txtVacProduct"
@@ -120,25 +123,21 @@
         app:srcCompat="@drawable/dash" />
 
     <View
-        android:id="@+id/viewVacLine"
         android:layout_width="834.21px"
         android:layout_height="2px"
         android:layout_marginStart="52dp"
         android:layout_marginTop="217px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:background="#E79E35"
-         />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/viewVacLine2"
         android:layout_width="834.21px"
         android:layout_height="2px"
         android:layout_marginStart="48dp"
         android:layout_marginTop="329px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:background="#E79E35"
-         />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

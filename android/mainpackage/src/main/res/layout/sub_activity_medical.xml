@@ -120,6 +120,7 @@
         android:layout_height="160px"
         android:layout_marginStart="116px"
         android:layout_marginTop="340px"
+        android:background="@drawable/catphoto"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

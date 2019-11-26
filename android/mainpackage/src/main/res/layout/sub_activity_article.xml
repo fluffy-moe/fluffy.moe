@@ -226,6 +226,10 @@
             android:background="@null"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/article_search" />
+
+        <Space
+            android:layout_width="15px"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <RelativeLayout

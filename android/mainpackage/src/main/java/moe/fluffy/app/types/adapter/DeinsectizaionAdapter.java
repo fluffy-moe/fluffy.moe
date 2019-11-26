@@ -76,7 +76,7 @@ public class DeinsectizaionAdapter extends ArrayAdapter<DeinsectizaionType> {
 		if (it != null) {
 			txtDate.setText(getContext().getString(R.string.fmt_date, it.getYear(), it.getMonth(), it.getDay()));
 			txtNobivac.setText(it.getDeinsectizaion());
-			//((GradientDrawable)imgBackground.getBackground()).setColor(getContext().getColor(getColorRes(it.getStatus())));
+			((GradientDrawable)imgBackground.getBackground()).setColor(getContext().getColor(getColorRes(it.getStatus())));
 		} else {
 			NullPointerException e = new NullPointerException("Deinsectizaion type return null");
 			PopupDialog.build(getContext(), e);

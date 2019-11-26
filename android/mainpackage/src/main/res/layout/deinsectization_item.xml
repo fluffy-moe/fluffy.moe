@@ -4,15 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="989px"
     android:layout_height="268px"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="PxUsage" >
 
     <ImageView
         android:id="@+id/imgVacCheckBackground"
         android:layout_width="80px"
         android:layout_height="80px"
+        android:background="@drawable/medical_shape"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_medicalcheck_green" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgVacCheckBackground2"
+        android:layout_width="60px"
+        android:layout_height="60px"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/tick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtDeinTime"

@@ -42,6 +42,7 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.codbking.calendar.CalendarBean;
 import com.codbking.calendar.CalendarDateView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -57,7 +58,7 @@ import static moe.fluffy.app.assistant.Utils.px;
 
 public class CalendarActivity extends AppCompatActivity {
 
-	private static String TAG = "log_CalendarViewActivity";
+	private static final String TAG = "log_CalendarViewActivity";
 
 	CalendarDateView mCalendarDateView;
 	ListView lvEventDashboard;
@@ -123,39 +124,15 @@ public class CalendarActivity extends AppCompatActivity {
 		init();
 	}
 
+
 	void init() {
 
 		eventDashboardAdapter = new EventDashboardAdapter(this, eventDashboardTypes);
 		updateEventsDashboard(false);
 		lvEventDashboard.setAdapter(eventDashboardAdapter);
 
-		mCalendarDateView.setAdapter((convertView, parentView, bean) -> {
-			TextView viewMonth;
-			View underlineView;
-			if (convertView == null) {
-				convertView = LayoutInflater.from(parentView.getContext()).inflate(R.layout.event_item_calendar, null);
-				ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(px(55), px(55));
-				convertView.setLayoutParams(params);
-			}
-
-			viewMonth = convertView.findViewById(R.id.txtDay);
-			underlineView = convertView.findViewById(R.id.viewUnderLine);
-
-			viewMonth.setText(String.valueOf(bean.day));
-
-
-			if (bean.mothFlag != 0) {
-				viewMonth.setTextColor(getColor(R.color.calendarWeekTitle));
-			} else {
-				viewMonth.setTextColor(getColor(R.color.calendarBlack));
-			}
-
-			//Log.d(TAG, "init: color_id => " + color_id);
-			underlineView.setBackgroundColor(
-					getColor(HomeActivity.dbHelper.getTodayColorID(bean.year, bean.moth, bean.day)));
-
-			return convertView;
-		});
+		mCalendarDateView.setAdapter(//Log.d(TAG, "init: color_id => " + color_id);
+				this::getCalendarView);
 
 		mCalendarDateView.setOnItemClickListener((view, position, bean) -> {
 			txtMonth.setText(getMonthString(bean.moth));
@@ -205,6 +182,7 @@ public class CalendarActivity extends AppCompatActivity {
 				if (et.getDayBody().moreThanOrEqual(Date.getToday())) {
 					planedEvents.add(et);
 					updateEventsDashboard(true);
+					mCalendarDateView.setAdapter(this::getCalendarView);
 					mCalendarDateView.updateView();
 				}
 				//Log.d(TAG, "init: Insert successful");
@@ -274,13 +252,15 @@ public class CalendarActivity extends AppCompatActivity {
 		categorySelected = btn;
 		if (category.equals(getString(R.string.categoryWater))) {
 			txtTitle.setText(R.string.title_for_water);
-			etBody.setText(R.string.etCalendarAddWaterHint);
+			if (!etBody.isFocused())
+				etBody.setText(R.string.etCalendarAddWaterHint);
 			etBody.setOnFocusChangeListener((view, hasFocus) ->
 					Utils.onFocusChange(hasFocus, CalendarActivity.this, etBody, R.string.etCalendarAddWaterHint, false));
 
 		} else {
 			txtTitle.setText(R.string.text_title_for_calendar);
-			etBody.setText(R.string.etCalendarAddEventHint);
+			if (!etBody.isFocused())
+				etBody.setText(R.string.etCalendarAddEventHint);
 			etBody.setOnFocusChangeListener((view, hasFocus) ->
 					Utils.onFocusChange(hasFocus, CalendarActivity.this, etBody, R.string.etCalendarAddEventHint, false));
 		}
@@ -312,7 +292,7 @@ public class CalendarActivity extends AppCompatActivity {
 	 * @param color color from color resource file id
 	 */
 	private void changeStrokeColor(View v, @ColorRes int color) {
-		((GradientDrawable) v.getBackground()).setStroke(5, getColor(color));
+		((GradientDrawable) v.getBackground()).setStroke(10, getColor(color));
 	}
 
 	/**
@@ -356,4 +336,31 @@ public class CalendarActivity extends AppCompatActivity {
 		return getResources().getStringArray(R.array.month)[num - 1];
 	}
 
+	private View getCalendarView(View convertView, ViewGroup parentView, CalendarBean bean) {
+		TextView viewMonth;
+		View underlineView;
+		if (convertView == null) {
+			convertView = LayoutInflater.from(parentView.getContext()).inflate(R.layout.event_item_calendar, null);
+			ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(px(55), px(55));
+			convertView.setLayoutParams(params);
+		}
+
+		viewMonth = convertView.findViewById(R.id.txtDay);
+		underlineView = convertView.findViewById(R.id.viewUnderLine);
+
+		viewMonth.setText(String.valueOf(bean.day));
+
+
+		if (bean.mothFlag != 0) {
+			viewMonth.setTextColor(getColor(R.color.calendarWeekTitle));
+		} else {
+			viewMonth.setTextColor(getColor(R.color.calendarBlack));
+		}
+
+		//Log.d(TAG, "init: color_id => " + color_id);
+		underlineView.setBackgroundColor(
+				getColor(HomeActivity.dbHelper.getTodayColorID(bean.year, bean.moth, bean.day)));
+
+		return convertView;
+	}
 }
