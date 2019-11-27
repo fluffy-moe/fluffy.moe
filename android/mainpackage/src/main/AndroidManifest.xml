@@ -7,6 +7,7 @@
 		android:name="android.hardware.camera"
 		android:required="true" />
 
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 
 	<application
@@ -15,12 +16,14 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 		tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+		<activity android:name=".OCRActivity" />
+		<activity android:name=".FoodHistoryActivity" />
 		<activity android:name=".MedicalActivity" />
 		<activity android:name=".CalendarActivity" />
 		<activity android:name=".RegisterActivity" />
 		<activity android:name=".WelcomeActivity" />
 		<activity android:name=".ArticleActivity" />
-		<activity android:name=".BoostScanActivity" />
+		<activity android:name=".BootstrapScannerActivity" />
 		<activity android:name=".HomeActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -42,6 +45,22 @@
 				<action android:name="com.google.firebase.MESSAGING_EVENT" />
 			</intent-filter>
 		</service>
+
+		<meta-data
+			android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+			android:value="ocr" />
+
+		<provider
+			android:name="androidx.core.content.FileProvider"
+			android:authorities="${applicationId}.fileprovider"
+			android:exported="false"
+			android:grantUriPermissions="true">
+
+			<!-- https://stackoverflow.com/a/50801468 -->
+			<meta-data
+				android:name="android.support.FILE_PROVIDER_PATHS"
+				android:resource="@xml/file_paths" />
+		</provider>
 	</application>
 
 </manifest>

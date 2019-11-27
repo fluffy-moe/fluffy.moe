@@ -22,6 +22,8 @@
 
 	<string name="IntentArticleIndex">articleIndex</string>
 
+	<string name="IntentFilter_request_medical_information">updateMedicalInformation</string>
+
 	<string name="Intent_EventSuccess">eventSuccess</string>
 	<string name="Intent_EventErrorCode">eventErrorCode</string>
 	<string name="Intent_EventErrorMessage">eventErrorMessage</string>
@@ -40,6 +42,7 @@
 	<string name="dbRawQueryEventsBeyondYearMonth">SELECT * FROM `%s` WHERE `year` = ? AND `month` >= ?</string>
 	<string name="dbRawQueryAccurateDay">SELECT * FROM `%s` WHERE `year` = ? AND `month` = ? AND `day` = ?</string>
 	<string name="dbRawQueryEventsBeyondYear">SELECT * FROM `%s` WHERE `year` > ?</string>
+	<string name="dbRawQuery">SELECT * FROM `%s`</string>
 	<string name="dbQuery">%s = ?</string>
 	<string name="dbQueryKey">key = ?</string>
 	<string name="dbOptionsKeyName">key</string>
@@ -59,7 +62,8 @@
 	<string name="dbFoodHistoryName">name</string>
 	<string name="dbFoodHistoryNote">note</string>
 	<string name="dbFoodHistoryImage">source</string>
-	<string name="dbFoodHistoryLiked">like</string>
+	<string name="dbFoodHistoryLiked">liked</string>
+	<string name="dbFoodHistoryBarcode">barcode</string>
 	<!-- DATABASE END -->
 
 	<!-- string in main application -->
@@ -101,6 +105,9 @@
 	<!-- Medical string end -->
 
 	<!-- Food history -->
+	<string name="extraBarcode">barcode</string>
+	<string name="extraOcrResult">ocrResult</string>
+	<string name="extraAction">action</string>
 	<!-- Food history end -->
 
 </resources>

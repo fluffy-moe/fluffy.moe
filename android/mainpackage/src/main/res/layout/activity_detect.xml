@@ -103,12 +103,22 @@
 		app:layout_constraintTop_toTopOf="parent"
 		app:srcCompat="@drawable/up" />
 
-	<View
+	<!--<View
 		android:id="@+id/imgScannerPhoto"
 		android:layout_width="970px"
 		android:layout_height="970px"
 		android:layout_marginStart="235px"
 		android:layout_marginTop="485px"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"/>
+		app:layout_constraintTop_toTopOf="parent"/>-->
+
+
+	<ProgressBar
+		android:id="@+id/imgScannerPhoto"
+		android:layout_width="970px"
+		android:layout_height="970px"
+		android:layout_marginStart="235px"
+		android:layout_marginTop="485px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

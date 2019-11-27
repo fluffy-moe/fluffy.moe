@@ -110,4 +110,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:zxing_scanner_layout="@layout/custom_barcode_scanner" />
 
+
 </androidx.constraintlayout.widget.ConstraintLayout>

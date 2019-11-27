@@ -59,6 +59,12 @@ public class Date {
 		return today;
 	}
 
+	public Date(String _year, String _month, String _day) {
+		year = Integer.parseInt(_year.trim());
+		month = Integer.parseInt(_month.trim());
+		day = Integer.parseInt(_day.trim());
+	}
+
 	public Date(int _year, int _month, int _day) {
 		year = _year;
 		month = _month;

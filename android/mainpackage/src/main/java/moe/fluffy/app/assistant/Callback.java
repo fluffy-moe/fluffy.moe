@@ -19,9 +19,11 @@
  */
 package moe.fluffy.app.assistant;
 
+import org.jetbrains.annotations.Nullable;
+
 // https://stackoverflow.com/a/9963705
 public interface Callback {
 	void onSuccess(Object o);
 	void onFailure(Object o, Throwable e);
-	void finish(Object o, Throwable e);
+	void onFinish(Object o, @Nullable Throwable e);
 }

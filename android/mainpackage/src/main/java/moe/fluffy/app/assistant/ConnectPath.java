@@ -37,6 +37,7 @@ public class ConnectPath {
 	public static String verify_session_path = "";
 	public static String firebase_id_register_path = "";
 	public static String fetch_notification_path = "";
+	public static String fetch_medical_information = "";
 	private static boolean isInitialized = false;
 
 	public static void loadConfig(Context context) {
@@ -49,14 +50,15 @@ public class ConnectPath {
 			JSONObject[] jsonObjects = JSONParser.getJson(
 					JSONParser.szloadJSONFromAsset(context.getResources().openRawResource(R.raw.config))
 			);
-			server_address = jsonObjects[0].get(context.getString(R.string.server_address_field)).toString();
-			login_path = jsonObjects[1].get(context.getString(R.string.login_field)).toString();
-			token_path = jsonObjects[1].get(context.getString(R.string.token_field)).toString();
-			register_path = jsonObjects[1].get(context.getString(R.string.register_field)).toString();
-			verify_session_path = jsonObjects[1].get(context.getString(R.string.verify_session_field)).toString();
-			firebase_id_register_path = jsonObjects[1].get(context.getString(R.string.firebase_id_register_field)).toString();
-			logout_path = jsonObjects[1].get(context.getString(R.string.logout_field)).toString();
-			fetch_notification_path = jsonObjects[1].get(context.getString(R.string.fetch_notification_field)).toString();
+			server_address = jsonObjects[0].getString(context.getString(R.string.server_address_field));
+			login_path = jsonObjects[1].getString(context.getString(R.string.login_field));
+			token_path = jsonObjects[1].getString(context.getString(R.string.token_field));
+			register_path = jsonObjects[1].getString(context.getString(R.string.register_field));
+			verify_session_path = jsonObjects[1].getString(context.getString(R.string.verify_session_field));
+			firebase_id_register_path = jsonObjects[1].getString(context.getString(R.string.firebase_id_register_field));
+			logout_path = jsonObjects[1].getString(context.getString(R.string.logout_field));
+			fetch_notification_path = jsonObjects[1].getString(context.getString(R.string.fetch_notification_field));
+			fetch_medical_information = jsonObjects[1].getString(context.getString(R.string.fetch_medical_information));
 			isInitialized = true;
 		} catch (IOException | JSONException e) {
 			PopupDialog.build(context, e);

@@ -128,7 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
 							}
 
 							@Override
-							public void finish(Object o, Throwable e) {
+							public void onFinish(Object o, Throwable e) {
 
 							}
 				}).execute();

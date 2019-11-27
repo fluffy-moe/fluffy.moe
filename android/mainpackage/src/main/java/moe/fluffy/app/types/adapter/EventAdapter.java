@@ -64,14 +64,16 @@ public class EventAdapter extends ArrayAdapter<EventsType> {
 
 		viewSideColor = convertView.findViewById(R.id.viewTodayLineColor2);
 
-		viewSideColor.setBackgroundColor(getContext().getColor(
-				getContext().getResources().getIdentifier(getContext().getString(R.string.fmt_event_color,
-						it.getColor()), "color", getContext().getPackageName())));
+		if (it != null) {
+			viewSideColor.setBackgroundColor(getContext().getColor(
+					getContext().getResources().getIdentifier(getContext().getString(R.string.fmt_event_color,
+							it.getColor()), "color", getContext().getPackageName())));
 
-		txtDay.setText(String.valueOf(it.getDay()));
-		txtWeek.setText(it.getDayOfWeek());
-		txtEvent.setText(it.getBody());
-		txtTime.setText(String.format("%02d:%02d", it.getHour(), it.getMinute()));
+			txtDay.setText(String.valueOf(it.getDay()));
+			txtWeek.setText(it.getDayOfWeek());
+			txtEvent.setText(it.getBody());
+			txtTime.setText(String.format("%02d:%02d", it.getHour(), it.getMinute()));
+		}
 
 		return convertView;
 	}

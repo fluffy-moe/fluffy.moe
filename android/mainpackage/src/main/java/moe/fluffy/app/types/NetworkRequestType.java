@@ -23,6 +23,7 @@ import android.text.Editable;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -34,7 +35,8 @@ import static moe.fluffy.app.assistant.SHA512Support.getHashedPassword;
  */
 public class NetworkRequestType {
 	private HashMap<String, String> params, headers;
-	NetworkRequestType(HashMap<String, String> _params, HashMap<String, String> _headers){
+	NetworkRequestType(@Nullable HashMap<String, String> _params,
+					   @Nullable HashMap<String, String> _headers){
 		params = _params;
 		if (params == null) {
 			params = new HashMap<>();
@@ -79,6 +81,12 @@ public class NetworkRequestType {
 	public static NetworkRequestType generateLoginParams(String user, String password)
 			throws NoSuchAlgorithmException{
 		return _generateAccountAction(user, password);
+	}
+
+
+	public static NetworkRequestType generateFetchMedicalInformation(String sessionStr) {
+		// session str should
+		return new NetworkRequestType(null, null);
 	}
 
 	@NotNull

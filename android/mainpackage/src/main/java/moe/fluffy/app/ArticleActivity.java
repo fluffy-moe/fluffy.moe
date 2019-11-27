@@ -67,7 +67,7 @@ public class ArticleActivity extends AppCompatActivity {
 	EditText etSearchBook;
 
 	ImageButton imgbtnDog, imgbtnBird, imgbtnCat, imgbtnOther;
-	ImageButton imgbtnSearch;
+	ImageButton imgbtnSearch, imgbtnFavorite;
 
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
@@ -121,7 +121,7 @@ public class ArticleActivity extends AppCompatActivity {
 		imgbtnNavBarArticle.setImageResource(R.drawable.book_orange);
 
 		imgbtnNavBarCamera.setOnClickListener(v ->
-				startActivity(new Intent(ArticleActivity.this, BoostScanActivity.class)));
+				startActivity(new Intent(ArticleActivity.this, BootstrapScannerActivity.class)));
 		imgbtnNavBarCalendar.setOnClickListener(v ->
 				startActivity(new Intent(ArticleActivity.this, CalendarActivity.class)));
 		imgbtnNavBarMedical.setOnClickListener(v ->
@@ -142,6 +142,7 @@ public class ArticleActivity extends AppCompatActivity {
 		imgbtnOther = findViewById(R.id.imgbtnOtherBook);
 		imgbtnSearch = findViewById(R.id.imgbtnSearchBook);
 		etSearchBook = findViewById(R.id.etSearchBook);
+
 		initBottomView();
 
 		etSearchBook.setOnFocusChangeListener((view, hasFocus) ->
@@ -158,6 +159,7 @@ public class ArticleActivity extends AppCompatActivity {
 				initCarousel(categories[2], null));
 		imgbtnOther.setOnClickListener(v ->
 				initCarousel(categories[3], null));
+
 		initCarousel(null, null);
 		updateCount();
 	}

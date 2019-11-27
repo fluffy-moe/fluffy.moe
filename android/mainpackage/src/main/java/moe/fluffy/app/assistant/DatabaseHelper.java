@@ -25,6 +25,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.StringRes;
 
@@ -32,11 +33,13 @@ import com.codbking.calendar.CalendarUtil;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.EventsType;
+import moe.fluffy.app.types.FoodViewType;
 import moe.fluffy.app.types.PetInfo;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -52,8 +55,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private final static String CREATE_EVENTS = "CREATE TABLE `events` (" +
 			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `hour` INTEGER, `minute` INTEGER, " +
 			"`category` TEXT, `body` TEXT, `color` INTEGER, `alarm` TEXT)";
-	private final static String CREATE_FOOD_HISTORY = "CREATE TABLE `food` (" +
-			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `name` TEXT, `note` TEXT, `liked` TEXT, `SOURCE` TEXT)";
+	private final static String CREATE_FOOD_HISTORY = "CREATE TABLE `food` (`id` INTEGER PRIMARY KEY AUTOINCREMENT," +
+			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `name` TEXT, `note` TEXT, `liked` TEXT, " +
+			"`barcode` TEXT, `SOURCE` TEXT)";
 
 	private final static String TAG = "log_Database";
 
@@ -282,5 +286,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if (color != android.R.color.transparent)
 			return context.getResources().getIdentifier(getString(R.string.fmt_event_color, color), "color", context.getPackageName());
 		return color;
+	}
+
+	public void writeFoodHistory(FoodViewType fd) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		if (fd.needInsert()) {
+			long last_insert = db.insert(TABLE_FOOD_HISTORY, null, fd.getContentValues());
+			fd.setId(last_insert);
+		} else {
+			db.update(TABLE_FOOD_HISTORY, fd.getContentValues(), "id = ?",
+					new String[]{String.valueOf(fd.getId())});
+		}
+		db.close();
+	}
+
+	public ArrayList<FoodViewType> getFoodHistory() {
+		ArrayList<FoodViewType> foodList = new ArrayList<>();
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor c = db.rawQuery(getString(R.string.dbRawQuery, TABLE_FOOD_HISTORY), null);
+		Log.d(TAG, "getFoodHistory: count: => " +c.getCount());
+		if (c.getCount() != 0){
+			c.moveToFirst();
+			do {
+				foodList.add(new FoodViewType(c));
+			} while (c.moveToNext());
+		}
+		c.close();
+		return foodList;
 	}
 }

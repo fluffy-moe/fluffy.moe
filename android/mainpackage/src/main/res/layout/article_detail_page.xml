@@ -14,8 +14,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@null" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imgbtnFavArticle"
+        android:layout_width="110px"
+        android:layout_height="110px"
+        android:layout_marginStart="1216px"
+        android:layout_marginTop="870px"
+        android:background="@drawable/bookmark_gray"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtArticleTitle"
@@ -54,24 +64,11 @@
 
 
     <ImageButton
-        android:id="@+id/imgbtnFavArticle"
-        android:layout_width="110px"
-        android:layout_height="110px"
-        android:layout_marginStart="1216px"
-        android:layout_marginTop="870px"
-        android:background="@null"
-        android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bookmark_gray" />
-
-    <ImageButton
         android:id="@+id/imgbtnBackArticle"
         android:layout_width="78px"
         android:layout_height="78px"
         android:layout_marginStart="51px"
         android:layout_marginTop="79px"
-        android:background="@null"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -27,13 +27,14 @@ import moe.fluffy.app.R;
 
 
 public class FoodViewType {
-	private String foodName, foodNote;
+	private String foodName, foodNote, barcode;
 	private Date d;
 	private boolean liked;
 	private String imageSource;
+	private Long id;
 
 	private static String columnFoodName, columnFoodNote, columnYear, columnMonth, columnDay,
-			columnImageSource, columnLiked;
+			columnImageSource, columnLiked, fmtDate, columnBarcode, columnId = "id";
 
 	public static void initColumn(Context context) {
 		columnFoodName = context.getString(R.string.dbFoodHistoryName);
@@ -43,25 +44,38 @@ public class FoodViewType {
 		columnDay = context.getString(R.string.dbEventsDay);
 		columnLiked = context.getString(R.string.dbFoodHistoryLiked);
 		columnImageSource = context.getString(R.string.dbFoodHistoryImage);
+		fmtDate = context.getString(R.string.fmt_date);
+		columnBarcode = context.getString(R.string.dbFoodHistoryBarcode);
+	}
+
+	public FoodViewType(String _barcode, String note) {
+		barcode = _barcode;
+		foodNote = note;
+		foodName = "";
+		liked = false;
+		d = Date.getToday();
 	}
 
 	FoodViewType(String date, String _foodName, String _foodFullName, boolean l) {
+		id = null;
 		d = new Date(date);
 		foodName = _foodName;
 		foodNote = _foodFullName;
 		liked = l;
 	}
 
-	FoodViewType(Cursor cursor) {
+	public FoodViewType(Cursor cursor) {
+		id = cursor.getLong(cursor.getColumnIndexOrThrow(columnId));
 		d = new Date(cursor.getInt(cursor.getColumnIndexOrThrow(columnYear)),
 				cursor.getInt(cursor.getColumnIndexOrThrow(columnMonth)),
 				cursor.getInt(cursor.getColumnIndexOrThrow(columnDay)));
 		foodName = cursor.getString(cursor.getColumnIndexOrThrow(columnFoodName));
 		foodNote = cursor.getString(cursor.getColumnIndexOrThrow(columnFoodNote));
 		liked = cursor.getString(cursor.getColumnIndexOrThrow(columnLiked)).equals(String.valueOf(true));
+		barcode = cursor.getString(cursor.getColumnIndexOrThrow(columnBarcode));
 	}
 
-	ContentValues getContentValues() {
+	public ContentValues getContentValues() {
 		ContentValues cv = new ContentValues();
 		cv.put(columnFoodName, foodName);
 		cv.put(columnFoodNote, foodNote);
@@ -69,6 +83,49 @@ public class FoodViewType {
 		cv.put(columnDay, d.getDay());
 		cv.put(columnYear, d.getYear());
 		cv.put(columnMonth, d.getMonth());
+		if (!needInsert())
+			cv.put(columnId, id);
+		cv.put(columnBarcode, barcode);
 		return cv;
+	}
+
+	public boolean needInsert() {
+		return id == null;
+	}
+
+	public String getFoodName() {
+		return foodName;
+	}
+
+	public String getFoodNote() {
+		return foodNote;
+	}
+
+	public String getDate() {
+		return String.format(fmtDate, d.getYear(), d.getMonth(), d.getDay());
+	}
+
+	public void setFoodNote(String foodNote) {
+		this.foodNote = foodNote;
+	}
+
+	public void setFoodName(String foodName) {
+		this.foodName = foodName;
+	}
+
+	public void setDate(final String y, final String m, final String d) {
+		this.d = new Date(y, m, d);
+	}
+
+	public void setDate(String s[]) {
+		setDate(s[0], s[1], s[2]);
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

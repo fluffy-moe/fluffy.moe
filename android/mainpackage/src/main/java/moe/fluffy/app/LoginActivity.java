@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
 						}
 
 						@Override
-						public void finish(Object o, Throwable e) {}
+						public void onFinish(Object o, Throwable e) {}
 			}).execute();
 		} catch (NoSuchAlgorithmException e){
 			e.printStackTrace();
@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
 
 		if (errorCode != StaticDefinition.ERROR_INTENT_ERROR) {
 			if (isOk) {
-				// TODO: finish logic
+				// TODO: onFinish logic
 			}
 		}
 

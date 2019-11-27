@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import moe.fluffy.app.assistant.Callback;
+
 public class FirebaseOCR {
 	String lastResult = "";
 	private static String TAG = "log_FirebaseOCR";
@@ -41,17 +43,25 @@ public class FirebaseOCR {
 
 	List<FirebaseVisionText.TextBlock> blocks = new ArrayList<>();
 
+	Callback listener;
+
 	private Task<FirebaseVisionText> firebaseVisionTextTask;
 
 	private static FirebaseVisionCloudTextRecognizerOptions options = new FirebaseVisionCloudTextRecognizerOptions.Builder()
 			.setLanguageHints(Arrays.asList("zh", "en"))
 			.build();
-	FirebaseOCR(Bitmap bitmap) {
+
+	public FirebaseOCR(Bitmap bitmap) {
 		image = FirebaseVisionImage.fromBitmap(bitmap);
 		detector = FirebaseVision.getInstance().getCloudTextRecognizer(options);
 	}
 
-	Task<FirebaseVisionText> run() {
+	public FirebaseOCR setCallBack(Callback _listener) {
+		listener = _listener;
+		return this;
+	}
+
+	public Task<FirebaseVisionText> run() {
 		firebaseVisionTextTask = detector.processImage(image)
 				.addOnSuccessListener(result -> {
 					// Task completed successfully
@@ -61,13 +71,27 @@ public class FirebaseOCR {
 						sb.append(block.getText());
 					}
 					lastResult = sb.toString();
-					Log.d(TAG, "onSuccess: text => " + lastResult);
+					//Log.d(TAG, "onSuccess: text => " + lastResult);
+					if (listener != null) {
+						listener.onSuccess(this);
+						listener.onFinish(this, null);
+					}
 				})
-				.addOnFailureListener(e -> Log.e(TAG, "onFailure: ", e));
+				.addOnFailureListener(e -> {
+					if (listener != null) {
+						listener.onFailure(this, e);
+						listener.onFinish(this, e);
+					}
+				});
 		return firebaseVisionTextTask;
 	}
 
-	void waitTask() throws InterruptedException {
+	public FirebaseOCR waitTask() throws InterruptedException {
 		firebaseVisionTextTask.wait();
+		return this;
+	}
+
+	public String getLastResult() {
+		return lastResult;
 	}
 }

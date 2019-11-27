@@ -236,7 +236,7 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 			e.printStackTrace();
 			if (listener != null){
 				listener.onFailure(this, e);
-				listener.finish(this, e);
+				listener.onFinish(this, e);
 			}
 		}
 
@@ -251,7 +251,7 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 		super.onPostExecute(_reserved);
 		if (listener != null) {
 			listener.onSuccess(JSONParser.networkJsonDecode(response));
-			listener.finish(this, null);
+			listener.onFinish(this, null);
 		}
 	}
 

@@ -47,7 +47,7 @@ public class ScanActivity extends Activity{
 
 	TextView txtTitle, txtHint;
 
-	ImageButton imgbtnBack, imgbtnChooseFromGallery;
+	ImageButton imgbtnBack, imgbtnChooseFromGallery, imgbtnShowRecord;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +75,7 @@ public class ScanActivity extends Activity{
 		txtHint = findViewById(R.id.txtScannerContent);
 		imgbtnBack = findViewById(R.id.imgbtnScannerBack);
 		imgbtnChooseFromGallery = findViewById(R.id.imgbtnScannerDevice);
+		imgbtnShowRecord = findViewById(R.id.imgbtnScannerRecord);
 
 		// https://stackoverflow.com/a/55938561
 		txtTitle.setTypeface(ResourcesCompat.getFont(this, R.font.segoe_ui_bold));
@@ -83,6 +84,10 @@ public class ScanActivity extends Activity{
 		imgbtnChooseFromGallery.setOnClickListener(v -> {
 			LocalBroadcastManager.getInstance(ScanActivity.this).sendBroadcast(
 					new Intent(getString(R.string.IntentFilter_request_choose_from_gallery)));
+			finish();
+		});
+		imgbtnShowRecord.setOnClickListener(v -> {
+			getIntent().putExtra(getString(R.string.extraAction), "record");
 			finish();
 		});
 	}

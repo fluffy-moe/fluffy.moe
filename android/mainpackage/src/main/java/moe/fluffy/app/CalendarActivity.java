@@ -103,7 +103,7 @@ public class CalendarActivity extends AppCompatActivity {
 
 
 		imgbtnNavBarCamera.setOnClickListener(v ->
-				startActivity(new Intent(CalendarActivity.this, BoostScanActivity.class)));
+				startActivity(new Intent(CalendarActivity.this, BootstrapScannerActivity.class)));
 
 		imgbtnNavBarArticle.setOnClickListener(v ->
 				startActivity(new Intent(CalendarActivity.this, ArticleActivity.class)));

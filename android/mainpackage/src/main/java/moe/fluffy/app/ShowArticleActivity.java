@@ -21,8 +21,10 @@ package moe.fluffy.app;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +35,10 @@ public class ShowArticleActivity extends Activity {
 
 	ImageView imgHeader;
 	TextView txtTitle, txtAuthor, txtBody, txtDay;
+
+	ImageButton imgbtnFavorite;
+
+	boolean bookmarked = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,5 +65,16 @@ public class ShowArticleActivity extends Activity {
 			txtDay.setText(a.date);
 			txtBody.setText(a.body);
 		}
+		imgbtnFavorite = findViewById(R.id.imgbtnFavArticle);
+
+		imgbtnFavorite.setOnClickListener(v -> {
+			if (bookmarked) {
+				imgbtnFavorite.setBackground(getDrawable(R.drawable.bookmark_gray));
+				bookmarked = false;
+			} else {
+				imgbtnFavorite.setBackground(getDrawable(R.drawable.bookmark_orange));
+				bookmarked = true;
+			}
+		});
 	}
 }

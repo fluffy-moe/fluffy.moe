@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,6 +32,7 @@ public class CalendarDateView extends ViewPager implements CalendarTopView {
 
     private int MAXCOUNT=6;
 
+    private static final String TAG = "CalendarDateView";
 
     private int row = 6;
 
@@ -56,7 +58,8 @@ public class CalendarDateView extends ViewPager implements CalendarTopView {
     }
 
     public void updateView() {
-        getAdapter().notifyDataSetChanged();
+        Log.d(TAG, "updateView: Will update view now.");
+        init();
     }
 
     @Override

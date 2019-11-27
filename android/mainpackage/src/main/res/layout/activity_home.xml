@@ -48,4 +48,10 @@
 		android:layout_height="wrap_content"
 		android:text="Medical" />
 
+	<Button
+		android:id="@+id/btnShowFoodHistory"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="Show Food History" />
+
 </LinearLayout>

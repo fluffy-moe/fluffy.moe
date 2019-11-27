@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
 		findViewById(R.id.btnChangeToCarouseDemo).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, ArticleActivity.class)));
 		findViewById(R.id.btnChangeToScan).setOnClickListener(
-				v -> startActivity(new Intent(HomeActivity.this, BoostScanActivity.class)));
+				v -> startActivity(new Intent(HomeActivity.this, BootstrapScannerActivity.class)));
 		findViewById(R.id.btnChangeToLoginPage).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, LoginActivity.class)));
 		findViewById(R.id.btnChangeToWelcome).setOnClickListener(
@@ -82,6 +82,8 @@ public class HomeActivity extends AppCompatActivity {
 				v -> startActivity(new Intent(HomeActivity.this, CalendarActivity.class)));
 		findViewById(R.id.btnChangeToMedical).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, MedicalActivity.class)));
+		findViewById(R.id.btnShowFoodHistory).setOnClickListener(
+				v -> startActivity(new Intent(HomeActivity.this, FoodHistoryActivity.class)));
 		initFirebase();
 	}
 

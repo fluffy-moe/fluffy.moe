@@ -19,6 +19,8 @@
  */
 package moe.fluffy.app;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,9 +41,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import moe.fluffy.app.assistant.Callback;
+import moe.fluffy.app.assistant.Connect;
+import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.JSONParser;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.types.DeinsectizaionType;
+import moe.fluffy.app.types.HttpRawResponse;
+import moe.fluffy.app.types.NetworkRequestType;
 import moe.fluffy.app.types.VaccinationType;
 import moe.fluffy.app.types.adapter.DeinsectizaionAdapter;
 import moe.fluffy.app.types.adapter.VaccinationAdapter;
@@ -71,6 +79,8 @@ public class MedicalActivity extends AppCompatActivity {
 	ArrayList<VaccinationType> vacArray;
 	ArrayList<DeinsectizaionType> deiArray;
 
+	BroadcastReceiver updateDataReceiver;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,18 +88,21 @@ public class MedicalActivity extends AppCompatActivity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_medical);
-		initJson();
+		initJson(null);
 		init();
 	}
 
-	private void initJson() {
+	private void initJson(String jsonInput) {
 		if (medicalObject == null) {
 			vacArray = new ArrayList<>();
 			deiArray = new ArrayList<>();
-			medicalObject = JSONParser.loadJSONFromAsset(getResources().openRawResource(R.raw.medical));
 			try {
+				if (jsonInput == null)
+					medicalObject = JSONParser.loadJSONFromAsset(getResources().openRawResource(R.raw.medical));
+				else
+					medicalObject = new JSONObject(jsonInput);
 				JSONArray m = medicalObject.getJSONArray(getString(R.string.jsonDeinsectizaionRoot));
-				for (int i=0;i<m.length();i++) {
+				for (int i = 0; i < m.length() ; i++) {
 					deiArray.add(new DeinsectizaionType(m.getJSONObject(i)));
 				}
 				m = medicalObject.getJSONArray(getString(R.string.jsonVaccinationRoot));
@@ -124,6 +137,36 @@ public class MedicalActivity extends AppCompatActivity {
 		lvItems = findViewById(R.id.lvMedicalNextTimeRecord);
 		lvBloodTestItems = findViewById(R.id.lvBloodTestRecord);
 
+		updateDataReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				new Connect(NetworkRequestType.generateFetchMedicalInformation(null), ConnectPath.fetch_medical_information, new Callback() {
+					@Override
+					public void onSuccess(Object o) {
+						HttpRawResponse raw = (HttpRawResponse) o;
+						try {
+							String str = raw.getOptions().getString(0);
+							initJson(str);
+							resetView();
+							Toast.makeText(MedicalActivity.this, "Updated", Toast.LENGTH_SHORT).show();
+						} catch (JSONException ignore) {
+
+						}
+					}
+
+					@Override
+					public void onFailure(Object o, Throwable e) {
+
+					}
+
+					@Override
+					public void onFinish(Object o, Throwable e) {
+
+					}
+				}).execute();
+			}
+		};
+
 		initNavigationBar();
 
 		txtBar1.setOnClickListener( v -> setOnClickChangeView(txtBar1, vBarUnderline1, View.VISIBLE,
@@ -139,6 +182,18 @@ public class MedicalActivity extends AppCompatActivity {
 				startActivity(new Intent(MedicalActivity.this, SearchActivity.class)));
 	}
 
+	void resetView() {
+		previousClickText.setTextColor(getColor(R.color.colorBackground));
+		previousView.setBackgroundColor(getColor(android.R.color.transparent));
+		txtBar1.setTextColor(getColor(R.color.colorMain));
+		vBarUnderline1.setBackgroundColor(getColor(R.color.colorMain));
+		lvBloodTestItems.setVisibility(View.INVISIBLE);
+		lvItems.setVisibility(View.VISIBLE);
+		lvItems.setAdapter(new VaccinationAdapter(this, vacArray));
+		previousClickText = txtBar1;
+		previousView = vBarUnderline1;
+	}
+
 	void initNavigationBar() {
 		imgbtnNavBarCamera = findViewById(R.id.imgbtnCameraPage);
 		imgbtnNavBarMedical = findViewById(R.id.imgbtnMedicalPage);
@@ -149,7 +204,7 @@ public class MedicalActivity extends AppCompatActivity {
 		imgbtnNavBarMedical.setImageResource(R.drawable.medical_orange);
 
 		imgbtnNavBarCamera.setOnClickListener(v ->
-				startActivity(new Intent(MedicalActivity.this, BoostScanActivity.class)));
+				startActivity(new Intent(MedicalActivity.this, BootstrapScannerActivity.class)));
 
 		imgbtnNavBarArticle.setOnClickListener(v ->
 				startActivity(new Intent(MedicalActivity.this, ArticleActivity.class)));
@@ -166,12 +221,12 @@ public class MedicalActivity extends AppCompatActivity {
 	}
 
 	private void setOnClickChangeView(TextView tView, View vUnderline, int barVisibility, ArrayAdapter<?> arrayAdapter1, ArrayAdapter<?> arrayAdapter2) {
-		if (previousClickText != null) {
+		/*if (previousClickText != null) {
 			previousClickText.setTextColor(getColor(R.color.colorBackground));
 		}
 		if (previousView != null) {
 			previousView.setBackgroundColor(getColor(android.R.color.transparent));
-		}
+		}*/
 		tView.setTextColor(getColor(R.color.colorMain));
 		vUnderline.setBackgroundColor(getColor(R.color.colorMain));
 		previousClickText = tView;

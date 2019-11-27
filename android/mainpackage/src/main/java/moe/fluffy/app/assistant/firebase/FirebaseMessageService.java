@@ -19,13 +19,17 @@
 */
 package moe.fluffy.app.assistant.firebase;
 
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import org.jetbrains.annotations.NotNull;
 
 import moe.fluffy.app.R;
 
@@ -44,6 +48,12 @@ public class FirebaseMessageService extends FirebaseMessagingService {
 		// Check if message contains a data payload.
 		if (remoteMessage.getData().size() > 0) {
 			Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+			String type = remoteMessage.getData().get("type");
+			if (type != null && type.equals("updateMedical")) {
+				Log.d(TAG, "onMessageReceived: Requesting update medical information");
+				LocalBroadcastManager.getInstance(this).sendBroadcast(
+						new Intent(getString(R.string.IntentFilter_request_medical_information)));
+			}
 		}
 
 		// Check if message contains a notification payload.
@@ -58,7 +68,7 @@ public class FirebaseMessageService extends FirebaseMessagingService {
 	}
 
 	@Override
-	public void onNewToken(String token) {
+	public void onNewToken(@NotNull String token) {
 		Log.d(TAG, "Refreshed token: " + token);
 
 		// If you want to send messages to this application instance or

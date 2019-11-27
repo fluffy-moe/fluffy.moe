@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/imgFoodBackground"
     android:layout_width="1207px"
     android:layout_height="438px"
     android:background="#F5EFE7"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="PxUsage">
 
     <TextView
         android:id="@+id/txtFoodBrand"
@@ -24,8 +26,8 @@
         android:id="@+id/txtFoodFlavor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="285px"
+        android:layout_marginStart="134px"
+        android:layout_marginTop="293px"
         android:fontFamily="@font/segoe_ui_bold"
         android:text="TextView"
         android:textColor="#707070"
@@ -37,8 +39,8 @@
         android:id="@+id/txtFoodName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="200px"
+        android:layout_marginStart="134px"
+        android:layout_marginTop="197px"
         android:fontFamily="@font/segoe_ui_bold"
         android:text="TextView"
         android:textColor="#707070"
@@ -68,7 +70,7 @@
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/edit" />
+        app:srcCompat="@drawable/editfood" />
 
     <ImageView
         android:id="@+id/imgFood"

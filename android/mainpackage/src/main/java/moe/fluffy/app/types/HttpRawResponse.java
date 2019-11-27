@@ -37,7 +37,7 @@ public class HttpRawResponse {
 		return status;
 	}
 
-	JSONArray getOptions() {
+	public JSONArray getOptions() {
 		return options;
 	}
 
