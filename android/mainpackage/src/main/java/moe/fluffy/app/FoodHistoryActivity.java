@@ -9,8 +9,11 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 
+import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.types.FoodViewType;
 import moe.fluffy.app.types.adapter.FoodAdapter;
 
@@ -41,6 +44,14 @@ public class FoodHistoryActivity extends AppCompatActivity {
 		foodList = HomeActivity.dbHelper.getFoodHistory();
 		foodAdapter = new FoodAdapter(this, foodList);
 		lvFoodHistory.setAdapter(foodAdapter);
+		/* // test code
+		findViewById(R.id.btnAddHistory).setOnClickListener(
+				v -> {
+					getIntent().putExtra(getString(R.string.extraBarcode), "12341325123");
+					getIntent().putExtra(getString(R.string.extraOcrResult), "Random text");
+					resumeEdit();
+				}
+		);*/
 		resumeEdit();
 	}
 
@@ -50,7 +61,18 @@ public class FoodHistoryActivity extends AppCompatActivity {
 		ocrResult = getIntent().getStringExtra(getString(R.string.extraOcrResult));
 		if (barcode != null && ocrResult != null) {
 			FoodViewType it = new FoodViewType(barcode, ocrResult);
-			FoodAdapter.generateDialog(this, it, foodAdapter);
+			FoodAdapter.generateDialog(this, it, foodAdapter, new Callback() {
+				@Override public void onSuccess(Object o) { }
+
+				@Override public void onFailure(Object o, Throwable e) { }
+
+				@Override
+				public void onFinish(Object o, @Nullable Throwable e) {
+					foodList.add((FoodViewType)o);
+				}
+			});
+			getIntent().removeExtra(getString(R.string.extraBarcode));
+			getIntent().removeExtra(getString(R.string.extraOcrResult));
 		}
 	}
 

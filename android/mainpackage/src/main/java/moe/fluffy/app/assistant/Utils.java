@@ -164,7 +164,7 @@ public class Utils {
 	}
 
 	public static void onFocusChange(boolean hasFocus,
-									 Context context,
+									 @NotNull Context context,
 									 @NotNull EditText et,
 									 @StringRes int original_string_id,
 									 boolean isPasswordField) {

@@ -40,6 +40,7 @@ import java.util.ArrayList;
 
 import moe.fluffy.app.HomeActivity;
 import moe.fluffy.app.R;
+import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.types.FoodViewType;
 
 public class FoodAdapter extends ArrayAdapter<FoodViewType> {
@@ -47,7 +48,8 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 		super(context, android.R.layout.simple_list_item_1, foodList);
 	}
 
-	public static AlertDialog generateDialog(Context context,@NotNull FoodViewType it, @NotNull ArrayAdapter<?> adapter) {
+	public static AlertDialog generateDialog(Context context, @NotNull FoodViewType it, @NotNull FoodAdapter adapter,
+											 @Nullable Callback listener) {
 		View viewEditFood = LayoutInflater.from(context).inflate(R.layout.edit_food_item, null);
 		AlertDialog.Builder editFoodPopup = new AlertDialog.Builder(context);
 		editFoodPopup.setView(viewEditFood);
@@ -74,6 +76,9 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 			it.setFoodNote(etNote.getText().toString());
 			it.setDate(etTime.getText().toString().split("/"));
 			HomeActivity.dbHelper.writeFoodHistory(it);
+			if (listener != null) {
+				listener.onFinish(it, null);
+			}
 			adapter.notifyDataSetChanged();
 			realEditPopup.dismiss();
 		});
@@ -112,7 +117,7 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 			txtDate.setText(it.getDate());
 
 			imgbtnEdit.setOnClickListener(v ->
-					generateDialog(getContext(), it, this));
+					generateDialog(getContext(), it, this, null));
 		}
 		return convertView;
 	}

@@ -45,13 +45,21 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 
 	private static final int SELECT_FROM_GALLERY = 0x0002;
 	private static final int GO_OCR_DETECT = 0x0003;
-	BroadcastReceiver galleryRequestReceiver;
+	BroadcastReceiver galleryRequestReceiver, historyRequestReceiver;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_empty);
+		init();
+		callScannerActivity();
+	}
+
+	private void callScannerActivity() {
 		new IntentIntegrator(this).setOrientationLocked(false).setCaptureActivity(ScanActivity.class).initiateScan();
+	}
+
+	private void init() {
 		galleryRequestReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent i) {
@@ -61,8 +69,18 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 				startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_FROM_GALLERY);
 			}
 		};
+		historyRequestReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				startActivity(new Intent(BootstrapScannerActivity.this, FoodHistoryActivity.class));
+			}
+		};
+
 		LocalBroadcastManager.getInstance(this).registerReceiver(galleryRequestReceiver,
 				new IntentFilter(getString(R.string.IntentFilter_request_choose_from_gallery)));
+
+		LocalBroadcastManager.getInstance(this).registerReceiver(historyRequestReceiver,
+				new IntentFilter(getString(R.string.IntentFilter_open_food_history)));
 	}
 
 	@Override
@@ -73,55 +91,56 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode != IntentIntegrator.REQUEST_CODE && requestCode != SELECT_FROM_GALLERY && requestCode != GO_OCR_DETECT) {
-			// This is important, otherwise the result will not be passed to the fragment
-			super.onActivityResult(requestCode, resultCode, data);
-			return;
-		}
+		Log.d(TAG, "onActivityResult: request_code =>" + requestCode);
 
-		if (requestCode == SELECT_FROM_GALLERY && resultCode == RESULT_OK) {
-			try {
-				String result;
-				Bitmap bmp = Utils.getBitmap(this, data);
-				if (bmp != null) {
-					result = Utils.realDecode(bmp);
-					Toast.makeText(this, "Result: " + result, Toast.LENGTH_LONG).show();
-					Log.v(TAG, "Scan result is => " + result);
-					checkBarcodeInDatabase(result);
+
+
+		if (requestCode == SELECT_FROM_GALLERY) {
+			if (resultCode == RESULT_OK) {
+				try {
+					String result;
+					Bitmap bmp = Utils.getBitmap(this, data);
+					if (bmp != null) {
+						result = Utils.realDecode(bmp);
+						Toast.makeText(this, "Result: " + result, Toast.LENGTH_LONG).show();
+						Log.v(TAG, "Scan result is => " + result);
+						checkBarcodeInDatabase(result);
+					}
+				} catch (IOException e) {
+					Log.e(TAG, "onActivityResult: Error while read image", e);
+					PopupDialog.build(this, e);
 				}
-				return ;
-			} catch (IOException e) {
-				Log.e(TAG, "onActivityResult: Error while read image", e);
-				PopupDialog.build(this, e);
 			}
+			else {
+				callScannerActivity();
+			}
+			return;
 		}
 
 		if (requestCode == GO_OCR_DETECT && resultCode == RESULT_OK) {
 			Log.d(TAG, "onActivityResult: start history activity");
 			Intent foodViewIntent = new Intent(this, FoodHistoryActivity.class);
-			foodViewIntent.putExtra(getString(R.string.extraBarcode), data.getStringExtra(getString(R.string.extraBarcode)));
-			foodViewIntent.putExtra(getString(R.string.extraOcrResult), data.getStringExtra(getString(R.string.extraOcrResult)));
+			if (data != null) {
+				foodViewIntent.putExtra(getString(R.string.extraBarcode), data.getStringExtra(getString(R.string.extraBarcode)));
+				foodViewIntent.putExtra(getString(R.string.extraOcrResult), data.getStringExtra(getString(R.string.extraOcrResult)));
+			}
 			startActivity(foodViewIntent);
 			return;
 		}
 
-		IntentResult result = IntentIntegrator.parseActivityResult(resultCode, data);
 
-		if (data != null) {
-			Log.d(TAG, "onActivityResult: Record");
-			String action = data.getStringExtra(getString(R.string.extraAction));
-			if (action != null && action.equals("record")) {
-				startActivity(new Intent(this, FoodHistoryActivity.class));
-				finish();
-				return;
+		if (requestCode == IntentIntegrator.REQUEST_CODE) {
+			IntentResult result = IntentIntegrator.parseActivityResult(resultCode, data);
+			if (result.getContents() != null) {
+				Log.d("MainActivity", "Scanned");
+				//Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+				checkBarcodeInDatabase(result.getContents());
 			}
-		}
-		if(result.getContents() != null) {
-			Log.d("MainActivity", "Scanned");
-			//Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-			checkBarcodeInDatabase(result.getContents());
+			finish();
 			return;
 		}
+		//finish();
+		super.onActivityResult(requestCode, resultCode, data);
 		finish();
 	}
 
@@ -137,5 +156,6 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(galleryRequestReceiver);
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(historyRequestReceiver);
 	}
 }

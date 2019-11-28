@@ -22,6 +22,7 @@ package moe.fluffy.app;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -34,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -101,6 +103,9 @@ public class MedicalActivity extends AppCompatActivity {
 					medicalObject = JSONParser.loadJSONFromAsset(getResources().openRawResource(R.raw.medical));
 				else
 					medicalObject = new JSONObject(jsonInput);
+				if (medicalObject == null) {
+					PopupDialog.build(this, new NullPointerException("Object is null"));
+				}
 				JSONArray m = medicalObject.getJSONArray(getString(R.string.jsonDeinsectizaionRoot));
 				for (int i = 0; i < m.length() ; i++) {
 					deiArray.add(new DeinsectizaionType(m.getJSONObject(i)));
@@ -180,6 +185,9 @@ public class MedicalActivity extends AppCompatActivity {
 
 		imgbtnSearchHospital.setOnClickListener(v ->
 				startActivity(new Intent(MedicalActivity.this, SearchActivity.class)));
+
+		LocalBroadcastManager.getInstance(this).registerReceiver(
+				updateDataReceiver, new IntentFilter(getString(R.string.IntentFilter_request_medical_information)));
 	}
 
 	void resetView() {
@@ -221,12 +229,8 @@ public class MedicalActivity extends AppCompatActivity {
 	}
 
 	private void setOnClickChangeView(TextView tView, View vUnderline, int barVisibility, ArrayAdapter<?> arrayAdapter1, ArrayAdapter<?> arrayAdapter2) {
-		/*if (previousClickText != null) {
-			previousClickText.setTextColor(getColor(R.color.colorBackground));
-		}
-		if (previousView != null) {
-			previousView.setBackgroundColor(getColor(android.R.color.transparent));
-		}*/
+		previousClickText.setTextColor(getColor(R.color.colorBackground));
+		previousView.setBackgroundColor(getColor(android.R.color.transparent));
 		tView.setTextColor(getColor(R.color.colorMain));
 		vUnderline.setBackgroundColor(getColor(R.color.colorMain));
 		previousClickText = tView;
@@ -242,5 +246,11 @@ public class MedicalActivity extends AppCompatActivity {
 			lvBloodTestItems.setVisibility(View.VISIBLE);
 			lvBloodTestItems.setAdapter(arrayAdapter2);
 		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(updateDataReceiver);
 	}
 }

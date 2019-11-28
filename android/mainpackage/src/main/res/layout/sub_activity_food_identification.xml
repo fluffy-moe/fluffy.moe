@@ -19,14 +19,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/lvFoods"
-        android:layout_width="1207px"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="117px"
-        android:layout_marginTop="287px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+	<org.mazhuang.wrapcontentlistview.WrapContentListView
+		android:id="@+id/lvFoods"
+		android:layout_width="1207px"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="117px"
+		android:layout_marginTop="287px"
 		android:divider="@drawable/divider_61px"
-		android:dividerHeight="59px" />
+		android:dividerHeight="59px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<!--<Button
+		android:id="@+id/btnAddHistory"
+		android:layout_width="84dp"
+		android:layout_height="52dp"
+		android:layout_marginStart="348dp"
+		android:layout_marginTop="28dp"
+		android:text="Manual add"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" /> -->
 </androidx.constraintlayout.widget.ConstraintLayout>

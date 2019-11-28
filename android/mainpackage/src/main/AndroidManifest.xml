@@ -16,6 +16,7 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 		tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+		<activity android:name=".ProfileActivity"></activity>
 		<activity android:name=".OCRActivity" />
 		<activity android:name=".FoodHistoryActivity" />
 		<activity android:name=".MedicalActivity" />
@@ -24,6 +25,7 @@
 		<activity android:name=".WelcomeActivity" />
 		<activity android:name=".ArticleActivity" />
 		<activity android:name=".BootstrapScannerActivity" />
+		<activity android:name=".BootstrapHomeActivity" />
 		<activity android:name=".HomeActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

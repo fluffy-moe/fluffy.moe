@@ -84,6 +84,8 @@ public class HomeActivity extends AppCompatActivity {
 				v -> startActivity(new Intent(HomeActivity.this, MedicalActivity.class)));
 		findViewById(R.id.btnShowFoodHistory).setOnClickListener(
 				v -> startActivity(new Intent(HomeActivity.this, FoodHistoryActivity.class)));
+		findViewById(R.id.btnChangeToProfile).setOnClickListener(
+				v -> startActivity(new Intent(HomeActivity.this, ProfileActivity.class)));
 		initFirebase();
 	}
 

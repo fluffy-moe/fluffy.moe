@@ -58,16 +58,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private final static String CREATE_FOOD_HISTORY = "CREATE TABLE `food` (`id` INTEGER PRIMARY KEY AUTOINCREMENT," +
 			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `name` TEXT, `note` TEXT, `liked` TEXT, " +
 			"`barcode` TEXT, `SOURCE` TEXT)";
+	private final static String DROP_STATEMENT = "DROP TABLE IF EXISTS ";
 
 	private final static String TAG = "log_Database";
 
-	DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-		super(context, name, factory, version);
-		this.context = context;
-	}
-
 	public DatabaseHelper(Context context){
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		super(context, DATABASE_NAME, null , DATABASE_VERSION);
 		this.context = context;
 	}
 
@@ -91,10 +87,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	// TODO: backup then drop next time
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_OPTION);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_PET);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOOD_HISTORY);
+		db.execSQL(DROP_STATEMENT + TABLE_OPTION);
+		db.execSQL(DROP_STATEMENT + TABLE_PET);
+		db.execSQL(DROP_STATEMENT + TABLE_EVENTS);
+		db.execSQL(DROP_STATEMENT + TABLE_FOOD_HISTORY);
 		onCreate(db);
 	}
 
