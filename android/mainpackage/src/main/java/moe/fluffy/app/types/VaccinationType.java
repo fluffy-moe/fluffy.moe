@@ -60,11 +60,11 @@ public class VaccinationType {
 	 * @throws JSONException Exception while get json value
 	 */
 	public VaccinationType(JSONObject j) throws JSONException {
-		date = new Date(j.getJSONObject(columnDate));
-		nobivac = j.getString(columnNobivac);
-		injectionSite = j.getString(columnInjectionSite);
-		doctor = j.getString(columnDoctor);
-		status = j.getInt(columnStatus);
+		this(new Date(j.getJSONObject(columnDate)),
+				j.getString(columnNobivac),
+				j.getString(columnInjectionSite),
+				j.getString(columnDoctor),
+				j.getInt(columnStatus));
 	}
 
 	public int getYear() {

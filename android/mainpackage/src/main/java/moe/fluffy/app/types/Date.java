@@ -60,9 +60,9 @@ public class Date {
 	}
 
 	public Date(String _year, String _month, String _day) {
-		year = Integer.parseInt(_year.trim());
-		month = Integer.parseInt(_month.trim());
-		day = Integer.parseInt(_day.trim());
+		this(Integer.parseInt(_year.trim()),
+			Integer.parseInt(_month.trim()),
+			Integer.parseInt(_day.trim()));
 	}
 
 	public Date(int _year, int _month, int _day) {
@@ -72,15 +72,13 @@ public class Date {
 	}
 
 	public Date(int[] s) {
-		year = s[0];
-		month = s[1];
-		day = s[2];
+		this(s[0], s[1], s[2]);
 	}
 
 	public Date(JSONObject j) throws JSONException {
-		year = j.getInt("year");
-		month = j.getInt("month");
-		day = j.getInt("day");
+		this(j.getInt("year"),
+			j.getInt("month"),
+			j.getInt("day"));
 	}
 
 	/**

@@ -65,24 +65,24 @@ public class EventsType {
 	}
 
 	public EventsType(int _year, int _month, int _day, int _hour, int _minute, int color, String c, String b, boolean _alarm) {
-		date = new DateWithMark(_year, _month, _day, _hour, _minute, 0,0, color);
-		category = c;
-		body = b;
-		alarm = _alarm;
+		this(new DateWithMark(_year, _month, _day, _hour, _minute, 0,0, color),
+				c,
+				b,
+				_alarm);
 	}
 
 	public EventsType(DatePicker dp, TimePicker tp, int color, String c, String b, boolean _alarm) {
-		date = new DateWithMark(dp.getYear(), dp.getMonth() + 1, dp.getDayOfMonth(), tp.getHour(), tp.getMinute(), 0, 0, color);
-		category = c;
-		body = b;
-		alarm = _alarm;
+		this(new DateWithMark(dp.getYear(), dp.getMonth() + 1, dp.getDayOfMonth(), tp.getHour(), tp.getMinute(), 0, 0, color),
+				c,
+				b,
+				_alarm);
 	}
 
 	public EventsType(String strDate, String strTime, int color, String c, String b, boolean _alarm) {
-		date = new DateWithMark(strDate, strTime, color);
-		category = c;
-		body = b;
-		alarm = _alarm;
+		this(new DateWithMark(strDate, strTime, color),
+				c,
+				b,
+				_alarm);
 	}
 
 	public EventsType(Cursor cursor) {

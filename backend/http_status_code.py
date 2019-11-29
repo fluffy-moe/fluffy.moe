@@ -13,6 +13,9 @@ class http_status_codes:
 	def SUCCESS_REGISTER(self):
 		return self.SUCCESS_200OK
 
+	def _SUCCESS_WITH_OPTION(self, option: list):
+		return (200, option, self.generate_error_dict(0, ''))
+
 	@property
 	def ERROR_INVALID_PASSWORD_OR_USER(self):
 		return (403, [], self.generate_error_dict(1, 'Invalid password or username'))
@@ -79,5 +82,8 @@ class http_status_codes:
 	@property
 	def ERROR_FIREBASE_TOKEN_LENGTH_TOO_SHORT(self):
 		return (400, [], self.generate_error_dict(8, 'Firebase token length too short'))
+	
+	def SUCCESS_FETCH_FEEDERS(self, user_list: dict):
+		return self._SUCCESS_WITH_OPTION([user_list,])
 
 HTTP_STATUS_CODES = http_status_codes()

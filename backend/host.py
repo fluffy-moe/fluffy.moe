@@ -29,6 +29,7 @@ from server import Server as _exServer
 from http_status_code import HTTP_STATUS_CODES
 import fcmbackend
 import json
+import zlib
 
 expire_day = 2 * 60 * 60 * 24
 
@@ -129,8 +130,21 @@ class Server(_exServer):
 			return HTTP_STATUS_CODES.SUCCESS_LOGOUT
 
 		elif self.path == '/admin':
-			return self.handle_manage_request(jsonObject)
+			return self.handle_manage_html_post(jsonObject)
 
+		return HTTP_STATUS_CODES.ERROR_INVALID_REQUEST
+
+	def handle_manage_html_post(self, d: dict):
+		# Not behind reversed proxy, bypass it
+		if self.headers.get('X-Real-IP') and self.headers.get('X-Real-IP') not in Server.mdict['trust_ip']:
+			return HTTP_STATUS_CODES.ERROR_403_FORBIDDEN
+		if 't' not in d:
+			return HTTP_STATUS_CODES.ERROR_400_BAD_REQUEST
+		if d['t'] == 'user':
+			# TODO: limit fetch size
+			sqlObj = Server.conn.query("SELECT `id`, `realname`, `nickname`, `phone`, `address` FROM `feeder_information`")
+			print(sqlObj)
+			return HTTP_STATUS_CODES.SUCCESS_FETCH_FEEDERS({'data': sqlObj})
 		return HTTP_STATUS_CODES.ERROR_INVALID_REQUEST
 
 	def handle_manage_request(self, d: dict):
@@ -179,6 +193,10 @@ class Server(_exServer):
 				os.urandom(16),
 				user_name.encode()
 			]))
+
+	@staticmethod
+	def crc32(s: str):
+		return hex(zlib.crc32(s.encode()) & 0xffffffff)[2:].upper()
 
 	def get_userid_from_username(self, user_name: str):
 		sqlObj = Server.conn.query1("SELECT `id` FROM `accounts` WHERE `username` = %s AND `enabled` = 'Y'", user_name)

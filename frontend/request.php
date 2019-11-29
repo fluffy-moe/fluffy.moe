@@ -15,17 +15,17 @@
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if (isset($_POST['t'])){
-			if (!(($_POST['t'] === 'firebase_post' || $_POST['t'] === 'notification_manage')
-				&& isset($_POST['payload']))) {
+			//if (!(($_POST['t'] === 'firebase_post' || $_POST['t'] === 'notification_manage')
+			if ($_POST['t'] !== 'user' && isset($_POST['payload'])) {
 					http_response_code(400);
 					die('Bad request');
 				}
 			$payload = json_decode($_POST['payload'], true);
-			if ($_POST['t'] === 'firebase_post')
+			/*if ($_POST['t'] === 'firebase_post')
 				if (strlen($payload['title']) > 25 || strlen($payload['body']) > 300) {
 					http_response_code(413);
 					die('Payload too large');
-				}
+				}*/
 			$payload['t'] = $_POST['t'];
 			$payload = json_encode($payload);
 			$ch = curl_init($BACKEND_SERVER_ADMIN_PAGE);
@@ -82,6 +82,10 @@
 			elseif ($_GET['t'] === 'past_notifications') {
 				$r = mysqli_query($conn, "SELECT `id`, `title`, `body`, `timestamp`, `available` FROM `notifications` ORDER BY `id` DESC");
 				while ($result = mysqli_fetch_assoc($r))
+					array_push($j["data"], $result);
+			} elseif ($_GET['t'] === 'user') {
+				$r = mysqli_query($conn, "SELECT `id`, `realname`, `nickname`, `phone`, `address` FROM `feeder_information`");
+				while ($result = mysqli_fetch_assoc($r)) 
 					array_push($j["data"], $result);
 			}
 			echo json_encode($j, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
