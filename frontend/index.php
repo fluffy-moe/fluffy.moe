@@ -4,9 +4,9 @@
 		echo '<html><head><title>'.$SITE_NAME.'</title></head><body>You haven\'t login, please <a href="/login.php">Login</a> first.</body></html>';
 		die();
 	}
-	if (time() - $_SESSION["timeout"] > 600) {
+	if (time() - $_SESSION["timeout"] > $LOGIN_TIMEOUT) {
 		unset($_SESSION['valid']);
-		header("Location: login.php", true, 301);
+		header("Location: /login.php", true, 301);
 	}
 	// Update time after refresh this page
 	$_SESSION["timeout"] = time();

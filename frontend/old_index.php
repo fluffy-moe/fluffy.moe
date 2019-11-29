@@ -30,7 +30,7 @@
 				getAndSetTimeout();
 			}, keep_session_interval);
 		});
-</script>
+	</script>
 </head>
 <body>
 	<h1>Console</h1>

@@ -47,7 +47,7 @@ function update_users_list(diff_value = '') {
 	users_store.forEach(element => {
 		if (diff_value !== '' && element.realname.indexOf(diff_value) === -1) 
 			return;
-		_tmp += '<tr><td><a href="/edit_user.html?' + element['id'] + '">'+ element['realname'] +
+		_tmp += '<tr><td><a href="/edit_user/?user=' + element['id'] + '">'+ element['realname'] +
 			'</a></td><td>'+ element['phone']+ '</td></tr>';
 		
 	});

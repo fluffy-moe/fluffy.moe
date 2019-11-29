@@ -87,6 +87,11 @@
 				$r = mysqli_query($conn, "SELECT `id`, `realname`, `nickname`, `phone`, `address` FROM `feeder_information`");
 				while ($result = mysqli_fetch_assoc($r)) 
 					array_push($j["data"], $result);
+			} elseif ($_GET['t'] === 'user_detail' && isset($_GET['user_id'])) {
+				$user_id = mysqli_real_escape_string($conn, $_GET['user_id']);
+				$r = mysqli_query($conn, "SELECT * FROM `feeder_information` WHERE `id` = " . $user_id);
+				$result = mysqli_fetch_assoc($r);
+				$j["data"] = array("user" => $result);
 			}
 			echo json_encode($j, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 			mysqli_close($conn);
