@@ -43,9 +43,9 @@
 		<div id="div_user_management">
 			<button id="btn_add_user">Add user</button>
 			<button id="btn_refresh_user">Refresh</button>
-			<label id="search_user_label">
+			<label>
 				Search user:
-				<input type="text" id="search_user">
+				<input type="text" id="txt_search_user_field">
 			</label>
 			<br />
 			<div id="users_area"><!-- renender by javascript --></div>
@@ -58,3 +58,4 @@
 	<hr>
 	Click <a href="/login.php?action=logout">here</a> to logout Session.
 </body>
+</html>
