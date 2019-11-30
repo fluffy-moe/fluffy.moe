@@ -16,10 +16,10 @@
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if (isset($_POST['t'])){
 			//if (!(($_POST['t'] === 'firebase_post' || $_POST['t'] === 'notification_manage')
-			if ($_POST['t'] !== 'user' && isset($_POST['payload'])) {
-					http_response_code(400);
-					die('Bad request');
-				}
+			if ($_POST['t'] !== 'update_person' && isset($_POST['payload'])) {
+				http_response_code(400);
+				die('Bad request');
+			}
 			$payload = json_decode($_POST['payload'], true);
 			/*if ($_POST['t'] === 'firebase_post')
 				if (strlen($payload['title']) > 25 || strlen($payload['body']) > 300) {
@@ -38,11 +38,17 @@
 				die('Couldn\'t send request: ' . curl_error($ch));
 			}
 			$response = json_decode($response, true);
-			if ($response['status'] == 200)
-				http_response_code(204);
+			if ($response['status'] == 200) {
+				if (count($response['options']) > 0) {
+					http_response_code(200);
+					die(json_encode(array("options" => $response['options'])));
+				}
+				else
+					http_response_code(204);
+			}
 			else {
 				http_response_code(400);
-				die('Server return error: ' . $response['error']['info']);
+				die(json_encode(array("status" => 400, "error_info" => $response['error']['info'])));
 			}
 			die();
 		}

@@ -1,7 +1,7 @@
 <?php
 	require_once('../.config.inc.php');
 	if (!$_SESSION['valid']){
-		echo '<html><head><title>'.$SITE_NAME.'</title></head><body>You haven\'t login, please<a href="/login.php">Login</a> first.</body></html>';
+		echo '<html><head><title>'.$SITE_NAME.'</title></head><body>You haven\'t login, please <a href="/login.php">Login</a> first.</body></html>';
 		die();
 	}
 	if (time() - $_SESSION["timeout"] > $LOGIN_TIMEOUT) {
@@ -127,6 +127,7 @@
 				<div class="col-md-6">
 					<div class="message-box">
 						<h2>Pet's information</h2>
+						<input type="hidden" id="pet_id">
 						<p><table>
 							<tr>
 								<td>Choose:</td>
@@ -162,7 +163,7 @@
 							</tr>
 							<tr>
 								<td>Birthday:</td>
-								<td><input type="text" id="info_birthday"></td>
+								<td><input type="date" id="info_birthday"></td>
 							</tr>
 							<tr>
 								<td>Age:</td>
@@ -181,7 +182,7 @@
 							</tr>
 						</table>
 					</p>
-						<p><button id="btn_pets_information_update">Update</button></p>
+						<p><button id="btn_pets_information_update" disabled>Update</button></p>
 					</div>
 
 					</div><!-- end media -->

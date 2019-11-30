@@ -115,13 +115,12 @@ class Server(_exServer):
 			else:
 				Server.conn.execute("UPDATE `firebasetoken` SET `register_date` = CURRENT_TIMESTAMP() WHERE `token` = %s", jsonObject['token'])
 			return HTTP_STATUS_CODES.SUCCESS_REGISTER_FIREBASE_ID
-		
 
 		# Process verify user session string
 		elif self.path == '/verify':
 			_r, rt_value, _ = self.verify_user_session(A_auth)
 			return rt_value
-		
+
 		# Process user logout
 		elif self.path == '/logout':
 			if A_auth is None:
@@ -140,11 +139,16 @@ class Server(_exServer):
 			return HTTP_STATUS_CODES.ERROR_403_FORBIDDEN
 		if 't' not in d:
 			return HTTP_STATUS_CODES.ERROR_400_BAD_REQUEST
-		if d['t'] == 'user':
-			# TODO: limit fetch size
-			sqlObj = Server.conn.query("SELECT `id`, `realname`, `nickname`, `phone`, `address` FROM `feeder_information`")
-			print(sqlObj)
-			return HTTP_STATUS_CODES.SUCCESS_FETCH_FEEDERS({'data': sqlObj})
+		if d['t'] == 'update_person':
+			if d['uid'] != '':
+				Server.conn.execute("UPDATE `feeder_information` SET `realname` = %s, `phone` = %s, `address` = %s, `email` = %s WHERE `id` = %s",
+					(d['name'], d['phone'], d['email'], d['address'], d['uid']))
+				return HTTP_STATUS_CODES.SUCCESS_UPDATE_USER_INFO
+			else:
+				Server.conn.execute("INSERT `feeder_information` (`realname`, `phone`, `address`, `email`) VALUE (%s, %s, %s, %s)",
+					(d['name'], d['phone'], d['email'], d['address']))
+				return HTTP_STATUS_CODES.SUCCESS_INSERT_USER(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+
 		return HTTP_STATUS_CODES.ERROR_INVALID_REQUEST
 
 	def handle_manage_request(self, d: dict):

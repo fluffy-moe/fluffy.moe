@@ -17,6 +17,9 @@ var button_update_personal_information, button_update_pet_information, button_ad
 var table_vaccination_record, table_deinsectzation_record;
 
 var rev_user_id;
+var user_id;
+
+var pet_data_store;
 
 function init_view() {
 	txt_info_name = document.getElementById('info_name');
@@ -76,10 +79,14 @@ function init_view() {
 function init_onclick() {
 	button_update_personal_information.addEventListener('click', function () {
 		do_POST('update_person', {
+			uid: rev_user_id.value,
 			name: txt_info_name.value,
 			phone: txt_info_phone.value,
 			email: txt_info_email.value,
 			address: txt_info_address.value
+		}, (result) => {
+			if (rev_user_id.value === '') // only new user shou check this option
+				rev_user_id.value = JSON.parse(result).options[0];
 		});
 	});
 
@@ -105,6 +112,7 @@ function init_onclick() {
 		if (dropdown_pet_select.innerHTML.search('None') !== -1) {
 			dropdown_pet_select.innerHTML = '';
 			dropdown_pet_select.disabled = false;
+			button_update_pet_information.disabled = false;
 		}
 		if (dropdown_pet_select.innerHTML.search('new') === -1)
 			dropdown_pet_select.innerHTML += '<option>new</option>';
@@ -145,7 +153,7 @@ function init_onclick() {
  * NOTE: must check return type if you want to use return type
  */
 function getUserInfo() {
-	var user_id = findGetParameter('user');
+	user_id = findGetParameter('user');
 	rev_user_id.value = user_id;
 	console.log(user_id);
 	var rt;
@@ -164,7 +172,29 @@ function getUserInfo() {
 	return rt;
 }
 
-function do_POST(t, payload, callback = () => {}) {
+function update_website_pet_info() {
+	
+}
+
+
+function get_pet_info() {
+	$.getJSON('/request.php?t=pet&user_id=' + user_id + '&' + new Date().getTime(), function(json_data) {
+		console.log(json_data);
+		pet_data_store = json_data.data;
+		if (json_data.data.length > 0) {
+			var tmp_dropdown_select = '';
+			button_update_pet_information.disabled = false;
+			dropdown_pet_select.innerHTML = ''; // reset options
+			json_data.data.forEach(element => {
+				tmp_dropdown_select += '<options>'+ element.name +'</options>';
+			});
+			// use 1 information to default information
+			dropdown_pet_select = tmp_dropdown_select;
+		}
+	});
+}
+
+function do_POST(t, payload, callback = (result) => {console.log(result);}) {
 	return $.post('/request.php', {
 		t: t,
 		payload: JSON.stringify(payload)
