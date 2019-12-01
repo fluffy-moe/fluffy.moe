@@ -10,13 +10,13 @@ var txt_info_name, txt_info_email, txt_info_phone, txt_info_address,
 	txt_info_outpatientdate, txt_info_outpatient_nexttime, txt_info_symptom,
 	txt_info_RBC, txt_info_HCT, txt_info_MCH, txt_info_MCHC, txt_info_CREA,
 	txt_info_BUM, txt_info_PHOS, txt_info_CA, txt_info_ALB, txt_info_CHOL,
-	txt_info_PCT, dropdown_pet_select;
+	txt_info_PCT, dropdown_pet_select, select_vac_history, select_dei_history;
 
 var button_update_personal_information, button_update_pet_information, button_add_new_pet;
 
 var table_vaccination_record, table_deinsectzation_record;
 
-var rev_user_id, rev_pet_id;
+var rev_user_id, rev_pet_id, rev_vac_id, rev_dein_id;
 var user_id;
 
 var pet_data_store;
@@ -74,7 +74,19 @@ function init_view() {
 	table_deinsectzation_record = document.getElementById('table_deinsectzation_record');
 	rev_user_id = document.getElementById('rev_user_id');
 	rev_pet_id = document.getElementById('rev_pet_id');
+	rev_vac_id = document.getElementById('rev_vac_id');
+	rev_dein_id = document.getElementById('rev_dein_id');
+	select_vac_history = document.getElementById('select_vac_history');
+	select_dei_history = document.getElementById('select_dei_history');
 	init_onclick();
+}
+
+function reslove_result(result) {
+	try {
+		return result.options[0];
+	} catch (ignore) {
+		return JSON.parse(result).options[0];
+	}
 }
 
 function init_onclick() {
@@ -87,18 +99,21 @@ function init_onclick() {
 			address: txt_info_address.value
 		}, (result) => {
 			if (rev_user_id.value === '') // only new user shou check this option
-				rev_user_id.value = JSON.parse(result).options[0];
+				rev_user_id.value = reslove_result(result);
 		});
 	});
 
 	button_update_pet_information.addEventListener('click', function () {
 		var gender = (rd_info_gender_male.checked ? 'M' : 'W');
 		var is_neuter = (rd_info_neuter_yes.checked ? 'Y' : 'N');
+		if (rev_user_id.value === '') {
+			return alert("please create user first!");
+		}
 		do_POST('update_pet', {
-			pet_no: dropdown_pet_select.value,
+			belong: rev_user_id.value,
+			pet_no: rev_pet_id.value,
 			petname: txt_info_animalname.value,
 			gender: gender,
-			gender_female: rd_info_gender_female.value,
 			varity: txt_info_varity.value,
 			color: txt_info_color.value,
 			//picture: txt_info_picture.value,
@@ -106,6 +121,14 @@ function init_onclick() {
 			//age: txt_info_age.value,
 			weight: txt_info_weight.value,
 			neuter: is_neuter
+		}, (result) => {
+			if (rev_pet_id.value === '') {
+				console.log('test');
+				rev_pet_id.value = reslove_result(result);
+				dropdown_pet_select.innerHTML = dropdown_pet_select.innerHTML.replace('<option>new</option>',
+					'<option value="'+ rev_pet_id.value +'">' + txt_info_animalname.value + '</option>');
+				dropdown_pet_select.value = rev_pet_id.value;
+			}
 		});
 	});
 
@@ -115,7 +138,7 @@ function init_onclick() {
 			dropdown_pet_select.disabled = false;
 			button_update_pet_information.disabled = false;
 		}
-		if (dropdown_pet_select.innerHTML.search('new') === -1)
+		if (dropdown_pet_select.innerHTML.search('<option>new</option>') === -1)
 			dropdown_pet_select.innerHTML += '<option>new</option>';
 		rev_pet_id.value = '';
 		dropdown_pet_select.value = 'new';
@@ -131,12 +154,7 @@ function init_onclick() {
 	});
 
 	dropdown_pet_select.addEventListener('change', () => {
-		pet_data_store.forEach(element => {
-			if (dropdown_pet_select.value === element.name) {
-				update_website_pet_info(element);
-				return ;
-			}
-		});
+		update_website_pet_info(pet_data_store[dropdown_pet_select.value]);
 	});
 
 	rd_info_vac_have.addEventListener('click', () => {
@@ -153,6 +171,24 @@ function init_onclick() {
 
 	rd_info_dein_nothave.addEventListener('click', () => {
 		table_deinsectzation_record.style.display = "none";
+	});
+
+	select_vac_history.addEventListener('change', () => {
+		update_vac_info(pet_data_store[dropdown_pet_select.value].vaccination[select_vac_history.value]);
+	});
+
+	select_dei_history.addEventListener('change', () => {
+		update_vac_info(pet_data_store[dropdown_pet_select.value].deinsectzation[select_dei_history.value]);
+	});
+
+	$('btn_update_vac_info').click(() => {
+		do_POST('update_vac', {
+			id: rev_dein_id.value,
+			date: txt_info_vacdate.value,
+			product: txt_info_vacproduct.value,
+			injection_site: txt_info_vacsite.value,
+			doctor: txt_info_vacdoctor.value
+		});
 	});
 
 	get_user_info();
@@ -182,7 +218,38 @@ function get_user_info() {
 	return rt;
 }
 
-function update_website_pet_info(info) {
+
+function toggle_vac_info(is_exist){
+	rd_info_vac_have.checked = is_exist;
+	rd_info_vac_nothave.checked = !is_exist;
+	table_vaccination_record.style.display = (is_exist?"block":"none");
+}
+
+function toggle_dein_info(is_exist){
+	rd_info_dein_have.checked = is_exist;
+	rd_info_dein_nothave.checked = !is_exist;
+	table_deinsectzation_record.style.display = (is_exist?"block":"none");
+}
+
+function update_vac_info(vac_info) {
+	rev_vac_id.value = vac_info.id;
+	txt_info_vacdate.value = vac_info.date;
+	txt_info_vacproduct.value = vac_info.product;
+	txt_info_vacsite.value = vac_info.injection_site;
+	txt_info_vacdoctor.value = vac_info.doctor;
+	// TODO: next time to visit
+}
+
+function update_dei_info(dei_info) {
+	txt_info_desdate.value = dei_info.date;
+	txt_info_desproduct.value = dei_info.product;
+	txt_info_deidoctor.value = dei_info.doctor;
+	// TODO: next time to visit
+}
+
+function update_website_pet_info(pet_info) {
+	var info = pet_info.info, vac_info = pet_info.vaccination,
+		dei_info = pet_info.deinsectzation;
 	txt_info_animalname.value = info.name;
 	txt_info_birthday.value = info.birthday;
 	txt_info_color.value = info.color;
@@ -193,6 +260,31 @@ function update_website_pet_info(info) {
 	rd_info_neuter_no.checked = !rd_info_neuter_yes.checked;
 	txt_info_varity.value = info.breed;
 	rev_pet_id.value = info.id;
+	if (vac_info.length > 0) {
+		console.log('update');
+		toggle_vac_info(true);
+		select_vac_history.innerHTML = '';
+		var _tmp = '';
+		for (var i = 0; i < vac_info.length; i++) {
+			_tmp += '<option value="'+ i +'">'+ vac_info[i].date +'</option>';
+		}
+		select_vac_history.innerHTML = _tmp;
+		update_vac_info(vac_info[0]);
+	} else {	
+		toggle_vac_info(false);
+	}
+	if (dei_info.length > 0) {
+		toggle_dein_info(true);
+		select_dei_history.innerHTML = '';
+		var _tmp = '';
+		for (var i = 0; i < dei_info.length; i++) {
+			_tmp += '<option value="' + i + '">'+ dei_info[i].date +'</option>';
+		}
+		update_dei_info(dei_info[0]);
+		select_dei_history.innerHTML = _tmp;
+	} else {
+		toggle_dein_info(false);
+	}
 }
 
 
@@ -205,9 +297,9 @@ function get_pet_info() {
 			button_update_pet_information.disabled = false;
 			dropdown_pet_select.disabled = false;
 			dropdown_pet_select.innerHTML = ''; // reset options
-			json_data.data.forEach(element => {
-				tmp_dropdown_select += '<option>'+ element.name +'</option>';
-			});
+			for (var i =0 ; i < pet_data_store.length; i++) {
+				tmp_dropdown_select += '<option value="' + i +'">'+ pet_data_store[i].info.name +'</option>';
+			}
 			// use 1 information to default information
 			update_website_pet_info(pet_data_store[0]);
 			dropdown_pet_select.innerHTML = tmp_dropdown_select;

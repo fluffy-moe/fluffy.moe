@@ -201,17 +201,23 @@
 					<div class="message-box">
 						<h2>Vaccination</h2>
 						<p>
+							<input type="hidden" id="rev_vac_id">
 							<table>
 								<tr>
 									<td>Vaccination record:</td>
 									<td><label><input type="radio" name="neuter" id="info_vac_have">Have</label>
 									<label><input type="radio" name="neuter" id="info_vac_nothave" checked>Don't have</label></td>
 								</tr>
-							</table>	
+							</table>
 							<table id="table_vaccination_record" style="display: none;">
 								<tr>
+									<td colspan=2>
+										<select size="3" style="width:100%;" id="select_vac_history"></select>
+									</td>
+								</tr>
+								<tr>
 									<td>Date:</td>
-									<td><input type="text" id="info_vacdate"></td>
+									<td><input type="date" id="info_vacdate"></td>
 								</tr>
 								<tr>
 									<td>Product:</td>
@@ -240,6 +246,7 @@
 					<div class="message-box">
 						<h2>Deinsectzation</h2>
 						<p>
+							<input type="hidden" id="rev_dein_id">
 							<table>
 								<tr>
 									<td>Deinsectzation record:</td>
@@ -251,8 +258,13 @@
 							</table>
 							<table id="table_deinsectzation_record" style="display: none;">
 								<tr>
+									<td colspan=2>
+										<select size="3" style="width:100%;" id="select_dei_history"></select>
+									</td>
+								</tr>
+								<tr>
 									<td>Date:</td>
-									<td><input type="text" id="info_desdate"></td>
+									<td><input type="date" id="info_desdate"></td>
 								</tr>
 								<tr>
 									<td>Product:</td>
@@ -268,8 +280,7 @@
 								</tr>
 							</table>
 						</p>
-
-
+						<p><button id="btn_update_vac_info">Update</button></p>
 					</div>
 
 					</div><!-- end media -->

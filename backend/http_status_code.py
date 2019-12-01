@@ -84,10 +84,10 @@ class http_status_codes:
 		return (400, [], self.generate_error_dict(8, 'Firebase token length too short'))
 	
 	@property
-	def SUCCESS_UPDATE_USER_INFO(self):
+	def SUCCESS_UPDATE_INFO(self):
 		return self.SUCCESS_200OK
 	
-	def SUCCESS_INSERT_USER(self, user_id: int):
+	def SUCCESS_INSERT(self, user_id: int):
 		return self._SUCCESS_WITH_OPTION([user_id,])
 
 HTTP_STATUS_CODES = http_status_codes()

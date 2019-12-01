@@ -143,11 +143,20 @@ class Server(_exServer):
 			if d['uid'] != '':
 				Server.conn.execute("UPDATE `feeder_information` SET `realname` = %s, `phone` = %s, `address` = %s, `email` = %s WHERE `id` = %s",
 					(d['name'], d['phone'], d['email'], d['address'], d['uid']))
-				return HTTP_STATUS_CODES.SUCCESS_UPDATE_USER_INFO
+				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
 				Server.conn.execute("INSERT `feeder_information` (`realname`, `phone`, `address`, `email`) VALUE (%s, %s, %s, %s)",
 					(d['name'], d['phone'], d['email'], d['address']))
-				return HTTP_STATUS_CODES.SUCCESS_INSERT_USER(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+		elif d['t'] == 'update_pet':
+			if d['pet_no'] != '':
+				Server.conn.execute("UPDATE `pet_information` SET `name` = %s, `gender` = %s, `breed` = %s, `color` = %s, `birthday` = %s, `weight` = %s, `neuter` = %s WHERE `id` = %s",
+									(d['petname'], d['gender'], d['varity'], d['color'], d['birthday'], d['weight'], d['neuter'], d['pet_no']))
+				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
+			else:
+				Server.conn.execute("INSERT `pet_information` (`belong`, `name`, `gender`, `breed`, `color`, `birthday`, `weight`, `neuter`) VALUE (%s, %s, %s, %s, %s, %s, %s, %s)",
+									(d['belong'], d['petname'], d['gender'], d['varity'], d['color'], d['birthday'], d['weight'], d['neuter']))
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 
 		return HTTP_STATUS_CODES.ERROR_INVALID_REQUEST
 

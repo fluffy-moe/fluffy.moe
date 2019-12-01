@@ -1,8 +1,9 @@
 <?php
 	require_once('.config.inc.php');
 	if (!$_SESSION['valid']){
-		header('Location: /login.php', true, 301);
-		die();
+		//header('Location: /login.php', true, 301);
+		http_response_code(400);
+		die('{"result": "ERROR: Session timeout"}');
 	}
 	else {
 		$_SESSION['timeout'] = time();
@@ -12,13 +13,14 @@
 	header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 	header("Cache-Control: post-check=0, pre-check=0", false);
 	header("Pragma: no-cache");
+	header('Content-Type: application/json');
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if (isset($_POST['t'])){
 			//if (!(($_POST['t'] === 'firebase_post' || $_POST['t'] === 'notification_manage')
-			if ($_POST['t'] !== 'update_person' && isset($_POST['payload'])) {
+			if (!($_POST['t'] === 'update_person' || $_POST['t'] === 'update_pet') && isset($_POST['payload'])) {
 				http_response_code(400);
-				die('Bad request');
+				die('{"result": "Bad request"}');
 			}
 			$payload = json_decode($_POST['payload'], true);
 			/*if ($_POST['t'] === 'firebase_post')
@@ -100,8 +102,21 @@
 			} elseif ($_GET['t'] === 'pet_detail' && isset($_GET['user_id'])) {
 				$user_id = mysqli_escape_string($conn, $_GET['user_id']);
 				$r = mysqli_query($conn, "SELECT * FROM `pet_information` WHERE `belong` = $user_id");
-				while ($result = mysqli_fetch_assoc($r))
-					array_push($j['data'], $result);
+				while ($result = mysqli_fetch_assoc($r)){
+					$pet_id = $result['id'];
+					$vac_r = mysqli_query($conn, "SELECT * FROM `vaccination_record` WHERE `belong` = $pet_id ORDER BY `date` ASC");
+					$vac_info = array();
+					$dei_info = array();
+					while ($_result = mysqli_fetch_assoc($vac_r))
+						array_push($vac_info, $_result);
+					$dei_r = mysqli_query($conn, "SELECT * FROM `deinsectzation_record` WHERE `belong` = $pet_id ORDER BY `date` ASC");
+					while ($_result = mysqli_fetch_assoc($dei_r))
+						array_push($dei_info, $_result);
+					array_push($j['data'], array("info" => $result, "vaccination" => $vac_info, "deinsectzation" => $dei_info));
+				}
+			} else {
+				http_response_code(400);
+				$j['result'] = "ERROR";
 			}
 			echo json_encode($j, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 			mysqli_close($conn);
