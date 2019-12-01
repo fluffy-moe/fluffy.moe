@@ -84,8 +84,7 @@
 					//array_push($j["data"], $result["username"]);
 				}
 				//$j['result'] = !empty($j["data"])? "success": "error";
-			}
-			elseif ($_GET['t'] === 'past_notifications') {
+			} elseif ($_GET['t'] === 'past_notifications') {
 				$r = mysqli_query($conn, "SELECT `id`, `title`, `body`, `timestamp`, `available` FROM `notifications` ORDER BY `id` DESC");
 				while ($result = mysqli_fetch_assoc($r))
 					array_push($j["data"], $result);
@@ -94,10 +93,15 @@
 				while ($result = mysqli_fetch_assoc($r)) 
 					array_push($j["data"], $result);
 			} elseif ($_GET['t'] === 'user_detail' && isset($_GET['user_id'])) {
-				$user_id = mysqli_real_escape_string($conn, $_GET['user_id']);
-				$r = mysqli_query($conn, "SELECT * FROM `feeder_information` WHERE `id` = " . $user_id);
+				$user_id = mysqli_escape_string($conn, $_GET['user_id']);
+				$r = mysqli_query($conn, "SELECT * FROM `feeder_information` WHERE `id` = $user_id");
 				$result = mysqli_fetch_assoc($r);
 				$j["data"] = array("user" => $result);
+			} elseif ($_GET['t'] === 'pet_detail' && isset($_GET['user_id'])) {
+				$user_id = mysqli_escape_string($conn, $_GET['user_id']);
+				$r = mysqli_query($conn, "SELECT * FROM `pet_information` WHERE `belong` = $user_id");
+				while ($result = mysqli_fetch_assoc($r))
+					array_push($j['data'], $result);
 			}
 			echo json_encode($j, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 			mysqli_close($conn);

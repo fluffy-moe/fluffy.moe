@@ -16,7 +16,7 @@ var button_update_personal_information, button_update_pet_information, button_ad
 
 var table_vaccination_record, table_deinsectzation_record;
 
-var rev_user_id;
+var rev_user_id, rev_pet_id;
 var user_id;
 
 var pet_data_store;
@@ -73,6 +73,7 @@ function init_view() {
 	table_vaccination_record = document.getElementById('table_vaccination_record');
 	table_deinsectzation_record = document.getElementById('table_deinsectzation_record');
 	rev_user_id = document.getElementById('rev_user_id');
+	rev_pet_id = document.getElementById('rev_pet_id');
 	init_onclick();
 }
 
@@ -116,7 +117,10 @@ function init_onclick() {
 		}
 		if (dropdown_pet_select.innerHTML.search('new') === -1)
 			dropdown_pet_select.innerHTML += '<option>new</option>';
+		rev_pet_id.value = '';
 		dropdown_pet_select.value = 'new';
+		txt_info_animalname.value = '';
+		txt_info_weight.value = '';
 		rd_info_gender_male.checked = false;
 		rd_info_gender_female.checked = true;
 		txt_info_varity.value = '';
@@ -127,7 +131,12 @@ function init_onclick() {
 	});
 
 	dropdown_pet_select.addEventListener('change', () => {
-		console.log(this.value);
+		pet_data_store.forEach(element => {
+			if (dropdown_pet_select.value === element.name) {
+				update_website_pet_info(element);
+				return ;
+			}
+		});
 	});
 
 	rd_info_vac_have.addEventListener('click', () => {
@@ -146,13 +155,13 @@ function init_onclick() {
 		table_deinsectzation_record.style.display = "none";
 	});
 
-	getUserInfo();
+	get_user_info();
 }
 
 /**
  * NOTE: must check return type if you want to use return type
  */
-function getUserInfo() {
+function get_user_info() {
 	user_id = findGetParameter('user');
 	rev_user_id.value = user_id;
 	console.log(user_id);
@@ -166,30 +175,42 @@ function getUserInfo() {
 			txt_info_phone.value = user_info['phone'];
 			txt_info_address.value = user_info['address'];
 		});
+		get_pet_info();
 	} else {
 		rt = null;
 	}
 	return rt;
 }
 
-function update_website_pet_info() {
-	
+function update_website_pet_info(info) {
+	txt_info_animalname.value = info.name;
+	txt_info_birthday.value = info.birthday;
+	txt_info_color.value = info.color;
+	rd_info_gender_male.checked = (info.gender === 'M');
+	rd_info_gender_female.checked = !rd_info_gender_male.checked;
+	txt_info_weight.value = info.weight;
+	rd_info_neuter_yes.checked = (info.neuter === 'Y');
+	rd_info_neuter_no.checked = !rd_info_neuter_yes.checked;
+	txt_info_varity.value = info.breed;
+	rev_pet_id.value = info.id;
 }
 
 
 function get_pet_info() {
-	$.getJSON('/request.php?t=pet&user_id=' + user_id + '&' + new Date().getTime(), function(json_data) {
+	$.getJSON('/request.php?t=pet_detail&user_id=' + user_id + '&' + new Date().getTime(), function(json_data) {
 		console.log(json_data);
 		pet_data_store = json_data.data;
 		if (json_data.data.length > 0) {
 			var tmp_dropdown_select = '';
 			button_update_pet_information.disabled = false;
+			dropdown_pet_select.disabled = false;
 			dropdown_pet_select.innerHTML = ''; // reset options
 			json_data.data.forEach(element => {
-				tmp_dropdown_select += '<options>'+ element.name +'</options>';
+				tmp_dropdown_select += '<option>'+ element.name +'</option>';
 			});
 			// use 1 information to default information
-			dropdown_pet_select = tmp_dropdown_select;
+			update_website_pet_info(pet_data_store[0]);
+			dropdown_pet_select.innerHTML = tmp_dropdown_select;
 		}
 	});
 }

@@ -127,7 +127,7 @@
 				<div class="col-md-6">
 					<div class="message-box">
 						<h2>Pet's information</h2>
-						<input type="hidden" id="pet_id">
+						<input type="hidden" id="rev_pet_id">
 						<p><table>
 							<tr>
 								<td>Choose:</td>
@@ -157,7 +157,7 @@
 								<td>Color:</td>
 								<td><input type="text" id="info_color"></td>
 							</tr>
-							<tr>
+							<tr style="display: none;">
 								<td>Picture:</td>
 								<td><input type="text" id="info_picture"></td>
 							</tr>
