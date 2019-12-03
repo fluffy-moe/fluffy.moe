@@ -23,3 +23,4 @@
 * [Zxing](https://github.com/zxing/zxing) for barcode decode
 * [zxing-android-embedded](https://github.com/journeyapps/zxing-android-embedded) for embedded in android
 * [WrapContentListView](https://github.com/mzlogin/WrapContentListView) for scrollable event view etc.
+* [Android-PickerView](https://github.com/Bigkoo/Android-PickerView) for datetime picker

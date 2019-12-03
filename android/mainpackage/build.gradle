@@ -47,4 +47,5 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     implementation project(path: ':codbking-calendar-lib')
     implementation project(path: ':WrapContentListView-master')
+    compile project(path: ':pickerview')
 }

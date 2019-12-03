@@ -32,6 +32,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -41,6 +42,8 @@ import android.widget.TimePicker;
 import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.codbking.calendar.CalendarBean;
 import com.codbking.calendar.CalendarDateView;
@@ -48,6 +51,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 
+import moe.fluffy.app.assistant.TestFragment;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.EventDashboardType;
@@ -153,14 +157,14 @@ public class CalendarActivity extends AppCompatActivity {
 		btnAddEvent.setOnClickListener(_v -> {
 
 			View viewAddEventPopup = getLayoutInflater().inflate(R.layout.calendar_add_event_bottom, null);
-			TimePicker timePicker = viewAddEventPopup.findViewById(R.id.tpEventInsert);
-			DatePicker datePicker = viewAddEventPopup.findViewById(R.id.dpCalendarEventInsert);
 			ImageButton btnConfirm = viewAddEventPopup.findViewById(R.id.imgbtnCalendarSave);
 			EditText etBody = viewAddEventPopup.findViewById(R.id.etCalendarBody);
 			Switch swAlarm = viewAddEventPopup.findViewById(R.id.swCalendarAlarm);
 			BottomSheetDialog dialog = new BottomSheetDialog(this);
 			Window w = dialog.getWindow();
-
+			TestFragment datetimePicker = new TestFragment();
+			FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+			fragmentTransaction.replace(R.id.viewCalendarPick, datetimePicker);
 			if (w != null) {
 				w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 				/*w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -169,13 +173,13 @@ public class CalendarActivity extends AppCompatActivity {
 			}
 
 			dialog.setContentView(viewAddEventPopup);
-			timePicker.setIs24HourView(true);
+			//timePicker.setIs24HourView(true);
 			initPopupColorPick(viewAddEventPopup);
 			initCategoryButton(viewAddEventPopup);
 			etBody.setOnFocusChangeListener((view, hasFocus) ->
 					Utils.onFocusChange(hasFocus, CalendarActivity.this, etBody, R.string.etCalendarAddEventHint, false));
 			btnConfirm.setOnClickListener( l -> {
-				EventsType et = new EventsType(datePicker, timePicker, colorSelected, categorySelectedText,
+				EventsType et = new EventsType(datetimePicker, colorSelected, categorySelectedText,
 						etBody.getText().toString(), swAlarm.isChecked());
 				HomeActivity.dbHelper.insertEvent(et);
 				//planedEvents.add(et);
@@ -190,6 +194,7 @@ public class CalendarActivity extends AppCompatActivity {
 				colorSelected = 0;
 				dialog.dismiss();
 			});
+			fragmentTransaction.commitAllowingStateLoss();
 			dialog.show();
 		});
 	}

@@ -40,6 +40,11 @@ public class DateWithMark extends Datetime {
 
 	@Override
 	public boolean equals(@Nullable Object obj) {
+		if (obj instanceof DateWithMark) {
+			DateWithMark o = (DateWithMark) obj;
+			return this.year == o.year && this.month == o.month && this.day == o.day &&
+					this.hour == o.hour && this.minute == o.minute && this.second == o.second;
+		}
 		return super.equals(obj);
 	}
 }

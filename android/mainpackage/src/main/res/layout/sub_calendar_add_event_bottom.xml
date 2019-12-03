@@ -35,7 +35,7 @@
 
 	<include
 		android:id="@+id/viewCalendarPick"
-		layout="@layout/datepicker_and_timepicker"
+		layout="@layout/fragment_datepicker"
 		android:layout_width="373dp"
 		android:layout_height="225dp"
 		android:layout_marginTop="88dp"
