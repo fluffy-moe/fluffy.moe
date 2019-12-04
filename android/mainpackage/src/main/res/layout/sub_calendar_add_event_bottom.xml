@@ -33,9 +33,8 @@
 		app:layout_constraintTop_toTopOf="parent" />
 
 
-	<include
+	<FrameLayout
 		android:id="@+id/viewCalendarPick"
-		layout="@layout/fragment_datepicker"
 		android:layout_width="373dp"
 		android:layout_height="225dp"
 		android:layout_marginTop="88dp"

@@ -41,7 +41,7 @@ import moe.fluffy.app.types.EventsType;
 import moe.fluffy.app.types.FragmentBundle;
 
 public class BottomSheetEventFragment extends BottomSheetDialogFragment {
-	private View mView;
+	private View viewAddEventPopup;
 	private TimePickerView pvTime;
 	private FrameLayout mFrameLayout;
 	private SimpleCallback listener;
@@ -58,8 +58,7 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 	@Nullable
 	@Override
 	public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		mView = getLayoutInflater().inflate(R.layout.calendar_add_event_bottom, container, false);
-		View viewAddEventPopup = getLayoutInflater().inflate(R.layout.calendar_add_event_bottom, null);
+		viewAddEventPopup = getLayoutInflater().inflate(R.layout.calendar_add_event_bottom, container, false);
 		ImageButton btnConfirm = viewAddEventPopup.findViewById(R.id.imgbtnCalendarSave);
 		EditText etBody = viewAddEventPopup.findViewById(R.id.etCalendarBody);
 		Switch swAlarm = viewAddEventPopup.findViewById(R.id.swCalendarAlarm);
@@ -100,7 +99,7 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 			this.dismiss();
 		});
 		initTimePicker();
-		return mView;
+		return viewAddEventPopup;
 	}
 
 	@Override
