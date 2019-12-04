@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="1400px"
 	android:layout_height="1700px"
-	tools:ignore="PxUsage"  >
+	tools:ignore="PxUsage">
 
 	<TextView
 		android:id="@+id/txtCalendarChoosedate"
@@ -81,6 +81,7 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
+	<!--  https://stackoverflow.com/a/11341142 -->
 	<EditText
 		android:id="@+id/etCalendarBody"
 		android:layout_width="719px"
@@ -89,6 +90,7 @@
 		android:layout_marginTop="1058px"
 		android:background="@drawable/ic_path_97"
 		android:ems="10"
+		android:focusableInTouchMode="true"
 		android:fontFamily="@font/segoe_ui"
 		android:inputType="textMultiLine"
 		android:paddingStart="41px"

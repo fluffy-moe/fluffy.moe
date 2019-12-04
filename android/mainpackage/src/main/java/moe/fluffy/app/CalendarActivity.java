@@ -19,9 +19,7 @@
  */
 package moe.fluffy.app;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,29 +28,26 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
 
-import androidx.annotation.ColorRes;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.codbking.calendar.CalendarBean;
 import com.codbking.calendar.CalendarDateView;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 
+import moe.fluffy.app.assistant.BottomSheetEventDialog;
 import moe.fluffy.app.assistant.BottomSheetEventFragment;
-import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.EventDashboardType;
 import moe.fluffy.app.types.EventsType;
-import moe.fluffy.app.types.FragmentBundle;
+import moe.fluffy.app.types.BottomSheetBundle;
 import moe.fluffy.app.types.adapter.EventDashboardAdapter;
 
 import static moe.fluffy.app.assistant.Utils.px;
@@ -148,17 +143,21 @@ public class CalendarActivity extends AppCompatActivity {
 
 
 		btnAddEvent.setOnClickListener(_v -> {
+			BottomSheetEventDialog bottomSheetEventDialog = new BottomSheetEventDialog(CalendarActivity.this);
 			BottomSheetEventFragment bottomSheetEventFragment = new BottomSheetEventFragment();
-			Bundle bundle = new Bundle();
-			bundle.putSerializable("0", new FragmentBundle(o -> {
+			bottomSheetEventDialog.setCallback(o -> {
 				EventsType et = (EventsType) o;
 				planedEvents.add(et);
 				updateEventsDashboard(true);
 				mCalendarDateView.setAdapter(this::getCalendarView);
 				mCalendarDateView.updateView();
-			}));
-			bottomSheetEventFragment.setArguments(bundle);
-			bottomSheetEventFragment.show(getSupportFragmentManager(), bottomSheetEventFragment.getTag());
+			})
+					.show();
+			FragmentManager fmg = getSupportFragmentManager();
+			FragmentTransaction fmgt = fmg.beginTransaction();
+			bottomSheetEventFragment.setView(bottomSheetEventDialog.getView());
+			fmgt.replace(R.id.viewCalendarPick, bottomSheetEventFragment);
+			fmgt.commitAllowingStateLoss();
 		});
 	}
 

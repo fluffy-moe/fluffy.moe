@@ -24,9 +24,9 @@ import java.io.Serializable;
 import moe.fluffy.app.assistant.SimpleCallback;
 
 // https://stackoverflow.com/a/39252048
-public class FragmentBundle implements Serializable {
+public class BottomSheetBundle implements Serializable {
 	private SimpleCallback listener;
-	public FragmentBundle(SimpleCallback _listener) {
+	public BottomSheetBundle(SimpleCallback _listener) {
 		listener = _listener;
 	}
 

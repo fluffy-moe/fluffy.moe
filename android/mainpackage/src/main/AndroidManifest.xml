@@ -16,11 +16,11 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 		tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-		<activity android:name=".ProfileActivity"></activity>
+		<activity android:name=".ProfileActivity" />
 		<activity android:name=".OCRActivity" />
 		<activity android:name=".FoodHistoryActivity" />
 		<activity android:name=".MedicalActivity" />
-		<activity android:name=".CalendarActivity" />
+		<activity android:name=".CalendarActivity"/>
 		<activity android:name=".RegisterActivity" />
 		<activity android:name=".WelcomeActivity" />
 		<activity android:name=".ArticleActivity" />
