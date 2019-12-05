@@ -42,12 +42,11 @@ import com.codbking.calendar.CalendarDateView;
 
 import java.util.ArrayList;
 
-import moe.fluffy.app.assistant.BottomSheetEventDialog;
 import moe.fluffy.app.assistant.BottomSheetEventFragment;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.EventDashboardType;
 import moe.fluffy.app.types.EventsType;
-import moe.fluffy.app.types.BottomSheetBundle;
+import moe.fluffy.app.types.FragmentBundle;
 import moe.fluffy.app.types.adapter.EventDashboardAdapter;
 
 import static moe.fluffy.app.assistant.Utils.px;
@@ -143,21 +142,18 @@ public class CalendarActivity extends AppCompatActivity {
 
 
 		btnAddEvent.setOnClickListener(_v -> {
-			BottomSheetEventDialog bottomSheetEventDialog = new BottomSheetEventDialog(CalendarActivity.this);
+			FragmentManager fragmentManager = getSupportFragmentManager();
 			BottomSheetEventFragment bottomSheetEventFragment = new BottomSheetEventFragment();
-			bottomSheetEventDialog.setCallback(o -> {
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("0", new FragmentBundle(o -> {
 				EventsType et = (EventsType) o;
 				planedEvents.add(et);
 				updateEventsDashboard(true);
 				mCalendarDateView.setAdapter(this::getCalendarView);
 				mCalendarDateView.updateView();
-			})
-					.show();
-			FragmentManager fmg = getSupportFragmentManager();
-			FragmentTransaction fmgt = fmg.beginTransaction();
-			bottomSheetEventFragment.setView(bottomSheetEventDialog.getView());
-			fmgt.replace(R.id.viewCalendarPick, bottomSheetEventFragment);
-			fmgt.commitAllowingStateLoss();
+			}));
+			bottomSheetEventFragment.setArguments(bundle);
+			bottomSheetEventFragment.show(fragmentManager, bottomSheetEventFragment.getTag());
 		});
 	}
 

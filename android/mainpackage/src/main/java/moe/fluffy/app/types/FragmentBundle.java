@@ -19,18 +19,28 @@
  */
 package moe.fluffy.app.types;
 
+import android.widget.FrameLayout;
+
 import java.io.Serializable;
 
 import moe.fluffy.app.assistant.SimpleCallback;
 
 // https://stackoverflow.com/a/39252048
-public class BottomSheetBundle implements Serializable {
+public class FragmentBundle implements Serializable {
 	private SimpleCallback listener;
-	public BottomSheetBundle(SimpleCallback _listener) {
+	private FrameLayout frameLayout;
+	public FragmentBundle(SimpleCallback _listener) {
 		listener = _listener;
 	}
 
+	public FragmentBundle(FrameLayout fm) {
+		frameLayout = fm;
+	}
 	public SimpleCallback getListener() {
 		return listener;
+	}
+
+	public FrameLayout getFrameLayout() {
+		return frameLayout;
 	}
 }
