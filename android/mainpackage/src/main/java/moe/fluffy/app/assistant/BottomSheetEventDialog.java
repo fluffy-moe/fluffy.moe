@@ -2,31 +2,33 @@ package moe.fluffy.app.assistant;
 
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
+import androidx.annotation.ContentView;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.annotation.StringRes;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
-import org.jetbrains.annotations.NotNull;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.Calendar;
 
@@ -34,10 +36,9 @@ import moe.fluffy.app.HomeActivity;
 import moe.fluffy.app.R;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.EventsType;
-import moe.fluffy.app.types.FragmentBundle;
 
-public class BottomSheetEventFragment extends BottomSheetDialogFragment {
-	private final String TAG = "log_BottomSheetEventFragment";
+public class BottomSheetEventDialog extends BottomSheetDialog {
+	private final String TAG = "log_BottomSheetEventDialog";
 
 	private View viewAddEventPopup;
 	private DateTimeWheelView dateTimeWheelView;
@@ -48,35 +49,66 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 	private Button categorySelected;
 	private String categorySelectedText;
 	@ColorRes private int colorSelected;
+	BottomSheetBehavior bottomSheetBehavior;
+	Context context;
+	LinearLayout linearLayout;
+
+	public BottomSheetEventDialog(@NonNull Context _context, SimpleCallback _listener) {
+		super(_context);
+		context = _context;
+		listener = _listener;
+	}
 
 
-	@Nullable
 	@Override
-	public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+	public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
+		return super.dispatchTouchEvent(ev);
+	}
+
+	private String getString(@StringRes int id) {
+		return context.getString(id);
+	}
+
+	private String getString(@StringRes int id, Object... args) {
+		return context.getString(id, args);
+	}
+
+	float startY; float moveY = 0;
+
+	@Override
+	public boolean onTouchEvent(MotionEvent ev) {
+		Log.d(TAG, "onTouchEvent: x => " + ev.getX() + " y => " + ev.getY());
+		switch (ev.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+			case MotionEvent.ACTION_MOVE:
+			case MotionEvent.ACTION_UP:
+				break;
+		}
+		return super.onTouchEvent(ev);
+	}
+
+	@Override
+	public void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreateView: test");
-		viewAddEventPopup = inflater.inflate(R.layout.calendar_add_event_bottom, container, false);
+		viewAddEventPopup = LayoutInflater.from(getContext()).inflate(R.layout.calendar_add_event_bottom, null);
 		ImageButton btnConfirm = viewAddEventPopup.findViewById(R.id.imgbtnCalendarSave);
 		EditText etBody = viewAddEventPopup.findViewById(R.id.etCalendarBody);
 		Switch swAlarm = viewAddEventPopup.findViewById(R.id.swCalendarAlarm);
-		dateTimeWheelView = new DateTimeWheelView(viewAddEventPopup, 24);
-		/*Window w = getWindow();
-		if (w != null) {
-			w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-				/*w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-						WindowManager.LayoutParams.FLAG_FULLSCREEN);
-				w.requestFeature(Window.FEATURE_NO_TITLE);
+		linearLayout = viewAddEventPopup.findViewById(R.id.pickerLiner);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			etBody.setFocusedByDefault(false);
 		}
 
-		dialog.setContentView(viewAddEventPopup);*/
-		//timePicker.setIs24HourView(true);
-		Bundle bundle = getArguments();
-		if (bundle != null) {
-			FragmentBundle fragmentBundle = (FragmentBundle) bundle.getSerializable("0");
-			if (fragmentBundle != null){
-				listener = fragmentBundle.getListener();
-			}
-			bundle.clear();
+		dateTimeWheelView = new DateTimeWheelView(viewAddEventPopup, 20);
+		Window w = getWindow();
+		if (w != null) {
+			w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+			w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+					WindowManager.LayoutParams.FLAG_FULLSCREEN);
+			w.requestFeature(Window.FEATURE_NO_TITLE);
 		}
+		//timePicker.setIs24HourView(true);
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(calendar.getTime());
@@ -91,7 +123,7 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 		initPopupColorPick(viewAddEventPopup);
 		initCategoryButton(viewAddEventPopup);
 		etBody.setOnFocusChangeListener((view, hasFocus) ->
-				Utils.onFocusChange(hasFocus, safeGetContext(), etBody, R.string.etCalendarAddEventHint, false));
+				Utils.onFocusChange(hasFocus, getContext(), etBody, R.string.etCalendarAddEventHint, false));
 		btnConfirm.setOnClickListener( l -> {
 			EventsType et = new EventsType(dateTimeWheelView, colorSelected, categorySelectedText,
 					etBody.getText().toString(), swAlarm.isChecked());
@@ -106,18 +138,16 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 			colorSelected = 0;
 			this.dismiss();
 		});
-
-		/*childTransaction.replace(R.id.viewCalendarPick, pvTime);
-		childTransaction.commitAllowingStateLoss();*/
-		return viewAddEventPopup;
+		setContentView(viewAddEventPopup);
+		/*setmBottomSheetCallback(viewAddEventPopup.findViewById(R.id.bottom_main));
+		BottomSheetBehavior.from(viewAddEventPopup.findViewById(R.id.bottom_main)).setHideable(false);*/
 	}
 
-
-	@Override
-	public void onCreate(@Nullable Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	/*@Override
+	public boolean onTouchEvent(@NonNull MotionEvent event) {
+		return true;
 	}
-
+*/
 	/*@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -160,14 +190,14 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 			if (!etBody.isFocused())
 				etBody.setText(R.string.etCalendarAddWaterHint);
 			etBody.setOnFocusChangeListener((view, hasFocus) ->
-					Utils.onFocusChange(hasFocus, safeGetContext(), etBody, R.string.etCalendarAddWaterHint, false));
+					Utils.onFocusChange(hasFocus, getContext(), etBody, R.string.etCalendarAddWaterHint, false));
 
 		} else {
 			txtTitle.setText(R.string.text_title_for_calendar);
 			if (!etBody.isFocused())
 				etBody.setText(R.string.etCalendarAddEventHint);
 			etBody.setOnFocusChangeListener((view, hasFocus) ->
-					Utils.onFocusChange(hasFocus, safeGetContext(), etBody, R.string.etCalendarAddEventHint, false));
+					Utils.onFocusChange(hasFocus, getContext(), etBody, R.string.etCalendarAddEventHint, false));
 		}
 	}
 
@@ -220,13 +250,13 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 
 	@ColorInt
 	private int getColor(int color){
-		return safeGetContext().getColor(color);
+		return getContext().getColor(color);
 	}
 
 	@SuppressLint("DefaultLocale")
 	@ColorRes
 	private int getColorRes(int id) {
-		return getResources().getIdentifier(getString(R.string.fmt_event_color, id), "color", safeGetContext().getPackageName());
+		return getContext().getResources().getIdentifier(getString(R.string.fmt_event_color, id), "color", getContext().getPackageName());
 	}
 
 	private void initColorPick(ImageButton imgbtn, int color) {
@@ -236,12 +266,27 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 		imgbtn.setOnClickListener(v ->
 				colorOnClickListener(imgbtn, color));
 	}
+	private BottomSheetBehavior.BottomSheetCallback mBottomSheetCallback
+			= new BottomSheetBehavior.BottomSheetCallback() {
+		@Override
+		public void onStateChanged(@NonNull View bottomSheet,
+								   @BottomSheetBehavior.State int newState) {
+		}
 
+		@Override
+		public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+		}
+	};
 
-	private Context safeGetContext() {
-		Context context = getContext();
-		if (context == null)
-			throw new RuntimeException("null context");
-		return context;
+	public void setmBottomSheetCallback(View sheetView) {
+		if (bottomSheetBehavior == null) {
+			bottomSheetBehavior = BottomSheetBehavior.from(sheetView);
+		}
+		bottomSheetBehavior.setBottomSheetCallback(mBottomSheetCallback);
+	}
+
+	@Override
+	public void dismiss() {
+		super.dismiss();
 	}
 }

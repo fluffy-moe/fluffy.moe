@@ -648,6 +648,25 @@ public class DateTimeWheelView {
 		return sb.toString();
 	}
 
+	public int getYear() {
+		return wv_year.getCurrentItem();
+	}
+
+	public int getMonth() {
+		return wv_month.getCurrentItem();
+	}
+
+	public int getDay() {
+		return wv_day.getCurrentItem();
+	}
+
+	public int getHour() {
+		return wv_hours.getCurrentItem();
+	}
+
+	public int getMinute() {
+		return wv_minutes.getCurrentItem();
+	}
 	public View getView() {
 		return view;
 	}

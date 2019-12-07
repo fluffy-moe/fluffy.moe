@@ -54,6 +54,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Calendar;
 
 public class Utils {
 
@@ -217,5 +218,11 @@ public class Utils {
 			throw new NullPointerException();
 		}
 		return text;
+	}
+
+	public static Calendar getTime() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(calendar.getTime());
+		return calendar;
 	}
 }

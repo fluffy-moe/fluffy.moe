@@ -33,8 +33,7 @@ import androidx.annotation.Nullable;
 import com.codbking.calendar.CalendarBean;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.assistant.BottomSheetEventFragment;
-import moe.fluffy.app.assistant.TimePickerFragment;
+import moe.fluffy.app.assistant.DateTimeWheelView;
 
 public class EventsType {
 	private DateWithMark date;
@@ -73,7 +72,7 @@ public class EventsType {
 				_alarm);
 	}
 
-	public EventsType(TimePickerFragment t, int color, String c, String b, boolean _alarm) {
+	public EventsType(DateTimeWheelView t, int color, String c, String b, boolean _alarm) {
 		this(new DateWithMark(t.getYear(), t.getMonth(), t.getDay(), t.getHour(), t.getMinute(), 0, 0, color), c, b, _alarm);
 	}
 

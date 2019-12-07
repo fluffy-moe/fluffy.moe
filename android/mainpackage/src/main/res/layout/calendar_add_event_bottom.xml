@@ -1,17 +1,358 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="1400px"
 	android:layout_height="1700px"
-	android:orientation="vertical">
+	tools:ignore="PxUsage">
 
-	<include
-		layout="@layout/sub_calendar_add_event_bottom"
+	<TextView
+		android:id="@+id/txtCalendarChoosedate"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true" />
+		android:layout_marginStart="130px"
+		android:layout_marginTop="178px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="@string/title_choose_date"
+		android:textColor="#565656"
+		android:textSize="65px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtCalendarCategory"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="130px"
+		android:layout_marginTop="758px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="@string/text_category"
+		android:textColor="#565656"
+		android:textSize="65px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+
+	<!--<FrameLayout
+		android:id="@+id/viewCalendarPick"
+		android:layout_width="382dp"
+		android:layout_height="396dp"
+		android:layout_marginTop="88dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />-->
+
+
+	<LinearLayout
+		android:id="@+id/pickerLiner"
+		android:layout_width="333dp"
+		android:layout_height="197dp"
+		android:layout_marginTop="144dp"
+		android:orientation="horizontal"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.522"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<com.contrarywind.view.WheelView
+			android:id="@+id/year"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="0.96" />
+
+		<com.contrarywind.view.WheelView
+			android:id="@+id/month"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1" />
+
+		<com.contrarywind.view.WheelView
+			android:id="@+id/day"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1" />
+
+		<com.contrarywind.view.WheelView
+			android:id="@+id/hour"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1" />
+
+		<com.contrarywind.view.WheelView
+			android:id="@+id/min"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1" />
+
+	</LinearLayout>
+
+	<TextView
+		android:id="@+id/txtCalendarTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="130px"
+		android:layout_marginTop="1067px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="@string/text_title_for_calendar"
+		android:textColor="#565656"
+		android:textSize="65px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"/>
+
+	<TextView
+		android:id="@+id/txtCalendarColor"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="130px"
+		android:layout_marginTop="1267px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="@string/text_color"
+		android:textColor="#565656"
+		android:textSize="65px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtCalendarAlarm"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="891px"
+		android:layout_marginTop="1267px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="@string/text_alarm"
+		android:textColor="#565656"
+		android:textSize="65px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<!--  https://stackoverflow.com/a/11341142 -->
+	<EditText
+		android:id="@+id/etCalendarBody"
+		android:layout_width="719px"
+		android:layout_height="104.93px"
+		android:layout_marginStart="359px"
+		android:layout_marginTop="1058px"
+		android:background="@drawable/ic_path_97"
+		android:ems="10"
+		android:focusableInTouchMode="true"
+		android:fontFamily="@font/segoe_ui"
+		android:inputType="textMultiLine"
+		android:paddingStart="41px"
+		android:text="@string/etCalendarAddEventHint"
+		android:textAlignment="center"
+		android:textColor="#969696"
+		android:textSize="40px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/imgbtnCalendarSave"
+		android:layout_width="1155px"
+		android:layout_height="114px"
+		android:layout_marginStart="130px"
+		android:layout_marginTop="1457px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/save" />
+
+	<TextView
+		android:id="@+id/txtCalendarYear"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="230px"
+		android:layout_marginTop="320px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="@string/text_year"
+		android:textColor="#565656"
+		android:textSize="52px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtCalendarDay"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="422px"
+		android:layout_marginTop="320px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="@string/text_day"
+		android:textColor="#565656"
+		android:textSize="52px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtCalendarMonth"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="594px"
+		android:layout_marginTop="320px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="@string/text_month"
+		android:textColor="#565656"
+		android:textSize="52px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtCalendarHour"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="839px"
+		android:layout_marginTop="320px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="@string/text_hour"
+		android:textColor="#565656"
+		android:textSize="52px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtCalendarMinute"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="1042px"
+		android:layout_marginTop="320px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="@string/text_minute"
+		android:textColor="#565656"
+		android:textSize="52px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<Button
+		android:id="@+id/btnCalendarEvent"
+		android:layout_width="266px"
+		android:layout_height="81px"
+		android:layout_marginStart="499px"
+		android:layout_marginTop="758px"
+		android:background="@drawable/ic_rectangle_227"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Event"
+		android:textColor="#565656"
+		android:textSize="40px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<Button
+		android:id="@+id/btnCalendarNote"
+		android:layout_width="266px"
+		android:layout_height="81px"
+		android:layout_marginStart="817px"
+		android:layout_marginTop="758px"
+		android:background="@drawable/ic_rectangle_225"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Note"
+		android:textColor="#969696"
+		android:textSize="40px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<Button
+		android:id="@+id/btnCalendarSymptom"
+		android:layout_width="266.12px"
+		android:layout_height="81.26px"
+		android:layout_marginStart="499px"
+		android:layout_marginTop="875px"
+		android:background="@drawable/ic_rectangle_225"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Symptom"
+		android:textColor="#969696"
+		android:textSize="40px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<Button
+		android:id="@+id/btnCalendarWater"
+		android:layout_width="266px"
+		android:layout_height="81px"
+		android:layout_marginStart="817px"
+		android:layout_marginTop="875px"
+		android:background="@drawable/ic_rectangle_225"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Water"
+		android:textColor="#969696"
+		android:textSize="40px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<Switch
+		android:id="@+id/swCalendarAlarm"
+		android:layout_width="141px"
+		android:layout_height="70px"
+		android:layout_marginStart="1120px"
+		android:layout_marginTop="1275px"
+		android:textColor="#CED244"
+		android:textColorHighlight="#CED244"
+		android:textColorLink="#CED244"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/rdbtnCalendarOrange"
+		android:layout_width="65px"
+		android:layout_height="65px"
+		android:layout_marginStart="357px"
+		android:layout_marginTop="1285px"
+		android:background="@drawable/hollow_circle"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/rdbtnCalendarBlue"
+		android:layout_width="65px"
+		android:layout_height="65px"
+		android:layout_marginStart="553px"
+		android:layout_marginTop="1285px"
+		android:background="@drawable/hollow_circle"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/rdbtnCalendarGreen"
+		android:layout_width="65px"
+		android:layout_height="65px"
+		android:layout_marginStart="651px"
+		android:layout_marginTop="1285px"
+		android:background="@drawable/hollow_circle"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/rdbtnCalendarRed"
+		android:layout_width="65px"
+		android:layout_height="65px"
+		android:layout_marginStart="455px"
+		android:layout_marginTop="1285px"
+		android:background="@drawable/hollow_circle"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/rdbtnCalendarPink"
+		android:layout_width="65px"
+		android:layout_height="65px"
+		android:layout_marginStart="749px"
+		android:layout_marginTop="1285px"
+		android:background="@drawable/hollow_circle"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<androidx.constraintlayout.widget.Guideline
+		android:id="@+id/guideline2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		app:layout_constraintGuide_begin="450dp" />
 
 	<Space
 		android:layout_width="wrap_content"
-		android:layout_alignParentBottom="true"
-		android:layout_height="1px" />
-</RelativeLayout>
+		android:layout_height="wrap_content"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
