@@ -51,6 +51,13 @@ public class Date {
 	protected int year, month, day;
 	private static String TAG = "log_DateType";
 
+	public Date() {
+		getToday();
+		year = today.getYear();
+		month = today.getMonth();
+		day = today.getDay();
+	}
+
 	public static Date getToday() {
 		if (today == null) {
 			today = new Date(CalendarUtil.getYMD(new java.util.Date()));

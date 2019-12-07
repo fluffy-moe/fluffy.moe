@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -33,19 +34,24 @@ public class TimePickerFragment extends Fragment {
 
 	public int _year, _month, _day, _hour, _minute;
 
+	@Nullable
+	@Override
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		Log.d(TAG, "onCreateView: ");
+		//return super.onCreateView(inflater, container, savedInstanceState);
+		return mView;
+	}
+
 	@Override
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Log.d(TAG, "onActivityCreated: ");
-		Bundle bundle = getArguments();
-		if (bundle != null) {
-			Log.d(TAG, "onActivityCreated: is not null");
-			mFrameLayout = ((FragmentBundle)bundle.getSerializable("1")).getFrameLayout();
-		}
+		Log.d(TAG, "onActivityCreated: on activity created");
 		initTimePicker();
 	}
 
+
 	private void initTimePicker() {
+		
 		Calendar selectedDate = Calendar.getInstance();
 
 		pvTime = new TimePickerBuilder(getActivity(), (date, v) -> {

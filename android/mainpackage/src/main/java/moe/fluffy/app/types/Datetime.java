@@ -21,6 +21,8 @@ package moe.fluffy.app.types;
 
 import androidx.annotation.Nullable;
 
+import java.util.Calendar;
+
 public class Datetime extends Date {
 	protected int hour, minute, second, millionSecond;
 	Datetime(int _year, int _month, int _day, int _hour, int _minute, int _second, int _millionSecond) {
@@ -39,6 +41,7 @@ public class Datetime extends Date {
 		second = Integer.valueOf(y[2]);
 		millionSecond = 0;
 	}
+
 
 	public int getHour() {
 		return hour;

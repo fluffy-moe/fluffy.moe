@@ -34,8 +34,6 @@ import android.widget.TextView;
 
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.codbking.calendar.CalendarBean;
 import com.codbking.calendar.CalendarDateView;
@@ -142,18 +140,18 @@ public class CalendarActivity extends AppCompatActivity {
 
 
 		btnAddEvent.setOnClickListener(_v -> {
-			FragmentManager fragmentManager = getSupportFragmentManager();
 			BottomSheetEventFragment bottomSheetEventFragment = new BottomSheetEventFragment();
 			Bundle bundle = new Bundle();
-			bundle.putSerializable("0", new FragmentBundle(o -> {
+			FragmentBundle fragmentBundle = new FragmentBundle(o -> {
 				EventsType et = (EventsType) o;
 				planedEvents.add(et);
 				updateEventsDashboard(true);
 				mCalendarDateView.setAdapter(this::getCalendarView);
 				mCalendarDateView.updateView();
-			}));
+			});
+			bundle.putSerializable("0", fragmentBundle);
 			bottomSheetEventFragment.setArguments(bundle);
-			bottomSheetEventFragment.show(fragmentManager, bottomSheetEventFragment.getTag());
+			bottomSheetEventFragment.show(getSupportFragmentManager(), bottomSheetEventFragment.getTag());
 		});
 	}
 

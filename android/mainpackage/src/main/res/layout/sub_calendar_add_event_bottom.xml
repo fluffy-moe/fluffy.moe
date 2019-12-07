@@ -33,14 +33,56 @@
 		app:layout_constraintTop_toTopOf="parent" />
 
 
-	<FrameLayout
+	<!--<FrameLayout
 		android:id="@+id/viewCalendarPick"
 		android:layout_width="382dp"
 		android:layout_height="396dp"
 		android:layout_marginTop="88dp"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+		app:layout_constraintTop_toTopOf="parent" />-->
+
+
+	<LinearLayout
+		android:layout_width="382dp"
+		android:layout_height="396dp"
+		android:layout_marginTop="88dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<com.contrarywind.view.WheelView
+			android:id="@+id/year"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="0.96" />
+
+		<com.contrarywind.view.WheelView
+			android:id="@+id/month"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1" />
+
+		<com.contrarywind.view.WheelView
+			android:id="@+id/day"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1" />
+
+		<com.contrarywind.view.WheelView
+			android:id="@+id/hour"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1" />
+
+		<com.contrarywind.view.WheelView
+			android:id="@+id/min"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1" />
+
+
+	</LinearLayout>
 
 	<TextView
 		android:id="@+id/txtCalendarTitle"

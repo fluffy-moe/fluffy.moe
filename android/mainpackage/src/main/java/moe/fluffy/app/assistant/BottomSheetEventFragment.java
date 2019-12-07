@@ -2,6 +2,7 @@ package moe.fluffy.app.assistant;
 
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
@@ -25,6 +27,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Calendar;
 
 import moe.fluffy.app.HomeActivity;
 import moe.fluffy.app.R;
@@ -37,7 +41,6 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 
 	private View viewAddEventPopup;
 	private TimePickerFragment pvTime;
-	private FrameLayout mFrameLayout;
 	private SimpleCallback listener;
 
 
@@ -45,6 +48,7 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 	private Button categorySelected;
 	private String categorySelectedText;
 	@ColorRes private int colorSelected;
+
 
 	@Nullable
 	@Override
@@ -54,7 +58,7 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 		ImageButton btnConfirm = viewAddEventPopup.findViewById(R.id.imgbtnCalendarSave);
 		EditText etBody = viewAddEventPopup.findViewById(R.id.etCalendarBody);
 		Switch swAlarm = viewAddEventPopup.findViewById(R.id.swCalendarAlarm);
-		mFrameLayout = viewAddEventPopup.findViewById(R.id.viewCalendarPick);
+		DateTimeWheelView dateTimeWheelView = new DateTimeWheelView(viewAddEventPopup, 24);
 		/*Window w = getWindow();
 		if (w != null) {
 			w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -72,17 +76,18 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 				listener = fragmentBundle.getListener();
 			}
 			bundle.clear();
-		} else {
-			bundle = new Bundle();
 		}
 
-		FragmentManager childManager = getChildFragmentManager();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(calendar.getTime());
+		dateTimeWheelView.setPicker(calendar);
+		dateTimeWheelView.setItemsVisible(5);
+
+		/*FragmentManager childManager = getChildFragmentManager();
 		FragmentTransaction childTransaction = childManager.beginTransaction();
-		pvTime = new TimePickerFragment();
-		bundle.putSerializable("1", new FragmentBundle(mFrameLayout));
-		pvTime.setArguments(bundle);
-		childTransaction.replace(R.id.viewCalendarPick, pvTime);
-		childTransaction.commitAllowingStateLoss();
+		pvTime = new TimePickerFragment();*/
+		/*bundle.putSerializable("1", new FragmentBundle(mFrameLayout));
+		pvTime.setArguments(bundle);*/
 		initPopupColorPick(viewAddEventPopup);
 		initCategoryButton(viewAddEventPopup);
 		etBody.setOnFocusChangeListener((view, hasFocus) ->
@@ -101,6 +106,9 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 			colorSelected = 0;
 			this.dismiss();
 		});
+
+		/*childTransaction.replace(R.id.viewCalendarPick, pvTime);
+		childTransaction.commitAllowingStateLoss();*/
 		return viewAddEventPopup;
 	}
 
@@ -115,11 +123,6 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 		mFrameLayout = mView.findViewById(R.id.fragment_date_picker);
 		initTimePicker();
 	}*/
-
-	@Override
-	public void show(@NotNull FragmentManager f, @Nullable String tag) {
-		super.show(f, tag);
-	}
 
 	private void initCategoryButton(View viewAddEventPopup) {
 		Button btnEvent, btnNote, btnSymptom, btnWater;
