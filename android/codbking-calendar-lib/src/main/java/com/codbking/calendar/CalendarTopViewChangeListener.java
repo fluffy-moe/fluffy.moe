@@ -7,6 +7,6 @@ package com.codbking.calendar;
  * blog:http://www.jianshu.com/users/49d47538a2dd/latest_articles
  */
 
-public interface CaledarTopViewChangeListener {
-    void onLayoutChange(CalendarTopView topView);
+public interface CalendarTopViewChangeListener {
+	void onLayoutChange(CalendarTopView topView);
 }

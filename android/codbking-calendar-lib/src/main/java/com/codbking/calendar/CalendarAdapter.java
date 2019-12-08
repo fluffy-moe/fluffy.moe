@@ -3,8 +3,6 @@ package com.codbking.calendar;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.codbking.calendar.CalendarBean;
-
 /**
  * Created by codbking on 2016/12/22.
  * email:codbking@gmail.com
@@ -13,5 +11,5 @@ import com.codbking.calendar.CalendarBean;
  */
 
 public interface CalendarAdapter {
-     View getView(View convertView, ViewGroup parentView, CalendarBean bean);
+	View getView(View convertView, ViewGroup parentView, CalendarBean bean);
 }
