@@ -1,7 +1,6 @@
 package com.codbking.calendar;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class CalendarView extends ViewGroup {
 
     private int selectPostion = -1;
 
-    private CaledarAdapter adapter;
+    private CalendarAdapter adapter;
     private List<CalendarBean> data;
     private OnItemClickListener onItemClickListener;
 
@@ -59,7 +57,7 @@ public class CalendarView extends ViewGroup {
         setWillNotDraw(false);
     }
 
-    public void setAdapter(CaledarAdapter adapter) {
+    public void setAdapter(CalendarAdapter adapter) {
         this.adapter = adapter;
     }
 
@@ -80,10 +78,10 @@ public class CalendarView extends ViewGroup {
         for (int i = 0; i < data.size(); i++) {
             CalendarBean bean = data.get(i);
             View view = getChildAt(i);
-            View chidView = adapter.getView(view, this, bean);
+            View childView = adapter.getView(view, this, bean);
 
-            if (view == null || view != chidView) {
-                addViewInLayout(chidView, i, chidView.getLayoutParams(), true);
+            if (view == null || view != childView) {
+                addViewInLayout(childView, i, childView.getLayoutParams(), true);
             }
 
             if(isToday&&selectPostion==-1){
@@ -97,9 +95,9 @@ public class CalendarView extends ViewGroup {
                 }
             }
 
-            chidView.setSelected(selectPostion==i);
+            childView.setSelected(selectPostion==i);
 
-            setItemClick(chidView, i, bean);
+            setItemClick(childView, i, bean);
 
         }
     }
@@ -126,7 +124,7 @@ public class CalendarView extends ViewGroup {
         });
     }
 
-    public int[] getSelectPostion() {
+    public int[] getSelectPosition() {
         Rect rect = new Rect();
         try {
             getChildAt(selectPostion).getHitRect(rect);

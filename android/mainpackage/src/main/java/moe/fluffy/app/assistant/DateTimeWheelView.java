@@ -21,7 +21,7 @@ import java.util.List;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.Datetime;
 
-@SuppressWarnings({"unused", "SimpleDateFormat", "WeakerAccess"})
+@SuppressWarnings({"SimpleDateFormat", "WeakerAccess"})
 public class DateTimeWheelView {
 	private static final String TAG = "log_DateTimeWheelView";
 	public static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -47,7 +47,7 @@ public class DateTimeWheelView {
 	private int startMonth = DEFAULT_START_MONTH;
 	private int endMonth = DEFAULT_END_MONTH;
 	private int startDay = DEFAULT_START_DAY;
-	private int endDay = DEFAULT_END_DAY; //表示31天的
+	private int endDay = DEFAULT_END_DAY;
 	private int currentYear;
 
 	private int textSize;
@@ -84,141 +84,6 @@ public class DateTimeWheelView {
 
 	public void setPicker(@NotNull Datetime d) {
 		setSolar(d.getYear(), d.getMonth(), d.getDay(), d.getHour(), d.getMinute());
-	}
-
-
-	/**
-	 * 设置农历
-	 */
-	private void setLunar(int year, final int month, int day, boolean isLeap, int hour, int minute) {
-		// 年
-		wv_year = view.findViewById(com.bigkoo.pickerview.R.id.year);
-		wv_year.setAdapter(new ArrayWheelAdapter<>(ChinaDate.getYears(startYear, endYear)));// 设置"年"的显示数据
-		wv_year.setLabel("");// 添加文字
-		wv_year.setCurrentItem(year - startYear);// 初始化时显示的数据
-		wv_year.setGravity(gravity);
-
-		// 月
-		wv_month = view.findViewById(com.bigkoo.pickerview.R.id.month);
-		wv_month.setAdapter(new ArrayWheelAdapter<>(ChinaDate.getMonths(year)));
-		wv_month.setLabel("");
-
-		int leapMonth = ChinaDate.leapMonth(year);
-		if (leapMonth != 0 && (month > leapMonth - 1 || isLeap)) { //选中月是闰月或大于闰月
-			wv_month.setCurrentItem(month + 1);
-		} else {
-			wv_month.setCurrentItem(month);
-		}
-
-		wv_month.setGravity(gravity);
-
-		// 日
-		wv_day = view.findViewById(com.bigkoo.pickerview.R.id.day);
-		// 判断大小月及是否闰年,用来确定"日"的数据
-		if (ChinaDate.leapMonth(year) == 0) {
-			wv_day.setAdapter(new ArrayWheelAdapter<>(ChinaDate.getLunarDays(ChinaDate.monthDays(year, month))));
-		} else {
-			wv_day.setAdapter(new ArrayWheelAdapter<>(ChinaDate.getLunarDays(ChinaDate.leapDays(year))));
-		}
-		wv_day.setLabel("");
-		wv_day.setCurrentItem(day - 1);
-		wv_day.setGravity(gravity);
-
-		wv_hours = view.findViewById(com.bigkoo.pickerview.R.id.hour);
-		wv_hours.setAdapter(new NumericWheelAdapter(0, 23));
-		//wv_hours.setLabel(context.getString(R.string.pickerview_hours));// 添加文字
-		wv_hours.setCurrentItem(hour);
-		wv_hours.setGravity(gravity);
-
-		wv_minutes = view.findViewById(com.bigkoo.pickerview.R.id.min);
-		wv_minutes.setAdapter(new NumericWheelAdapter(0, 59));
-		//wv_minutes.setLabel(context.getString(R.string.pickerview_minutes));// 添加文字
-		wv_minutes.setCurrentItem(minute);
-		wv_minutes.setGravity(gravity);
-		/*
-		wv_seconds = (WheelView) view.findViewById(R.id.second);
-		wv_seconds.setAdapter(new NumericWheelAdapter(0, 59));
-		//wv_seconds.setLabel(context.getString(R.string.pickerview_minutes));// 添加文字
-		wv_seconds.setCurrentItem(m);
-		wv_seconds.setGravity(gravity);*/
-
-		// 添加"年"监听
-		wv_year.setOnItemSelectedListener(index -> {
-			int year_num = index + startYear;
-			// 判断是不是闰年,来确定月和日的选择
-			wv_month.setAdapter(new ArrayWheelAdapter<>(ChinaDate.getMonths(year_num)));
-			if (ChinaDate.leapMonth(year_num) != 0 && wv_month.getCurrentItem() > ChinaDate.leapMonth(year_num) - 1) {
-				wv_month.setCurrentItem(wv_month.getCurrentItem() + 1);
-			} else {
-				wv_month.setCurrentItem(wv_month.getCurrentItem());
-			}
-
-			int currentIndex = wv_day.getCurrentItem();
-			int maxItem;// = 29;
-			if (ChinaDate.leapMonth(year_num) != 0 && wv_month.getCurrentItem() > ChinaDate.leapMonth(year_num) - 1) {
-				if (wv_month.getCurrentItem() == ChinaDate.leapMonth(year_num) + 1) {
-					wv_day.setAdapter(new ArrayWheelAdapter<>(ChinaDate.getLunarDays(ChinaDate.leapDays(year_num))));
-					maxItem = ChinaDate.leapDays(year_num);
-				} else {
-					wv_day.setAdapter(new ArrayWheelAdapter<>(ChinaDate.getLunarDays(ChinaDate.monthDays(year_num, wv_month.getCurrentItem()))));
-					maxItem = ChinaDate.monthDays(year_num, wv_month.getCurrentItem());
-				}
-			} else {
-				wv_day.setAdapter(new ArrayWheelAdapter<>(ChinaDate.getLunarDays(ChinaDate.monthDays(year_num, wv_month.getCurrentItem() + 1))));
-				maxItem = ChinaDate.monthDays(year_num, wv_month.getCurrentItem() + 1);
-			}
-
-			if (currentIndex > maxItem - 1) {
-				wv_day.setCurrentItem(maxItem - 1);
-			}
-
-			if (mSelectChangeCallback != null) {
-				mSelectChangeCallback.onTimeSelectChanged();
-			}
-		});
-
-		// 添加"月"监听
-		wv_month.setOnItemSelectedListener(month_num -> {
-			int year_num = wv_year.getCurrentItem() + startYear;
-			int currentIndex = wv_day.getCurrentItem();
-			int maxItem;// = 29;
-			if (ChinaDate.leapMonth(year_num) != 0 && month_num > ChinaDate.leapMonth(year_num) - 1) {
-				if (wv_month.getCurrentItem() == ChinaDate.leapMonth(year_num) + 1) {
-					wv_day.setAdapter(new ArrayWheelAdapter<>(ChinaDate.getLunarDays(ChinaDate.leapDays(year_num))));
-					maxItem = ChinaDate.leapDays(year_num);
-				} else {
-					wv_day.setAdapter(new ArrayWheelAdapter<>(ChinaDate.getLunarDays(ChinaDate.monthDays(year_num, month_num))));
-					maxItem = ChinaDate.monthDays(year_num, month_num);
-				}
-			} else {
-				wv_day.setAdapter(new ArrayWheelAdapter<>(ChinaDate.getLunarDays(ChinaDate.monthDays(year_num, month_num + 1))));
-				maxItem = ChinaDate.monthDays(year_num, month_num + 1);
-			}
-
-			if (currentIndex > maxItem - 1) {
-				wv_day.setCurrentItem(maxItem - 1);
-			}
-
-			if (mSelectChangeCallback != null) {
-				mSelectChangeCallback.onTimeSelectChanged();
-			}
-		});
-
-		setChangedListener(wv_day);
-		setChangedListener(wv_hours);
-		setChangedListener(wv_minutes);
-		//setChangedListener(wv_seconds);
-
-
-		/*if (type.length != 6) {
-			throw new RuntimeException("type[] length is not 6");
-		}wv_year.setVisibility(type[0] ? View.VISIBLE : View.GONE);
-		wv_month.setVisibility(type[1] ? View.VISIBLE : View.GONE);
-		wv_day.setVisibility(type[2] ? View.VISIBLE : View.GONE);
-		wv_hours.setVisibility(type[3] ? View.VISIBLE : View.GONE);
-		wv_minutes.setVisibility(type[4] ? View.VISIBLE : View.GONE);*/
-		//wv_seconds.setVisibility(type[5] ? View.VISIBLE : View.GONE);
-		setContentTextSize();
 	}
 
 	/**
@@ -354,12 +219,6 @@ public class DateTimeWheelView {
 
 		wv_minutes.setCurrentItem(m);
 		wv_minutes.setGravity(gravity);
-		//秒
-		/*wv_seconds = (WheelView) view.findViewById(R.id.second);
-		wv_seconds.setAdapter(new NumericWheelAdapter(0, 59));
-
-		wv_seconds.setCurrentItem(s);
-		wv_seconds.setGravity(gravity);*/
 
 		// 添加"年"监听
 		wv_year.setOnItemSelectedListener(index -> {
@@ -486,17 +345,6 @@ public class DateTimeWheelView {
 		setChangedListener(wv_day);
 		setChangedListener(wv_hours);
 		setChangedListener(wv_minutes);
-		//setChangedListener(wv_seconds);
-
-		/*if (type.length != 6) {
-			throw new IllegalArgumentException("type[] length is not 6");
-		}
-		wv_year.setVisibility(type[0] ? View.VISIBLE : View.GONE);
-		wv_month.setVisibility(type[1] ? View.VISIBLE : View.GONE);
-		wv_day.setVisibility(type[2] ? View.VISIBLE : View.GONE);
-		wv_hours.setVisibility(type[3] ? View.VISIBLE : View.GONE);
-		wv_minutes.setVisibility(type[4] ? View.VISIBLE : View.GONE);*/
-		//wv_seconds.setVisibility(type[5] ? View.VISIBLE : View.GONE);
 		setContentTextSize();
 	}
 
@@ -511,13 +359,11 @@ public class DateTimeWheelView {
 	private void setReDay(int year_num, int monthNum, int startD, int endD, List<String> list_big, List<String> list_little) {
 		int currentItem = wv_day.getCurrentItem();
 
-//    int maxItem;
 		if (list_big.contains(String.valueOf(monthNum))) {
 			if (endD > 31) {
 				endD = 31;
 			}
 			wv_day.setAdapter(new NumericWheelAdapter(startD, endD));
-//        maxItem = endD;
 		} else if (list_little.contains(String.valueOf(monthNum))) {
 			if (endD > 30) {
 				endD = 30;
@@ -557,42 +403,6 @@ public class DateTimeWheelView {
 		//wv_seconds.setTextSize(textSize);
 	}
 
-
-	public void setLabels(String label_year, String label_month, String label_day, String label_hours, String label_mins, String label_seconds) {
-
-		if (label_year != null) {
-			wv_year.setLabel(label_year);
-		} else {
-			wv_year.setLabel(view.getContext().getString(com.bigkoo.pickerview.R.string.pickerview_year));
-		}
-		if (label_month != null) {
-			wv_month.setLabel(label_month);
-		} else {
-			wv_month.setLabel(view.getContext().getString(com.bigkoo.pickerview.R.string.pickerview_month));
-		}
-		if (label_day != null) {
-			wv_day.setLabel(label_day);
-		} else {
-			wv_day.setLabel(view.getContext().getString(com.bigkoo.pickerview.R.string.pickerview_day));
-		}
-		if (label_hours != null) {
-			wv_hours.setLabel(label_hours);
-		} else {
-			wv_hours.setLabel(view.getContext().getString(com.bigkoo.pickerview.R.string.pickerview_hours));
-		}
-		if (label_mins != null) {
-			wv_minutes.setLabel(label_mins);
-		} else {
-			wv_minutes.setLabel(view.getContext().getString(com.bigkoo.pickerview.R.string.pickerview_minutes));
-		}
-	/*if (label_seconds != null) {
-		wv_seconds.setLabel(label_seconds);
-	} else {
-		wv_seconds.setLabel(view.getContext().getString(R.string.pickerview_seconds));
-	}*/
-
-	}
-
 	public void setTextXOffset(int x_offset_year, int x_offset_month, int x_offset_day,
 							   int x_offset_hours, int x_offset_minutes, int x_offset_seconds) {
 		wv_year.setTextXOffset(x_offset_year);
@@ -618,17 +428,15 @@ public class DateTimeWheelView {
 	public String getTime() {
 		StringBuilder sb = new StringBuilder();
 		if (currentYear == startYear) {
-       /* int i = wv_month.getCurrentItem() + startMonth;
-        System.out.println("i:" + i);*/
 			if ((wv_month.getCurrentItem() + startMonth) == startMonth) {
-				sb.append((wv_year.getCurrentItem() + startYear)).append("-")
+				sb.append(getYear()).append("-")
 						.append((wv_month.getCurrentItem() + startMonth)).append("-")
 						.append((wv_day.getCurrentItem() + startDay)).append(" ")
 						.append(wv_hours.getCurrentItem()).append(":")
 						.append(wv_minutes.getCurrentItem()).append(":");
 				//.append(wv_seconds.getCurrentItem());
 			} else {
-				sb.append((wv_year.getCurrentItem() + startYear)).append("-")
+				sb.append(getYear()).append("-")
 						.append((wv_month.getCurrentItem() + startMonth)).append("-")
 						.append((wv_day.getCurrentItem() + 1)).append(" ")
 						.append(wv_hours.getCurrentItem()).append(":")
@@ -637,7 +445,7 @@ public class DateTimeWheelView {
 			}
 
 		} else {
-			sb.append((wv_year.getCurrentItem() + startYear)).append("-")
+			sb.append(getYear()).append("-")
 					.append((wv_month.getCurrentItem() + 1)).append("-")
 					.append((wv_day.getCurrentItem() + 1)).append(" ")
 					.append(wv_hours.getCurrentItem()).append(":")
@@ -649,15 +457,15 @@ public class DateTimeWheelView {
 	}
 
 	public int getYear() {
-		return wv_year.getCurrentItem();
+		return wv_year.getCurrentItem() + startYear;
 	}
 
 	public int getMonth() {
-		return wv_month.getCurrentItem();
+		return wv_month.getCurrentItem() + ((wv_month.getCurrentItem() + startMonth) == startMonth? startMonth : 1);
 	}
 
 	public int getDay() {
-		return wv_day.getCurrentItem();
+		return wv_day.getCurrentItem() + ((currentYear == startYear && (wv_month.getCurrentItem() + startMonth) == startMonth )?startDay: 1);
 	}
 
 	public int getHour() {
@@ -687,63 +495,6 @@ public class DateTimeWheelView {
 		this.endYear = endYear;
 	}
 
-
-	public void setRangDate(Calendar startDate, Calendar endDate) {
-
-		if (startDate == null && endDate != null) {
-			int year = endDate.get(Calendar.YEAR);
-			int month = endDate.get(Calendar.MONTH) + 1;
-			int day = endDate.get(Calendar.DAY_OF_MONTH);
-			if (year > startYear) {
-				this.endYear = year;
-				this.endMonth = month;
-				this.endDay = day;
-			} else if (year == startYear) {
-				if (month > startMonth) {
-					this.endYear = year;
-					this.endMonth = month;
-					this.endDay = day;
-				} else if (month == startMonth) {
-					if (day > startDay) {
-						this.endYear = year;
-						this.endMonth = month;
-						this.endDay = day;
-					}
-				}
-			}
-
-		} else if (startDate != null && endDate == null) {
-			int year = startDate.get(Calendar.YEAR);
-			int month = startDate.get(Calendar.MONTH) + 1;
-			int day = startDate.get(Calendar.DAY_OF_MONTH);
-			if (year < endYear) {
-				this.startMonth = month;
-				this.startDay = day;
-				this.startYear = year;
-			} else if (year == endYear) {
-				if (month < endMonth) {
-					this.startMonth = month;
-					this.startDay = day;
-					this.startYear = year;
-				} else if (month == endMonth) {
-					if (day < endDay) {
-						this.startMonth = month;
-						this.startDay = day;
-						this.startYear = year;
-					}
-				}
-			}
-
-		} else if (startDate != null) {
-			this.startYear = startDate.get(Calendar.YEAR);
-			this.endYear = endDate.get(Calendar.YEAR);
-			this.startMonth = startDate.get(Calendar.MONTH) + 1;
-			this.endMonth = endDate.get(Calendar.MONTH) + 1;
-			this.startDay = startDate.get(Calendar.DAY_OF_MONTH);
-			this.endDay = endDate.get(Calendar.DAY_OF_MONTH);
-		}
-
-	}
 
 	/**
 	 * 设置间距倍数,但是只能在1.0-4.0f之间
@@ -833,14 +584,5 @@ public class DateTimeWheelView {
 		wv_hours.setItemsVisibleCount(itemsVisibleCount);
 		wv_minutes.setItemsVisibleCount(itemsVisibleCount);
 		//wv_seconds.setItemsVisibleCount(itemsVisibleCount);
-	}
-
-	public void setAlphaGradient(boolean isAlphaGradient) {
-		wv_day.setAlphaGradient(isAlphaGradient);
-		wv_month.setAlphaGradient(isAlphaGradient);
-		wv_year.setAlphaGradient(isAlphaGradient);
-		wv_hours.setAlphaGradient(isAlphaGradient);
-		wv_minutes.setAlphaGradient(isAlphaGradient);
-		//wv_seconds.setAlphaGradient(isAlphaGradient);
 	}
 }

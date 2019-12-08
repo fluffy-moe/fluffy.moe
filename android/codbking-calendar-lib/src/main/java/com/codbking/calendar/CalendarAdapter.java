@@ -12,6 +12,6 @@ import com.codbking.calendar.CalendarBean;
  * blog:http://www.jianshu.com/users/49d47538a2dd/latest_articles
  */
 
-public interface CaledarAdapter {
+public interface CalendarAdapter {
      View getView(View convertView, ViewGroup parentView, CalendarBean bean);
 }

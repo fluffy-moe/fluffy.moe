@@ -85,7 +85,6 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 		calendar.setTime(calendar.getTime());
 		dateTimeWheelView.setPicker(calendar);
 		dateTimeWheelView.setItemsVisible(5);
-
 		/*FragmentManager childManager = getChildFragmentManager();
 		FragmentTransaction childTransaction = childManager.beginTransaction();
 		pvTime = new TimePickerFragment();*/

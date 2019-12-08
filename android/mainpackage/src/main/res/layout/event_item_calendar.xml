@@ -14,7 +14,7 @@
         android:fontFamily="@font/segoe_ui_bold"
         android:textSize="55px" />
 
-    <View
+    <Space
         android:layout_width="100px"
         android:layout_height="16px" />
 

@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -36,10 +35,10 @@ public class CalendarDateView extends ViewPager implements CalendarTopView {
 
     private int row = 6;
 
-    private CaledarAdapter mAdapter;
+    private CalendarAdapter mAdapter;
     private int calendarItemHeight = 0;
 
-    public void setAdapter(CaledarAdapter adapter) {
+    public void setAdapter(CalendarAdapter adapter) {
         mAdapter = adapter;
         initData();
     }
@@ -58,8 +57,8 @@ public class CalendarDateView extends ViewPager implements CalendarTopView {
     }
 
     public void updateView() {
-        Log.d(TAG, "updateView: Will update view now.");
-        init();
+        /*Log.d(TAG, "updateView: Will update view now.");
+        init();*/
     }
 
     @Override
@@ -78,7 +77,7 @@ public class CalendarDateView extends ViewPager implements CalendarTopView {
     }
 
     private void init() {
-       final int[] dateArr= CalendarUtil.getYMD(new Date());
+        final int[] dateArr= CalendarUtil.getYMD(new Date());
 
         setAdapter(new PagerAdapter() {
             @Override
@@ -149,7 +148,7 @@ public class CalendarDateView extends ViewPager implements CalendarTopView {
             view = (CalendarView) getChildAt(0);
         }
         if (view != null) {
-            return view.getSelectPostion();
+            return view.getSelectPosition();
         }
         return new int[4];
     }
