@@ -1,5 +1,12 @@
 <?php
 	require_once('.config.inc.php');
+
+	// https://stackoverflow.com/a/13640164
+	header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+	header("Cache-Control: post-check=0, pre-check=0", false);
+	header("Pragma: no-cache");
+	header('Content-Type: application/json');
+
 	if (!$_SESSION['valid']){
 		//header('Location: /login.php', true, 301);
 		http_response_code(400);
@@ -9,11 +16,35 @@
 		$_SESSION['timeout'] = time();
 	}
 
-	// https://stackoverflow.com/a/13640164
-	header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-	header("Cache-Control: post-check=0, pre-check=0", false);
-	header("Pragma: no-cache");
-	header('Content-Type: application/json');
+	function get_pet_info($conn, $pet_id, $result) {
+		$vac_info = array();
+		$dei_info = array();
+		$ocr_info = array();
+		$inhost_info = array();
+		$ht_info = array();
+		$kt_info = array();
+		$r = mysqli_query($conn, "SELECT * FROM `vaccination_record` WHERE `belong` = $pet_id ORDER BY `date` ASC");
+		while ($_result = mysqli_fetch_assoc($r))
+			array_push($vac_info, $_result);
+		$r = mysqli_query($conn, "SELECT * FROM `deinsectzation_record` WHERE `belong` = $pet_id ORDER BY `date` ASC");
+		while ($_result = mysqli_fetch_assoc($r))
+			array_push($dei_info, $_result);
+		$r = mysqli_query($conn, "SELECT * FROM `outpatient_clinic_record` WHERE `belong` = $pet_id ORDER BY `date` ASC");
+		while ($_result = mysqli_fetch_assoc($r))
+			array_push($ocr_info, $_result);
+		$r = mysqli_query($conn, "SELECT * FROM `hospital_admission_record` WHERE `belong` = $pet_id ORDER BY `end_date` ASC");
+		while ($_result = mysqli_fetch_assoc($r))
+			array_push($inhost_info, $_result);
+		$r = mysqli_query($conn, "SELECT * FROM `hematology_test_record` WHERE `belong` = $pet_id ORDER BY `date` ASC");
+		while ($_result = mysqli_fetch_assoc($r))
+			array_push($ht_info, $_result);
+		$r = mysqli_query($conn, "SELECT * FROM `kidney_test_record` WHERE `belong` = $pet_id ORDER BY `date` ASC");
+		while ($_result = mysqli_fetch_assoc($r))
+			array_push($kt_info, $_result);
+		return array("info" => $result, "vaccination" => $vac_info, "deinsectzation" => $dei_info,
+				"outpatient_clinic" => $ocr_info, "hospital_admission" => $inhost_info,
+				"hematology_test" => $ht_info, "kidney_test" => $kt_info);
+	}
 
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if (isset($_POST['t'])){
@@ -92,7 +123,7 @@
 					array_push($j["data"], $result);
 			} elseif ($_GET['t'] === 'user') {
 				$r = mysqli_query($conn, "SELECT `id`, `realname`, `nickname`, `phone`, `address` FROM `feeder_information`");
-				while ($result = mysqli_fetch_assoc($r)) 
+				while ($result = mysqli_fetch_assoc($r))
 					array_push($j["data"], $result);
 			} elseif ($_GET['t'] === 'user_detail' && isset($_GET['user_id'])) {
 				$user_id = mysqli_escape_string($conn, $_GET['user_id']);
@@ -104,15 +135,7 @@
 				$r = mysqli_query($conn, "SELECT * FROM `pet_information` WHERE `belong` = $user_id");
 				while ($result = mysqli_fetch_assoc($r)){
 					$pet_id = $result['id'];
-					$vac_r = mysqli_query($conn, "SELECT * FROM `vaccination_record` WHERE `belong` = $pet_id ORDER BY `date` ASC");
-					$vac_info = array();
-					$dei_info = array();
-					while ($_result = mysqli_fetch_assoc($vac_r))
-						array_push($vac_info, $_result);
-					$dei_r = mysqli_query($conn, "SELECT * FROM `deinsectzation_record` WHERE `belong` = $pet_id ORDER BY `date` ASC");
-					while ($_result = mysqli_fetch_assoc($dei_r))
-						array_push($dei_info, $_result);
-					array_push($j['data'], array("info" => $result, "vaccination" => $vac_info, "deinsectzation" => $dei_info));
+					array_push($j['data'], get_pet_info($conn, $pet_id, $result));
 				}
 			} else {
 				http_response_code(400);

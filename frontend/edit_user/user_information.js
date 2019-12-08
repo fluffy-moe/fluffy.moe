@@ -178,7 +178,7 @@ function init_onclick() {
 	});
 
 	select_dei_history.addEventListener('change', () => {
-		update_vac_info(pet_data_store[dropdown_pet_select.value].deinsectzation[select_dei_history.value]);
+		update_dei_info(pet_data_store[dropdown_pet_select.value].deinsectzation[select_dei_history.value]);
 	});
 
 	$('btn_update_vac_info').click(() => {
@@ -243,7 +243,7 @@ function update_vac_info(vac_info) {
 function update_dei_info(dei_info) {
 	txt_info_desdate.value = dei_info.date;
 	txt_info_desproduct.value = dei_info.product;
-	txt_info_deidoctor.value = dei_info.doctor;
+	txt_info_desdoctor.value = dei_info.doctor;
 	// TODO: next time to visit
 }
 

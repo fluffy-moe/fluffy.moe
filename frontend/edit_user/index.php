@@ -237,6 +237,7 @@
 								</tr>
 							</table>
 						</p>
+						<p><button id="btn_update_vac_info">Update</button></p>
 
 						<!--<a href="#" class="sim-btn hvr-bounce-to-top"><span>Contact Us</span></a>-->
 					</div><!-- end messagebox -->
@@ -280,7 +281,7 @@
 								</tr>
 							</table>
 						</p>
-						<p><button id="btn_update_vac_info">Update</button></p>
+						<p><button id="btn_update_dein_info">Update</button></p>
 					</div>
 
 					</div><!-- end media -->
@@ -307,6 +308,7 @@
 
 							</table>
 						</p>
+						<p><button id="btn_update_hospital_info">Update</button></p>
 
 
 					</div><!-- end messagebox -->
@@ -332,6 +334,7 @@
 
 						</table>
 					</p>
+					<p><button id="btn_update_opc_info">Update</button></p>
 
 					</div>
 
@@ -371,6 +374,7 @@
 							</tr>
 							</table>
 						</p>
+						<p><button id="btn_update_ht_info">Update</button></p>
 
 
 					</div><!-- end messagebox -->
@@ -410,6 +414,7 @@
 								<td><input type="text" id="info_PCT"></td>
 							</tr>
 						</table></p>
+						<p><button id="btn_update_kt_info">Update</button></p>
 
 					</div>
 
