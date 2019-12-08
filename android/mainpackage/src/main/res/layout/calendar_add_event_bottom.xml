@@ -349,8 +349,8 @@
 		app:layout_constraintGuide_begin="450dp" />
 
 	<Space
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		android:layout_width="1px"
+		android:layout_height="1px"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent" />
 

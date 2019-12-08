@@ -10,20 +10,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import org.jetbrains.annotations.NotNull;
@@ -43,6 +45,7 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 	private DateTimeWheelView dateTimeWheelView;
 	private SimpleCallback listener;
 
+	public final static String argTag = "0";
 
 	private ImageButton btnColorSelected;
 	private Button categorySelected;
@@ -71,7 +74,7 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 		//timePicker.setIs24HourView(true);
 		Bundle bundle = getArguments();
 		if (bundle != null) {
-			FragmentBundle fragmentBundle = (FragmentBundle) bundle.getSerializable("0");
+			FragmentBundle fragmentBundle = (FragmentBundle) bundle.getSerializable(argTag);
 			if (fragmentBundle != null){
 				listener = fragmentBundle.getListener();
 			}
@@ -112,6 +115,43 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 		return viewAddEventPopup;
 	}
 
+	/**
+	 * Specially thanks https://stackoverflow.com/a/40628141
+	 * This function spend me entire night to solve it.
+	 */
+	@NotNull
+	@Override
+	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		Dialog d = super.onCreateDialog(savedInstanceState);
+		Window w = d.getWindow();
+		if (w != null) {
+			w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+				w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+						WindowManager.LayoutParams.FLAG_FULLSCREEN);
+				w.requestFeature(Window.FEATURE_NO_TITLE);
+		}
+		d.setOnShowListener(dialog -> {
+			BottomSheetDialog d1 = (BottomSheetDialog) dialog;
+			FrameLayout bottomSheet = d1.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+			if (bottomSheet == null)
+				throw new RuntimeException("Bottom sheet dialog is null");
+			BottomSheetBehavior behaviour = BottomSheetBehavior.from(bottomSheet);
+			behaviour.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+				@Override
+				public void onStateChanged(@NonNull View bottomSheet, int newState) {
+					if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+						behaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
+					}
+				}
+
+				@Override
+				public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+				}
+			});
+		});
+		return d;
+	}
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
