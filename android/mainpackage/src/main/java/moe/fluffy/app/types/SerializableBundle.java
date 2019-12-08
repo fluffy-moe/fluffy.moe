@@ -21,26 +21,28 @@ package moe.fluffy.app.types;
 
 import android.widget.FrameLayout;
 
+import com.codbking.calendar.CalendarBean;
+
 import java.io.Serializable;
 
 import moe.fluffy.app.assistant.SimpleCallback;
 
 // https://stackoverflow.com/a/39252048
-public class FragmentBundle implements Serializable {
+public class SerializableBundle implements Serializable {
 	private SimpleCallback listener;
-	private FrameLayout frameLayout;
-	public FragmentBundle(SimpleCallback _listener) {
+	private CalendarBean calendarBean;
+	public SerializableBundle(SimpleCallback _listener) {
 		listener = _listener;
 	}
 
-	public FragmentBundle(FrameLayout fm) {
-		frameLayout = fm;
+	public SerializableBundle(CalendarBean _cb) {
+		calendarBean = _cb;
 	}
 	public SimpleCallback getListener() {
 		return listener;
 	}
 
-	public FrameLayout getFrameLayout() {
-		return frameLayout;
+	public CalendarBean getCalendarBean() {
+		return calendarBean;
 	}
 }

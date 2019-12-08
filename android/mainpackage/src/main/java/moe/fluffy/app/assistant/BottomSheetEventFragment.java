@@ -36,7 +36,7 @@ import moe.fluffy.app.HomeActivity;
 import moe.fluffy.app.R;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.EventsType;
-import moe.fluffy.app.types.FragmentBundle;
+import moe.fluffy.app.types.SerializableBundle;
 
 public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 	private final String TAG = "log_BottomSheetEventFragment";
@@ -74,9 +74,9 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 		//timePicker.setIs24HourView(true);
 		Bundle bundle = getArguments();
 		if (bundle != null) {
-			FragmentBundle fragmentBundle = (FragmentBundle) bundle.getSerializable(argTag);
-			if (fragmentBundle != null){
-				listener = fragmentBundle.getListener();
+			SerializableBundle serializableBundle = (SerializableBundle) bundle.getSerializable(argTag);
+			if (serializableBundle != null){
+				listener = serializableBundle.getListener();
 			}
 			bundle.clear();
 		}
@@ -88,7 +88,7 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 		/*FragmentManager childManager = getChildFragmentManager();
 		FragmentTransaction childTransaction = childManager.beginTransaction();
 		pvTime = new TimePickerFragment();*/
-		/*bundle.putSerializable("1", new FragmentBundle(mFrameLayout));
+		/*bundle.putSerializable("1", new SerializableBundle(mFrameLayout));
 		pvTime.setArguments(bundle);*/
 		initPopupColorPick(viewAddEventPopup);
 		initCategoryButton(viewAddEventPopup);

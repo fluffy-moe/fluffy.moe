@@ -44,7 +44,7 @@ import moe.fluffy.app.assistant.BottomSheetEventFragment;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.EventDashboardType;
 import moe.fluffy.app.types.EventsType;
-import moe.fluffy.app.types.FragmentBundle;
+import moe.fluffy.app.types.SerializableBundle;
 import moe.fluffy.app.types.adapter.EventDashboardAdapter;
 
 import static moe.fluffy.app.assistant.Utils.px;
@@ -68,6 +68,17 @@ public class CalendarActivity extends AppCompatActivity {
 	ArrayList<EventsType> todayEvent = new ArrayList<>(), featureEvent = new ArrayList<>();
 	ArrayList<EventDashboardType> eventDashboardTypes = new ArrayList<>();
 	EventDashboardAdapter eventDashboardAdapter;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.activity_calendar_viewer);
+		find_view();
+		init();
+	}
 
 	void find_view() {
 		mCalendarDateView = findViewById(R.id.calendarDateView);
@@ -98,17 +109,8 @@ public class CalendarActivity extends AppCompatActivity {
 		imgbtnNavBarMedical.setOnClickListener(v ->
 				startActivity(new Intent(CalendarActivity.this, MedicalActivity.class)));
 
-	}
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.activity_calendar_viewer);
-		find_view();
-		init();
+		imgbtnNavBarUser.setOnClickListener(v ->
+				startActivity(new Intent(CalendarActivity.this, ProfileActivity.class)));
 	}
 
 
@@ -121,6 +123,7 @@ public class CalendarActivity extends AppCompatActivity {
 		mCalendarDateView.setAdapter(//Log.d(TAG, "init: color_id => " + color_id);
 				this::getCalendarView);
 
+		/* Calendar onClick */
 		mCalendarDateView.setOnItemClickListener((view, position, bean) -> {
 			txtMonth.setText(getMonthString(bean.moth));
 			txtYear.setText(String.valueOf(bean.year));
@@ -129,18 +132,23 @@ public class CalendarActivity extends AppCompatActivity {
 			}
 			lastDateSelected = view.findViewById(R.id.txtDay);
 			lastDateSelected.setTextColor(getColor(R.color.calendarOnSelect));
+			Intent intent = new Intent(this, DayActivity.class);
+			Bundle bundle = new Bundle();
+			bundle.putSerializable(DayActivity.keyName, new SerializableBundle(bean));
+			intent.putExtras(bundle);
+			startActivity(intent);
 		});
-
 
 
 		txtMonth.setText(getMonthString(Date.getToday().getMonth()));
 		txtYear.setText(String.valueOf(Date.getToday().getYear()));
 
 
+		/* addEventButton onClick */
 		btnAddEvent.setOnClickListener(_v -> {
 			BottomSheetDialogFragment eventFragment = new BottomSheetEventFragment();
 			Bundle bundle = new Bundle();
-			FragmentBundle bundle1 = new FragmentBundle(o -> {
+			SerializableBundle bundle1 = new SerializableBundle(o -> {
 				EventsType et = (EventsType) o;
 				planedEvents.add(et);
 				updateEventsDashboard(true);
