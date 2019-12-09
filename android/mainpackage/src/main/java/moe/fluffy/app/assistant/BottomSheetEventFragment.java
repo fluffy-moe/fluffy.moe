@@ -61,7 +61,7 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 		ImageButton btnConfirm = viewAddEventPopup.findViewById(R.id.imgbtnCalendarSave);
 		EditText etBody = viewAddEventPopup.findViewById(R.id.etCalendarBody);
 		Switch swAlarm = viewAddEventPopup.findViewById(R.id.swCalendarAlarm);
-		dateTimeWheelView = new DateTimeWheelView(viewAddEventPopup, 24);
+		dateTimeWheelView = new DateTimeWheelView(viewAddEventPopup, 54);
 		/*Window w = getWindow();
 		if (w != null) {
 			w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);

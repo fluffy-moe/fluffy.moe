@@ -21,7 +21,6 @@ package moe.fluffy.app;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -29,6 +28,7 @@ import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -55,11 +55,16 @@ public class RegisterActivity extends AppCompatActivity {
 	ImageButton imgbtnConfirm;
 
 	EditText etPetName, etBreed, etBirthday;
-	RadioGroup rgGender, rgSpyed;
-	// TODO: weight
+	RadioGroup rgGender, rgNeuter;
+	RadioButton rbM, rbW, rbNeuterY, rbNeuterN;
+	RadioGroup rgWeights;
+	RadioButton rb10, rb20, rb30, rb40, rbWeightLastSelect;
+	private int weightSelect = 1;
 
 	ImageButton imgbtnCat, imgbtnDog, imgbtnBird, imgbtnOther;
 	ImageButton imgbtnPrevClicked, imgbtnBack;
+
+	boolean genderM = true, Neuterd = false;
 
 	private String selected_type;
 
@@ -81,6 +86,7 @@ public class RegisterActivity extends AppCompatActivity {
 		etPassword = findViewById(R.id.etRegisterPassword);
 		etPassword2 = findViewById(R.id.etRegisterPassword2);
 		imgbtnConfirm = findViewById(R.id.imgbtnRegisterConfirm);
+
 
 		etName.setOnFocusChangeListener((v, hasFocus) ->
 				Utils.onFocusChange(hasFocus, RegisterActivity.this, etName, R.string.users_name, false));
@@ -150,6 +156,18 @@ public class RegisterActivity extends AppCompatActivity {
 		etBirthday = findViewById(R.id.et_birthday);
 		imgbtnBack = findViewById(R.id.imgbtnRegister2Back);
 		imgbtnConfirm = findViewById(R.id.imgbtnRegister2Next);
+		rgGender = findViewById(R.id.rbg_gender);
+		rgNeuter = findViewById(R.id.rbg_yes_no);
+		rgWeights = findViewById(R.id.rbg_weight);
+		rbM = findViewById(R.id.rb_male);
+		rbW = findViewById(R.id.rb_female);
+		rbNeuterY = findViewById(R.id.rb_yes);
+		rbNeuterN = findViewById(R.id.rb_no);
+
+		rbWeightLastSelect = rb10 = findViewById(R.id.rb_10kg);
+		rb20 = findViewById(R.id.rb_20kg);
+		rb30 = findViewById(R.id.rb_30kg);
+		rb40 = findViewById(R.id.rb_40kg);
 
 		etPetName.setOnFocusChangeListener( (view, hasFocus) ->
 				Utils.onFocusChange(hasFocus, RegisterActivity.this, etPetName, R.string.pets_name, false));
@@ -173,6 +191,49 @@ public class RegisterActivity extends AppCompatActivity {
 			}
 		});
 
+		rgGender.setOnCheckedChangeListener((group, checkedId) -> {
+			switch (checkedId) {
+				case R.id.rb_male:
+					rbM.setBackground(getDrawable(R.drawable.radio_button_checked));
+					rbW.setBackground(null);
+					genderM = true;
+					break;
+				case R.id.rb_female:
+					rbW.setBackground(getDrawable(R.drawable.radio_button_checked));
+					rbM.setBackground(null);
+					genderM = false;
+			}
+		});
+
+		rgNeuter.setOnCheckedChangeListener((group, checkedId) -> {
+			switch (checkedId) {
+				case R.id.rb_yes:
+					rbNeuterY.setBackground(getDrawable(R.drawable.radio_button_checked));
+					rbNeuterN.setBackground(null);
+					Neuterd = true;
+					break;
+				case R.id.rb_no:
+					rbNeuterN.setBackground(getDrawable(R.drawable.radio_button_checked));
+					rbNeuterY.setBackground(null);
+					Neuterd = false;
+			}
+		});
+
+		rgWeights.setOnCheckedChangeListener((group, checkedId) -> {
+			switch (checkedId) {
+				case R.id.rb_10kg:
+					onWeightClick(rb10, 1);
+					break;
+				case R.id.rb_20kg:
+					onWeightClick(rb20, 2);
+					break;
+				case R.id.rb_30kg:
+					onWeightClick(rb30, 3);
+					break;
+				case R.id.rb_40kg:
+					onWeightClick(rb40, 4);
+			}
+		});
 
 		imgbtnConfirm.setOnClickListener(v -> {
 			// some verify method here
@@ -193,6 +254,13 @@ public class RegisterActivity extends AppCompatActivity {
 			setContentView(R.layout.activity_choose_pet_type);
 			initChoosePetTypeView();
 		});
+	}
+
+	private void onWeightClick(RadioButton rb, int select_id) {
+		weightSelect = select_id;
+		rbWeightLastSelect.setBackground(null);
+		rb.setBackground(getDrawable(R.drawable.radio_button_checked));
+		rbWeightLastSelect = rb;
 	}
 
 	private void alterAlpha(ImageButton imgbtnClicked) {
