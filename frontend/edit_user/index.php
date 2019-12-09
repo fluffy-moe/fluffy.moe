@@ -205,8 +205,8 @@
 							<table>
 								<tr>
 									<td>Vaccination record:</td>
-									<td><label><input type="radio" name="neuter" id="info_vac_have">Have</label>
-									<label><input type="radio" name="neuter" id="info_vac_nothave" checked>Don't have</label></td>
+									<td><label><input type="radio" name="neuter" id="rb_vac_have">Have</label>
+									<label><input type="radio" name="neuter" id="rb_vac_nothave" checked>Don't have</label></td>
 								</tr>
 							</table>
 							<table id="table_vaccination_record" style="display: none;">
@@ -252,8 +252,8 @@
 								<tr>
 									<td>Deinsectzation record:</td>
 									<td>
-										<label><input type="radio" name="dein" id="info_dein_have">Have</label>
-										<label><input type="radio" name="dein" id="info_dein_nothave" checked>Don't have</label>
+										<label><input type="radio" name="dein" id="rb_dein_have">Have</label>
+										<label><input type="radio" name="dein" id="rb_dein_nothave" checked>Don't have</label>
 									</td>
 								</tr>
 							</table>
@@ -295,7 +295,21 @@
 					<div class="message-box">
 						<h2>Hospital admission</h2>
 						<p>
-							<table>
+						        <input type="hidden" id="rev_hs_id"> 
+							<table><tr>
+									<td>Hospital admission record:</td>
+									<td>
+										<label><input type="radio" name="hs" id="rb_hs_have">Have</label>
+										<label><input type="radio" name="hs" id="rb_hs_nothave" checked>Don't have</label>
+									</td>
+								</tr>
+							</table>
+							<table id="table_Hospital_admission_record" style="display: none;">
+							<tr>
+									<td colspan=2>
+										<select size="3" style="width:100%;" id="select_hs_history"></select>
+									</td>
+								</tr>
 							<tr>
 								<td>In hospital date</td>
 								<td><input type="date" id="info_hospitaldate"></td>
@@ -317,7 +331,22 @@
 				<div class="col-md-6">
 					<div class="message-box">
 						<h2>Out-patient Clinic</h2>
-						<p><table>
+						<p>
+						        <input type="hidden" id="rev_opc_id">
+						    <table><tr>
+									<td>Out-patient Clinic record:</td>
+									<td>
+										<label><input type="radio" name="opc" id="rb_opc_have">Have</label>
+										<label><input type="radio" name="opc" id="rb_opc_nothave" checked>Don't have</label>
+									</td>
+								</tr>
+								</table>
+							<table id="table_Outpatient_Clinic_record" style="display: none;">
+							<tr>
+									<td colspan=2>
+										<select size="3" style="width:100%;" id="select_opc_history"></select>
+									</td>
+								</tr>
 							<tr>
 								<td>date</td>
 								<td><input type="date" id="info_outpatientdate"></td>
@@ -351,7 +380,21 @@
 					<div class="message-box">
 						<h2>Hematology Test</h2>
 						<p>
-							<table>
+						        <input type="hidden" id="rev_hem_id">
+							<table><tr>
+									<td>Hematology Test record:</td>
+									<td>
+										<label><input type="radio" name="hem" id="rb_hem_have">Have</label>
+										<label><input type="radio" name="hem" id="rb_hem_nothave" checked>Don't have</label>
+									</td>
+								</tr>
+								</table>
+							<table id="table_Hematology_record" style="display: none;">
+							<tr>
+									<td colspan=2>
+										<select size="3" style="width:100%;" id="select_hem_history"></select>
+									</td>
+								</tr>
 								<tr>
 									<td>Date:</td>
 									<td><input type="date" id="info_hemdate"></td>
@@ -387,7 +430,22 @@
 				<div class="col-md-6">
 					<div class="message-box">
 						<h2>Kidney Test</h2>
-						<p><table>
+						<p>
+						            <input type="hidden" id="rev_kid_id">
+						    <table><tr>
+									<td>Kidney Test record:</td>
+									<td>
+										<label><input type="radio" name="kid" id="rb_kid_have">Have</label>
+										<label><input type="radio" name="kid" id="rb_kid_nothave" checked>Don't have</label>
+									</td>
+								</tr>
+								</table>
+							<table id="table_Kidney_record" style="display: none;">
+							<tr>
+									<td colspan=2>
+										<select size="3" style="width:100%;" id="select_kid_history"></select>
+									</td>
+								</tr>
 						    <tr>
 									<td>Date:</td>
 									<td><input type="date" id="info_kiddate"></td>

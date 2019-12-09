@@ -49,7 +49,7 @@
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if (isset($_POST['t'])){
 			//if (!(($_POST['t'] === 'firebase_post' || $_POST['t'] === 'notification_manage')
-			if (!($_POST['t'] === 'update_person' || $_POST['t'] === 'update_pet') && isset($_POST['payload'])) {
+			if (!($_POST['t'] === 'update_person' || $_POST['t'] === 'update_pet'|| $_POST['t'] === 'update_vac'|| $_POST['t'] === 'update_dein'|| $_POST['t'] === 'update_hs'|| $_POST['t'] === 'update_opc'|| $_POST['t'] === 'update_hem'|| $_POST['t'] === 'update_kid') && isset($_POST['payload'])) {
 				http_response_code(400);
 				die('{"result": "Bad request"}');
 			}
