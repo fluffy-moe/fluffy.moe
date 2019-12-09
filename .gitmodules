@@ -19,3 +19,6 @@
 [submodule "android/wheelview"]
 	path = android/wheelview
 	url = https://github.com/fluffy-moe/wheelview.git
+[submodule "android/MPAndroidChart"]
+	path = android/MPAndroidChart
+	url = https://github.com/fluffy-moe/MPAndroidChart.git

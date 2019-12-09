@@ -8,10 +8,10 @@ android {
         applicationId "moe.fluffy.app"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 3
-        versionName '0.2'
+        versionCode 4
+        versionName '0.3'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        versionNameSuffix = '.beta'
+        versionNameSuffix = '.alpha'
     }
     buildTypes {
         release {
@@ -48,4 +48,5 @@ dependencies {
     implementation project(path: ':codbking-calendar-lib')
     implementation project(path: ':WrapContentListView')
     implementation project(path: ':pickerview')
+    implementation project(path: ':MPAndroidChart')
 }

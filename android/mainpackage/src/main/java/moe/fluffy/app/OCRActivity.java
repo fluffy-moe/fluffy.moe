@@ -119,7 +119,6 @@ public class OCRActivity extends AppCompatActivity {
 		this.getContentResolver().notifyChange(mImageUri, null);
 		ContentResolver cr = this.getContentResolver();
 		Bitmap bitmap;
-		AlertDialog progressDialog;
 		try
 		{
 			bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, mImageUri);

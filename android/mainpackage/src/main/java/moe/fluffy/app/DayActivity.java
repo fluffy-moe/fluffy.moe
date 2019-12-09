@@ -28,8 +28,17 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 
 import com.codbking.calendar.CalendarBean;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.SerializableBundle;
@@ -43,6 +52,8 @@ public class DayActivity extends AppCompatActivity {
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
 
+	LineChart lineChart;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,7 +64,17 @@ public class DayActivity extends AppCompatActivity {
 		initView();
 	}
 
-	void initView() {
+
+	private List<Entry> getList() {
+		Random r = new Random();
+		List<Entry> entries = new ArrayList<>();
+		for (int i = 0; i < 7 ; i ++) {
+			entries.add(new Entry(i, r.nextFloat()));
+		}
+		return entries;
+	}
+
+	private void initView() {
 		Date date;
 		Bundle bundle = getIntent().getExtras();
 		if (bundle == null) {
@@ -66,6 +87,15 @@ public class DayActivity extends AppCompatActivity {
 		}
 		date = sb.getDate();
 		// TODO: init view here
+		lineChart = findViewById(R.id.viewWaterAnalysis);
+		lineChart.getDescription().setEnabled(false);
+		LineDataSet ls = new LineDataSet(getList(), "test");
+		ls.setDrawCircles(false);
+		ls.setLineWidth(2f);
+		ls.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+		ArrayList<ILineDataSet> sets = new ArrayList<>();
+		sets.add(ls);
+		lineChart.setData(new LineData(sets));
 		findNavigationBar();
 	}
 
