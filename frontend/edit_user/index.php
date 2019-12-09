@@ -298,11 +298,11 @@
 							<table>
 							<tr>
 								<td>In hospital date</td>
-								<td><input type="text" id="info_hospitaldate"></td>
+								<td><input type="date" id="info_hospitaldate"></td>
 							</tr>
 							<tr>
 								<td>leave hospital date:</td>
-								<td><input type="text" id="info_hospitalbackdate"></td>
+								<td><input type="date" id="info_hospitalbackdate"></td>
 							</tr>
 
 
@@ -320,7 +320,7 @@
 						<p><table>
 							<tr>
 								<td>date</td>
-								<td><input type="text" id="info_outpatientdate"></td>
+								<td><input type="date" id="info_outpatientdate"></td>
 							</tr>
 
 							<tr>
@@ -352,6 +352,10 @@
 						<h2>Hematology Test</h2>
 						<p>
 							<table>
+								<tr>
+									<td>Date:</td>
+									<td><input type="date" id="info_hemdate"></td>
+								</tr>
 							<tr>
 								<td>RBC</td>
 								<td><input type="text" id="info_RBC"></td>
@@ -384,6 +388,10 @@
 					<div class="message-box">
 						<h2>Kidney Test</h2>
 						<p><table>
+						    <tr>
+									<td>Date:</td>
+									<td><input type="date" id="info_kiddate"></td>
+							</tr>
 							<tr>
 								<td>CREA</td>
 								<td><input type="text" id="info_CREA"></td>

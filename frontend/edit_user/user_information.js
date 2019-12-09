@@ -57,6 +57,7 @@ function init_view() {
 	txt_info_symptom = document.getElementById('info_symptom');
 	txt_info_RBC = document.getElementById('info_RBC');
 	txt_info_HCT = document.getElementById('info_HCT');
+	txt_info_CGB = document.getElementById('info_CGB');
 	txt_info_MCH = document.getElementById('info_MCH');
 	txt_info_MCHC = document.getElementById('info_MCHC');
 	txt_info_CREA = document.getElementById('info_CREA');
@@ -183,11 +184,55 @@ function init_onclick() {
 
 	$('btn_update_vac_info').click(() => {
 		do_POST('update_vac', {
-			id: rev_dein_id.value,
+			id: rev_vac_id.value,
 			date: txt_info_vacdate.value,
 			product: txt_info_vacproduct.value,
 			injection_site: txt_info_vacsite.value,
 			doctor: txt_info_vacdoctor.value
+		});
+	});
+
+	$('btn_update_dein_info').click(() => {
+		do_POST('update_dein', {
+			date: txt_info_desdate.value,
+			product: txt_info_desproduct.value,
+			doctor: txt_info_desdoctor.value
+		});
+	});
+
+	$('btn_update_hs_info').click(() => {
+        do_POST('update_hs',{
+			start_date: txt_info_hospitaldate.value,
+			end_date: txt_info_hospitalbackdate.value
+		});
+	});
+
+	$('btn_update_opc_info').click(() => {
+        do_POST('update_opc',{
+			date: txt_info_outpatientdate.value,
+			symptom: txt_info_symptom.value
+		});
+	});
+
+    $('btn_update_hem_info').click(() => {
+        do_POST('update_hem',{
+			RBC: txt_info_RBC.value,
+			HCT: txt_info_HCT.value,
+			CGB: txt_info_CBG.value,
+			MCH: txt_info_MCH.value,
+			MCHC: txt_info_MCHC.value
+		});
+	});
+
+	$('btn_update_kid_info').click(() => {
+        do_POST('update_kid',{
+			CREA: txt_info_CREA.value,
+			BUM: txt_info_BUM.value,
+			PHOS: txt_info_PHOS.value,
+			CA: txt_info_CA.value,
+			ALB: txt_info_ALB.value,
+			CHOL: txt_info_CHOL.value,
+			PCT: txt_info_PCT.value,
 		});
 	});
 
@@ -245,6 +290,35 @@ function update_dei_info(dei_info) {
 	txt_info_desproduct.value = dei_info.product;
 	txt_info_desdoctor.value = dei_info.doctor;
 	// TODO: next time to visit
+}
+
+function update_hs_info(hs_info) {
+	txt_info_hospitaldate.value = hs_info.start_date;
+	txt_info_hospitalbackdate.value = hs_info.end_date;
+}
+
+function update_opc_info(opc_info){
+	txt_info_outpatientdate.value = opc_info.date;
+	//txt_info_outpatient_nexttime.value = opc_info.
+	txt_info_symptom.value = opc_info.symptom;
+}
+
+function update_hem_info(hem_info){
+	txt_info_RBC.value = hem_info.RBC;
+	txt_info_HCT.value = hem_info.HCT;
+	txt_info_PHOS.value = hem_info.CGB;
+	txt_info_MCH.value = hem_info.MCH;
+	txt_info_MCHC.value = hem_info.MCHC;
+}
+
+function update_kid_info(kid_info){
+	txt_info_CREA.value = kid_info.CREA;
+	txt_info_BUM.value = kid_info.BUM;
+	txt_info_PHOS.value = kid_info.PHOS;
+	txt_info_CA.value = kid_info.CA;
+	txt_info_ALB.value = kid_info.ALB;
+	txt_info_CHOL.value = kid_info.CHOL;
+    txt_info_PCT.value = kid_info.PCT;
 }
 
 function update_website_pet_info(pet_info) {
