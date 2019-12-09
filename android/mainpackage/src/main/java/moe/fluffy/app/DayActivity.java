@@ -31,6 +31,7 @@ import com.codbking.calendar.CalendarBean;
 
 import java.io.Serializable;
 
+import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.SerializableBundle;
 
 public class DayActivity extends AppCompatActivity {
@@ -53,7 +54,7 @@ public class DayActivity extends AppCompatActivity {
 	}
 
 	void initView() {
-		CalendarBean calendarBean;
+		Date date;
 		Bundle bundle = getIntent().getExtras();
 		if (bundle == null) {
 			throw new RuntimeException("Bundle should be set");
@@ -63,7 +64,7 @@ public class DayActivity extends AppCompatActivity {
 		if (sb == null) {
 			throw new RuntimeException("calendar bean should be set");
 		}
-		calendarBean = sb.getCalendarBean();
+		date = sb.getDate();
 		// TODO: init view here
 		findNavigationBar();
 	}

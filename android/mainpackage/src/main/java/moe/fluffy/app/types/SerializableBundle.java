@@ -28,19 +28,21 @@ import moe.fluffy.app.assistant.SimpleCallback;
 // https://stackoverflow.com/a/39252048
 public class SerializableBundle implements Serializable {
 	private SimpleCallback listener;
-	private CalendarBean calendarBean;
+	private int year, month, day;
 	public SerializableBundle(SimpleCallback _listener) {
 		listener = _listener;
 	}
 
 	public SerializableBundle(CalendarBean _cb) {
-		calendarBean = _cb;
+		year = _cb.year;
+		month = _cb.moth;
+		day = _cb.day;
 	}
 	public SimpleCallback getListener() {
 		return listener;
 	}
 
-	public CalendarBean getCalendarBean() {
-		return calendarBean;
+	public Date getDate() {
+		return new Date(year, month, day);
 	}
 }

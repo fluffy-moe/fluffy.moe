@@ -1,4 +1,4 @@
-include ':mainpackage', ':WrapContentListView-master'
+include ':mainpackage', ':WrapContentListView'
 rootProject.name='Fluffy'
 include ':zxing-android-embedded'
 include ':android-user-agent'
