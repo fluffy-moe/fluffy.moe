@@ -19,8 +19,6 @@
  */
 package moe.fluffy.app.types;
 
-import android.widget.FrameLayout;
-
 import com.codbking.calendar.CalendarBean;
 
 import java.io.Serializable;

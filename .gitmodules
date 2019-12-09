@@ -1,3 +1,21 @@
 [submodule "backend/libpy3"]
 	path = backend/libpy3
 	url = https://github.com/KunoiSayami/libpy3.git
+[submodule "android/android-user-agent"]
+	path = android/android-user-agent
+	url = https://github.com/fluffy-moe/android-user-agent.git
+[submodule "android/WrapContentListView"]
+	path = android/WrapContentListView
+	url = https://github.com/fluffy-moe/WrapContentListView.git
+[submodule "android/codbking-calendar-lib"]
+	path = android/codbking-calendar-lib
+	url = https://github.com/fluffy-moe/CalendarExaple.git
+[submodule "android/zxing-android-embedded"]
+	path = android/zxing-android-embedded
+	url = https://github.com/fluffy-moe/zxing-android-embedded.git
+[submodule "android/pickerview"]
+	path = android/pickerview
+	url = https://github.com/fluffy-moe/pickerview.git
+[submodule "android/wheelview"]
+	path = android/wheelview
+	url = https://github.com/fluffy-moe/wheelview.git
