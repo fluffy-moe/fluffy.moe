@@ -21,10 +21,13 @@ package moe.fluffy.app.types;
 
 import androidx.annotation.Nullable;
 
+import com.codbking.calendar.CalendarBean;
+
 import java.util.Calendar;
 
 public class Datetime extends Date {
 	protected int hour, minute, second, millionSecond;
+	private static Datetime today;
 	Datetime(int _year, int _month, int _day, int _hour, int _minute, int _second, int _millionSecond) {
 		super(_year, _month, _day);
 		hour = _hour;
@@ -42,6 +45,29 @@ public class Datetime extends Date {
 		millionSecond = 0;
 	}
 
+	public static Datetime getToday() {
+		if (today == null) {
+			java.util.Date d = new java.util.Date();
+			Calendar c = Calendar.getInstance();
+			c.setTime(new java.util.Date());
+			today = new Datetime(c);
+			//Log.v(TAG, "Today is " + today.year + "/" + today.month + "/" + today.day);
+		}
+		return today;
+	}
+
+	Datetime(Calendar c) {
+		this(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), c.get(Calendar.SECOND), c.get(Calendar.MILLISECOND));
+	}
+
+	public Datetime(CalendarBean c) {
+		super(c);
+		Datetime d = getToday();
+		hour = d.getHour();
+		minute = d.getMinute();
+		second = d.getSecond();
+		millionSecond = d.getMillionSecond();
+	}
 
 	public int getHour() {
 		return hour;
@@ -57,6 +83,13 @@ public class Datetime extends Date {
 
 	public int getMillionSecond() {
 		return millionSecond;
+	}
+
+	@Override
+	public Calendar getCalendar() {
+		Calendar c = Calendar.getInstance();
+		c.set(year, month, day, hour, minute);
+		return c;
 	}
 
 	@Override

@@ -15,7 +15,7 @@
 		android:orientation="horizontal">
 
 		<Space
-			android:layout_width="64px"
+			android:layout_width="180px"
 			android:layout_height="wrap_content"
 			android:layout_weight="1" />
 

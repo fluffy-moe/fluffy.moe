@@ -35,6 +35,7 @@ import java.util.Calendar;
 import moe.fluffy.app.HomeActivity;
 import moe.fluffy.app.R;
 import moe.fluffy.app.types.Date;
+import moe.fluffy.app.types.Datetime;
 import moe.fluffy.app.types.EventsType;
 import moe.fluffy.app.types.SerializableBundle;
 
@@ -45,12 +46,23 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 	private DateTimeWheelView dateTimeWheelView;
 	private SimpleCallback listener;
 
-	public final static String argTag = "0";
+	public final static String keyName = "0";
 
 	private ImageButton btnColorSelected;
 	private Button categorySelected;
 	private String categorySelectedText;
 	@ColorRes private int colorSelected;
+
+	private Datetime preDaytime;
+
+	public BottomSheetEventFragment() {
+		super();
+	}
+
+	public BottomSheetEventFragment(Datetime d) {
+		super();
+		preDaytime = d;
+	}
 
 
 	@Nullable
@@ -74,17 +86,21 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 		//timePicker.setIs24HourView(true);
 		Bundle bundle = getArguments();
 		if (bundle != null) {
-			SerializableBundle serializableBundle = (SerializableBundle) bundle.getSerializable(argTag);
+			SerializableBundle serializableBundle = (SerializableBundle) bundle.getSerializable(keyName);
 			if (serializableBundle != null){
 				listener = serializableBundle.getListener();
 			}
 			bundle.clear();
 		}
-
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(calendar.getTime());
-		dateTimeWheelView.setPicker(calendar);
-		dateTimeWheelView.setItemsVisible(5);
+		if (preDaytime == null) {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(calendar.getTime());
+			dateTimeWheelView.setPicker(calendar);
+		}
+		else {
+			dateTimeWheelView.setPicker(preDaytime);
+		}
+		dateTimeWheelView.setItemsVisible(3);
 		/*FragmentManager childManager = getChildFragmentManager();
 		FragmentTransaction childTransaction = childManager.beginTransaction();
 		pvTime = new TimePickerFragment();*/
@@ -121,13 +137,16 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 	@NotNull
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		// https://stackoverflow.com/a/46469709
+		setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogTheme);
 		Dialog d = super.onCreateDialog(savedInstanceState);
 		Window w = d.getWindow();
 		if (w != null) {
 			w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-				w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-						WindowManager.LayoutParams.FLAG_FULLSCREEN);
-				w.requestFeature(Window.FEATURE_NO_TITLE);
+			w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+					WindowManager.LayoutParams.FLAG_FULLSCREEN);
+			w.requestFeature(Window.FEATURE_NO_TITLE);
+			//w.setBackgroundDrawableResource(R.drawable.round_background);
 		}
 		d.setOnShowListener(dialog -> {
 			BottomSheetDialog d1 = (BottomSheetDialog) dialog;

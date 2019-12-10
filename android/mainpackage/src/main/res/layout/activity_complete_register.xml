@@ -176,7 +176,8 @@
         android:textColor="#969696"
         android:textSize="44px"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:clickable="true"/>
 
     <!--<ImageView
         android:id="@+id/imageView7"

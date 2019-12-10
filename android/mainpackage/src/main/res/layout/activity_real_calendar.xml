@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<include
+		layout="@layout/sub_sub_activity_calendar_viewer"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageView
+		android:layout_width="168px"
+		android:layout_height="169px"
+		android:layout_marginStart="1161px"
+		android:layout_marginTop="91px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/catphoto" />
+
+	<ImageButton
+		android:id="@+id/imgbtnAddEvent"
+		android:layout_width="96px"
+		android:layout_height="96px"
+		android:background="@drawable/ic_calendar_add"
+		android:layout_marginStart="1269px"
+		android:layout_marginTop="192px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

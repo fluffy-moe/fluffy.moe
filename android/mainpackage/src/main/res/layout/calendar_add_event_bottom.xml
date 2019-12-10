@@ -174,10 +174,10 @@
 		android:id="@+id/txtCalendarDay"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="422px"
+		android:layout_marginStart="402px"
 		android:layout_marginTop="320px"
 		android:fontFamily="@font/segoe_ui_semibold"
-		android:text="@string/text_day"
+		android:text="@string/text_month"
 		android:textColor="#565656"
 		android:textSize="52px"
 		app:layout_constraintStart_toStartOf="parent"
@@ -187,10 +187,10 @@
 		android:id="@+id/txtCalendarMonth"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="594px"
+		android:layout_marginStart="650px"
 		android:layout_marginTop="320px"
 		android:fontFamily="@font/segoe_ui_semibold"
-		android:text="@string/text_month"
+		android:text="@string/text_day"
 		android:textColor="#565656"
 		android:textSize="52px"
 		app:layout_constraintStart_toStartOf="parent"
@@ -353,6 +353,14 @@
 		android:layout_height="1px"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent" />
+
+	<View
+		android:layout_width="1px"
+		android:layout_height="1px"
+		android:layout_marginStart="789px"
+		android:layout_marginTop="1685px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

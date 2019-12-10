@@ -29,6 +29,7 @@ import androidx.annotation.Nullable;
 
 import com.codbking.calendar.CalendarBean;
 import com.codbking.calendar.CalendarUtil;
+import com.codbking.calendar.CalendarView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,6 +77,10 @@ public class Date {
 		year = _year;
 		month = _month;
 		day = _day;
+	}
+
+	public Date(CalendarBean c) {
+		this(c.year, c.moth, c.day);
 	}
 
 	public Date(int[] s) {
@@ -222,6 +227,11 @@ public class Date {
 		}
 	}
 
+	public Calendar getCalendar() {
+		Calendar c = Calendar.getInstance();
+		c.set(year, month, day);
+		return c;
+	}
 
 	@NonNull
 	@Override

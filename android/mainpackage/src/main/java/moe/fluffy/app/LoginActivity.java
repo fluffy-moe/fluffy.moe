@@ -93,31 +93,36 @@ public class LoginActivity extends AppCompatActivity {
 
 	private void login() {
 		try {
-			new Connect(NetworkRequestType.generateLoginParams(etUser.getText(), etPassword.getText()),
-					ConnectPath.login_path,
-					new Callback() {
-						@Override
-						public void onSuccess(Object o)  {
-							HttpRawResponse r = (HttpRawResponse) o;
-							if (r.getStatus() == 200) {
-								Toast.makeText(LoginActivity.this, getString(R.string.fmtLoginStr, getString(R.string.strSuccess)), Toast.LENGTH_SHORT).show();
-								putExtras(true, 0, "");
+			if (!BuildConfig.isDemoMode) {
+				new Connect(NetworkRequestType.generateLoginParams(etUser.getText(), etPassword.getText()),
+						ConnectPath.login_path,
+						new Callback() {
+							@Override
+							public void onSuccess(Object o) {
+								HttpRawResponse r = (HttpRawResponse) o;
+								if (r.getStatus() == 200) {
+									Toast.makeText(LoginActivity.this, getString(R.string.fmtLoginStr, getString(R.string.strSuccess)), Toast.LENGTH_SHORT).show();
+									putExtras(true, 0, "");
+								} else {
+									PopupDialog.build(LoginActivity.this, getString(R.string.fmtLoginStr, getString(R.string.strFailure)), r.getErrorString());
+									putExtras(false, r.getLastError(), r.getErrorString());
+								}
 							}
-							else {
-								PopupDialog.build(LoginActivity.this, getString(R.string.fmtLoginStr, getString(R.string.strFailure)), r.getErrorString());
-								putExtras(false, r.getLastError(), r.getErrorString());
+
+							@Override
+							public void onFailure(Object o, Throwable e) {
+								PopupDialog.build(LoginActivity.this, e);
+								putExtras(false, -1, Utils.exceptionToString(e));
 							}
-						}
 
-						@Override
-						public void onFailure(Object o, Throwable e) {
-							PopupDialog.build(LoginActivity.this, e);
-							putExtras(false, -1, Utils.exceptionToString(e));
-						}
-
-						@Override
-						public void onFinish(Object o, Throwable e) {}
-			}).execute();
+							@Override
+							public void onFinish(Object o, Throwable e) {
+							}
+						}).execute();
+			}
+			else {
+				startActivity(new Intent(this, CalendarActivity.class));
+			}
 		} catch (NoSuchAlgorithmException e){
 			e.printStackTrace();
 		}

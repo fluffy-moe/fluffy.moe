@@ -37,12 +37,18 @@
 				android:textSize="50px" />
 		</LinearLayout>
 
-		<Button
+		<!--<Button
 			android:id="@+id/btnAddEvent"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="Button" />
+			android:text="Button" />-->
+<!--
+		<View
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"/>-->
+
 
 	</LinearLayout>
 

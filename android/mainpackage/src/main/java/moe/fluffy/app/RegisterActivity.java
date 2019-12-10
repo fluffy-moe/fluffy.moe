@@ -22,6 +22,8 @@ package moe.fluffy.app;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -34,7 +36,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.codbking.calendar.CalendarBean;
+import com.codbking.calendar.CalendarUtil;
+
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.assistant.Connect;
@@ -51,6 +57,7 @@ import moe.fluffy.app.types.PetInfo;
 
 public class RegisterActivity extends AppCompatActivity {
 
+	private static final String TAG = "log_RegisterActivity";
 	EditText etName, etEmail, etPassword, etPassword2;
 	ImageButton imgbtnConfirm;
 
@@ -76,6 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		setContentView(R.layout.activity_register);
 		initRegisterPage();
 	}
@@ -176,9 +184,9 @@ public class RegisterActivity extends AppCompatActivity {
 		//etBirthday.setOnFocusChangeListener( (view, hasFocus) ->
 		//		Utils.onFocusChange(hasFocus, RegisterActivity.this, etBirthday, R.string.pets_name, false));
 
-		etBirthday.setOnFocusChangeListener((view, hasFocus) -> {
+		/*etBirthday.setOnFocusChangeListener((view, hasFocus) -> {
 			if (hasFocus) {
-				final View dialogView = View.inflate(RegisterActivity.this, R.layout.datetimepicker_with_button, null);
+				final View dialogView = LayoutInflater.from(this).inflate(R.layout.datetimepicker_with_button, null);
 				final AlertDialog alertDialog = new AlertDialog.Builder(RegisterActivity.this).create();
 
 				dialogView.findViewById(R.id.btnPickConfirm).setOnClickListener(v -> {
@@ -189,6 +197,28 @@ public class RegisterActivity extends AppCompatActivity {
 				alertDialog.setView(dialogView);
 				alertDialog.show();
 			}
+		});*/
+
+		//etBirthday.setEnabled(false);
+		etBirthday.setFocusable(false); // https://stackoverflow.com/a/14091107
+		int[] c = CalendarUtil.getYMD(new Date());
+		etBirthday.setText(String.format("%s/%s/%s", c[0], c[1], c[2]));
+		etBirthday.setOnClickListener(_v -> {
+			final View dialogView = LayoutInflater.from(this).inflate(R.layout.datetimepicker_with_button, null);
+			final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+
+			dialogView.findViewById(R.id.btnPickConfirm).setOnClickListener(v -> {
+				DatePicker datePicker = dialogView.findViewById(R.id.dpEventInsert);
+				etBirthday.setText(String.format("%s/%s/%s", datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth()));
+				alertDialog.dismiss();
+			});
+			alertDialog.setView(dialogView);
+			alertDialog.show();
+			Window w = alertDialog.getWindow();
+			if (w == null)
+				throw new RuntimeException("Window should not null");
+			w.setLayout(770, 700);
+			//w.setBackgroundDrawableResource(R.drawable.round_background);
 		});
 
 		rgGender.setOnCheckedChangeListener((group, checkedId) -> {

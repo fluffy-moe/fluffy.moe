@@ -27,7 +27,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,6 +41,7 @@ import java.util.ArrayList;
 
 import moe.fluffy.app.assistant.BottomSheetEventFragment;
 import moe.fluffy.app.types.Date;
+import moe.fluffy.app.types.Datetime;
 import moe.fluffy.app.types.EventDashboardType;
 import moe.fluffy.app.types.EventsType;
 import moe.fluffy.app.types.SerializableBundle;
@@ -59,7 +59,10 @@ public class CalendarActivity extends AppCompatActivity {
 	TextView txtYear;
 	TextView lastDateSelected = null;
 
-	Button btnAddEvent;
+	//Button btnAddEvent;
+	ImageButton btnAddEvent;
+
+	Datetime selected_date;
 
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
@@ -75,7 +78,7 @@ public class CalendarActivity extends AppCompatActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.activity_calendar_viewer);
+		setContentView(R.layout.activity_real_calendar);
 		find_view();
 		init();
 	}
@@ -85,7 +88,7 @@ public class CalendarActivity extends AppCompatActivity {
 		lvEventDashboard = findViewById(R.id.listEvents);
 		txtMonth = findViewById(R.id.txtCalendarTitle);
 		txtYear = findViewById(R.id.txtYearNumber);
-		btnAddEvent = findViewById(R.id.btnAddEvent);
+		btnAddEvent = findViewById(R.id.imgbtnAddEvent);
 		findNavigationBar();
 	}
 
@@ -123,6 +126,8 @@ public class CalendarActivity extends AppCompatActivity {
 		mCalendarDateView.setAdapter(//Log.d(TAG, "init: color_id => " + color_id);
 				this::getCalendarView);
 
+		selected_date = Datetime.getToday();
+
 		/* Calendar onClick */
 		mCalendarDateView.setOnItemClickListener((view, position, bean) -> {
 			txtMonth.setText(getMonthString(bean.moth));
@@ -132,21 +137,22 @@ public class CalendarActivity extends AppCompatActivity {
 			}
 			lastDateSelected = view.findViewById(R.id.txtDay);
 			lastDateSelected.setTextColor(getColor(R.color.calendarOnSelect));
-			Intent intent = new Intent(this, DayActivity.class);
+
+
+			/*Intent intent = new Intent(this, DayActivity.class);
 			Bundle bundle = new Bundle();
 			bundle.putSerializable(DayActivity.keyName, new SerializableBundle(bean));
 			intent.putExtras(bundle);
-			startActivity(intent);
+			startActivity(intent);*/
+			selected_date = new Datetime(bean);
 		});
-
 
 		txtMonth.setText(getMonthString(Date.getToday().getMonth()));
 		txtYear.setText(String.valueOf(Date.getToday().getYear()));
 
-
 		/* addEventButton onClick */
 		btnAddEvent.setOnClickListener(_v -> {
-			BottomSheetDialogFragment eventFragment = new BottomSheetEventFragment();
+			BottomSheetDialogFragment eventFragment = new BottomSheetEventFragment(selected_date);
 			Bundle bundle = new Bundle();
 			SerializableBundle bundle1 = new SerializableBundle(o -> {
 				EventsType et = (EventsType) o;
@@ -155,7 +161,7 @@ public class CalendarActivity extends AppCompatActivity {
 				mCalendarDateView.setAdapter(this::getCalendarView);
 				mCalendarDateView.updateView();
 			});
-			bundle.putSerializable(BottomSheetEventFragment.argTag, bundle1);
+			bundle.putSerializable(BottomSheetEventFragment.keyName, bundle1);
 			eventFragment.setArguments(bundle);
 			eventFragment.show(getSupportFragmentManager(), eventFragment.getTag());
 		});
