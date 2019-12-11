@@ -7,10 +7,10 @@
 	tools:context=".HomeActivity">
 
 	<Button
-		android:id="@+id/btnChangeToSearch"
+		android:id="@+id/btnChangeToCamera"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="search" />
+		android:text="camera" />
 
 	<Button
 		android:id="@+id/btnChangeToCarouseDemo"

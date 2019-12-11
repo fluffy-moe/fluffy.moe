@@ -66,26 +66,26 @@ public class HomeActivity extends AppCompatActivity {
 		VaccinationType.initColumn(this);
 		DeinsectizaionType.initColumnName(this);
 		FoodViewType.initColumn(this);
-		HomeActivity.dbHelper = new DatabaseHelper(this);
+		dbHelper = new DatabaseHelper(this);
 
-		findViewById(R.id.btnChangeToSearch).setOnClickListener(
-				v -> startActivity(new Intent(HomeActivity.this, SearchActivity.class)));
+		findViewById(R.id.btnChangeToCamera).setOnClickListener(
+				v -> startActivity(new Intent(this, CameraActivity.class)));
 		findViewById(R.id.btnChangeToCarouseDemo).setOnClickListener(
-				v -> startActivity(new Intent(HomeActivity.this, ArticleActivity.class)));
+				v -> startActivity(new Intent(this, ArticleActivity.class)));
 		findViewById(R.id.btnChangeToScan).setOnClickListener(
-				v -> startActivity(new Intent(HomeActivity.this, BootstrapScannerActivity.class)));
+				v -> startActivity(new Intent(this, BootstrapScannerActivity.class)));
 		findViewById(R.id.btnChangeToLoginPage).setOnClickListener(
-				v -> startActivity(new Intent(HomeActivity.this, LoginActivity.class)));
+				v -> startActivity(new Intent(this, LoginActivity.class)));
 		findViewById(R.id.btnChangeToWelcome).setOnClickListener(
-				v -> startActivity(new Intent(HomeActivity.this, WelcomeActivity.class)));
+				v -> startActivity(new Intent(this, WelcomeActivity.class)));
 		findViewById(R.id.btnDymanic).setOnClickListener(
-				v -> startActivity(new Intent(HomeActivity.this, CalendarActivity.class)));
+				v -> startActivity(new Intent(this, CalendarActivity.class)));
 		findViewById(R.id.btnChangeToMedical).setOnClickListener(
-				v -> startActivity(new Intent(HomeActivity.this, MedicalActivity.class)));
+				v -> startActivity(new Intent(this, MedicalActivity.class)));
 		findViewById(R.id.btnShowFoodHistory).setOnClickListener(
-				v -> startActivity(new Intent(HomeActivity.this, FoodHistoryActivity.class)));
+				v -> startActivity(new Intent(this, FoodHistoryActivity.class)));
 		findViewById(R.id.btnChangeToProfile).setOnClickListener(
-				v -> startActivity(new Intent(HomeActivity.this, ProfileActivity.class)));
+				v -> startActivity(new Intent(this, ProfileActivity.class)));
 		initFirebase();
 	}
 
@@ -95,7 +95,7 @@ public class HomeActivity extends AppCompatActivity {
 				.addOnCompleteListener(task -> {
 					if (!task.isSuccessful()) {
 						Log.w(TAG, "getInstanceId failed", task.getException());
-						PopupDialog.build(HomeActivity.this, Objects.requireNonNull(task.getException()));
+						PopupDialog.build(this, Objects.requireNonNull(task.getException()));
 						return;
 					}
 
@@ -109,15 +109,15 @@ public class HomeActivity extends AppCompatActivity {
 						//Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 					}
 					catch (NullPointerException e) {
-						PopupDialog.build(HomeActivity.this, null, "Token is null");
+						PopupDialog.build(this, null, "Token is null");
 					}
 				});
 	}
 
 	@Override
 	protected void onDestroy() {
-		if (HomeActivity.dbHelper != null)
-			HomeActivity.dbHelper.close();
+		if (dbHelper != null)
+			dbHelper.close();
 		super.onDestroy();
 	}
 }

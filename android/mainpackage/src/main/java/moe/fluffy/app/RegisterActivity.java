@@ -142,9 +142,7 @@ public class RegisterActivity extends AppCompatActivity {
 							}
 
 							@Override
-							public void onFinish(Object o, Throwable e) {
-
-							}
+							public void onFinish(Object o, Throwable e) {}
 				}).execute();
 			} catch (NoSuchAlgorithmException e) {
 				PopupDialog.build(RegisterActivity.this, e);

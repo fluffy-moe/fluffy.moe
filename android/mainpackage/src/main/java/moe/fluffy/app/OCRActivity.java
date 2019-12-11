@@ -98,8 +98,7 @@ public class OCRActivity extends AppCompatActivity {
 		File tempDir= Environment.getExternalStorageDirectory();
 		tempDir = new File(tempDir.getAbsolutePath()+"/.temp/");
 		Log.d(TAG, "createTemporaryFile: tmp => "+ tempDir.getAbsolutePath());
-		if(!tempDir.exists())
-		{
+		if(!tempDir.exists()) {
 			tempDir.mkdirs();
 		}
 		return File.createTempFile(part, ext, tempDir);
