@@ -52,8 +52,8 @@ import moe.fluffy.app.types.DeinsectizaionType;
 import moe.fluffy.app.types.HttpRawResponse;
 import moe.fluffy.app.types.NetworkRequestType;
 import moe.fluffy.app.types.VaccinationType;
-import moe.fluffy.app.types.adapter.DeinsectizaionAdapter;
-import moe.fluffy.app.types.adapter.VaccinationAdapter;
+import moe.fluffy.app.adapter.DeinsectizaionAdapter;
+import moe.fluffy.app.adapter.VaccinationAdapter;
 
 public class MedicalActivity extends AppCompatActivity {
 

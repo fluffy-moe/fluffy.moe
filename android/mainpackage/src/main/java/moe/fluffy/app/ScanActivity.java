@@ -47,7 +47,8 @@ public class ScanActivity extends Activity{
 
 	TextView txtTitle, txtHint;
 
-	ImageButton imgbtnBack, imgbtnChooseFromGallery, imgbtnShowRecord;
+	ImageButton imgbtnBack, imgbtnChooseFromGallery, imgbtnShowRecord, imgbtn;
+	private ImageButton imgbtnOCR;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,13 +77,19 @@ public class ScanActivity extends Activity{
 		imgbtnBack = findViewById(R.id.imgbtnScannerBack);
 		imgbtnChooseFromGallery = findViewById(R.id.imgbtnScannerDevice);
 		imgbtnShowRecord = findViewById(R.id.imgbtnScannerRecord);
+		imgbtnOCR = findViewById(R.id.imgbtnScannerTranslate);
 
 		// https://stackoverflow.com/a/55938561
 		txtTitle.setTypeface(ResourcesCompat.getFont(this, R.font.segoe_ui_bold));
 		txtHint.setTypeface(ResourcesCompat.getFont(this, R.font.segoe_ui_bold));
+		imgbtnOCR.setOnClickListener(v -> {
+			LocalBroadcastManager.getInstance(this).sendBroadcast(
+				new Intent(BootstrapScannerActivity.REQUEST_OCR_ACTIVITY));
+			finish();
+		});
 		imgbtnBack.setOnClickListener(v -> finish());
 		imgbtnChooseFromGallery.setOnClickListener(v -> {
-			LocalBroadcastManager.getInstance(ScanActivity.this).sendBroadcast(
+			LocalBroadcastManager.getInstance(this).sendBroadcast(
 					new Intent(getString(R.string.IntentFilter_request_choose_from_gallery)));
 			finish();
 		});

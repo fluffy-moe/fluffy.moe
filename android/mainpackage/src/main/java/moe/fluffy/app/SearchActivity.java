@@ -44,7 +44,7 @@ import java.util.HashMap;
 
 import moe.fluffy.app.assistant.JSONParser;
 import moe.fluffy.app.types.AddressInfoType;
-import moe.fluffy.app.types.adapter.AddressAdapter;
+import moe.fluffy.app.adapter.AddressAdapter;
 
 public class SearchActivity extends AppCompatActivity {
 

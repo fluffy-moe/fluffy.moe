@@ -17,9 +17,8 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app.types.adapter;
+package moe.fluffy.app.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,49 +29,43 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.jetbrains.annotations.NotNull;
+import org.mazhuang.wrapcontentlistview.WrapContentListView;
 
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.types.EventsType;
+import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.types.BloodTestDashboardType;
 
-@SuppressLint("DefaultLocale")
-public class EventAdapter extends ArrayAdapter<EventsType> {
-
-	public EventAdapter(Context context, ArrayList<EventsType> adapters) {
-		super(context, android.R.layout.simple_list_item_1, adapters);
+public class BloodTestDashboardAdapter extends ArrayAdapter<BloodTestDashboardType> {
+	BloodTestDashboardAdapter(Context context, ArrayList<BloodTestDashboardType> items) {
+		super(context, android.R.layout.simple_list_item_1, items);
 	}
 
 	@NonNull
 	@Override
 	public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-		EventsType it = getItem(position);
+		BloodTestDashboardType it = getItem(position);
 
-		TextView txtDay, txtWeek, txtTime, txtEvent;
-		View viewSideColor;
+		TextView txtDate, txtBloodTestName;
+		WrapContentListView lvTestItems;
 
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_items, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.bloodtest_layout, parent, false);
 		}
 
-		txtDay = convertView.findViewById(R.id.txtDateEventItems);
-		txtWeek = convertView.findViewById(R.id.txtWeekEventItems);
-
-		txtTime = convertView.findViewById(R.id.txtTimeEventItems);
-		txtEvent = convertView.findViewById(R.id.txtEventItems);
-
-		viewSideColor = convertView.findViewById(R.id.viewTodayLineColor2);
+		txtDate = convertView.findViewById(R.id.txtBloodTestDate);
+		txtBloodTestName = convertView.findViewById(R.id.txtBloodTestName);
+		lvTestItems = convertView.findViewById(R.id.lvTestItems);
 
 		if (it != null) {
-			viewSideColor.setBackgroundColor(getContext().getColor(
-					getContext().getResources().getIdentifier(getContext().getString(R.string.fmt_event_color,
-							it.getColor()), "color", getContext().getPackageName())));
-
-			txtDay.setText(String.valueOf(it.getDay()));
-			txtWeek.setText(it.getDayOfWeek());
-			txtEvent.setText(it.getBody());
-			txtTime.setText(String.format("%02d:%02d", it.getHour(), it.getMinute()));
+			txtDate.setText(getContext().getString(R.string.fmt_date, it.getYear(), it.getMonth(), it.getDay()));
+			txtBloodTestName.setText(it.getBloodTestName());
+			lvTestItems.setAdapter(new BloodTestSubAdapter(getContext(), it.getTestItems()));
+		} else {
+			NullPointerException e = new NullPointerException("BloodTestDashboard getItem() return null");
+			PopupDialog.build(getContext(), e);
+			throw e;
 		}
 
 		return convertView;

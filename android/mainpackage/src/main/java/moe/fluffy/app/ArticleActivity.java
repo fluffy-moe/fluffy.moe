@@ -46,7 +46,7 @@ import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.ArticleType;
 import moe.fluffy.app.types.ArticlesMap;
-import moe.fluffy.app.types.adapter.ImageAdapter;
+import moe.fluffy.app.adapter.ImageAdapter;
 
 public class ArticleActivity extends AppCompatActivity {
 

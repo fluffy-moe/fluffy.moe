@@ -45,7 +45,7 @@ import moe.fluffy.app.types.Datetime;
 import moe.fluffy.app.types.EventDashboardType;
 import moe.fluffy.app.types.EventsType;
 import moe.fluffy.app.types.SerializableBundle;
-import moe.fluffy.app.types.adapter.EventDashboardAdapter;
+import moe.fluffy.app.adapter.EventDashboardAdapter;
 
 import static moe.fluffy.app.assistant.Utils.px;
 
@@ -79,11 +79,11 @@ public class CalendarActivity extends AppCompatActivity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_real_calendar);
-		find_view();
+		findView();
 		init();
 	}
 
-	void find_view() {
+	void findView() {
 		mCalendarDateView = findViewById(R.id.calendarDateView);
 		lvEventDashboard = findViewById(R.id.listEvents);
 		txtMonth = findViewById(R.id.txtCalendarTitle);

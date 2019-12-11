@@ -17,8 +17,9 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app.types.adapter;
+package moe.fluffy.app.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,38 +33,44 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.assistant.PopupDialog;
-import moe.fluffy.app.types.BloodTestSubType;
+import moe.fluffy.app.types.EventsType;
 
-public class BloodTestSubAdapter extends ArrayAdapter<BloodTestSubType> {
-	BloodTestSubAdapter(Context context, ArrayList<BloodTestSubType> l) {
-		super(context, android.R.layout.simple_list_item_1, l);
+@SuppressLint("DefaultLocale")
+public class EventAdapter extends ArrayAdapter<EventsType> {
+
+	public EventAdapter(Context context, ArrayList<EventsType> adapters) {
+		super(context, android.R.layout.simple_list_item_1, adapters);
 	}
 
 	@NonNull
 	@Override
 	public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-		BloodTestSubType it = getItem(position);
+		EventsType it = getItem(position);
 
-		TextView txtItemName, txtItemValue;
-		View vReferenceView;
-
+		TextView txtDay, txtWeek, txtTime, txtEvent;
+		View viewSideColor;
 
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_today, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_items, parent, false);
 		}
 
-		txtItemName = convertView.findViewById(R.id.txtBloodItemName);
-		txtItemValue = convertView.findViewById(R.id.txtBloodItemValue);
-		vReferenceView = convertView.findViewById(R.id.viewReference);
+		txtDay = convertView.findViewById(R.id.txtDateEventItems);
+		txtWeek = convertView.findViewById(R.id.txtWeekEventItems);
+
+		txtTime = convertView.findViewById(R.id.txtTimeEventItems);
+		txtEvent = convertView.findViewById(R.id.txtEventItems);
+
+		viewSideColor = convertView.findViewById(R.id.viewTodayLineColor2);
 
 		if (it != null) {
-			txtItemName.setText(it.getExamineItem());
-			txtItemValue.setText(String.valueOf(it.getResult()));
-		} else {
-			NullPointerException e = new NullPointerException("Vaccination type return null");
-			PopupDialog.build(getContext(), e);
-			throw e;
+			viewSideColor.setBackgroundColor(getContext().getColor(
+					getContext().getResources().getIdentifier(getContext().getString(R.string.fmt_event_color,
+							it.getColor()), "color", getContext().getPackageName())));
+
+			txtDay.setText(String.valueOf(it.getDay()));
+			txtWeek.setText(it.getDayOfWeek());
+			txtEvent.setText(it.getBody());
+			txtTime.setText(String.format("%02d:%02d", it.getHour(), it.getMinute()));
 		}
 
 		return convertView;

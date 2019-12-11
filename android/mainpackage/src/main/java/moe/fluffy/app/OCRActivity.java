@@ -67,7 +67,7 @@ public class OCRActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_detect);
 
 		vWindow = findViewById(R.id.imgScannerPhoto);
-		getLayoutInflater().inflate(R.layout.wait_layout, null);
+		/*getLayoutInflater().inflate(R.layout.wait_layout, null);
 
 		File photo;
 		try	{
@@ -90,12 +90,12 @@ public class OCRActivity extends AppCompatActivity {
 		final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		mImageUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", photo);
 		takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
-		startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+		startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);*/
 	}
 
 	private File createTemporaryFile(String part, String ext) throws Exception
 	{
-		File tempDir= Environment.getExternalStorageDirectory();
+		File tempDir = Environment.getExternalStorageDirectory();
 		tempDir = new File(tempDir.getAbsolutePath()+"/.temp/");
 		Log.d(TAG, "createTemporaryFile: tmp => "+ tempDir.getAbsolutePath());
 		if(!tempDir.exists()) {

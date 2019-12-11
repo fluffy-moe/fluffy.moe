@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.types.FoodViewType;
-import moe.fluffy.app.types.adapter.FoodAdapter;
+import moe.fluffy.app.adapter.FoodAdapter;
 
 public class FoodHistoryActivity extends AppCompatActivity {
 

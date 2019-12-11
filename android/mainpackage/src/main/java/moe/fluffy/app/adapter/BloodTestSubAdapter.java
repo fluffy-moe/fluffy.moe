@@ -17,7 +17,7 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app.types.adapter;
+package moe.fluffy.app.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -29,41 +29,39 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.mazhuang.wrapcontentlistview.WrapContentListView;
-
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.PopupDialog;
-import moe.fluffy.app.types.BloodTestDashboardType;
+import moe.fluffy.app.types.BloodTestSubType;
 
-public class BloodTestDashboardAdapter extends ArrayAdapter<BloodTestDashboardType> {
-	BloodTestDashboardAdapter(Context context, ArrayList<BloodTestDashboardType> items) {
-		super(context, android.R.layout.simple_list_item_1, items);
+public class BloodTestSubAdapter extends ArrayAdapter<BloodTestSubType> {
+	BloodTestSubAdapter(Context context, ArrayList<BloodTestSubType> l) {
+		super(context, android.R.layout.simple_list_item_1, l);
 	}
 
 	@NonNull
 	@Override
 	public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-		BloodTestDashboardType it = getItem(position);
+		BloodTestSubType it = getItem(position);
 
-		TextView txtDate, txtBloodTestName;
-		WrapContentListView lvTestItems;
+		TextView txtItemName, txtItemValue;
+		View vReferenceView;
+
 
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.bloodtest_layout, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_today, parent, false);
 		}
 
-		txtDate = convertView.findViewById(R.id.txtBloodTestDate);
-		txtBloodTestName = convertView.findViewById(R.id.txtBloodTestName);
-		lvTestItems = convertView.findViewById(R.id.lvTestItems);
+		txtItemName = convertView.findViewById(R.id.txtBloodItemName);
+		txtItemValue = convertView.findViewById(R.id.txtBloodItemValue);
+		vReferenceView = convertView.findViewById(R.id.viewReference);
 
 		if (it != null) {
-			txtDate.setText(getContext().getString(R.string.fmt_date, it.getYear(), it.getMonth(), it.getDay()));
-			txtBloodTestName.setText(it.getBloodTestName());
-			lvTestItems.setAdapter(new BloodTestSubAdapter(getContext(), it.getTestItems()));
+			txtItemName.setText(it.getExamineItem());
+			txtItemValue.setText(String.valueOf(it.getResult()));
 		} else {
-			NullPointerException e = new NullPointerException("BloodTestDashboard getItem() return null");
+			NullPointerException e = new NullPointerException("Vaccination type return null");
 			PopupDialog.build(getContext(), e);
 			throw e;
 		}

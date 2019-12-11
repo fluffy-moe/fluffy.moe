@@ -30,15 +30,18 @@ import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
 import android.view.TextureView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -55,14 +58,13 @@ import java.util.List;
 
 public class CameraActivity extends AppCompatActivity {
 	private static final String TAG = "log_AndroidCameraApi";
-	private static final int REQUEST_CROP_IMAGE = 1006;
 	private ImageButton takePictureButton;
 	private TextureView textureView;
 	private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
 
 	static {
-		ORIENTATIONS.append(Surface.ROTATION_0, 90);
-		ORIENTATIONS.append(Surface.ROTATION_90, 0);
+		ORIENTATIONS.append(Surface.ROTATION_0, 0);
+		ORIENTATIONS.append(Surface.ROTATION_90, 90);
 		ORIENTATIONS.append(Surface.ROTATION_180, 270);
 		ORIENTATIONS.append(Surface.ROTATION_270, 180);
 	}
@@ -76,9 +78,9 @@ public class CameraActivity extends AppCompatActivity {
 	private ImageReader imageReader;
 	private File file;
 	private static final int REQUEST_CAMERA_PERMISSION = 200;
-	private boolean mFlashSupported;
 	private Handler mBackgroundHandler;
 	private HandlerThread mBackgroundThread;
+	private ImageButton imgbtnChooseFromGallery, imgbtnShowRecord;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,20 @@ public class CameraActivity extends AppCompatActivity {
 		textureView.setSurfaceTextureListener(textureListener);
 		takePictureButton = findViewById(R.id.imgbtnScannerTranslate);
 		takePictureButton.setOnClickListener(v -> takePicture());
+
+		imgbtnChooseFromGallery = findViewById(R.id.imgbtnScannerDevice);
+		imgbtnShowRecord = findViewById(R.id.imgbtnScannerRecord);
+
+		imgbtnChooseFromGallery.setOnClickListener(v -> {
+			LocalBroadcastManager.getInstance(this).sendBroadcast(
+					new Intent(getString(R.string.IntentFilter_request_choose_from_gallery)));
+			finish();
+		});
+
+		imgbtnShowRecord.setOnClickListener(v -> {
+			getIntent().putExtra(getString(R.string.extraAction), "record");
+			finish();
+		});
 	}
 
 	TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
@@ -164,24 +180,6 @@ public class CameraActivity extends AppCompatActivity {
 		}
 	}
 
-	private void callCropPhoto(File _file) {
-		Log.d(TAG, "callCropPhoto: called");
-		Uri uri = Uri.fromFile(_file);
-		Intent intent = new Intent("com.android.camera.action.CROP");
-		intent.setDataAndType(uri, "image/*");
-		intent.putExtra("aspectX", 1);
-		intent.putExtra("aspectY", 1);
-		intent.putExtra("outputX", 117);
-		intent.putExtra("outputY", 287);
-		intent.putExtra("scale", true);
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-		intent.putExtra("return-data", false);
-		intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-		intent.putExtra("noFaceDetection", true);
-		intent = Intent.createChooser(intent, "Crop photo");
-		startActivityForResult(intent, REQUEST_CROP_IMAGE);
-	}
-
 	protected void takePicture() {
 		if (null == cameraDevice) {
 			Log.e(TAG, "cameraDevice is null");
@@ -193,8 +191,8 @@ public class CameraActivity extends AppCompatActivity {
 			CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraDevice.getId());
 			Size[] jpegSizes;
 			jpegSizes = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP).getOutputSizes(ImageFormat.JPEG);
-			int width = 640;
-			int height = 480;
+			int width = 970;
+			int height = 970;
 			if (jpegSizes != null && 0 < jpegSizes.length) {
 				width = jpegSizes[0].getWidth();
 				height = jpegSizes[0].getHeight();
@@ -210,7 +208,7 @@ public class CameraActivity extends AppCompatActivity {
 			// Orientation
 			int rotation = getWindowManager().getDefaultDisplay().getRotation();
 			captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
-			file = new File(Environment.getExternalStorageDirectory() + ".temp/pic.jpg");
+			file = new File(Environment.getExternalStorageDirectory() + "/.temp/pic.jpg");
 			ImageReader.OnImageAvailableListener readerListener = reader1 -> {
 				try (Image image = reader1.acquireLatestImage()) {
 					ByteBuffer buffer = image.getPlanes()[0].getBuffer();
@@ -239,6 +237,8 @@ public class CameraActivity extends AppCompatActivity {
 				public void onConfigured(@NotNull CameraCaptureSession session) {
 					try {
 						session.capture(captureBuilder.build(), captureListener, mBackgroundHandler);
+						getIntent().putExtra(BootstrapScannerActivity.IMAGE_FILE_LOCATE, Environment.getExternalStorageState() + ".temp/pic.jpg");
+						finish();
 					} catch (CameraAccessException e) {
 						e.printStackTrace();
 					}
@@ -302,7 +302,7 @@ public class CameraActivity extends AppCompatActivity {
 		} catch (CameraAccessException e) {
 			e.printStackTrace();
 		}
-		Log.e(TAG, "openCamera X");
+		Log.v(TAG, "openCamera X");
 	}
 
 	protected void updatePreview() {
@@ -366,13 +366,4 @@ public class CameraActivity extends AppCompatActivity {
 		super.onDestroy();
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-		if (requestCode == REQUEST_CROP_IMAGE) {
-			if (resultCode == RESULT_OK) {
-			}
-		} else {
-			super.onActivityResult(requestCode, resultCode, data);
-		}
-	}
 }
