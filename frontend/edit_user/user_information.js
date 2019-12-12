@@ -261,6 +261,20 @@ function init_onclick() {
 		update_kid_info(pet_data_store[dropdown_pet_select.value].kidney_test[select_kid_history.value]);
 	});
 
+	$('btn_add_vac_info').click(() => {
+		if (table_vaccination_record.style.display === 'None') {
+			toggle_vac_info(true);
+		}
+		if (select_vac_history.innerHTML.search('<option>new</option>') === -1) {
+			select_vac_history.innerHTML += '<option>new</option>';
+		}
+		d = new Date();
+		txt_info_vacdate.value = d.getYear() + '/' + d.getMonth() + '/' + d.getDay();
+		txt_info_vacproduct.value = '';
+		txt_info_vacsite.value = '';
+		txt_info_vacdoctor.value = '';
+	});
+
 	$('btn_update_vac_info').click(() => {
 		do_POST('update_vac', {
 			id: rev_vac_id.value,

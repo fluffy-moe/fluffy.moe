@@ -237,7 +237,8 @@
 								</tr>
 							</table>
 						</p>
-						<p><button id="btn_update_vac_info">Update</button></p>
+						<p><button id="btn_update_vac_info">Update</button>
+						<button id="btn_add_vac_info">Add new</button></p>
 
 						<!--<a href="#" class="sim-btn hvr-bounce-to-top"><span>Contact Us</span></a>-->
 					</div><!-- end messagebox -->
