@@ -19,6 +19,7 @@
  */
 package moe.fluffy.app;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -27,6 +28,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -35,10 +37,12 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import moe.fluffy.app.assistant.Callback;
@@ -51,6 +55,9 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 	private static final String TAG = "log_BootstrapScannerActivity";
 	public static final String REQUEST_OCR_ACTIVITY = "sHZEvhS0epBdx";
 	public static final String IMAGE_FILE_LOCATE = "N10AOMUSrdv";
+
+	public static final String BARCODE_FIELD = "barcode";
+	public static final String PRODUCT_NAME = "name"; // a.k.a. ocr result
 
 	private static final int SELECT_FROM_GALLERY = 0x0002;
 	private static final int GO_OCR_DETECT = 0x0003;
@@ -108,8 +115,10 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 
 	private void callCropPhoto(File _file) {
 		Log.d(TAG, "callCropPhoto: called");
-		Uri uri = Uri.fromFile(_file);
-		Intent intent = new Intent("com.android.camera.action.CROP");
+		CropImage.activity(Uri.fromFile(_file))
+				.setCropMenuCropButtonTitle("done")
+				.start(this);
+		/*Intent intent = new Intent("com.android.camera.action.CROP");
 		intent.setDataAndType(uri, "image/*");
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
@@ -121,7 +130,7 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 		intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
 		intent.putExtra("noFaceDetection", true);
 		intent = Intent.createChooser(intent, "Crop photo");
-		startActivityForResult(intent, REQUEST_CROP_IMAGE);
+		startActivityForResult(intent, REQUEST_CROP_IMAGE);*/
 	}
 
 	@Override
@@ -132,8 +141,7 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.d(TAG, "onActivityResult: request_code =>" + requestCode);
-
+		Log.d(TAG, "onActivityResult: request_code =>" + requestCode + " resultCode => " + resultCode);
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 				case SELECT_FROM_GALLERY:
@@ -150,7 +158,7 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 						Log.e(TAG, "onActivityResult: Error while read image", e);
 						PopupDialog.build(this, e);
 					}
-					break;
+					return;
 				case GO_OCR_DETECT:
 					Log.d(TAG, "onActivityResult: start history activity");
 					Intent foodViewIntent = new Intent(this, FoodHistoryActivity.class);
@@ -159,24 +167,27 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 						foodViewIntent.putExtra(getString(R.string.extraOcrResult), data.getStringExtra(getString(R.string.extraOcrResult)));
 					}
 					startActivity(foodViewIntent);
-					break;
+					return;
 				case OCR_ACTIVITY:
 					Log.v(TAG, "onActivityResult: got result");
-					if (data != null) {
-						String path = data.getStringExtra(IMAGE_FILE_LOCATE);
-						if (path != null) {
-							callCropPhoto(new File(path));
+					callCropPhoto(new File(CameraActivity.getSaveLocation()));
+					return;
+				case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+					Log.v(TAG, "onActivityResult: Called crop image");
+					Bitmap bmp;
+					CropImage.ActivityResult cropResult = CropImage.getActivityResult(data);
+					Uri resultUri = cropResult.getUri();
+					try {
+						if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+							ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), resultUri);
+							bmp = ImageDecoder.decodeBitmap(source);
+						} else {
+							bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
 						}
-					}
-					break;
-				case REQUEST_CROP_IMAGE:
-					Bundle extras = data.getExtras();
-					if (extras != null) {
-						Bitmap bmp = extras.getParcelable("data");
 						new FirebaseOCR(bmp).setCallBack(new Callback() {
 							@Override
 							public void onSuccess(Object o) {
-								FirebaseOCR f = (FirebaseOCR)o;
+								FirebaseOCR f = (FirebaseOCR) o;
 								String s = f.getLastResult();
 								Toast.makeText(BootstrapScannerActivity.this, s, Toast.LENGTH_LONG).show();
 							}
@@ -191,12 +202,18 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 
 							}
 						}).run();
+					} catch (FileNotFoundException ignore) {
+
+					} catch (IOException e) {
+						e.printStackTrace();
+						PopupDialog.build(this, e);
 					}
+					return;
+				case IntentIntegrator.REQUEST_CODE:
 					break;
 				default:
 					super.onActivityResult(requestCode, resultCode, data);
 			}
-			return ;
 		} else {
 			if (requestCode == SELECT_FROM_GALLERY) {
 				callScannerActivity();
@@ -211,7 +228,7 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 				//Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
 				checkBarcodeInDatabase(result.getContents());
 			}
-			finish();
+			//finish();
 			return;
 		}
 		//finish();
@@ -222,9 +239,10 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 	private void checkBarcodeInDatabase(String barcode) {
 		// TODO: check database here (Cloud database)
 		Toast.makeText(this, "Barcode not in database, please scan the food name manually", Toast.LENGTH_SHORT).show();
-		Intent historyIntent = new Intent(this, OCRActivity.class);
+		Intent historyIntent = new Intent(this, CameraActivity.class);
 		historyIntent.putExtra("barcode", barcode);
-		startActivityForResult(historyIntent, GO_OCR_DETECT);
+		startActivityForResult(historyIntent, OCR_ACTIVITY);
+		Log.v(TAG, "checkBarcodeInDatabase: Started ocr activity");
 	}
 
 	@Override

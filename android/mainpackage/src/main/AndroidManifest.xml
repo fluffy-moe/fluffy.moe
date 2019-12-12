@@ -16,7 +16,11 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 		tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-		<activity android:name=".CameraActivity"></activity>
+		<activity android:name=".TestCameraActivity"></activity>
+		<activity
+			android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+			android:theme="@style/Base.Theme.AppCompat" />
+		<activity android:name=".CameraActivity" />
 		<activity android:name=".DayActivity" />
 		<activity android:name=".ProfileActivity" />
 		<activity android:name=".OCRActivity" />

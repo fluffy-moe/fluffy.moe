@@ -19,6 +19,7 @@
  */
 package moe.fluffy.app;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,6 +45,7 @@ import moe.fluffy.app.types.PetInfo;
 import moe.fluffy.app.types.VaccinationType;
 
 public class HomeActivity extends AppCompatActivity {
+	@SuppressLint("StaticFieldLeak")
 	public static DatabaseHelper dbHelper;
 	private static String TAG = "log_HomeActivity";
 
@@ -86,6 +88,8 @@ public class HomeActivity extends AppCompatActivity {
 				v -> startActivity(new Intent(this, FoodHistoryActivity.class)));
 		findViewById(R.id.btnChangeToProfile).setOnClickListener(
 				v -> startActivity(new Intent(this, ProfileActivity.class)));
+		findViewById(R.id.btnChangeToTest).setOnClickListener(
+				v -> startActivity(new Intent(this, TestCameraActivity.class)));
 		initFirebase();
 	}
 

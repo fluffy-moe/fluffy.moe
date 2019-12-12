@@ -2,12 +2,8 @@ package moe.fluffy.app;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -18,21 +14,13 @@ import android.widget.TextView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.google.zxing.client.android.Intents;
 import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.journeyapps.barcodescanner.ViewfinderView;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Random;
-
-import moe.fluffy.app.assistant.PopupDialog;
-import moe.fluffy.app.assistant.Utils;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 /**
  * Custom Scanner Activity extending from Activity to display a custom layout form scanner view.

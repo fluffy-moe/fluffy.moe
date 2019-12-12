@@ -60,4 +60,10 @@
 		android:layout_height="wrap_content"
 		android:text="profile" />
 
+	<Button
+		android:id="@+id/btnChangeToTest"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="Test" />
+
 </LinearLayout>

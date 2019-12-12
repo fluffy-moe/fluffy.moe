@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -18,27 +17,21 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.provider.MediaStore;
-import android.telecom.Call;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
 import android.view.TextureView;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -46,13 +39,11 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -82,6 +73,10 @@ public class CameraActivity extends AppCompatActivity {
 	private HandlerThread mBackgroundThread;
 	private ImageButton imgbtnChooseFromGallery, imgbtnShowRecord;
 
+	public static String getSaveLocation() {
+		return Environment.getExternalStorageDirectory().getPath() + "/.temp/pic.jpg";
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -92,7 +87,13 @@ public class CameraActivity extends AppCompatActivity {
 		textureView = findViewById(R.id.imgScannerPhoto);
 		textureView.setSurfaceTextureListener(textureListener);
 		takePictureButton = findViewById(R.id.imgbtnScannerTranslate);
-		takePictureButton.setOnClickListener(v -> takePicture());
+		takePictureButton.setOnClickListener(v -> {
+			Log.v(TAG, "onCreate: Click capture, Finish job");
+			takePicture();
+			//getIntent().putExtra(BootstrapScannerActivity.IMAGE_FILE_LOCATE, getSaveLocation());
+			setResult(RESULT_OK); // MUST SET OK OR WILL RETURN NOT OK
+			finish();
+		});
 
 		imgbtnChooseFromGallery = findViewById(R.id.imgbtnScannerDevice);
 		imgbtnShowRecord = findViewById(R.id.imgbtnScannerRecord);
@@ -100,13 +101,16 @@ public class CameraActivity extends AppCompatActivity {
 		imgbtnChooseFromGallery.setOnClickListener(v -> {
 			LocalBroadcastManager.getInstance(this).sendBroadcast(
 					new Intent(getString(R.string.IntentFilter_request_choose_from_gallery)));
+			setResult(RESULT_OK);
 			finish();
 		});
 
 		imgbtnShowRecord.setOnClickListener(v -> {
 			getIntent().putExtra(getString(R.string.extraAction), "record");
+			setResult(RESULT_OK);
 			finish();
 		});
+		Log.v(TAG, "onCreate: saved location => " + getSaveLocation());
 	}
 
 	TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
@@ -147,8 +151,10 @@ public class CameraActivity extends AppCompatActivity {
 
 		@Override
 		public void onError(@NotNull CameraDevice camera, int error) {
-			cameraDevice.close();
-			cameraDevice = null;
+			if (cameraDevice != null) {
+				cameraDevice.close();
+				cameraDevice = null;
+			}
 		}
 	};
 
@@ -208,7 +214,7 @@ public class CameraActivity extends AppCompatActivity {
 			// Orientation
 			int rotation = getWindowManager().getDefaultDisplay().getRotation();
 			captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
-			file = new File(Environment.getExternalStorageDirectory() + "/.temp/pic.jpg");
+			file = new File(getSaveLocation());
 			ImageReader.OnImageAvailableListener readerListener = reader1 -> {
 				try (Image image = reader1.acquireLatestImage()) {
 					ByteBuffer buffer = image.getPlanes()[0].getBuffer();
@@ -237,8 +243,6 @@ public class CameraActivity extends AppCompatActivity {
 				public void onConfigured(@NotNull CameraCaptureSession session) {
 					try {
 						session.capture(captureBuilder.build(), captureListener, mBackgroundHandler);
-						getIntent().putExtra(BootstrapScannerActivity.IMAGE_FILE_LOCATE, Environment.getExternalStorageState() + ".temp/pic.jpg");
-						finish();
 					} catch (CameraAccessException e) {
 						e.printStackTrace();
 					}

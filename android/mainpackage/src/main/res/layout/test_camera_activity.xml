@@ -19,20 +19,6 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
-	<TextView
-		android:id="@+id/txtScannerContent"
-		android:layout_width="756px"
-		android:layout_height="156px"
-		android:layout_marginStart="342px"
-		android:layout_marginTop="1562px"
-		android:fontFamily="@font/segoe_ui_bold"
-		android:text="@string/hint_for_scanner"
-		android:textAlignment="center"
-		android:textColor="#545871"
-		android:textSize="58px"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
-
 	<ImageButton
 		android:id="@+id/imgbtnScannerRecord"
 		android:layout_width="490px"
@@ -56,29 +42,6 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:srcCompat="@drawable/select" />
-
-	<ImageButton
-		android:id="@+id/imgbtnScannerScan"
-		android:layout_width="120px"
-		android:layout_height="189px"
-		android:layout_marginStart="517px"
-		android:layout_marginTop="1798px"
-		android:background="@null"
-		android:scaleType="fitXY"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		app:srcCompat="@drawable/scan" />
-
-	<ImageButton
-		android:id="@+id/imgbtnScannerTranslate"
-		android:layout_width="161px"
-		android:layout_height="189px"
-		android:layout_marginStart="782px"
-		android:layout_marginTop="1798px"
-		android:background="@drawable/capture"
-		android:scaleType="centerInside"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
 
 	<!--<ImageButton
 		android:id="@+id/imgbtnScannerCross"
@@ -104,6 +67,16 @@
 		app:layout_constraintTop_toTopOf="parent"
 		app:srcCompat="@drawable/up" />
 
+	<ImageView
+		android:id="@+id/imgTest"
+		android:layout_width="369dp"
+		android:layout_height="461dp"
+		android:layout_marginTop="156dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.504"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/txtScannerTitle" />
+
 	<!--<View
 		android:id="@+id/imgScannerPhoto"
 		android:layout_width="970px"
@@ -114,12 +87,4 @@
 		app:layout_constraintTop_toTopOf="parent"/>-->
 
 
-	<TextureView
-		android:id="@+id/imgScannerPhoto"
-		android:layout_width="970px"
-		android:layout_height="970px"
-		android:layout_marginStart="235px"
-		android:layout_marginTop="485px"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
