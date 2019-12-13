@@ -38,9 +38,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-import moe.fluffy.app.HomeActivity;
+import moe.fluffy.app.activities.HomeActivity;
 import moe.fluffy.app.R;
-import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.assistant.SimpleCallback;
 import moe.fluffy.app.types.FoodViewType;
 

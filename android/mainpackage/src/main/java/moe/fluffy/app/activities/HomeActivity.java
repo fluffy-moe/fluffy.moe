@@ -17,7 +17,7 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app;
+package moe.fluffy.app.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -33,6 +33,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import java.util.Objects;
 
 import cz.ackee.useragent.UserAgent;
+import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.DatabaseHelper;

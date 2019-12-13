@@ -17,7 +17,7 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app;
+package moe.fluffy.app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -27,12 +27,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
-import android.graphics.Camera;
-import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -40,16 +37,13 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.theartofdev.edmodo.cropper.CropImage;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import moe.fluffy.app.assistant.Callback;
+import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.Utils;
-import moe.fluffy.app.assistant.firebase.FirebaseOCR;
 import moe.fluffy.app.types.SerializableBundle;
 
 public class BootstrapScannerActivity extends AppCompatActivity {

@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Calendar;
 
-import moe.fluffy.app.HomeActivity;
+import moe.fluffy.app.activities.HomeActivity;
 import moe.fluffy.app.R;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.Datetime;

@@ -17,12 +17,11 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app;
+package moe.fluffy.app.activities;
 
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -36,12 +35,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.codbking.calendar.CalendarBean;
 import com.codbking.calendar.CalendarUtil;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
+import moe.fluffy.app.BuildConfig;
+import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;

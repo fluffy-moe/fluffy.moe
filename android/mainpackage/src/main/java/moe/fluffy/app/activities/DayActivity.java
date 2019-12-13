@@ -17,7 +17,7 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app;
+package moe.fluffy.app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,7 +27,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
-import com.codbking.calendar.CalendarBean;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -35,12 +34,11 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import moe.fluffy.app.types.Date;
+import moe.fluffy.app.R;
 import moe.fluffy.app.types.SerializableBundle;
 
 public class DayActivity extends AppCompatActivity {

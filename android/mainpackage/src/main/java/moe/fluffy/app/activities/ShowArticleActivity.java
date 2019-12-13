@@ -17,7 +17,7 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app;
+package moe.fluffy.app.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -27,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import moe.fluffy.app.R;
 import moe.fluffy.app.types.ArticleType;
 
 

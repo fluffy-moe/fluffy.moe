@@ -17,7 +17,7 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app;
+package moe.fluffy.app.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -42,6 +42,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import moe.fluffy.app.BuildConfig;
+import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.JSONParser;
 import moe.fluffy.app.types.AddressInfoType;
 import moe.fluffy.app.adapter.AddressAdapter;

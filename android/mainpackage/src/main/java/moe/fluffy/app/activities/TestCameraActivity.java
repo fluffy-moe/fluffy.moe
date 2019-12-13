@@ -1,4 +1,4 @@
-package moe.fluffy.app;
+package moe.fluffy.app.activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,13 +9,11 @@ import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -23,11 +21,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import moe.fluffy.app.assistant.Callback;
+import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.PopupDialog;
-import moe.fluffy.app.assistant.firebase.FirebaseOCR;
-
-import static moe.fluffy.app.BootstrapScannerActivity.IMAGE_FILE_LOCATE;
 
 public class TestCameraActivity extends AppCompatActivity {
 

@@ -17,7 +17,7 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app;
+package moe.fluffy.app.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,6 +30,8 @@ import android.view.WindowManager;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import moe.fluffy.app.R;
 
 public class BootstrapHomeActivity extends AppCompatActivity {
 

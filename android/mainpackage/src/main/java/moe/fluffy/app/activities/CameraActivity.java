@@ -1,9 +1,8 @@
-package moe.fluffy.app;
+package moe.fluffy.app.activities;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
@@ -47,6 +46,8 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import moe.fluffy.app.R;
 
 public class CameraActivity extends AppCompatActivity {
 	private static final String TAG = "log_AndroidCameraApi";

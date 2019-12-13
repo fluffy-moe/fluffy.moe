@@ -17,7 +17,7 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app;
+package moe.fluffy.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,6 +39,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
 
+import moe.fluffy.app.BuildConfig;
+import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.BottomSheetEventFragment;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.Datetime;
@@ -71,6 +73,24 @@ public class CalendarActivity extends AppCompatActivity {
 	ArrayList<EventsType> todayEvent = new ArrayList<>(), featureEvent = new ArrayList<>();
 	ArrayList<EventDashboardType> eventDashboardTypes = new ArrayList<>();
 	EventDashboardAdapter eventDashboardAdapter;
+
+	private static class click {
+		private static Long lastTimestamp;
+		private static Date date;
+		click() {
+			updateTimestamp(null);
+		}
+
+		static void updateTimestamp(CalendarBean bean) {
+			if (bean != null)
+				date = new Date(bean);
+			lastTimestamp = new java.util.Date().getTime();
+		}
+
+		static boolean checkClick(CalendarBean bean) {
+			return lastTimestamp != null && date != null && new java.util.Date().getTime() - lastTimestamp < 500 && date.equals(bean);
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -237,22 +257,5 @@ public class CalendarActivity extends AppCompatActivity {
 				getColor(HomeActivity.dbHelper.getTodayColorID(bean.year, bean.moth, bean.day)));
 
 		return convertView;
-	}
-	private static class click {
-		private static Long lastTimestamp;
-		private static Date date;
-		click() {
-			updateTimestamp(null);
-		}
-
-		static void updateTimestamp(CalendarBean bean) {
-			if (bean != null)
-				date = new Date(bean);
-			lastTimestamp = new java.util.Date().getTime();
-		}
-
-		static boolean checkClick(CalendarBean bean) {
-			return lastTimestamp != null && date != null && new java.util.Date().getTime() - lastTimestamp < 500 && date.equals(bean);
-		}
 	}
 }

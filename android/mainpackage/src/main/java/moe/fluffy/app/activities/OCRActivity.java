@@ -17,7 +17,7 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app;
+package moe.fluffy.app.activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +43,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
+import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.assistant.firebase.FirebaseOCR;
 

@@ -17,7 +17,7 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app;
+package moe.fluffy.app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,10 +25,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 
-// TODO: Check if first run this app
+import moe.fluffy.app.R;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
+
+
+	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
+			imgbtnNavBarArticle, imgbtnNavBarUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +41,35 @@ public class WelcomeActivity extends AppCompatActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.activity_welcome);
-		findViewById(R.id.imgbtn_go).setOnClickListener(
-				v -> startActivity(new Intent(WelcomeActivity.this, LoginActivity.class)));
+		setContentView(R.layout.activity_profile);
+		init();
+	}
+
+	void init() {
+		initNavigationBar();
+	}
+
+
+	void initNavigationBar() {
+		imgbtnNavBarCamera = findViewById(R.id.imgbtnCameraPage);
+		imgbtnNavBarMedical = findViewById(R.id.imgbtnMedicalPage);
+		imgbtnNavBarCalendar = findViewById(R.id.imgbtnCalendarPage);
+		imgbtnNavBarArticle = findViewById(R.id.imgbtnArticlePage);
+		imgbtnNavBarUser = findViewById(R.id.imgbtnUserPage);
+
+		imgbtnNavBarUser.setImageResource(R.drawable.home_orange);
+
+		imgbtnNavBarCamera.setOnClickListener(v ->
+				startActivity(new Intent(ProfileActivity.this, BootstrapScannerActivity.class)));
+
+		imgbtnNavBarArticle.setOnClickListener(v ->
+				startActivity(new Intent(ProfileActivity.this, ArticleActivity.class)));
+
+		imgbtnNavBarCalendar.setOnClickListener(v ->
+				startActivity(new Intent(ProfileActivity.this, CalendarActivity.class)));
+
+		imgbtnNavBarMedical.setOnClickListener(v ->
+				startActivity(new Intent(ProfileActivity.this, MedicalActivity.class)));
+
 	}
 }

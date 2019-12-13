@@ -1,4 +1,4 @@
-package moe.fluffy.app;
+package moe.fluffy.app.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,6 +21,8 @@ import com.journeyapps.barcodescanner.ViewfinderView;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
+
+import moe.fluffy.app.R;
 
 /**
  * Custom Scanner Activity extending from Activity to display a custom layout form scanner view.

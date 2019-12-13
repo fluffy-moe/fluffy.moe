@@ -17,7 +17,7 @@
  ** You should have received a copy of the GNU Affero General Public License
  ** along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-package moe.fluffy.app;
+package moe.fluffy.app.activities;
 
 import androidx.annotation.DrawableRes;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.JSONParser;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.Utils;
