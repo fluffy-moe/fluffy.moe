@@ -19,7 +19,6 @@
  */
 package moe.fluffy.app;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -28,6 +27,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.Camera;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Bundle;
@@ -49,18 +49,26 @@ import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.assistant.firebase.FirebaseOCR;
+import moe.fluffy.app.types.SerializableBundle;
 
 public class BootstrapScannerActivity extends AppCompatActivity {
 
 	private static final String TAG = "log_BootstrapScannerActivity";
-	public static final String REQUEST_OCR_ACTIVITY = "sHZEvhS0epBdx";
+
 	public static final String IMAGE_FILE_LOCATE = "N10AOMUSrdv";
 
 	public static final String BARCODE_FIELD = "barcode";
 	public static final String PRODUCT_NAME = "name"; // a.k.a. ocr result
+	public static final String PRODUCT_BITMAP = "bitmap";
 
-	private static final int SELECT_FROM_GALLERY = 0x0002;
-	private static final int GO_OCR_DETECT = 0x0003;
+	private String pending_send_barcode = "";
+
+	public static final String BROADCAST_FOOD_HISTORY = "foodHistory";
+	public static final String BROADCAST_REQUEST_GALLERY = "requestGallery";
+	public static final String BROADCAST_REQUEST_OCR_ACTIVITY = "sHZEvhS0epBdx";
+
+	private static final int SELECT_FROM_GALLERY = 0x0002; // SELECT GALLERY
+	private static final int GO_OCR_DETECT = 0x0003; // CALL CAMERA ACTIVITY
 	public static final int OCR_ACTIVITY = 21;
 	private static final int REQUEST_CROP_IMAGE = 1006;
 	BroadcastReceiver galleryRequestReceiver, historyRequestReceiver,
@@ -103,13 +111,13 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 		};
 
 		LocalBroadcastManager.getInstance(this).registerReceiver(galleryRequestReceiver,
-				new IntentFilter(getString(R.string.IntentFilter_request_choose_from_gallery)));
+				new IntentFilter(BROADCAST_REQUEST_GALLERY));
 
 		LocalBroadcastManager.getInstance(this).registerReceiver(historyRequestReceiver,
-				new IntentFilter(getString(R.string.IntentFilter_open_food_history)));
+				new IntentFilter(BROADCAST_FOOD_HISTORY));
 
 		LocalBroadcastManager.getInstance(this).registerReceiver(ocrRequestReceiver,
-				new IntentFilter(REQUEST_OCR_ACTIVITY));
+				new IntentFilter(BROADCAST_REQUEST_OCR_ACTIVITY));
 
 	}
 
@@ -118,19 +126,6 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 		CropImage.activity(Uri.fromFile(_file))
 				.setCropMenuCropButtonTitle("done")
 				.start(this);
-		/*Intent intent = new Intent("com.android.camera.action.CROP");
-		intent.setDataAndType(uri, "image/*");
-		intent.putExtra("aspectX", 1);
-		intent.putExtra("aspectY", 1);
-		intent.putExtra("outputX", 117);
-		intent.putExtra("outputY", 287);
-		intent.putExtra("scale", true);
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-		intent.putExtra("return-data", false);
-		intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-		intent.putExtra("noFaceDetection", true);
-		intent = Intent.createChooser(intent, "Crop photo");
-		startActivityForResult(intent, REQUEST_CROP_IMAGE);*/
 	}
 
 	@Override
@@ -144,7 +139,7 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 		Log.d(TAG, "onActivityResult: request_code =>" + requestCode + " resultCode => " + resultCode);
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
-				case SELECT_FROM_GALLERY:
+				case SELECT_FROM_GALLERY: // AFTER SELECT IMAGE from gallery
 					try {
 						String result;
 						Bitmap bmp = Utils.getBitmap(this, data);
@@ -159,32 +154,39 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 						PopupDialog.build(this, e);
 					}
 					return;
-				case GO_OCR_DETECT:
+				/*case GO_OCR_DETECT:
 					Log.d(TAG, "onActivityResult: start history activity");
 					Intent foodViewIntent = new Intent(this, FoodHistoryActivity.class);
 					if (data != null) {
-						foodViewIntent.putExtra(getString(R.string.extraBarcode), data.getStringExtra(getString(R.string.extraBarcode)));
-						foodViewIntent.putExtra(getString(R.string.extraOcrResult), data.getStringExtra(getString(R.string.extraOcrResult)));
+						foodViewIntent.putExtra(BARCODE_FIELD, data.getStringExtra(BARCODE_FIELD));
+						foodViewIntent.putExtra(PRODUCT_NAME, data.getStringExtra(PRODUCT_NAME));
 					}
 					startActivity(foodViewIntent);
-					return;
-				case OCR_ACTIVITY:
+					finish();
+					return;*/
+				case OCR_ACTIVITY: // AFTER CAPTURE IMAGE
 					Log.v(TAG, "onActivityResult: got result");
 					callCropPhoto(new File(CameraActivity.getSaveLocation()));
 					return;
-				case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+				case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE: // AFTER CROP IMAGE
 					Log.v(TAG, "onActivityResult: Called crop image");
 					Bitmap bmp;
 					CropImage.ActivityResult cropResult = CropImage.getActivityResult(data);
 					Uri resultUri = cropResult.getUri();
 					try {
-						if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-							ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), resultUri);
-							bmp = ImageDecoder.decodeBitmap(source);
+						bmp = Utils.getBitmap(this, resultUri);
+						Bundle bundle = new Bundle();
+						bundle.putSerializable(PRODUCT_BITMAP, new SerializableBundle(bmp));
+						/*if (data.getStringExtra(BARCODE_FIELD) == null) {
+							callScannerActivity();
 						} else {
-							bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
-						}
-						new FirebaseOCR(bmp).setCallBack(new Callback() {
+
+						}*/
+						Intent foodIntent = new Intent(this, FoodHistoryActivity.class);
+						foodIntent.putExtra(BARCODE_FIELD, pending_send_barcode);
+						foodIntent.putExtras(bundle);
+						startActivity(foodIntent);
+						/*new FirebaseOCR(bmp).setCallBack(new Callback() {
 							@Override
 							public void onSuccess(Object o) {
 								FirebaseOCR f = (FirebaseOCR) o;
@@ -201,13 +203,16 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 							public void onFinish(Object o, @Nullable Throwable e) {
 
 							}
-						}).run();
+						}).run();*/
 					} catch (FileNotFoundException ignore) {
 
 					} catch (IOException e) {
 						e.printStackTrace();
 						PopupDialog.build(this, e);
+					} finally {
+						finish();
 					}
+
 					return;
 				case IntentIntegrator.REQUEST_CODE:
 					break;
@@ -216,7 +221,13 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 			}
 		} else {
 			if (requestCode == SELECT_FROM_GALLERY) {
-				callScannerActivity();
+				if (data.getStringExtra(BARCODE_FIELD) == null) {
+					callScannerActivity();
+				} else {
+					Intent intent = new Intent(this, CameraActivity.class);
+					intent.putExtra(BARCODE_FIELD, data.getStringExtra(BARCODE_FIELD));
+					startActivityForResult(intent, OCR_ACTIVITY);
+				}
 			}
 			super.onActivityResult(requestCode, resultCode, data);
 		}
@@ -239,10 +250,10 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 	private void checkBarcodeInDatabase(String barcode) {
 		// TODO: check database here (Cloud database)
 		Toast.makeText(this, "Barcode not in database, please scan the food name manually", Toast.LENGTH_SHORT).show();
-		Intent historyIntent = new Intent(this, CameraActivity.class);
-		historyIntent.putExtra("barcode", barcode);
-		startActivityForResult(historyIntent, OCR_ACTIVITY);
-		Log.v(TAG, "checkBarcodeInDatabase: Started ocr activity");
+		Intent captureActivity = new Intent(this, CameraActivity.class);
+		captureActivity.putExtra(BARCODE_FIELD, barcode);
+		startActivityForResult(captureActivity, OCR_ACTIVITY);
+		//Log.v(TAG, "checkBarcodeInDatabase: Started ocr activity");
 	}
 
 	@Override

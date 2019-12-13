@@ -27,10 +27,13 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.ImageDecoder;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -50,6 +53,8 @@ import com.google.zxing.oned.MultiFormatUPCEANReader;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -193,6 +198,17 @@ public class Utils {
 		if (u != null) {
 			is = context.getContentResolver().openInputStream(u);
 			bmp = BitmapFactory.decodeStream(is);
+		}
+		return bmp;
+	}
+
+	public static Bitmap getBitmap(Context context, Uri uri) throws IOException {
+		Bitmap bmp;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+			ImageDecoder.Source source = ImageDecoder.createSource(context.getContentResolver(), uri);
+			bmp = ImageDecoder.decodeBitmap(source);
+		} else {
+			bmp = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
 		}
 		return bmp;
 	}

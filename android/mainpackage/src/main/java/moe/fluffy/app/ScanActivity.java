@@ -72,7 +72,7 @@ public class ScanActivity extends Activity{
 		txtHint.setTypeface(ResourcesCompat.getFont(this, R.font.segoe_ui_bold));
 		imgbtnOCR.setOnClickListener(v -> {
 			LocalBroadcastManager.getInstance(this).sendBroadcast(
-				new Intent(BootstrapScannerActivity.REQUEST_OCR_ACTIVITY));
+				new Intent(BootstrapScannerActivity.BROADCAST_REQUEST_OCR_ACTIVITY));
 			finish();
 		});
 		imgbtnBack.setOnClickListener(v -> finish());

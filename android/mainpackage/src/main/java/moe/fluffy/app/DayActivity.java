@@ -75,7 +75,6 @@ public class DayActivity extends AppCompatActivity {
 	}
 
 	private void initView() {
-		Date date;
 		Bundle bundle = getIntent().getExtras();
 		if (bundle == null) {
 			throw new RuntimeException("Bundle should be set");
@@ -85,7 +84,6 @@ public class DayActivity extends AppCompatActivity {
 		if (sb == null) {
 			throw new RuntimeException("calendar bean should be set");
 		}
-		date = sb.getDate();
 		// TODO: init view here
 		lineChart = findViewById(R.id.viewWaterAnalysis);
 		lineChart.getDescription().setEnabled(false);

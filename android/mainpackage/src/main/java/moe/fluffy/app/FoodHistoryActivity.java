@@ -14,8 +14,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 
 import moe.fluffy.app.assistant.Callback;
+import moe.fluffy.app.assistant.firebase.FirebaseOCR;
 import moe.fluffy.app.types.FoodViewType;
 import moe.fluffy.app.adapter.FoodAdapter;
+import moe.fluffy.app.types.SerializableBundle;
 
 public class FoodHistoryActivity extends AppCompatActivity {
 
@@ -56,23 +58,41 @@ public class FoodHistoryActivity extends AppCompatActivity {
 	}
 
 	void resumeEdit() {
-		String barcode, ocrResult;
-		barcode = getIntent().getStringExtra(getString(R.string.extraBarcode));
-		ocrResult = getIntent().getStringExtra(getString(R.string.extraOcrResult));
-		if (barcode != null && ocrResult != null) {
-			FoodViewType it = new FoodViewType(barcode, ocrResult);
-			FoodAdapter.generateDialog(this, it, foodAdapter, new Callback() {
-				@Override public void onSuccess(Object o) { }
+		String barcode;
+		barcode = getIntent().getStringExtra(BootstrapScannerActivity.BARCODE_FIELD);
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			/* something process bar here */
+			FirebaseOCR fb = new FirebaseOCR(((SerializableBundle)bundle.getSerializable(BootstrapScannerActivity.PRODUCT_BITMAP)).getBmp());
+			fb.setCallBack(new Callback() {
+				@Override
+				public void onSuccess(Object o) {
+					FirebaseOCR f = (FirebaseOCR)o;
+					FoodViewType it = new FoodViewType(barcode, f.getLastResult());
+					FoodAdapter.generateDialog(FoodHistoryActivity.this, it, foodAdapter, new Callback() {
+						@Override public void onSuccess(Object o) { }
 
-				@Override public void onFailure(Object o, Throwable e) { }
+						@Override public void onFailure(Object o, Throwable e) { }
+
+						@Override
+						public void onFinish(Object o, @Nullable Throwable e) {
+							foodList.add((FoodViewType)o);
+						}
+					});
+				}
+
+				@Override
+				public void onFailure(Object o, Throwable e) {
+
+				}
 
 				@Override
 				public void onFinish(Object o, @Nullable Throwable e) {
-					foodList.add((FoodViewType)o);
+
 				}
-			});
-			getIntent().removeExtra(getString(R.string.extraBarcode));
-			getIntent().removeExtra(getString(R.string.extraOcrResult));
+			}).run();
+			getIntent().removeExtra(BootstrapScannerActivity.BARCODE_FIELD);
+			//getIntent().removeExtra(getString(R.string.extraOcrResult));
 		}
 	}
 

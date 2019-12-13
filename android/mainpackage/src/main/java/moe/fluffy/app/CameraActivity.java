@@ -3,6 +3,7 @@ package moe.fluffy.app;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
@@ -73,8 +74,10 @@ public class CameraActivity extends AppCompatActivity {
 	private HandlerThread mBackgroundThread;
 	private ImageButton imgbtnChooseFromGallery, imgbtnShowRecord;
 
+	private String barcode;
+
 	public static String getSaveLocation() {
-		return Environment.getExternalStorageDirectory().getPath() + "/.temp/pic.jpg";
+		return Environment.getExternalStorageDirectory().getAbsolutePath() + "/.temp/pic.jpg";
 	}
 
 	@Override
@@ -98,15 +101,19 @@ public class CameraActivity extends AppCompatActivity {
 		imgbtnChooseFromGallery = findViewById(R.id.imgbtnScannerDevice);
 		imgbtnShowRecord = findViewById(R.id.imgbtnScannerRecord);
 
+		barcode = getIntent().getStringExtra(BootstrapScannerActivity.BARCODE_FIELD);
+
 		imgbtnChooseFromGallery.setOnClickListener(v -> {
 			LocalBroadcastManager.getInstance(this).sendBroadcast(
-					new Intent(getString(R.string.IntentFilter_request_choose_from_gallery)));
+					new Intent(BootstrapScannerActivity.BROADCAST_REQUEST_GALLERY));
+			getIntent().putExtra(BootstrapScannerActivity.BARCODE_FIELD, barcode);
 			setResult(RESULT_OK);
 			finish();
 		});
 
 		imgbtnShowRecord.setOnClickListener(v -> {
-			getIntent().putExtra(getString(R.string.extraAction), "record");
+			//getIntent().putExtra(getString(R.string.extraAction), "record");
+			LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BootstrapScannerActivity.BROADCAST_FOOD_HISTORY));
 			setResult(RESULT_OK);
 			finish();
 		});
