@@ -262,9 +262,6 @@ function init_onclick() {
 	});
 
 	$('btn_add_vac_info').click(() => {
-		if (table_vaccination_record.style.display === 'None') {
-			toggle_vac_info(true);
-		}
 		if (select_vac_history.innerHTML.search('<option>new</option>') === -1) {
 			select_vac_history.innerHTML += '<option>new</option>';
 		}
@@ -273,6 +270,68 @@ function init_onclick() {
 		txt_info_vacproduct.value = '';
 		txt_info_vacsite.value = '';
 		txt_info_vacdoctor.value = '';
+		rev_vac_id.value = '';
+	});
+
+	$('btn_add_dei_info').click(() => {
+		if (select_dei_history.innerHTML.search('<option>new</option>') === -1) {
+			select_dei_history.innerHTML += '<option>new</option>';
+		}
+		d = new Date();
+		txt_info_deidate.value = d.getYear() + '/' + d.getMonth() + '/' + d.getDay();
+		txt_info_deiproduct.value = '';
+		txt_info_deidoctor.value = '';
+		rev_dei_id.value = '';
+	});
+
+	$('btn_add_hos_info').click(() => {
+		if (select_hs_history.innerHTML.search('<option>new</option>') === -1) {
+			select_hs_history.innerHTML += '<option>new</option>';
+		}
+		d = new Date();
+		txt_info_hospitaldate.value = d.getYear() + '/' + d.getMonth() + '/' + d.getDay();
+		txt_info_hospitalbackdate.value = d.getYear() + '/' + d.getMonth() + '/' + d.getDay();
+		rev_hs_id.value = '';
+	});
+
+	$('btn_add_opc_info').click(() => {
+		if (select_opc_history.innerHTML.search('<option>new</option>') === -1) {
+			select_opc_history.innerHTML += '<option>new</option>';
+		}
+		d = new Date();
+		txt_info_outpatientdate.value = d.getYear() + '/' + d.getMonth() + '/' + d.getDay();
+		txt_info_symptom.value = '';
+		rev_opc_id.value = '';
+	});
+
+	$('btn_add_hem_info').click(() => {
+		if (select_hem_history.innerHTML.search('<option>new</option>') === -1) {
+			select_hem_history.innerHTML += '<option>new</option>';
+		}
+		d = new Date();
+		txt_info_hematologydate.value = d.getYear() + '/' + d.getMonth() + '/' + d.getDay();
+		txt_info_RBC.value;
+		txt_info_HCT.value;
+		txt_info_CGB.value;
+		txt_info_MCH.value;
+		txt_info_MCHC.value;
+		rev_hem_id.value = '';
+	});
+
+	$('btn_add_kid_info').click(() => {
+		if (select_kid_history.innerHTML.search('<option>new</option>') === -1) {
+			select_kid_history.innerHTML += '<option>new</option>';
+		}
+		d = new Date();
+		txt_info_kidneydate.value = d.getYear() + '/' + d.getMonth() + '/' + d.getDay();
+		txt_info_CREA.value;
+		txt_info_BUM.value;
+		txt_info_PHOS.value;
+		txt_info_CA.value;
+		txt_info_ALB.value;
+		txt_info_CHOL.value;
+		txt_info_PCT.value;
+		rev_kid_id.value = '';
 	});
 
 	$('btn_update_vac_info').click(() => {
@@ -313,6 +372,7 @@ function init_onclick() {
     $('btn_update_hem_info').click(() => {
         do_POST('update_hem',{
 			id: rev_hem_id.value,
+			date: txt_info_hematologydate.value,
 			RBC: txt_info_RBC.value,
 			HCT: txt_info_HCT.value,
 			CGB: txt_info_CGB.value,
@@ -324,6 +384,7 @@ function init_onclick() {
 	$('btn_update_kid_info').click(() => {
         do_POST('update_kid',{
 			id: rev_kid_id.value,
+			date: txt_info_kidneydate.value,
 			CREA: txt_info_CREA.value,
 			BUM: txt_info_BUM.value,
 			PHOS: txt_info_PHOS.value,
@@ -333,6 +394,92 @@ function init_onclick() {
 			PCT: txt_info_PCT.value,
 		});
 	});
+
+	$('btn_del_vac_info').click(() => {
+		var c = confirm("Are you sure you want to delete?");
+		if (c === true) {
+			do_POST('del_vac_info', {
+				id: rev_vac_id.value
+			});
+			rev_vac_id.value = '';
+			txt_info_vacdate.value = '';
+			txt_info_vacproduct.value = '';
+			txt_info_vacsite.value = '';
+			txt_info_vacdoctor.value = '';
+		}
+	});
+
+	$('btn_del_dei_info').click(() => {
+		var c = confirm("Are you sure you want to delete?");
+		if (c === true) {
+			do_POST('del_dei_info', {
+				id: rev_dei_id.value
+			});
+			rev_dei_id.value = '';
+			txt_info_deidate.value = '';
+			txt_info_deiproduct.value = '';
+			txt_info_deidoctor.value = '';
+		}
+	});
+
+	$('btn_del_hos_info').click(() => {
+		var c = confirm("Are you sure you want to delete?");
+		if (c === true) {
+			do_POST('del_hos_info', {
+				id: rev_hs_id.value
+			});
+			rev_hs_id.value = '';
+			txt_info_hospitaldate.value = '';
+			txt_info_hospitalbackdate.value = '';
+		}
+	});
+
+	$('btn_del_opc_info').click(() => {
+		var c = confirm("Are you sure you want to delete?");
+		if (c === true) {
+			do_POST('del_opc_info', {
+				id: rev_opc_id.value
+			});
+			rev_opc_id.value = '';
+			txt_info_outpatientdate.value = '';
+			txt_info_symptom.value = '';
+		}
+	});
+
+	$('btn_del_hem_info').click(() => {
+		var c = confirm("Are you sure you want to delete?");
+		if (c === true) {
+			do_POST('del_hem_info', {
+				id: rev_hem_id.value
+			});
+			rev_hem_id.value = '';
+			txt_info_hematologydate.value = '';
+			txt_info_RBC.value = '';
+			txt_info_HCT.value = '';
+			txt_info_CGB.value = '';
+			txt_info_MCH.value = '';
+			txt_info_MCHC.value = '';
+		}
+	});
+
+	$('btn_del_kid_info').click(() => {
+		var c = confirm("Are you sure you want to delete?");
+		if (c === true) {
+			do_POST('del_kid_info', {
+				id: rev_kid_id.value
+			});
+			rev_kid_id.value = '';
+			txt_info_kidneydate.value = '';
+			txt_info_CREA.value = '';
+			txt_info_BUM.value = '';
+			txt_info_PHOS.value = '';
+			txt_info_CA.value = '';
+			txt_info_ALB.value = '';
+			txt_info_CHOL.value = '';
+			txt_info_PCT.value = '';
+		}
+	});
+
 
 	get_user_info();
 }
@@ -444,6 +591,40 @@ function update_kid_info(kid_info){
 	txt_info_ALB.value = kid_info.ALB;
 	txt_info_CHOL.value = kid_info.CHOL;
     txt_info_PCT.value = kid_info.PCT;
+}
+
+function clear_additional_info() {
+	rev_vac_id.value = '';
+	txt_info_vacdate.value = '';
+	txt_info_vacproduct.value = '';
+	txt_info_vacsite.value = '';
+	txt_info_vacdoctor.value = '';
+	// TODO: next time to visit
+	txt_info_desdate.value = '';
+	txt_info_desproduct.value = '';
+	txt_info_desdoctor.value = '';
+	// TODO: next time to visit
+	rev_hs_id.value = '';
+	txt_info_hospitaldate.value = '';
+	txt_info_hospitalbackdate.value = '';
+	rev_opc_id.value = '';
+	txt_info_outpatientdate.value = '';
+	//txt_info_outpatient_nexttime.value = ''
+	txt_info_symptom.value = '';
+	rev_hem_id.value = '';
+	txt_info_RBC.value = '';
+	txt_info_HCT.value = '';
+	txt_info_PHOS.value = '';
+	txt_info_MCH.value = '';
+	txt_info_MCHC.value = '';
+	rev_kid_id.value = '';
+	txt_info_CREA.value = '';
+	txt_info_BUM.value = '';
+	txt_info_PHOS.value = '';
+	txt_info_CA.value = '';
+	txt_info_ALB.value = '';
+	txt_info_CHOL.value = '';
+    txt_info_PCT.value = '';
 }
 
 function update_website_pet_info(pet_info) {

@@ -157,7 +157,60 @@ class Server(_exServer):
 				Server.conn.execute("INSERT `pet_information` (`belong`, `name`, `gender`, `breed`, `color`, `birthday`, `weight`, `neuter`) VALUE (%s, %s, %s, %s, %s, %s, %s, %s)",
 									(d['belong'], d['petname'], d['gender'], d['varity'], d['color'], d['birthday'], d['weight'], d['neuter']))
 				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
-
+		elif d['t'] == 'update_vac':
+			if d['id'] != '':
+				Server.conn.execute("UPDATE `vaccination_record` SET `date`=%s, `product`=%s, `injection_site`=%s,`doctor`=%s WHERE `id`=%s", 
+									(d['date'], d['prodoct'], d['injection_site'], d['doctor'],d['id']))
+				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
+			else:
+				Server.conn.execute("INSERT `vaccination_record` (`date`, `product`, `injection_site`, `doctor`) VALUE (%s, %s,%s,%s)",
+									(d['date'], d['prodoct'], d['injection_site'], d['doctor']))
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+		elif d['t'] == 'update_dein':
+			if d['id'] !='':
+				Server.conn.execute("UPDATE `deinsectzation_record` SET `date`=%s, `product`=%s, `doctor`=%s WHERE `id`=%s",
+									(d['date'], d['product'], d['doctor'], d['id']))
+				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
+			else:
+				Server.conn.excute("INSERT `deinsectzation_record` (`date`, `product`, `doctor`) VALUE(%s, %s, %s)",
+									(d['date'], d['product'], d['doctor']))
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+		elif d['t'] == 'update_hs':
+			if d['id'] !='':
+				Server.conn.excute("UPDATE `hospital_admission_record` SET `start_date`=%s, `end_date`=%s WHERE `id`=%s",
+									(d['start_date'], d['end_date'], d['id']))
+				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
+			else:
+				Server.conn.excute("INSERT `hospital_admission_record` (`start_date`, `end_date`) VALUE(%s, %s)",
+									(d['start_date'], d['end_date']))			
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+		elif d['t'] =='update_opc':
+			if d['id'] !='':
+				Server.conn.excute("UPDATE `outpatient_clinic_record` SET `date`=%s, `symptom`=%s WHERE `id`=%s",
+									(d['date'], d['symptom'], d['id']))
+				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
+			else:
+				Server.conn.excute("INSERT `outpatient_clinic_record` (`date`, `symptom`) VALUE(%s, %s)",
+									(d['date'], d['symptom']))	
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+		elif d['t'] == 'update_hem':
+			if d['id'] !='':
+				Server.conn.excute("UPDATE `hematology_test_record` SET `date`=%s, `RBC`=%s, `HCT`=%s, `CGB`=%s, `MCH`=%s, `MCHC`=%s WHERE `id`=%s",
+									(d['date'], d['RBC'], d['HCT'], d['CGB'], d['MCH'], d['MCHC'], d['id']))
+				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
+			else:
+				Server.conn.excute("INSERT `hematology_test_record` (`date`, `RBC`, `HCT`, `CGB`, `MCH`, `MCHC`) VALUE(%s, %s, %s, %s, %s, %s)",
+									(d['date'], d['RBC'], d['HCT'], d['CGB'], d['MCH'], d['MCHC']))	
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+		elif d['t'] == 'update_kid':
+			if d['id'] !='':
+				Server.conn.excute("UPDATE `kidney_test_record` SET `date`=%s, `CREA`=%s, `BUM`=%s, `PHOS`=%s, `CA`=%s, `ALB`=%s, `CHOL`=%s, `PCT`=%s WHERE `id`=%s",
+									(d['date'], d['CREA'], d['BUM'], d['PHOS'], d['CA'], d['ALB'], d['CHOL'], d['PCT'], d['id']))
+				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
+			else:
+				Server.conn.excute("INSERT `kidney_test_record` (`date`, `CREA`, `BUM`, `PHOS`, `CA`, `ALB`, `CHOL`, `PCT`) VALUE(%s, %s, %s, %s, %s, %s, %s, %s)",
+									(d['date'], d['CREA'], d['BUM'], d['PHOS'], d['CA'], d['ALB'], d['CHOL'], d['PCT']))
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])					
 		return HTTP_STATUS_CODES.ERROR_INVALID_REQUEST
 
 	def handle_manage_request(self, d: dict):

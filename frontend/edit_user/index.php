@@ -216,6 +216,12 @@
 									</td>
 								</tr>
 								<tr>
+								    <td colspan=2>
+										<button id="btn_add_vac_info">Add new</button>
+										<button id="btn_del_vac_info">Delete</button>
+									</td>
+								</tr>
+								<tr>
 									<td>Date:</td>
 									<td><input type="date" id="info_vacdate"></td>
 								</tr>
@@ -237,8 +243,7 @@
 								</tr>
 							</table>
 						</p>
-						<p><button id="btn_update_vac_info">Update</button>
-						<button id="btn_add_vac_info">Add new</button></p>
+						<p><button id="btn_update_vac_info">Update</button></p>
 
 						<!--<a href="#" class="sim-btn hvr-bounce-to-top"><span>Contact Us</span></a>-->
 					</div><!-- end messagebox -->
@@ -262,6 +267,12 @@
 								<tr>
 									<td colspan=2>
 										<select size="3" style="width:100%;" id="select_dei_history"></select>
+									</td>
+								</tr>
+								<tr>
+								    <td colspan=2>
+										<button id="btn_add_dei_info">Add new</button>
+										<button id="btn_del_dei_info">Delete</button>
 									</td>
 								</tr>
 								<tr>
@@ -310,7 +321,13 @@
 									<td colspan=2>
 										<select size="3" style="width:100%;" id="select_hs_history"></select>
 									</td>
-								</tr>
+							</tr>
+							<tr>
+							        <td colspan=2>
+										<button id="btn_add_hos_info">Add new</button>
+										<button id="btn_del_hos_info">Delete</button>
+									</td>
+							</tr>
 							<tr>
 								<td>In hospital date</td>
 								<td><input type="date" id="info_hospitaldate"></td>
@@ -347,7 +364,13 @@
 									<td colspan=2>
 										<select size="3" style="width:100%;" id="select_opc_history"></select>
 									</td>
-								</tr>
+							</tr>
+							<tr>
+							        <td colspan=2>
+										<button id="btn_add_opc_info">Add new</button>
+										<button id="btn_del_opc_info">Delete</button>
+									</td>
+							</tr>
 							<tr>
 								<td>date</td>
 								<td><input type="date" id="info_outpatientdate"></td>
@@ -391,9 +414,15 @@
 								</tr>
 								</table>
 							<table id="table_Hematology_record" style="display: none;">
-							<tr>
+							    <tr>
 									<td colspan=2>
 										<select size="3" style="width:100%;" id="select_hem_history"></select>
+									</td>
+								</tr>
+								<tr>
+								    <td colspan=2>
+										<button id="btn_add_hem_info">Add new</button>
+										<button id="btn_del_hem_info">Delete</button>
 									</td>
 								</tr>
 								<tr>
@@ -446,7 +475,13 @@
 									<td colspan=2>
 										<select size="3" style="width:100%;" id="select_kid_history"></select>
 									</td>
-								</tr>
+							</tr>
+							<tr>
+									<td colspan=2>
+									<button id="btn_add_kid_info">Add new</button>
+									<button id="btn_del_kid_info">Delete</button>
+									</td>
+							</tr>
 						    <tr>
 									<td>Date:</td>
 									<td><input type="date" id="info_kiddate"></td>
