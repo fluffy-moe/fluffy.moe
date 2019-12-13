@@ -5,7 +5,19 @@
 	android:layout_height="600px"
 	android:background="@drawable/ic_rectangle_177">
 
-	<ImageButton
+	<!--<ImageButton
+		android:id="@+id/imgbtnEventEvent"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="202px"
+		android:layout_marginTop="60px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/event" />-->
+
+	<ImageView
 		android:id="@+id/imgbtnEventEvent"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

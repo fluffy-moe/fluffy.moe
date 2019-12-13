@@ -179,25 +179,6 @@ public class RegisterActivity extends AppCompatActivity {
 				Utils.onFocusChange(hasFocus, RegisterActivity.this, etPetName, R.string.pets_name, false));
 		etBreed.setOnFocusChangeListener( (view, hasFocus) ->
 				Utils.onFocusChange(hasFocus, RegisterActivity.this, etBreed, R.string.pets_breed, false));
-		//etBirthday.setOnFocusChangeListener( (view, hasFocus) ->
-		//		Utils.onFocusChange(hasFocus, RegisterActivity.this, etBirthday, R.string.pets_name, false));
-
-		/*etBirthday.setOnFocusChangeListener((view, hasFocus) -> {
-			if (hasFocus) {
-				final View dialogView = LayoutInflater.from(this).inflate(R.layout.datetimepicker_with_button, null);
-				final AlertDialog alertDialog = new AlertDialog.Builder(RegisterActivity.this).create();
-
-				dialogView.findViewById(R.id.btnPickConfirm).setOnClickListener(v -> {
-					DatePicker datePicker = dialogView.findViewById(R.id.dpEventInsert);
-					etBirthday.setText(String.format("%s/%s/%s", datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth()));
-					alertDialog.dismiss();
-				});
-				alertDialog.setView(dialogView);
-				alertDialog.show();
-			}
-		});*/
-
-		//etBirthday.setEnabled(false);
 		etBirthday.setFocusable(false); // https://stackoverflow.com/a/14091107
 		int[] c = CalendarUtil.getYMD(new Date());
 		etBirthday.setText(String.format("%s/%s/%s", c[0], c[1], c[2]));
@@ -267,7 +248,7 @@ public class RegisterActivity extends AppCompatActivity {
 			// some verify method here
 			if (!BuildConfig.isDemoMode) {
 				try {
-					PetInfo p = new PetInfo(etName.getText(), etBreed.getText(), etBirthday.getText());
+					PetInfo p = new PetInfo(etName.getText(), etBreed.getText(), etBirthday.getText(), selected_type, genderM, Neuterd, weightSelect);
 					HomeActivity.dbHelper.updatePetInfo(p);
 				} catch (Exception ignore) {
 
@@ -316,7 +297,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 		imgbtnConfirm.setOnClickListener( v -> {
 			if ((imgbtnDog.getAlpha() == imgbtnCat.getAlpha()) && (imgbtnBird.getAlpha() == imgbtnOther.getAlpha())) {
-				Toast.makeText(RegisterActivity.this, R.string.petTypeNotSelected, Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, R.string.petTypeNotSelected, Toast.LENGTH_SHORT).show();
 				return ;
 			}
 			if (imgbtnDog.getAlpha() == alphaValue) {

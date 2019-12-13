@@ -35,7 +35,7 @@ public class ScanActivity extends Activity{
 
 	TextView txtTitle, txtHint;
 
-	ImageButton imgbtnBack, imgbtnChooseFromGallery, imgbtnShowRecord, imgbtn;
+	ImageButton imgbtnBack, imgbtnChooseFromGallery, imgbtnShowRecord;
 	private ImageButton imgbtnOCR;
 
 	@Override
@@ -78,7 +78,7 @@ public class ScanActivity extends Activity{
 		imgbtnBack.setOnClickListener(v -> finish());
 		imgbtnChooseFromGallery.setOnClickListener(v -> {
 			LocalBroadcastManager.getInstance(this).sendBroadcast(
-					new Intent(getString(R.string.IntentFilter_request_choose_from_gallery)));
+					new Intent(BootstrapScannerActivity.BROADCAST_REQUEST_GALLERY));
 			finish();
 		});
 		imgbtnShowRecord.setOnClickListener(v -> {

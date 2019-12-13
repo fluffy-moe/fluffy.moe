@@ -138,12 +138,14 @@ public class CalendarActivity extends AppCompatActivity {
 			lastDateSelected = view.findViewById(R.id.txtDay);
 			lastDateSelected.setTextColor(getColor(R.color.calendarOnSelect));
 
-
-			/*Intent intent = new Intent(this, DayActivity.class);
-			Bundle bundle = new Bundle();
-			bundle.putSerializable(DayActivity.keyName, new SerializableBundle(bean));
-			intent.putExtras(bundle);
-			startActivity(intent);*/
+			if (click.checkClick(bean)) {
+				Intent intent = new Intent(this, DayActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putSerializable(DayActivity.keyName, new SerializableBundle(bean));
+				intent.putExtras(bundle);
+				startActivity(intent);
+			}
+			click.updateTimestamp(bean);
 			selected_date = new Datetime(bean);
 		});
 
@@ -206,7 +208,7 @@ public class CalendarActivity extends AppCompatActivity {
 		TextView viewDay;
 		View underlineView;
 		if (convertView == null) {
-			convertView = LayoutInflater.from(parentView.getContext()).inflate(R.layout.event_item_calendar, null);
+			convertView = LayoutInflater.from(parentView.getContext()).inflate(R.layout.calendar_item, null);
 			ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(px(55), px(55));
 			convertView.setLayoutParams(params);
 		}
@@ -235,5 +237,22 @@ public class CalendarActivity extends AppCompatActivity {
 				getColor(HomeActivity.dbHelper.getTodayColorID(bean.year, bean.moth, bean.day)));
 
 		return convertView;
+	}
+	private static class click {
+		private static Long lastTimestamp;
+		private static Date date;
+		click() {
+			updateTimestamp(null);
+		}
+
+		static void updateTimestamp(CalendarBean bean) {
+			if (bean != null)
+				date = new Date(bean);
+			lastTimestamp = new java.util.Date().getTime();
+		}
+
+		static boolean checkClick(CalendarBean bean) {
+			return lastTimestamp != null && date != null && new java.util.Date().getTime() - lastTimestamp < 500 && date.equals(bean);
+		}
 	}
 }

@@ -31,6 +31,9 @@ import moe.fluffy.app.assistant.SimpleCallback;
 public class SerializableBundle implements Serializable {
 	private SimpleCallback listener;
 	private Bitmap bmp;
+
+	private int year, month, day;
+
 	public SerializableBundle(SimpleCallback _listener) {
 		listener = _listener;
 	}
@@ -45,5 +48,15 @@ public class SerializableBundle implements Serializable {
 
 	public Bitmap getBmp() {
 		return bmp;
+	}
+
+	public SerializableBundle(CalendarBean _cb) {
+		year = _cb.year;
+		month = _cb.moth;
+		day = _cb.day;
+	}
+
+	public Date getDate() {
+		return new Date(year, month, day);
 	}
 }

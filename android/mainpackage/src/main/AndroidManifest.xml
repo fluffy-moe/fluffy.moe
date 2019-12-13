@@ -23,7 +23,6 @@
 		<activity android:name=".CameraActivity" />
 		<activity android:name=".DayActivity" />
 		<activity android:name=".ProfileActivity" />
-		<activity android:name=".OCRActivity" />
 		<activity android:name=".FoodHistoryActivity" />
 		<activity android:name=".MedicalActivity" />
 		<activity android:name=".CalendarActivity" />

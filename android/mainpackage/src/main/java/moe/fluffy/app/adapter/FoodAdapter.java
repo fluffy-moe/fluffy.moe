@@ -21,6 +21,7 @@ package moe.fluffy.app.adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ import java.util.ArrayList;
 import moe.fluffy.app.HomeActivity;
 import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.Callback;
+import moe.fluffy.app.assistant.SimpleCallback;
 import moe.fluffy.app.types.FoodViewType;
 
 public class FoodAdapter extends ArrayAdapter<FoodViewType> {
@@ -48,7 +50,7 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 	}
 
 	public static AlertDialog generateDialog(Context context, @NotNull FoodViewType it, @NotNull FoodAdapter adapter,
-											 @Nullable Callback listener) {
+											 @Nullable SimpleCallback listener, @Nullable Bitmap bmp) {
 		View viewEditFood = LayoutInflater.from(context).inflate(R.layout.edit_food_item, null);
 		AlertDialog.Builder editFoodPopup = new AlertDialog.Builder(context);
 		editFoodPopup.setView(viewEditFood);
@@ -67,6 +69,7 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 		etTitle.setText(it.getFoodName());
 		etNote.setText(it.getFoodNote());
 		etTime.setText(it.getDate());
+		imgbtnChangeImage.setImageBitmap(bmp);
 
 		// TODO: change photo
 
@@ -76,10 +79,16 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 			it.setDate(etTime.getText().toString().split("/"));
 			HomeActivity.dbHelper.writeFoodHistory(it);
 			if (listener != null) {
-				listener.onFinish(it, null);
+				listener.OnFinished(it);
 			}
+			// TODO: save bitmap here
 			adapter.notifyDataSetChanged();
 			realEditPopup.dismiss();
+		});
+
+		etTime.setFocusable(false);
+		etTime.setOnClickListener(v -> {
+
 		});
 		imageButtonClose.setOnClickListener(l -> realEditPopup.dismiss());
 		realEditPopup.show();
@@ -116,7 +125,7 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 			txtDate.setText(it.getDate());
 
 			imgbtnEdit.setOnClickListener(v ->
-					generateDialog(getContext(), it, this, null));
+					generateDialog(getContext(), it, this, null, null));
 		}
 		return convertView;
 	}

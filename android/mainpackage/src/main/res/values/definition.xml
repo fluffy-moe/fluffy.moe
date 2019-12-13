@@ -41,6 +41,10 @@
 	<string name="dbOptionsPetName">name</string>
 	<string name="dbOptionsPetBreed">breed</string>
 	<string name="dbOptionsPetBirthday">birthday</string>
+	<string name="dbOptionsPetGenderM">gender</string>
+	<string name="dbOptionsPetSpayed">spayed</string>
+	<string name="dbOptionsPetWeight">weight</string>
+
 
 	<string name="dbRawQueryPetInfo">SELECT * FROM `%s` WHERE `name` = ?</string>
 	<string name="dbRawQueryEventsFromYearMonth">SELECT * FROM `%s` WHERE `year` = ? AND `month` = ?</string>

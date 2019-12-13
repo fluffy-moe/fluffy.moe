@@ -53,17 +53,25 @@ import com.google.zxing.oned.MultiFormatUPCEANReader;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.net.URI;
 import java.util.Calendar;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 public class Utils {
 
 	private static final String TAG = "log_Utils";
+	private static Random random;
 
 	/* copied from com.codbking.calendar.example */
 	public static  int getColor(Context context,int res){
@@ -211,6 +219,46 @@ public class Utils {
 			bmp = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
 		}
 		return bmp;
+	}
+
+	// https://stackoverflow.com/a/13133974
+	public static void saveFile(URI sourceUri, String destinationFilename)
+	{
+		String sourceFilename= sourceUri.getPath();
+		//String destinationFilename = android.os.Environment.getExternalStorageDirectory().getPath()+File.separatorChar+"abc.mp3";
+
+		BufferedInputStream bis = null;
+		BufferedOutputStream bos = null;
+
+		try {
+			bis = new BufferedInputStream(new FileInputStream(sourceFilename));
+			bos = new BufferedOutputStream(new FileOutputStream(destinationFilename, false));
+			byte[] buf = new byte[1024];
+			bis.read(buf);
+			do {
+				bos.write(buf);
+			} while(bis.read(buf) != -1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (bis != null) bis.close();
+				if (bos != null) bos.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+
+	public static String generateRandomString() {
+		if (random == null) {
+			random = new Random();
+		}
+		StringBuilder stringBuilder = new StringBuilder();
+		for (int i=0; i< 16 ;i++)
+			stringBuilder.append((char)(65 + random.nextInt(26)));
+		return stringBuilder.toString();
 	}
 
 	public static String realDecode(Bitmap bitmap) {

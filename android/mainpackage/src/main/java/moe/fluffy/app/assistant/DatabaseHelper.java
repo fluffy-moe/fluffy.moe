@@ -80,7 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			cv.put(getString(R.string.dbOptionsValueName), "");
 			db.insert(TABLE_OPTION, null, cv);
 		}
-		cv = new PetInfo("", "", getString(R.string.dbDefaultBirthday)).getContextValues();
+		cv = new PetInfo("", "", getString(R.string.dbDefaultBirthday), getString(R.string.typeCat), false, false, 1).getContextValues();
 		db.insert(TABLE_PET, null, cv);
 	}
 
@@ -182,7 +182,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			petInfo = new PetInfo(
 					name,
 					getCursorString(cursor, getString(R.string.dbOptionsPetBreed)),
-					getCursorString(cursor, getString(R.string.dbOptionsPetBirthday))
+					getCursorString(cursor, getString(R.string.dbOptionsPetBirthday)),
+					getCursorString(cursor, getString(R.string.dbOptionPetType)),
+					cursor.getInt(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsPetGenderM))) == 1,
+					cursor.getInt(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsPetSpayed))) == 1,
+					cursor.getInt(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsPetWeight)))
 			);
 			cursor.close();
 		}
