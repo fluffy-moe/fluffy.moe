@@ -22,6 +22,7 @@ package moe.fluffy.app.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,17 +37,24 @@ import androidx.annotation.Nullable;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
+import moe.fluffy.app.activities.FoodHistoryActivity;
 import moe.fluffy.app.activities.HomeActivity;
 import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.SimpleCallback;
+import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.FoodViewType;
 
 public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 	public FoodAdapter(Context context, @NotNull ArrayList<FoodViewType> foodList) {
 		super(context, android.R.layout.simple_list_item_1, foodList);
 	}
+
 
 	public static AlertDialog generateDialog(Context context, @NotNull FoodViewType it, @NotNull FoodAdapter adapter,
 											 @Nullable SimpleCallback listener, @Nullable Bitmap bmp) {
@@ -62,7 +70,6 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 		imgbtnConfirmEdit = viewEditFood.findViewById(R.id.imgbtnIdentificationConfirm);
 		imageButtonClose = viewEditFood.findViewById(R.id.imgbtnIdentificationOut);
 
-
 		AlertDialog realEditPopup = editFoodPopup.create();
 
 		etTitle.setText(it.getFoodName());
@@ -76,11 +83,17 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 			it.setFoodName(etTitle.getText().toString());
 			it.setFoodNote(etNote.getText().toString());
 			it.setDate(etTime.getText().toString().split("/"));
+
+			if (it.getId() == null) {
+				String str = saveBitmap(bmp, null);
+				it.setImageSource(str);
+			} else {
+				saveBitmap(bmp, it.getImageSource());
+			}
 			HomeActivity.dbHelper.writeFoodHistory(it);
 			if (listener != null) {
 				listener.OnFinished(it);
 			}
-			// TODO: save bitmap here
 			adapter.notifyDataSetChanged();
 			realEditPopup.dismiss();
 		});
@@ -93,6 +106,17 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 		realEditPopup.show();
 		//realEditPopup.getWindow().setLayout(1200, 1224);
 		return realEditPopup;
+	}
+
+	private static String saveBitmap(Bitmap bmp, @Nullable String filePath) {
+		if (filePath == null)
+			filePath = FoodHistoryActivity.getFileStorage() + Utils.generateRandomString();
+		try (FileOutputStream out = new FileOutputStream(filePath)) {
+			bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return filePath;
 	}
 
 	@NonNull
@@ -113,7 +137,7 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 		txtNote = convertView.findViewById(R.id.txtFoodName);
 		txtDate = convertView.findViewById(R.id.txtFoodFlavor);
 		imgbtnLike = convertView.findViewById(R.id.btnFoodLike);
-		//imgItem = convertView.findViewById(R.id.)
+		imgItem = convertView.findViewById(R.id.imgItem);
 		imgbtnEdit = convertView.findViewById(R.id.btnFoodEdit);
 
 		// TODO: show photo
@@ -123,6 +147,11 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 			txtNote.setText(it.getFoodNote());
 			txtDate.setText(it.getDate());
 
+			try {
+				imgItem.setImageBitmap(Utils.getBitmap(getContext(), Uri.fromFile(new File(it.getImageSource()))));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			imgbtnEdit.setOnClickListener(v ->
 					generateDialog(getContext(), it, this, null, null));
 		}

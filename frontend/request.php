@@ -49,16 +49,13 @@
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if (isset($_POST['t'])){
 			//if (!(($_POST['t'] === 'firebase_post' || $_POST['t'] === 'notification_manage')
-			if (!($_POST['t'] === 'update_person' || $_POST['t'] === 'update_pet'|| $_POST['t'] === 'update_vac'|| $_POST['t'] === 'update_dein'|| $_POST['t'] === 'update_hs'|| $_POST['t'] === 'update_opc'|| $_POST['t'] === 'update_hem'|| $_POST['t'] === 'update_kid') && isset($_POST['payload'])) {
+			if (!($_POST['t'] === 'update_person' || $_POST['t'] === 'update_pet' || $_POST['t'] === 'update_vac'
+				|| $_POST['t'] === 'update_dein' || $_POST['t'] === 'update_hs' || $_POST['t'] === 'update_opc'
+				|| $_POST['t'] === 'update_hem' || $_POST['t'] === 'update_kid') && isset($_POST['payload'])) {
 				http_response_code(400);
 				die('{"result": "Bad request"}');
 			}
 			$payload = json_decode($_POST['payload'], true);
-			/*if ($_POST['t'] === 'firebase_post')
-				if (strlen($payload['title']) > 25 || strlen($payload['body']) > 300) {
-					http_response_code(413);
-					die('Payload too large');
-				}*/
 			$payload['t'] = $_POST['t'];
 			$payload = json_encode($payload);
 			$ch = curl_init($BACKEND_SERVER_ADMIN_PAGE);
@@ -98,15 +95,9 @@
 			);
 			$conn = mysqli_connect($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_NAME, $DB_PORT);
 			if ($_GET['t'] === 'firebase_clients') {
-				/*if ($_GET['c'] == 'device') { // Deprecated
-					$r = mysqli_query($conn, "SELECT `token` FROM `firebasetoken` WHERE `register_date` > DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 2 MONTH)");
-					while ($result = mysqli_fetch_assoc($r))
-						array_push($j["data"], $result["token"]);
-				}*/
 				$r = mysqli_query($conn, "SELECT `user_id` FROM `firebasetoken` WHERE `register_date` > DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 2 MONTH)");
 				$users = array();
 				while ($result = mysqli_fetch_assoc($r))
-					//array_push($j["data"], $result["user_id"]);
 					array_push($users, $result["user_id"]);
 				array_unique($users);
 

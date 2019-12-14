@@ -42,6 +42,7 @@ import android.widget.Toast;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.io.IOException;
 
 import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.Callback;
@@ -94,7 +95,7 @@ public class OCRActivity extends AppCompatActivity {
 		startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);*/
 	}
 
-	private File createTemporaryFile(String part, String ext) throws Exception
+	private File createTemporaryFile(String part, String ext) throws IOException
 	{
 		File tempDir = Environment.getExternalStorageDirectory();
 		tempDir = new File(tempDir.getAbsolutePath()+"/.temp/");

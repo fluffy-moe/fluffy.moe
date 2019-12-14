@@ -19,7 +19,7 @@
  */
 package moe.fluffy.app.types;
 
-import android.graphics.Bitmap;
+import android.net.Uri;
 
 import com.codbking.calendar.CalendarBean;
 
@@ -30,7 +30,7 @@ import moe.fluffy.app.assistant.SimpleCallback;
 // https://stackoverflow.com/a/39252048
 public class SerializableBundle implements Serializable {
 	private SimpleCallback listener;
-	private Bitmap bmp;
+	private String bmpUri;
 
 	private int year, month, day;
 
@@ -42,12 +42,12 @@ public class SerializableBundle implements Serializable {
 		return listener;
 	}
 
-	public SerializableBundle(Bitmap _bmp) {
-		bmp = _bmp;
+	public SerializableBundle(Uri uri) {
+		bmpUri = uri.toString();
 	}
 
-	public Bitmap getBmp() {
-		return bmp;
+	public Uri getBmpUri() {
+		return Uri.parse(bmpUri);
 	}
 
 	public SerializableBundle(CalendarBean _cb) {

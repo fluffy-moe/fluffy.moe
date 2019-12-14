@@ -31,7 +31,7 @@ import moe.fluffy.app.types.HttpRawResponse;
 public class JSONParser {
 	private static String TAG = "log_JSONParser";
 
-	static public String szloadJSONFromAsset(InputStream is) throws IOException {
+	static public String szLoadJSONFromAsset(InputStream is) throws IOException {
 		int size = is.available();
 		byte[] buffer = new byte[size];
 		is.read(buffer);
@@ -42,7 +42,7 @@ public class JSONParser {
 	static public JSONObject loadJSONFromAsset(InputStream is) {
 		JSONObject json;
 		try {
-			json = new JSONObject(szloadJSONFromAsset(is));
+			json = new JSONObject(szLoadJSONFromAsset(is));
 		} catch (IOException | JSONException ex) {
 			ex.printStackTrace();
 			return null;

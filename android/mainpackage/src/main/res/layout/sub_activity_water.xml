@@ -242,7 +242,7 @@
 		app:layout_constraintTop_toTopOf="parent"/>
 
 	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/recyclerView"
+		android:id="@+id/rvPastEvents"
 		android:layout_width="476dp"
 		android:layout_height="248dp"
 		android:layout_marginTop="92dp"

@@ -125,22 +125,14 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 	public Connect(NetworkRequestType nrt,
 				   String _requestPath,
 				   Callback _listener) {
-		headerParams = nrt.getHeaders();
-		postParams = nrt.getParams();
-		requestPath = _requestPath;
-		listener = _listener;
-		method = "POST";
+		this(nrt.getHeaders(), nrt.getParams(), _requestPath, _listener, true);
 	}
 
 	Connect(NetworkRequestType nrt,
 			String _requestPath,
 			Callback _listener,
 			boolean is_post) {
-		headerParams = nrt.getHeaders();
-		postParams = nrt.getParams();
-		requestPath = _requestPath;
-		listener = _listener;
-		method = is_post? "POST" : "GET";
+		this(nrt.getHeaders(), nrt.getParams(), _requestPath, _listener, is_post);
 	}
 
 	private

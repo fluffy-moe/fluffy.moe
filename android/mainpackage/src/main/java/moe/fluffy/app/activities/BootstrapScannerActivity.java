@@ -19,9 +19,6 @@
  */
 package moe.fluffy.app.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -33,12 +30,14 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import moe.fluffy.app.R;
@@ -49,8 +48,6 @@ import moe.fluffy.app.types.SerializableBundle;
 public class BootstrapScannerActivity extends AppCompatActivity {
 
 	private static final String TAG = "log_BootstrapScannerActivity";
-
-	public static final String IMAGE_FILE_LOCATE = "N10AOMUSrdv";
 
 	public static final String BARCODE_FIELD = "barcode";
 	public static final String PRODUCT_BITMAP = "bitmap";
@@ -93,6 +90,7 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 			@Override
 			public void onReceive(Context context, Intent intent) {
 				startActivity(new Intent(BootstrapScannerActivity.this, FoodHistoryActivity.class));
+				finish();
 			}
 		};
 
@@ -138,7 +136,7 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.d(TAG, "onActivityResult: request_code =>" + requestCode + " resultCode => " + resultCode);
+		Log.d(TAG, "onActivityResult: request_code => " + requestCode + " resultCode => " + resultCode);
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 				case SELECT_FROM_GALLERY: // AFTER SELECT IMAGE from gallery
@@ -158,31 +156,21 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 					return;
 				case OCR_ACTIVITY: // AFTER CAPTURE IMAGE
 					Log.v(TAG, "onActivityResult: got result");
-					pending_send_barcode = data.getStringExtra(BARCODE_FIELD);
+					if (data != null)
+						pending_send_barcode = data.getStringExtra(BARCODE_FIELD);
 					callCropPhoto(new File(CameraActivity.getSaveLocation()));
 					return;
 				case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE: // AFTER CROP IMAGE
 					Log.v(TAG, "onActivityResult: Called crop image");
-					Bitmap bmp;
 					CropImage.ActivityResult cropResult = CropImage.getActivityResult(data);
 					Uri resultUri = cropResult.getUri();
-					try {
-						bmp = Utils.getBitmap(this, resultUri);
-						Bundle bundle = new Bundle();
-						bundle.putSerializable(PRODUCT_BITMAP, new SerializableBundle(bmp));
-						Intent foodIntent = new Intent(this, FoodHistoryActivity.class);
-						foodIntent.putExtra(BARCODE_FIELD, pending_send_barcode);
-						foodIntent.putExtras(bundle);
-						startActivity(foodIntent);
-					} catch (FileNotFoundException ignore) {
-
-					} catch (IOException e) {
-						e.printStackTrace();
-						PopupDialog.build(this, e);
-					} finally {
-						finish();
-					}
-
+					Bundle bundle = new Bundle();
+					bundle.putSerializable(PRODUCT_BITMAP, new SerializableBundle(resultUri));
+					Intent foodIntent = new Intent(this, FoodHistoryActivity.class);
+					foodIntent.putExtra(BARCODE_FIELD, pending_send_barcode);
+					foodIntent.putExtras(bundle);
+					startActivity(foodIntent);
+					finish();
 					return;
 				case IntentIntegrator.REQUEST_CODE:
 					break;
@@ -191,13 +179,14 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 			}
 		} else {
 			if (requestCode == SELECT_FROM_GALLERY) {
-				if (data.getStringExtra(BARCODE_FIELD) == null) {
+				if (data == null || data.getStringExtra(BARCODE_FIELD) == null) {
 					callScannerActivity();
 				} else {
 					Intent intent = new Intent(this, CameraActivity.class);
 					intent.putExtra(BARCODE_FIELD, data.getStringExtra(BARCODE_FIELD));
 					startActivityForResult(intent, OCR_ACTIVITY);
 				}
+				return ;
 			}
 			super.onActivityResult(requestCode, resultCode, data);
 		}
@@ -209,10 +198,8 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 				//Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
 				checkBarcodeInDatabase(result.getContents());
 			}
-			//finish();
 			return;
 		}
-		//finish();
 		super.onActivityResult(requestCode, resultCode, data);
 		finish();
 	}
@@ -229,6 +216,7 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		Log.d(TAG, "onDestroy: ");
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(galleryRequestReceiver);
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(historyRequestReceiver);
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(ocrRequestReceiver);

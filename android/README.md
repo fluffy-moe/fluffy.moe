@@ -10,10 +10,10 @@
 - [ ] Login request
 - [ ] Firebase cloud message id report
 - [ ] In-app gallery
-- [ ] Firebase OCR take photo page (Maybe call camera and in-app cut tool -> Firebase ML read text)
+- [x] Firebase OCR take photo page (Maybe call camera and in-app cut tool -> Firebase ML read text)
 - [ ] Forget password page
 - [ ] Fetch information from server
-- [ ] Firebase OCR cut photo before request detect
+- [x] Firebase OCR cut photo before request detect
 - [x] Food history refresh fail
 
 ## Used library
@@ -24,3 +24,4 @@
 * [zxing-android-embedded](https://github.com/journeyapps/zxing-android-embedded) for embedded in android
 * [WrapContentListView](https://github.com/mzlogin/WrapContentListView) for scrollable event view etc.
 * [Android-PickerView](https://github.com/Bigkoo/Android-PickerView) for datetime picker
+* [Android-Image-Cropper](https://github.com/ArthurHub/Android-Image-Cropper) for crop image

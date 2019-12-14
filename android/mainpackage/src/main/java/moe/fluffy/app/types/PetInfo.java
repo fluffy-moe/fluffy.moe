@@ -23,6 +23,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.text.Editable;
 
+import androidx.annotation.StringRes;
+
 import moe.fluffy.app.R;
 
 public class PetInfo {
@@ -98,6 +100,9 @@ public class PetInfo {
 		cv.put(columnBreed, breed);
 		cv.put(columnBirthday, birthday.toString());
 		cv.put(columnType, type);
+		cv.put(columnGendar, String.valueOf(gendarMan));
+		cv.put(columnSpayed, String.valueOf(isSpayed));
+		cv.put(columnWeight, weight);
 		return cv;
 	}
 }

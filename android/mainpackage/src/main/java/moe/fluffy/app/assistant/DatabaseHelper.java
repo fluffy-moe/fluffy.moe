@@ -51,7 +51,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private final static String TABLE_EVENTS = "events";
 	private final static String TABLE_FOOD_HISTORY = "food";
 	private final static String CREATE_OPTION = "CREATE TABLE `option` (`key` TEXT PRIMARY KEY, `value` TEXT)";
-	private final static String CREATE_PET = "CREATE TABLE `pet` (`name` TEXT PRIMARY KEY, `birthday` TEXT, `breed` TEXT)";
+	private final static String CREATE_PET = "CREATE TABLE `pet` (`name` TEXT PRIMARY KEY, `birthday` TEXT, `breed` TEXT, `type` TEXT, " +
+			"`weight` INTEGER, `gendaer` TEXT, `spayed` TEXT)";
 	private final static String CREATE_EVENTS = "CREATE TABLE `events` (" +
 			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `hour` INTEGER, `minute` INTEGER, " +
 			"`category` TEXT, `body` TEXT, `color` INTEGER, `alarm` TEXT)";
@@ -184,8 +185,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 					getCursorString(cursor, getString(R.string.dbOptionsPetBreed)),
 					getCursorString(cursor, getString(R.string.dbOptionsPetBirthday)),
 					getCursorString(cursor, getString(R.string.dbOptionPetType)),
-					cursor.getInt(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsPetGenderM))) == 1,
-					cursor.getInt(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsPetSpayed))) == 1,
+					Boolean.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsPetGenderM)))),
+					Boolean.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsPetSpayed)))),
 					cursor.getInt(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsPetWeight)))
 			);
 			cursor.close();

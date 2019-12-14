@@ -19,25 +19,31 @@
  */
 package moe.fluffy.app.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.jetbrains.annotations.Nullable;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.adapter.FoodAdapter;
 import moe.fluffy.app.assistant.Callback;
+import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.assistant.firebase.FirebaseOCR;
 import moe.fluffy.app.types.FoodViewType;
-import moe.fluffy.app.adapter.FoodAdapter;
 import moe.fluffy.app.types.SerializableBundle;
 
 public class FoodHistoryActivity extends AppCompatActivity {
@@ -51,6 +57,9 @@ public class FoodHistoryActivity extends AppCompatActivity {
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
 
+	public static String getFileStorage() {
+		return Environment.getExternalStorageDirectory().getAbsolutePath() + "/fluffy/foodHistory";
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,26 +93,34 @@ public class FoodHistoryActivity extends AppCompatActivity {
 		Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
 			/* something process bar here */
-			Bitmap bmp = ((SerializableBundle)bundle.getSerializable(BootstrapScannerActivity.PRODUCT_BITMAP)).getBmp();
-			FirebaseOCR fb = new FirebaseOCR(bmp);
-			fb.setCallBack(new Callback() {
-				@Override
-				public void onSuccess(Object o) {
-					FirebaseOCR f = (FirebaseOCR)o;
-					FoodViewType it = new FoodViewType(barcode, f.getLastResult());
-					FoodAdapter.generateDialog(FoodHistoryActivity.this, it, foodAdapter, o1 -> foodList.add((FoodViewType) o1), bmp);
-				}
+			Uri bmpUri = ((SerializableBundle)bundle.getSerializable(BootstrapScannerActivity.PRODUCT_BITMAP)).getBmpUri();
+			try {
+				Bitmap bmp = Utils.getBitmap(this, bmpUri);
+				FirebaseOCR fb = new FirebaseOCR(bmp);
+				fb.setCallBack(new Callback() {
+					@Override
+					public void onSuccess(Object o) {
+						FirebaseOCR f = (FirebaseOCR) o;
+						FoodViewType it = new FoodViewType(barcode, f.getLastResult());
+						FoodAdapter.generateDialog(FoodHistoryActivity.this, it, foodAdapter, o1 -> foodList.add((FoodViewType) o1), bmp);
+					}
 
-				@Override
-				public void onFailure(Object o, Throwable e) {
+					@Override
+					public void onFailure(Object o, Throwable e) {
 
-				}
+					}
 
-				@Override
-				public void onFinish(Object o, @Nullable Throwable e) {
+					@Override
+					public void onFinish(Object o, @Nullable Throwable e) {
 
-				}
-			}).run();
+					}
+				}).run();
+			} catch (FileNotFoundException ignore) {
+
+			} catch (IOException e) {
+				e.printStackTrace();
+				PopupDialog.build(this, e);
+			}
 			getIntent().removeExtra(BootstrapScannerActivity.BARCODE_FIELD);
 			//getIntent().removeExtra(getString(R.string.extraOcrResult));
 		}

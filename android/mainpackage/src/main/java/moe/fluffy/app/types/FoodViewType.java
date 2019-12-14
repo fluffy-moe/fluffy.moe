@@ -56,12 +56,13 @@ public class FoodViewType {
 		d = Date.getToday();
 	}
 
-	FoodViewType(String date, String _foodName, String _foodFullName, boolean l) {
+	FoodViewType(String date, String _foodName, String _foodFullName, boolean l, String _imageSource) {
 		id = null;
 		d = new Date(date);
 		foodName = _foodName;
 		foodNote = _foodFullName;
 		liked = l;
+		imageSource = _imageSource;
 	}
 
 	public FoodViewType(Cursor cursor) {
@@ -71,8 +72,9 @@ public class FoodViewType {
 				cursor.getInt(cursor.getColumnIndexOrThrow(columnDay)));
 		foodName = cursor.getString(cursor.getColumnIndexOrThrow(columnFoodName));
 		foodNote = cursor.getString(cursor.getColumnIndexOrThrow(columnFoodNote));
-		liked = cursor.getString(cursor.getColumnIndexOrThrow(columnLiked)).equals(String.valueOf(true));
+		liked = Boolean.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(columnLiked)));
 		barcode = cursor.getString(cursor.getColumnIndexOrThrow(columnBarcode));
+		imageSource = cursor.getString(cursor.getColumnIndexOrThrow(columnImageSource));
 	}
 
 	public ContentValues getContentValues() {
@@ -86,6 +88,7 @@ public class FoodViewType {
 		if (!needInsert())
 			cv.put(columnId, id);
 		cv.put(columnBarcode, barcode);
+		cv.put(columnImageSource, imageSource);
 		return cv;
 	}
 
@@ -111,6 +114,14 @@ public class FoodViewType {
 
 	public void setFoodName(String foodName) {
 		this.foodName = foodName;
+	}
+
+	public void setImageSource(String imageSource) {
+		this.imageSource = imageSource;
+	}
+
+	public String getImageSource() {
+		return imageSource;
 	}
 
 	public void setDate(final String y, final String m, final String d) {

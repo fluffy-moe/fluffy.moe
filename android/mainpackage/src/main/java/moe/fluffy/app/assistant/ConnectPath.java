@@ -48,7 +48,7 @@ public class ConnectPath {
 	private static void _loadConfig(Context context) {
 		try {
 			JSONObject[] jsonObjects = JSONParser.getJson(
-					JSONParser.szloadJSONFromAsset(context.getResources().openRawResource(R.raw.config))
+					JSONParser.szLoadJSONFromAsset(context.getResources().openRawResource(R.raw.config))
 			);
 			server_address = jsonObjects[0].getString(context.getString(R.string.server_address_field));
 			login_path = jsonObjects[1].getString(context.getString(R.string.login_field));

@@ -22,6 +22,7 @@ package moe.fluffy.app.activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,6 +31,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 import cz.ackee.useragent.UserAgent;
@@ -70,6 +73,7 @@ public class HomeActivity extends AppCompatActivity {
 		DeinsectizaionType.initColumnName(this);
 		FoodViewType.initColumn(this);
 		dbHelper = new DatabaseHelper(this);
+		createFolder();
 
 		findViewById(R.id.btnChangeToCamera).setOnClickListener(
 				v -> startActivity(new Intent(this, CameraActivity.class)));
@@ -117,6 +121,31 @@ public class HomeActivity extends AppCompatActivity {
 						PopupDialog.build(this, null, "Token is null");
 					}
 				});
+	}
+
+	private void createFolder() {
+		String basePath = Environment.getExternalStorageDirectory().getAbsoluteFile() + "/fluffy/";
+		File dataDir = new File(basePath);
+		if (!dataDir.exists() && !dataDir.mkdir()) {
+			throw new RuntimeException("Cannot create folder");
+		}
+		dataDir = new File(basePath + "foodHistory");
+		if (!dataDir.exists())
+			dataDir.mkdir();
+		dataDir = new File(basePath + "gallery");
+		if (!dataDir.exists())
+			dataDir.mkdir();
+	}
+
+	private File createTemporaryFile(String part, String ext) throws IOException
+	{
+		File tempDir = Environment.getExternalStorageDirectory();
+		tempDir = new File(tempDir.getAbsolutePath()+"/.temp/");
+		Log.d(TAG, "createTemporaryFile: tmp => "+ tempDir.getAbsolutePath());
+		if(!tempDir.exists()) {
+			tempDir.mkdirs();
+		}
+		return File.createTempFile(part, ext, tempDir);
 	}
 
 	@Override

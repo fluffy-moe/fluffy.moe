@@ -20,6 +20,8 @@
 package moe.fluffy.app.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,6 +41,8 @@ import java.util.List;
 import java.util.Random;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.adapter.ReviewAdapter;
+import moe.fluffy.app.types.PastTimeReviewType;
 import moe.fluffy.app.types.SerializableBundle;
 
 public class DayActivity extends AppCompatActivity {
@@ -51,6 +55,10 @@ public class DayActivity extends AppCompatActivity {
 			imgbtnNavBarArticle, imgbtnNavBarUser;
 
 	LineChart lineChart;
+
+	RecyclerView eventsView;
+
+	ArrayList<PastTimeReviewType> pastTimeReviewTypes;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +91,18 @@ public class DayActivity extends AppCompatActivity {
 			throw new RuntimeException("calendar bean should be set");
 		}
 		// TODO: init view here
+		pastTimeReviewTypes = new ArrayList<>();
+		for (int i=0; i< 5; i++) {
+			pastTimeReviewTypes.add(new PastTimeReviewType(new Random().nextInt(4) + 1, "test"));
+		}
+
+		RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+		eventsView = findViewById(R.id.rvPastEvents);
+		eventsView.setHasFixedSize(true);
+		eventsView.setLayoutManager(layoutManager);
+		eventsView.setAdapter(new ReviewAdapter(pastTimeReviewTypes));
+
+		// init chart view
 		lineChart = findViewById(R.id.viewWaterAnalysis);
 		lineChart.getDescription().setEnabled(false);
 		LineDataSet ls = new LineDataSet(getList(), "test");

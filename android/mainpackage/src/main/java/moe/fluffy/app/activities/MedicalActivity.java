@@ -76,8 +76,7 @@ public class MedicalActivity extends AppCompatActivity {
 			imgbtnNavBarArticle, imgbtnNavBarUser;
 
 	ListView lvItems, lvBloodTestItems;
-
-
+	
 	JSONObject medicalObject;
 	ArrayList<VaccinationType> vacArray;
 	ArrayList<DeinsectizaionType> deiArray;

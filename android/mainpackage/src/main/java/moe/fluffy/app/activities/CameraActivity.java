@@ -95,6 +95,7 @@ public class CameraActivity extends AppCompatActivity {
 			Log.v(TAG, "onCreate: Click capture, Finish job");
 			takePicture();
 			//getIntent().putExtra(BootstrapScannerActivity.IMAGE_FILE_LOCATE, getSaveLocation());
+			getIntent().putExtra(BootstrapScannerActivity.BARCODE_FIELD, barcode);
 			setResult(RESULT_OK); // MUST SET OK OR WILL RETURN NOT OK
 			finish();
 		});
