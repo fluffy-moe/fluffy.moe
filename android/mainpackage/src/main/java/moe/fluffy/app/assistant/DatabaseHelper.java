@@ -33,10 +33,10 @@ import com.codbking.calendar.CalendarUtil;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.types.AlbumFiles;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.EventsType;
 import moe.fluffy.app.types.FoodViewType;
@@ -50,6 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private final static String TABLE_OPTION = "option";
 	private final static String TABLE_EVENTS = "events";
 	private final static String TABLE_FOOD_HISTORY = "food";
+	private final static String TABLE_ALBUM = "album";
 	private final static String CREATE_OPTION = "CREATE TABLE `option` (`key` TEXT PRIMARY KEY, `value` TEXT)";
 	private final static String CREATE_PET = "CREATE TABLE `pet` (`name` TEXT PRIMARY KEY, `birthday` TEXT, `breed` TEXT, `type` TEXT, " +
 			"`weight` INTEGER, `gender` TEXT, `spayed` TEXT)";
@@ -59,6 +60,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private final static String CREATE_FOOD_HISTORY = "CREATE TABLE `food` (`id` INTEGER PRIMARY KEY AUTOINCREMENT," +
 			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `name` TEXT, `note` TEXT, `liked` TEXT, " +
 			"`barcode` TEXT, `source` TEXT)";
+	private final static String CREATE_ALBUM_TABLE = "CREATE TABLE `album` (`id` INTEGER PRIMARY KEY " +
+			"AUTOINCREMENT, `Path` TEXT, `BucketName` TEXT, `MimeType` TEXT, `AddDate` INTEGER, " +
+			"`Latitude` REAL, `Longitude` REAL, `Size` INTEGER, `Duration` INTEGER, `ThumbPath` TEXT, " +
+			"`MediaType` INTEGER, `Checked` TEXT, `Disable` TEXT);";
 	private final static String DROP_STATEMENT = "DROP TABLE IF EXISTS ";
 
 	private final static String TAG = "log_Database";
@@ -74,6 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_PET);
 		db.execSQL(CREATE_EVENTS);
 		db.execSQL(CREATE_FOOD_HISTORY);
+		db.execSQL(CREATE_ALBUM_TABLE);
 		ContentValues cv = new ContentValues();
 		for (String str: new String[]{getString(R.string.dbOptionUser),
 				getString(R.string.dbOptionSession)}) {
@@ -92,6 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(DROP_STATEMENT + TABLE_PET);
 		db.execSQL(DROP_STATEMENT + TABLE_EVENTS);
 		db.execSQL(DROP_STATEMENT + TABLE_FOOD_HISTORY);
+		db.execSQL(DROP_STATEMENT + TABLE_ALBUM);
 		onCreate(db);
 	}
 
@@ -210,6 +217,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 		cursor.close();
 		s.close();
+	}
+
+	public void insertAblum(AlbumFiles.dbFriendlyAlbumFiles dbFriendlyAlbumFiles) {
+		SQLiteDatabase s = this.getWritableDatabase();
+		s.insert(TABLE_ALBUM, null, dbFriendlyAlbumFiles.getContentValues());
+		s.close();
+	}
+
+	public ArrayList<AlbumFiles.dbFriendlyAlbumFiles> getAblums() {
+		SQLiteDatabase s = this.getReadableDatabase();
+		ArrayList<AlbumFiles.dbFriendlyAlbumFiles> arrayList = new ArrayList<>();
+		Cursor cursor = s.rawQuery(getString(R.string.dbRawQuery, TABLE_ALBUM), null);
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			do {
+				arrayList.add(new AlbumFiles.dbFriendlyAlbumFiles(cursor));
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		return arrayList;
 	}
 
 	public void insertEvent(EventsType event){

@@ -68,6 +68,20 @@
 	<string name="dbEventColor">color</string>
 	<string name="dbEventNeedAlarm">alarm</string>
 
+	<string name="dbAlbumId">id</string>
+	<string name="dbAlbumPath">Path</string>
+	<string name="dbAlbumBucketName">BucketName</string>
+	<string name="dbAlbumMimeType">MimeType</string>
+	<string name="dbAlbumAddDate">AddDate</string>
+	<string name="dbAlbumLatitude">Latitude</string>
+	<string name="dbAlbumLongitude">Longitude</string>
+	<string name="dbAlbumSize">Size</string>
+	<string name="dbAlbumDuration">Duration</string>
+	<string name="dbAlbumThumbPath">ThumbPath</string>
+	<string name="dbAlbumMediaType">MediaType</string>
+	<string name="dbAlbumChecked">Checked</string>
+	<string name="dbAlbumDisable">Disable</string>
+
 	<string name="dbFoodHistoryName">name</string>
 	<string name="dbFoodHistoryNote">note</string>
 	<string name="dbFoodHistoryImage">source</string>

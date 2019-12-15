@@ -32,7 +32,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Objects;
 
 import cz.ackee.useragent.UserAgent;
@@ -41,6 +40,7 @@ import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.types.AlbumFiles;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.DeinsectizaionType;
 import moe.fluffy.app.types.EventsType;
@@ -72,6 +72,7 @@ public class HomeActivity extends AppCompatActivity {
 		VaccinationType.initColumn(this);
 		DeinsectizaionType.initColumnName(this);
 		FoodViewType.initColumn(this);
+		AlbumFiles.initColumnName(this);
 		dbHelper = new DatabaseHelper(this);
 		createFolder();
 
