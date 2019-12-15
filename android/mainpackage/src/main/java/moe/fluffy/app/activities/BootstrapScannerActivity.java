@@ -63,16 +63,19 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 	BroadcastReceiver galleryRequestReceiver, historyRequestReceiver,
 		ocrRequestReceiver;
 
+	private boolean isRequestedOCR;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_empty);
 		init();
-		createMediaStore();
+		//createMediaStore();
 		callScannerActivity();
 	}
 
 	private void callScannerActivity() {
+		isRequestedOCR = false;
 		new IntentIntegrator(this).setOrientationLocked(false).setCaptureActivity(ScanActivity.class).initiateScan();
 	}
 
@@ -89,6 +92,7 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 		historyRequestReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
+				Log.v(TAG, "onReceive: Calling food history");
 				startActivity(new Intent(BootstrapScannerActivity.this, FoodHistoryActivity.class));
 				finish();
 			}
@@ -97,6 +101,7 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 		ocrRequestReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
+				isRequestedOCR = true;
 				startActivityForResult(new Intent(BootstrapScannerActivity.this, CameraActivity.class), OCR_ACTIVITY);
 			}
 		};
@@ -112,6 +117,7 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 
 	}
 
+/*
 	private void createMediaStore() {
 		File tempDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/fluffy/");
 		if(!tempDir.exists()) {
@@ -120,6 +126,7 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 			}
 		}
 	}
+*/
 
 	private void callCropPhoto(File _file) {
 		Log.d(TAG, "callCropPhoto: called");
@@ -144,16 +151,26 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 						String result;
 						Bitmap bmp = Utils.getBitmap(this, data);
 						if (bmp != null) {
-							result = Utils.realDecode(bmp);
-							Toast.makeText(this, "Result: " + result, Toast.LENGTH_LONG).show();
-							Log.v(TAG, "Scan result is => " + result);
-							checkBarcodeInDatabase(result);
+							if (!isRequestedOCR) {
+								result = Utils.realDecode(bmp);
+								//Toast.makeText(this, "Result: " + result, Toast.LENGTH_LONG).show();
+								Log.v(TAG, "Scan result is => " + result);
+								checkBarcodeInDatabase(result);
+								return;
+							} else {
+								Utils.saveBitmap(bmp, CameraActivity.getSaveLocation());
+							}
+						} else {
+							if (!isRequestedOCR)
+								callScannerActivity();
+							else
+								startActivityForResult(new Intent(this, CameraActivity.class), OCR_ACTIVITY);
+							return ;
 						}
 					} catch (IOException e) {
 						Log.e(TAG, "onActivityResult: Error while read image", e);
 						PopupDialog.build(this, e);
 					}
-					return;
 				case OCR_ACTIVITY: // AFTER CAPTURE IMAGE
 					Log.v(TAG, "onActivityResult: got result");
 					if (data != null)
@@ -184,6 +201,7 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 				} else {
 					Intent intent = new Intent(this, CameraActivity.class);
 					intent.putExtra(BARCODE_FIELD, data.getStringExtra(BARCODE_FIELD));
+					isRequestedOCR = true;
 					startActivityForResult(intent, OCR_ACTIVITY);
 				}
 				return ;
@@ -209,6 +227,7 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 		Toast.makeText(this, "Barcode not in database, please scan the food name manually", Toast.LENGTH_SHORT).show();
 		Intent captureActivity = new Intent(this, CameraActivity.class);
 		captureActivity.putExtra(BARCODE_FIELD, barcode);
+		isRequestedOCR = true;
 		startActivityForResult(captureActivity, OCR_ACTIVITY);
 		//Log.v(TAG, "checkBarcodeInDatabase: Started ocr activity");
 	}

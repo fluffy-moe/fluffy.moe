@@ -38,6 +38,8 @@ import android.text.InputType;
 import android.view.WindowManager;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import com.google.zxing.BinaryBitmap;
@@ -67,6 +69,8 @@ import java.net.URI;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.stream.IntStream;
+
+import moe.fluffy.app.activities.FoodHistoryActivity;
 
 public class Utils {
 
@@ -282,6 +286,15 @@ public class Utils {
 			throw new NullPointerException();
 		}
 		return text;
+	}
+
+	public static String saveBitmap(Bitmap bmp, @NonNull String filePath) {
+		try (FileOutputStream out = new FileOutputStream(filePath)) {
+			bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return filePath;
 	}
 
 	public static Calendar getTime() {

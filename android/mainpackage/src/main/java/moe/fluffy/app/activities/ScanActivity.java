@@ -84,7 +84,8 @@ public class ScanActivity extends Activity{
 			finish();
 		});
 		imgbtnShowRecord.setOnClickListener(v -> {
-			getIntent().putExtra(getString(R.string.extraAction), "record");
+			//getIntent().putExtra(getString(R.string.extraAction), "record");
+			LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(BootstrapScannerActivity.BROADCAST_FOOD_HISTORY));
 			finish();
 		});
 	}

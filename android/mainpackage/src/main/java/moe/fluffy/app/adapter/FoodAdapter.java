@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -104,6 +105,10 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 		});
 		imageButtonClose.setOnClickListener(l -> realEditPopup.dismiss());
 		realEditPopup.show();
+		Window w = realEditPopup.getWindow();
+		if (w == null)
+			throw new RuntimeException("Window not found");
+		w.setLayout(1300, 1124);
 		//realEditPopup.getWindow().setLayout(1200, 1224);
 		return realEditPopup;
 	}
@@ -111,12 +116,7 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 	private static String saveBitmap(Bitmap bmp, @Nullable String filePath) {
 		if (filePath == null)
 			filePath = FoodHistoryActivity.getFileStorage() + Utils.generateRandomString();
-		try (FileOutputStream out = new FileOutputStream(filePath)) {
-			bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return filePath;
+		return Utils.saveBitmap(bmp, filePath);
 	}
 
 	@NonNull
@@ -144,16 +144,29 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 
 		if (it != null) {
 			txtTitle.setText(it.getFoodName());
-			txtNote.setText(it.getFoodNote());
+			txtNote.setText(it.getFoodNote().replace('\n', '\0'));
 			txtDate.setText(it.getDate());
 
+			if (it.isLiked())
+				imgbtnLike.setImageResource(R.drawable.red_like);
+
+			imgbtnLike.setOnClickListener(v -> {
+				if (it.toggleLike())
+					imgbtnLike.setImageResource(R.drawable.red_like);
+				else
+					imgbtnLike.setImageResource(R.drawable.like);
+			});
+
+			Bitmap bmp = null;
 			try {
-				imgItem.setImageBitmap(Utils.getBitmap(getContext(), Uri.fromFile(new File(it.getImageSource()))));
+				bmp = Utils.getBitmap(getContext(), Uri.fromFile(new File(it.getImageSource())));
+				imgItem.setImageBitmap(bmp);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			final Bitmap newBmp = bmp;
 			imgbtnEdit.setOnClickListener(v ->
-					generateDialog(getContext(), it, this, null, null));
+					generateDialog(getContext(), it, this, null, newBmp));
 		}
 		return convertView;
 	}

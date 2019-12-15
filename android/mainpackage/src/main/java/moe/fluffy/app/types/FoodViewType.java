@@ -77,6 +77,7 @@ public class FoodViewType {
 		imageSource = cursor.getString(cursor.getColumnIndexOrThrow(columnImageSource));
 	}
 
+
 	public ContentValues getContentValues() {
 		ContentValues cv = new ContentValues();
 		cv.put(columnFoodName, foodName);
@@ -114,6 +115,15 @@ public class FoodViewType {
 
 	public void setFoodName(String foodName) {
 		this.foodName = foodName;
+	}
+
+	public boolean isLiked() {
+		return liked;
+	}
+
+	public boolean toggleLike() {
+		liked = !liked;
+		return liked;
 	}
 
 	public void setImageSource(String imageSource) {

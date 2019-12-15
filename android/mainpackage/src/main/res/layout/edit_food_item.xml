@@ -131,11 +131,12 @@
 
 	<ImageButton
 		android:id="@+id/imgbtnIdentificatinPic"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		android:layout_width="334px"
+		android:layout_height="334px"
 		android:layout_marginStart="725px"
 		android:layout_marginTop="204px"
 		android:background="@null"
+		android:scaleType="fitCenter"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:srcCompat="@drawable/pic" />

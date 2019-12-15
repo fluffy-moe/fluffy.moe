@@ -52,13 +52,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private final static String TABLE_FOOD_HISTORY = "food";
 	private final static String CREATE_OPTION = "CREATE TABLE `option` (`key` TEXT PRIMARY KEY, `value` TEXT)";
 	private final static String CREATE_PET = "CREATE TABLE `pet` (`name` TEXT PRIMARY KEY, `birthday` TEXT, `breed` TEXT, `type` TEXT, " +
-			"`weight` INTEGER, `gendaer` TEXT, `spayed` TEXT)";
+			"`weight` INTEGER, `gender` TEXT, `spayed` TEXT)";
 	private final static String CREATE_EVENTS = "CREATE TABLE `events` (" +
 			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `hour` INTEGER, `minute` INTEGER, " +
 			"`category` TEXT, `body` TEXT, `color` INTEGER, `alarm` TEXT)";
 	private final static String CREATE_FOOD_HISTORY = "CREATE TABLE `food` (`id` INTEGER PRIMARY KEY AUTOINCREMENT," +
 			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `name` TEXT, `note` TEXT, `liked` TEXT, " +
-			"`barcode` TEXT, `SOURCE` TEXT)";
+			"`barcode` TEXT, `source` TEXT)";
 	private final static String DROP_STATEMENT = "DROP TABLE IF EXISTS ";
 
 	private final static String TAG = "log_Database";
