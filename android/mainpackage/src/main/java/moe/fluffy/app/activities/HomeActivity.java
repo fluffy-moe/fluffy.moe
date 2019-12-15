@@ -137,17 +137,6 @@ public class HomeActivity extends AppCompatActivity {
 			dataDir.mkdir();
 	}
 
-	private File createTemporaryFile(String part, String ext) throws IOException
-	{
-		File tempDir = Environment.getExternalStorageDirectory();
-		tempDir = new File(tempDir.getAbsolutePath()+"/.temp/");
-		Log.d(TAG, "createTemporaryFile: tmp => "+ tempDir.getAbsolutePath());
-		if(!tempDir.exists()) {
-			tempDir.mkdirs();
-		}
-		return File.createTempFile(part, ext, tempDir);
-	}
-
 	@Override
 	protected void onDestroy() {
 		if (dbHelper != null)

@@ -49,16 +49,13 @@ public class FoodViewType {
 	}
 
 	public FoodViewType(String _barcode, String note) {
-		barcode = _barcode;
-		foodNote = note;
-		foodName = "";
-		liked = false;
-		d = Date.getToday();
+		this(Date.getToday(), "", note, _barcode, false, null);
 	}
 
-	FoodViewType(String date, String _foodName, String _foodFullName, boolean l, String _imageSource) {
+	FoodViewType(Date date, String _foodName, String _foodFullName, String _barcode, boolean l, String _imageSource) {
 		id = null;
-		d = new Date(date);
+		barcode = _barcode;
+		d = date;
 		foodName = _foodName;
 		foodNote = _foodFullName;
 		liked = l;
@@ -134,7 +131,7 @@ public class FoodViewType {
 		return imageSource;
 	}
 
-	public void setDate(final String y, final String m, final String d) {
+	public void setDate(String y, String m, String d) {
 		this.d = new Date(y, m, d);
 	}
 

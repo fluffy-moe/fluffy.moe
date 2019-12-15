@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="1207px"
     android:layout_height="438px"
-    android:background="#F5EFE7"
+    android:background="@drawable/food_items_background"
     android:orientation="vertical"
     tools:ignore="PxUsage">
 
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="134px"
-        android:layout_marginTop="293px"
+        android:layout_marginTop="298px"
         android:fontFamily="@font/segoe_ui_bold"
         android:text="TextView"
         android:textColor="#707070"
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="134px"
-        android:layout_marginTop="197px"
+        android:layout_marginTop="213px"
         android:fontFamily="@font/segoe_ui_bold"
         android:text="TextView"
         android:textColor="#707070"

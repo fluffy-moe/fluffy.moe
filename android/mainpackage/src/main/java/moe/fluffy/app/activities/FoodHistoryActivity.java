@@ -31,12 +31,16 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.journeyapps.barcodescanner.Util;
+
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import moe.fluffy.app.BuildConfig;
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.FoodAdapter;
 import moe.fluffy.app.assistant.Callback;
@@ -95,14 +99,15 @@ public class FoodHistoryActivity extends AppCompatActivity {
 			/* something process bar here */
 			Uri bmpUri = ((SerializableBundle)bundle.getSerializable(BootstrapScannerActivity.PRODUCT_BITMAP)).getBmpUri();
 			try {
-				Bitmap bmp = Utils.getBitmap(this, bmpUri);
+				Bitmap bmp = Utils.getBitmap(this, bmpUri),
+						realImage = Utils.getBitmap(this, Uri.fromFile(new File(CameraActivity.getSaveLocation())));
 				FirebaseOCR fb = new FirebaseOCR(bmp);
 				fb.setCallBack(new Callback() {
 					@Override
 					public void onSuccess(Object o) {
 						FirebaseOCR f = (FirebaseOCR) o;
 						FoodViewType it = new FoodViewType(barcode, f.getLastResult());
-						FoodAdapter.generateDialog(FoodHistoryActivity.this, it, foodAdapter, o1 -> foodList.add((FoodViewType) o1), bmp);
+						FoodAdapter.generateDialog(FoodHistoryActivity.this, it, foodAdapter, o1 -> foodList.add((FoodViewType) o1), realImage);
 					}
 
 					@Override

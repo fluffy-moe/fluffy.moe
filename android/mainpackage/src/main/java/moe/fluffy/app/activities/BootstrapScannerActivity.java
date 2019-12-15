@@ -117,17 +117,6 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 
 	}
 
-/*
-	private void createMediaStore() {
-		File tempDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/fluffy/");
-		if(!tempDir.exists()) {
-			if (!tempDir.mkdirs()) {
-				Toast.makeText(this, "mkdir fail, please check privileges", Toast.LENGTH_LONG).show();
-			}
-		}
-	}
-*/
-
 	private void callCropPhoto(File _file) {
 		Log.d(TAG, "callCropPhoto: called");
 		CropImage.activity(Uri.fromFile(_file))
@@ -147,30 +136,33 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 				case SELECT_FROM_GALLERY: // AFTER SELECT IMAGE from gallery
+					Log.v(TAG, "onActivityResult: call select from gallery");
 					try {
 						String result;
 						Bitmap bmp = Utils.getBitmap(this, data);
 						if (bmp != null) {
 							if (!isRequestedOCR) {
+								Log.v(TAG, "onActivityResult: decoding");
 								result = Utils.realDecode(bmp);
 								//Toast.makeText(this, "Result: " + result, Toast.LENGTH_LONG).show();
 								Log.v(TAG, "Scan result is => " + result);
 								checkBarcodeInDatabase(result);
-								return;
 							} else {
+								Log.v(TAG, "onActivityResult: override old image");
 								Utils.saveBitmap(bmp, CameraActivity.getSaveLocation());
 							}
 						} else {
+							Log.v(TAG, "onActivityResult: not selected");
 							if (!isRequestedOCR)
 								callScannerActivity();
 							else
 								startActivityForResult(new Intent(this, CameraActivity.class), OCR_ACTIVITY);
-							return ;
 						}
 					} catch (IOException e) {
 						Log.e(TAG, "onActivityResult: Error while read image", e);
 						PopupDialog.build(this, e);
 					}
+					return ;
 				case OCR_ACTIVITY: // AFTER CAPTURE IMAGE
 					Log.v(TAG, "onActivityResult: got result");
 					if (data != null)
@@ -235,7 +227,6 @@ public class BootstrapScannerActivity extends AppCompatActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		Log.d(TAG, "onDestroy: ");
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(galleryRequestReceiver);
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(historyRequestReceiver);
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(ocrRequestReceiver);
