@@ -32,9 +32,9 @@ import androidx.annotation.Nullable;
 
 import moe.fluffy.app.R;
 
-public class MedicalReferenceDrawable extends Drawable {
+public class BloodTestDrawable extends Drawable {
 
-	private static class ScaleRect {
+	public static class ScaleRect {
 
 		private static final String TAG = "log_ScaleRect";
 
@@ -79,13 +79,18 @@ public class MedicalReferenceDrawable extends Drawable {
 			return new Rect(getLeft(width) - (rectWidth / 2), 0, getLeft(width) + rectWidth / 2, height);
 			//return rect;
 		}
+
+		public static ScaleRect build(double value, double referenceDown, double referenceUp) {
+			return new ScaleRect(value, referenceDown, referenceUp);
+		}
 	}
+
 	//private final Paint redPaint;
 	private final Paint targetPaint, writePaint;
 
 	private ScaleRect scaleRect;
 
-	private MedicalReferenceDrawable(Context context) {
+	private BloodTestDrawable(Context context) {
 		// Set up color and text size
 		targetPaint = new Paint();
 		targetPaint.setColor(context.getColor(R.color.colorMedicalTarget));
@@ -93,7 +98,7 @@ public class MedicalReferenceDrawable extends Drawable {
 		writePaint.setColor(context.getColor(R.color.colorMedicalBreak));
 	}
 
-	public MedicalReferenceDrawable(Context context, double value, double referenceDown, double referenceUp) {
+	public BloodTestDrawable(Context context, double value, double referenceDown, double referenceUp) {
 		this(context);
 		try {
 			scaleRect = new ScaleRect(value, referenceDown, referenceUp);
@@ -101,6 +106,11 @@ public class MedicalReferenceDrawable extends Drawable {
 			PopupDialog.build(context, e);
 			scaleRect = new ScaleRect(value, referenceUp, referenceDown);
 		}
+	}
+
+	public BloodTestDrawable(Context context, ScaleRect sc) {
+		this(context);
+		scaleRect = sc;
 	}
 
 	private static int getLeft(int width) {

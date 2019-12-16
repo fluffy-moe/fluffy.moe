@@ -19,53 +19,65 @@
  */
 package moe.fluffy.app.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.types.BloodTestSubType;
 
-public class BloodTestSubAdapter extends ArrayAdapter<BloodTestSubType> {
-	BloodTestSubAdapter(Context context, ArrayList<BloodTestSubType> l) {
-		super(context, android.R.layout.simple_list_item_1, l);
+public class BloodTestSubAdapter extends RecyclerView.Adapter<BloodTestSubAdapter.ViewType> {
+	private ArrayList<BloodTestSubType> bloodTestSubTypes;
+	BloodTestSubAdapter(ArrayList<BloodTestSubType> l) {
+		bloodTestSubTypes = l;
+	}
+
+	public static class ViewType extends RecyclerView.ViewHolder {
+
+		View rootView;
+		public ViewType(@NonNull View itemView) {
+			super(itemView);
+			rootView = itemView;
+		}
+
+		void setViewProp(BloodTestSubType it) {
+
+			TextView txtItemName, txtItemValue;
+			ImageView vReferenceView;
+
+			txtItemName = rootView.findViewById(R.id.txtBloodItemName);
+			txtItemValue = rootView.findViewById(R.id.txtBloodItemValue);
+			vReferenceView = rootView.findViewById(R.id.viewReference);
+
+			vReferenceView.setImageDrawable(it.getGraph(rootView.getContext()));
+			txtItemName.setText(it.getExamineItem());
+			txtItemValue.setText(String.valueOf(it.getResult()));
+		}
 	}
 
 	@NonNull
 	@Override
-	public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-		BloodTestSubType it = getItem(position);
-
-		TextView txtItemName, txtItemValue;
-		View vReferenceView;
-
-
-		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_today, parent, false);
-		}
-
-		txtItemName = convertView.findViewById(R.id.txtBloodItemName);
-		txtItemValue = convertView.findViewById(R.id.txtBloodItemValue);
-		vReferenceView = convertView.findViewById(R.id.viewReference);
-
-		if (it != null) {
-			txtItemName.setText(it.getExamineItem());
-			txtItemValue.setText(String.valueOf(it.getResult()));
-		} else {
-			NullPointerException e = new NullPointerException("Vaccination type return null");
-			PopupDialog.build(getContext(), e);
-			throw e;
-		}
-
-		return convertView;
+	public ViewType onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+		View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.bloodtest_layout, parent, false);
+		return new ViewType(convertView);
 	}
+
+	@Override
+	public void onBindViewHolder(@NonNull ViewType holder, int position) {
+		holder.setViewProp(bloodTestSubTypes.get(position));
+	}
+
+	@Override
+	public int getItemCount() {
+		return bloodTestSubTypes.size();
+	}
+
+
 }

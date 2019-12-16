@@ -64,11 +64,11 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
-	<org.mazhuang.wrapcontentlistview.WrapContentListView
+	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/lvTestItems"
-		android:layout_width="1005px"
+		android:layout_width="1104px"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="155px"
+		android:layout_marginStart="56px"
 		android:layout_marginTop="344px"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />

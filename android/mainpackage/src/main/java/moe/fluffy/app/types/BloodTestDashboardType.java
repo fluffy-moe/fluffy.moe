@@ -35,7 +35,7 @@ public class BloodTestDashboardType {
 	private ArrayList<BloodTestSubType> testItems;
 
 	private static String columnTestName, columnDate, columnSubItems, columnResultValue,
-			columnExamineName, columnResultValueReference;
+			columnExamineName, columnResultValueReferenceDown, columnResultValueReferenceUp;
 
 	private static void initColumn(Context context) {
 		columnTestName = context.getString(R.string.jsonFieldBloodTestName);
@@ -43,7 +43,8 @@ public class BloodTestDashboardType {
 		columnSubItems = context.getString(R.string.jsonFieldBloodTestResult);
 		columnExamineName = context.getString(R.string.jsonFieldExamineItem);
 		columnResultValue = context.getString(R.string.jsonFieldBloodTestResultValue);
-		columnResultValueReference = context.getString(R.string.jsonFieldBloodTestResultReference);
+		columnResultValueReferenceDown = context.getString(R.string.jsonFieldBloodTestResultReferenceDown);
+		columnResultValueReferenceUp = context.getString(R.string.jsonFieldBloodTestResultReferenceUp);
 	}
 
 	BloodTestDashboardType(Date _date, String testName, ArrayList<BloodTestSubType> items) {
@@ -61,8 +62,9 @@ public class BloodTestDashboardType {
 			JSONObject result = results.getJSONObject(i);
 			testItems.add(new BloodTestSubType(result.getString(columnExamineName),
 					result.getDouble(columnResultValue),
-					result.getDouble(columnResultValueReference),
-					null));
+					result.getDouble(columnResultValueReferenceDown),
+					result.getDouble(columnResultValueReferenceUp))
+			);
 		}
 	}
 

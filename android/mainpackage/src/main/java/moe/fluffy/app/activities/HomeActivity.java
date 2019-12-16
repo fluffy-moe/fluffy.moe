@@ -40,7 +40,7 @@ import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.DatabaseHelper;
-import moe.fluffy.app.assistant.MedicalReferenceDrawable;
+import moe.fluffy.app.assistant.BloodTestDrawable;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.types.AlbumFiles;
 import moe.fluffy.app.types.Date;
@@ -100,7 +100,7 @@ public class HomeActivity extends AppCompatActivity {
 				v -> startActivity(new Intent(this, TestCameraActivity.class)));
 
 		ImageView img = findViewById(R.id.imgDrawable);
-		MedicalReferenceDrawable drawable = new MedicalReferenceDrawable(this, 70, 60, 80);
+		BloodTestDrawable drawable = new BloodTestDrawable(this, 70, 60, 80);
 		img.setImageDrawable(drawable);
 		initFirebase();
 	}

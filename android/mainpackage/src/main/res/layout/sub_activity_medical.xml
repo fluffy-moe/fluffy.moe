@@ -253,16 +253,14 @@
         android:divider="@drawable/divider_61px"
         android:dividerHeight="63px"/>
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lvBloodTestRecord"
         android:layout_width="1160px"
         android:layout_height="1465px"
         android:layout_marginStart="142px"
         android:layout_marginTop="873px"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:visibility="invisible"
-        android:divider="@drawable/divider_61px"
-        android:dividerHeight="51px"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

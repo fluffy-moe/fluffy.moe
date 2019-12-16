@@ -119,7 +119,8 @@
 	<string name="jsonFieldStatus">status</string>
 	<string name="jsonFieldExamineItem">examine_item</string>
 	<string name="jsonFieldBloodTestResultValue">value</string>
-	<string name="jsonFieldBloodTestResultReference">reference</string>
+	<string name="jsonFieldBloodTestResultReferenceDown">referenceDown</string>
+	<string name="jsonFieldBloodTestResultReferenceUp">referenceUp</string>
 	<string name="jsonFieldBloodTestName">name</string>
 	<string name="jsonBloodTestRoot">blood_test</string>
 	<string name="jsonFieldBloodTestResult">result</string>

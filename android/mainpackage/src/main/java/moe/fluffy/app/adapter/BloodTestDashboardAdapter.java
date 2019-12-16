@@ -19,55 +19,69 @@
  */
 package moe.fluffy.app.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import org.mazhuang.wrapcontentlistview.WrapContentListView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.types.BloodTestDashboardType;
 
-public class BloodTestDashboardAdapter extends ArrayAdapter<BloodTestDashboardType> {
-	BloodTestDashboardAdapter(Context context, ArrayList<BloodTestDashboardType> items) {
-		super(context, android.R.layout.simple_list_item_1, items);
+public class BloodTestDashboardAdapter extends RecyclerView.Adapter<BloodTestDashboardAdapter.ViewType> {
+	private ArrayList<BloodTestDashboardType> bloodTestDashboardTypes;
+	BloodTestDashboardAdapter(ArrayList<BloodTestDashboardType> items) {
+		bloodTestDashboardTypes = items;
+	}
+
+	public static class ViewType extends RecyclerView.ViewHolder {
+
+		View rootView;
+		public ViewType(@NonNull View itemView) {
+			super(itemView);
+			rootView = itemView;
+		}
+
+		void setViewProp(BloodTestDashboardType it) {
+
+			TextView txtDate, txtBloodTestName;
+			//WrapContentListView lvTestItems;
+			RecyclerView lvTestItems;
+
+			RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(rootView.getContext(), RecyclerView.VERTICAL, false);
+
+			txtDate = rootView.findViewById(R.id.txtBloodTestDate);
+			txtBloodTestName = rootView.findViewById(R.id.txtBloodTestName);
+			lvTestItems = rootView.findViewById(R.id.lvTestItems);
+			lvTestItems.setHasFixedSize(true);
+
+			lvTestItems.setLayoutManager(layoutManager);
+
+			txtDate.setText(rootView.getContext().getString(R.string.fmt_date, it.getYear(), it.getMonth(), it.getDay()));
+			txtBloodTestName.setText(it.getBloodTestName());
+			lvTestItems.setAdapter(new BloodTestSubAdapter(it.getTestItems()));
+		}
 	}
 
 	@NonNull
 	@Override
-	public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-		BloodTestDashboardType it = getItem(position);
+	public ViewType onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.bloodtest_layout, parent, false);
+		return new ViewType(v);
+	}
 
-		TextView txtDate, txtBloodTestName;
-		WrapContentListView lvTestItems;
+	@Override
+	public void onBindViewHolder(@NonNull ViewType holder, int position) {
+		holder.setViewProp(bloodTestDashboardTypes.get(position));
+	}
 
-		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.bloodtest_layout, parent, false);
-		}
-
-		txtDate = convertView.findViewById(R.id.txtBloodTestDate);
-		txtBloodTestName = convertView.findViewById(R.id.txtBloodTestName);
-		lvTestItems = convertView.findViewById(R.id.lvTestItems);
-
-		if (it != null) {
-			txtDate.setText(getContext().getString(R.string.fmt_date, it.getYear(), it.getMonth(), it.getDay()));
-			txtBloodTestName.setText(it.getBloodTestName());
-			lvTestItems.setAdapter(new BloodTestSubAdapter(getContext(), it.getTestItems()));
-		} else {
-			NullPointerException e = new NullPointerException("BloodTestDashboard getItem() return null");
-			PopupDialog.build(getContext(), e);
-			throw e;
-		}
-
-		return convertView;
+	@Override
+	public int getItemCount() {
+		return bloodTestDashboardTypes.size();
 	}
 }

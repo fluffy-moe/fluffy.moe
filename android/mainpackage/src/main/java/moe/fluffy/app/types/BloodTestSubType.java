@@ -19,15 +19,18 @@
  */
 package moe.fluffy.app.types;
 
+import android.content.Context;
+
+import moe.fluffy.app.assistant.BloodTestDrawable;
+
 public class BloodTestSubType {
 	private String examineItem;
-	private double result, reference;
-	private Object objReversed;
-	BloodTestSubType(String a, double b, double _reference, Object _objReversed) {
+	private double result;
+	private BloodTestDrawable.ScaleRect bloodTestDrawable;
+	BloodTestSubType(String a, double b, double referenceDown, double referenceUp) {
 		examineItem = a;
 		result = b;
-		reference = _reference;
-		objReversed = _objReversed;
+		bloodTestDrawable = BloodTestDrawable.ScaleRect.build(b, referenceDown, referenceUp);
 	}
 
 	public String getExamineItem() {
@@ -38,11 +41,8 @@ public class BloodTestSubType {
 		return result;
 	}
 
-	public Object getGraph() {
-		return objReversed;
+	public BloodTestDrawable getGraph(Context context) {
+		return new BloodTestDrawable(context, bloodTestDrawable);
 	}
 
-	public double getReference() {
-		return reference;
-	}
 }
