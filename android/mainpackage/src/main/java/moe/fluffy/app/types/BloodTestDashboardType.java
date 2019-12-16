@@ -35,9 +35,10 @@ public class BloodTestDashboardType {
 	private ArrayList<BloodTestSubType> testItems;
 
 	private static String columnTestName, columnDate, columnSubItems, columnResultValue,
-			columnExamineName, columnResultValueReferenceDown, columnResultValueReferenceUp;
+			columnExamineName, columnResultValueReferenceDown, columnResultValueReferenceUp,
+			columnResultUnit;
 
-	private static void initColumn(Context context) {
+	public static void initColumn(Context context) {
 		columnTestName = context.getString(R.string.jsonFieldBloodTestName);
 		columnDate = context.getString(R.string.jsonFieldDate);
 		columnSubItems = context.getString(R.string.jsonFieldBloodTestResult);
@@ -45,6 +46,7 @@ public class BloodTestDashboardType {
 		columnResultValue = context.getString(R.string.jsonFieldBloodTestResultValue);
 		columnResultValueReferenceDown = context.getString(R.string.jsonFieldBloodTestResultReferenceDown);
 		columnResultValueReferenceUp = context.getString(R.string.jsonFieldBloodTestResultReferenceUp);
+		columnResultUnit = context.getString(R.string.jsonFieldBloodTestResultUnit);
 	}
 
 	BloodTestDashboardType(Date _date, String testName, ArrayList<BloodTestSubType> items) {
@@ -53,7 +55,7 @@ public class BloodTestDashboardType {
 		testItems = items;
 	}
 
-	BloodTestDashboardType(JSONObject j) throws JSONException {
+	public BloodTestDashboardType(JSONObject j) throws JSONException {
 		date = new Date(j.getJSONObject(columnDate));
 		bloodTestName = j.getString(columnTestName);
 		testItems = new ArrayList<>();
@@ -63,7 +65,8 @@ public class BloodTestDashboardType {
 			testItems.add(new BloodTestSubType(result.getString(columnExamineName),
 					result.getDouble(columnResultValue),
 					result.getDouble(columnResultValueReferenceDown),
-					result.getDouble(columnResultValueReferenceUp))
+					result.getDouble(columnResultValueReferenceUp),
+					result.getString(columnResultUnit))
 			);
 		}
 	}

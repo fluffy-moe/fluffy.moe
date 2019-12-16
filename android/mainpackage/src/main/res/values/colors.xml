@@ -36,6 +36,7 @@
 	<!-- medical -->
 	<color name="colorMedicalTarget">#E79E35</color>
 	<color name="colorMedicalBreak">#F5F5F5</color>
+	<color name="colorBloodTestBackground">#F6EBDD</color>
 	<!-- medical end -->
 
 </resources>

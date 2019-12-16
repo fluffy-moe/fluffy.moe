@@ -40,27 +40,30 @@ public class BloodTestDrawable extends Drawable {
 
 		private double valueScale;
 		boolean isNegativeNumber, isSuperNumber;
+		private final static float scaleBase = 0.33f;
+
 
 		ScaleRect(double value, double referenceDown, double referenceUp) {
 			if (referenceUp < referenceDown)
 				throw new IllegalArgumentException("referenceUp should more than referenceDown");
 			valueScale = Math.abs(value - referenceDown) / (referenceUp - referenceDown);
+			Log.v(TAG, "ScaleRect: referenceDown => "+ referenceDown + " referenceUp => " + referenceUp + " value => " + value);
 			Log.v(TAG, "ScaleRect: valueScare => " + valueScale);
-			isNegativeNumber = (value - referenceDown) < 0;
-			isSuperNumber = valueScale > 1;
+			isNegativeNumber = value < referenceDown;
+			isSuperNumber = value > referenceUp;
 			if (isSuperNumber) {
 				//valueScale -= 1;
-				valueScale -= (int)valueScale;
+				valueScale = valueScale - (int)valueScale;
 			}
-			if ((isNegativeNumber || isSuperNumber) && valueScale > 0.33f) {
-				valueScale = 0.33f;
+			if ((isNegativeNumber || isSuperNumber) && valueScale > scaleBase) {
+				valueScale = scaleBase;
 			}
 			if (isNegativeNumber)
-				valueScale = 0.33f - valueScale;
+				valueScale = scaleBase - valueScale;
 			else if (isSuperNumber)
-				valueScale += 1.33f;
+				valueScale += (1 + scaleBase);
 			else
-				valueScale += 0.33f;
+				valueScale += scaleBase;
 			Log.v(TAG, "ScaleRect: valueScare => " + valueScale);
 			Log.v(TAG, "ScaleRect: is super number => " + isSuperNumber + ", is negative number => " + isNegativeNumber);
 		}
@@ -70,7 +73,14 @@ public class BloodTestDrawable extends Drawable {
 		}
 
 		private int getLeft(int width) {
-			return (int) Math.ceil((double) width / 1.66 * valueScale);
+			int left = (int) Math.ceil((double) width / (1 + scaleBase * 2) * valueScale);
+			if (left < (getWidth(width))) {
+				left = getWidth(width);
+			}
+			if (left + getWidth(width) > width) {
+				left = width - getWidth(width);
+			}
+			return left;
 		}
 
 		Rect getRect(int width, int height) {
@@ -132,6 +142,7 @@ public class BloodTestDrawable extends Drawable {
 
 	@Override
 	public void draw(Canvas canvas) {
+		// TODO: performance problem
 		// Get the drawable's bounds
 		int width = getBounds().width();
 		int height = getBounds().height();

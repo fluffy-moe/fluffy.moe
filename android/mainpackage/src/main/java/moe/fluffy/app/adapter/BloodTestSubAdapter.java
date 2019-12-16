@@ -19,6 +19,7 @@
  */
 package moe.fluffy.app.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ public class BloodTestSubAdapter extends RecyclerView.Adapter<BloodTestSubAdapte
 			rootView = itemView;
 		}
 
+		@SuppressLint("DefaultLocale")
 		void setViewProp(BloodTestSubType it) {
 
 			TextView txtItemName, txtItemValue;
@@ -58,14 +60,14 @@ public class BloodTestSubAdapter extends RecyclerView.Adapter<BloodTestSubAdapte
 
 			vReferenceView.setImageDrawable(it.getGraph(rootView.getContext()));
 			txtItemName.setText(it.getExamineItem());
-			txtItemValue.setText(String.valueOf(it.getResult()));
+			txtItemValue.setText(String.format("%.2f%s", it.getResult(), it.getUnit()));
 		}
 	}
 
 	@NonNull
 	@Override
 	public ViewType onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.bloodtest_layout, parent, false);
+		View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_bloodtest_item, parent, false);
 		return new ViewType(convertView);
 	}
 

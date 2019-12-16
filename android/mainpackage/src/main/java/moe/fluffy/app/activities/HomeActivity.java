@@ -37,12 +37,13 @@ import java.util.Objects;
 
 import cz.ackee.useragent.UserAgent;
 import moe.fluffy.app.R;
+import moe.fluffy.app.assistant.BloodTestDrawable;
 import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.DatabaseHelper;
-import moe.fluffy.app.assistant.BloodTestDrawable;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.types.AlbumFiles;
+import moe.fluffy.app.types.BloodTestDashboardType;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.DeinsectizaionType;
 import moe.fluffy.app.types.EventsType;
@@ -65,8 +66,7 @@ public class HomeActivity extends AppCompatActivity {
 		init();
 	}
 
-	void init() {
-		Connect.setUserAgent(UserAgent.getInstance(this).getUserAgentString(""));
+	void initColumns() {
 		ConnectPath.loadConfig(this);
 		PetInfo.initStrings(this);
 		Date.initWeekName(this);
@@ -75,7 +75,13 @@ public class HomeActivity extends AppCompatActivity {
 		DeinsectizaionType.initColumnName(this);
 		FoodViewType.initColumn(this);
 		AlbumFiles.initColumnName(this);
+		BloodTestDashboardType.initColumn(this);
+	}
+
+	void init() {
+		Connect.setUserAgent(UserAgent.getInstance(this).getUserAgentString(""));
 		dbHelper = new DatabaseHelper(this);
+		initColumns();
 		createFolder();
 
 		findViewById(R.id.btnChangeToCamera).setOnClickListener(

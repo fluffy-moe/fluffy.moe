@@ -32,10 +32,11 @@ import java.util.ArrayList;
 
 import moe.fluffy.app.R;
 import moe.fluffy.app.types.BloodTestDashboardType;
+import moe.fluffy.app.types.VerticalSpaceItemDecoration;
 
 public class BloodTestDashboardAdapter extends RecyclerView.Adapter<BloodTestDashboardAdapter.ViewType> {
 	private ArrayList<BloodTestDashboardType> bloodTestDashboardTypes;
-	BloodTestDashboardAdapter(ArrayList<BloodTestDashboardType> items) {
+	public BloodTestDashboardAdapter(ArrayList<BloodTestDashboardType> items) {
 		bloodTestDashboardTypes = items;
 	}
 
@@ -61,6 +62,7 @@ public class BloodTestDashboardAdapter extends RecyclerView.Adapter<BloodTestDas
 			lvTestItems.setHasFixedSize(true);
 
 			lvTestItems.setLayoutManager(layoutManager);
+			lvTestItems.addItemDecoration(new VerticalSpaceItemDecoration(15));
 
 			txtDate.setText(rootView.getContext().getString(R.string.fmt_date, it.getYear(), it.getMonth(), it.getDay()));
 			txtBloodTestName.setText(it.getBloodTestName());

@@ -24,13 +24,14 @@ import android.content.Context;
 import moe.fluffy.app.assistant.BloodTestDrawable;
 
 public class BloodTestSubType {
-	private String examineItem;
+	private String examineItem, itemUnit;
 	private double result;
 	private BloodTestDrawable.ScaleRect bloodTestDrawable;
-	BloodTestSubType(String a, double b, double referenceDown, double referenceUp) {
+	BloodTestSubType(String a, double b, double referenceDown, double referenceUp, String _itemUnit) {
 		examineItem = a;
 		result = b;
 		bloodTestDrawable = BloodTestDrawable.ScaleRect.build(b, referenceDown, referenceUp);
+		itemUnit = _itemUnit;
 	}
 
 	public String getExamineItem() {
@@ -45,4 +46,7 @@ public class BloodTestSubType {
 		return new BloodTestDrawable(context, bloodTestDrawable);
 	}
 
+	public String getUnit() {
+		return itemUnit;
+	}
 }

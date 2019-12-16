@@ -36,6 +36,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,17 +46,20 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.adapter.BloodTestDashboardAdapter;
+import moe.fluffy.app.adapter.DeinsectizaionAdapter;
+import moe.fluffy.app.adapter.VaccinationAdapter;
 import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.JSONParser;
 import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.types.BloodTestDashboardType;
 import moe.fluffy.app.types.DeinsectizaionType;
 import moe.fluffy.app.types.HttpRawResponse;
 import moe.fluffy.app.types.NetworkRequestType;
 import moe.fluffy.app.types.VaccinationType;
-import moe.fluffy.app.adapter.DeinsectizaionAdapter;
-import moe.fluffy.app.adapter.VaccinationAdapter;
+import moe.fluffy.app.types.VerticalSpaceItemDecoration;
 
 public class MedicalActivity extends AppCompatActivity {
 
@@ -75,11 +80,13 @@ public class MedicalActivity extends AppCompatActivity {
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
 
-	ListView lvItems, lvBloodTestItems;
+	ListView lvItems;
+	RecyclerView lvBloodTestItems;
 	
 	JSONObject medicalObject;
 	ArrayList<VaccinationType> vacArray;
 	ArrayList<DeinsectizaionType> deiArray;
+	ArrayList<BloodTestDashboardType> btArray;
 
 	BroadcastReceiver updateDataReceiver;
 
@@ -98,6 +105,7 @@ public class MedicalActivity extends AppCompatActivity {
 		if (medicalObject == null) {
 			vacArray = new ArrayList<>();
 			deiArray = new ArrayList<>();
+			btArray = new ArrayList<>();
 			try {
 				if (jsonInput == null)
 					medicalObject = JSONParser.loadJSONFromAsset(getResources().openRawResource(R.raw.medical));
@@ -113,6 +121,10 @@ public class MedicalActivity extends AppCompatActivity {
 				m = medicalObject.getJSONArray(getString(R.string.jsonVaccinationRoot));
 				for (int i=0;i<m.length();i++) {
 					vacArray.add(new VaccinationType(m.getJSONObject(i)));
+				}
+				m = medicalObject.getJSONArray(getString(R.string.jsonBloodTestRoot));
+				for (int i=0 ;i < m.length() ;i++) {
+					btArray.add(new BloodTestDashboardType(m.getJSONObject(i)));
 				}
 			} catch (JSONException e) {
 				PopupDialog.build(this, e);
@@ -179,9 +191,12 @@ public class MedicalActivity extends AppCompatActivity {
 		txtBar2.setOnClickListener( v -> setOnClickChangeView(txtBar2, vBarUnderline2, View.VISIBLE,
 				new DeinsectizaionAdapter(this, deiArray), null));
 		txtBar3.setOnClickListener( v -> setOnClickChangeView(txtBar3, vBarUnderline3, View.INVISIBLE,
-				null, null));
+				null, new BloodTestDashboardAdapter(btArray)));
 
 		lvItems.setAdapter(new VaccinationAdapter(this, vacArray));
+		lvBloodTestItems.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+		lvBloodTestItems.setHasFixedSize(true);
+		lvBloodTestItems.addItemDecoration(new VerticalSpaceItemDecoration(54));
 
 		imgbtnSearchHospital.setOnClickListener(v ->
 				startActivity(new Intent(MedicalActivity.this, SearchActivity.class)));
@@ -220,6 +235,9 @@ public class MedicalActivity extends AppCompatActivity {
 		imgbtnNavBarCalendar.setOnClickListener(v ->
 				startActivity(new Intent(MedicalActivity.this, CalendarActivity.class)));
 
+		imgbtnNavBarUser.setOnClickListener(v -> {
+				startActivity(new Intent(this, ProfileActivity.class));});
+
 	}
 
 	private void setBarVisibility(int visibility) {
@@ -228,7 +246,8 @@ public class MedicalActivity extends AppCompatActivity {
 		txtNextDate.setVisibility(visibility);
 	}
 
-	private void setOnClickChangeView(TextView tView, View vUnderline, int barVisibility, ArrayAdapter<?> arrayAdapter1, ArrayAdapter<?> arrayAdapter2) {
+	private void setOnClickChangeView(TextView tView, View vUnderline, int barVisibility, ArrayAdapter<?> arrayAdapter1,
+									  BloodTestDashboardAdapter bloodTestDashboardAdapter) {
 		previousClickText.setTextColor(getColor(R.color.colorBackground));
 		previousView.setBackgroundColor(getColor(android.R.color.transparent));
 		tView.setTextColor(getColor(R.color.colorMain));
@@ -241,10 +260,10 @@ public class MedicalActivity extends AppCompatActivity {
 			lvItems.setVisibility(View.VISIBLE);
 			lvItems.setAdapter(arrayAdapter1);
 		}
-		if (arrayAdapter2 != null) {
+		if (bloodTestDashboardAdapter != null) {
 			lvItems.setVisibility(View.INVISIBLE);
 			lvBloodTestItems.setVisibility(View.VISIBLE);
-			lvBloodTestItems.setAdapter(arrayAdapter2);
+			lvBloodTestItems.setAdapter(bloodTestDashboardAdapter);
 		}
 	}
 
