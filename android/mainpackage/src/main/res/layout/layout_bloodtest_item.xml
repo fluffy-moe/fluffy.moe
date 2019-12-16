@@ -33,11 +33,10 @@
 		android:layout_height="wrap_content"
 		android:layout_weight="1" />
 
-	<View
+	<ImageView
 		android:id="@+id/viewReference"
 		android:layout_width="409px"
-		android:layout_height="wrap_content"
-		android:layout_weight="1"
-		android:text="TextView" />
+		android:layout_height="match_parent"
+		android:layout_weight="1" />
 
 </LinearLayout>

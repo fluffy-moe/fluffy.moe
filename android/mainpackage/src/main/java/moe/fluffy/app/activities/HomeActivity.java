@@ -26,6 +26,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,6 +40,7 @@ import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.DatabaseHelper;
+import moe.fluffy.app.assistant.MedicalReferenceDrawable;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.types.AlbumFiles;
 import moe.fluffy.app.types.Date;
@@ -96,6 +98,10 @@ public class HomeActivity extends AppCompatActivity {
 				v -> startActivity(new Intent(this, ProfileActivity.class)));
 		findViewById(R.id.btnChangeToTest).setOnClickListener(
 				v -> startActivity(new Intent(this, TestCameraActivity.class)));
+
+		ImageView img = findViewById(R.id.imgDrawable);
+		MedicalReferenceDrawable drawable = new MedicalReferenceDrawable(this, 70, 60, 80);
+		img.setImageDrawable(drawable);
 		initFirebase();
 	}
 

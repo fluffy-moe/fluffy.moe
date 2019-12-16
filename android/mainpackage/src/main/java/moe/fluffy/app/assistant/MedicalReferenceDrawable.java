@@ -1,0 +1,152 @@
+/*
+ ** Copyright (C) 2019 KunoiSayami
+ **
+ ** This file is part of Fluffy and is released under
+ ** the AGPL v3 License: https://www.gnu.org/licenses/agpl-3.0.txt
+ **
+ ** This program is free software: you can redistribute it and/or modify
+ ** it under the terms of the GNU Affero General Public License as published by
+ ** the Free Software Foundation, either version 3 of the License, or
+ ** any later version.
+ **
+ ** This program is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ ** GNU Affero General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Affero General Public License
+ ** along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+package moe.fluffy.app.assistant;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
+
+import androidx.annotation.Nullable;
+
+import moe.fluffy.app.R;
+
+public class MedicalReferenceDrawable extends Drawable {
+
+	private static class ScaleRect {
+
+		private static final String TAG = "log_ScaleRect";
+
+		private double valueScale;
+		boolean isNegativeNumber, isSuperNumber;
+
+		ScaleRect(double value, double referenceDown, double referenceUp) {
+			if (referenceUp < referenceDown)
+				throw new IllegalArgumentException("referenceUp should more than referenceDown");
+			valueScale = Math.abs(value - referenceDown) / (referenceUp - referenceDown);
+			Log.v(TAG, "ScaleRect: valueScare => " + valueScale);
+			isNegativeNumber = (value - referenceDown) < 0;
+			isSuperNumber = valueScale > 1;
+			if (isSuperNumber) {
+				//valueScale -= 1;
+				valueScale -= (int)valueScale;
+			}
+			if ((isNegativeNumber || isSuperNumber) && valueScale > 0.33f) {
+				valueScale = 0.33f;
+			}
+			if (isNegativeNumber)
+				valueScale = 0.33f - valueScale;
+			else if (isSuperNumber)
+				valueScale += 1.33f;
+			else
+				valueScale += 0.33f;
+			Log.v(TAG, "ScaleRect: valueScare => " + valueScale);
+			Log.v(TAG, "ScaleRect: is super number => " + isSuperNumber + ", is negative number => " + isNegativeNumber);
+		}
+
+		private static int getWidth(int width) {
+			return (int) Math.ceil(0.0366f * (double) width);
+		}
+
+		private int getLeft(int width) {
+			return (int) Math.ceil((double) width / 1.66 * valueScale);
+		}
+
+		Rect getRect(int width, int height) {
+			Log.v(TAG, "getRect: getWidth => " + getWidth(width) + " getLeft => " + getLeft(width));
+			int rectWidth = getWidth(width);
+			return new Rect(getLeft(width) - (rectWidth / 2), 0, getLeft(width) + rectWidth / 2, height);
+			//return rect;
+		}
+	}
+	//private final Paint redPaint;
+	private final Paint targetPaint, writePaint;
+
+	private ScaleRect scaleRect;
+
+	private MedicalReferenceDrawable(Context context) {
+		// Set up color and text size
+		targetPaint = new Paint();
+		targetPaint.setColor(context.getColor(R.color.colorMedicalTarget));
+		writePaint = new Paint();
+		writePaint.setColor(context.getColor(R.color.colorMedicalBreak));
+	}
+
+	public MedicalReferenceDrawable(Context context, double value, double referenceDown, double referenceUp) {
+		this(context);
+		try {
+			scaleRect = new ScaleRect(value, referenceDown, referenceUp);
+		} catch (IllegalArgumentException e) {
+			PopupDialog.build(context, e);
+			scaleRect = new ScaleRect(value, referenceUp, referenceDown);
+		}
+	}
+
+	private static int getLeft(int width) {
+		return (int) Math.ceil(((float)width * 0.2f));
+	}
+
+	private static int getRectWidth(int width) {
+		return (int) Math.ceil(((float)width * 0.02f));
+	}
+
+	private static int getRight(int width) {
+		return getRightBottom(width) - getRectWidth(width);
+	}
+
+	private static int getRightBottom(int width) {
+		return width - getLeft(width);
+	}
+
+
+	@Override
+	public void draw(Canvas canvas) {
+		// Get the drawable's bounds
+		int width = getBounds().width();
+		int height = getBounds().height();
+		//float radius = Math.min(width, height) / 2;
+		Rect rLeft = new Rect(getLeft(width), 0, getLeft(width) + getRectWidth(width), height),
+				rRight = new Rect(getRight(width), 0, getRightBottom(width), height);
+		canvas.drawRect(rLeft, writePaint);
+		canvas.drawRect(rRight, writePaint);
+		canvas.drawRect(scaleRect.getRect(width, height), targetPaint);
+	}
+
+	@Override
+	public void setAlpha(int alpha) {
+		// This method is required
+	}
+
+
+	@Override
+	public void setColorFilter(@Nullable ColorFilter colorFilter) {
+
+	}
+
+	@Override
+	public int getOpacity() {
+		// Must be PixelFormat.UNKNOWN, TRANSLUCENT, TRANSPARENT, or OPAQUE
+		return PixelFormat.OPAQUE;
+	}
+}

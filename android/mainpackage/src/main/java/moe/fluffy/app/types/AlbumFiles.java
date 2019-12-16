@@ -83,7 +83,10 @@ public class AlbumFiles {
 
 	public static class dbFriendlyAlbumFiles extends AlbumFile {
 
+		private Integer id;
+
 		public dbFriendlyAlbumFiles(Cursor cursor) {
+			id = cursor.getInt(cursor.getColumnIndexOrThrow(AlbumFiles.columnId));
 			setPath(cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnPath)));
 			setBucketName(cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnBucketName)));
 			setMimeType(cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnMimeType)));
@@ -100,6 +103,8 @@ public class AlbumFiles {
 
 		public ContentValues getContentValues() {
 			ContentValues cv = new ContentValues();
+			if (id != null)
+				cv.put(AlbumFiles.columnId, id);
 			cv.put(AlbumFiles.columnPath, getPath());
 			cv.put(AlbumFiles.columnBucketName, getBucketName());
 			cv.put(AlbumFiles.columnMimeType, getMimeType());
