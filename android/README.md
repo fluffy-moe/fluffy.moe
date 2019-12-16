@@ -15,6 +15,8 @@
 - [ ] Fetch information from server
 - [x] Firebase OCR cut photo before request detect
 - [x] Food history refresh fail
+- [ ] ~~Blood test page performance~~
+- [ ] Account edit page
 
 ## Used library
 

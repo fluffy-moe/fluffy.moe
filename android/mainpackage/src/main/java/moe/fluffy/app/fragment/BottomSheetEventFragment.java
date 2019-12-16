@@ -1,4 +1,23 @@
-package moe.fluffy.app.assistant;
+/*
+ ** Copyright (C) 2019 KunoiSayami
+ **
+ ** This file is part of Fluffy and is released under
+ ** the AGPL v3 License: https://www.gnu.org/licenses/agpl-3.0.txt
+ **
+ ** This program is free software: you can redistribute it and/or modify
+ ** it under the terms of the GNU Affero General Public License as published by
+ ** the Free Software Foundation, either version 3 of the License, or
+ ** any later version.
+ **
+ ** This program is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ ** GNU Affero General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Affero General Public License
+ ** along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
+package moe.fluffy.app.fragment;
 
 
 import android.annotation.SuppressLint;
@@ -34,6 +53,9 @@ import java.util.Calendar;
 
 import moe.fluffy.app.activities.HomeActivity;
 import moe.fluffy.app.R;
+import moe.fluffy.app.assistant.DateTimeWheelView;
+import moe.fluffy.app.assistant.SimpleCallback;
+import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.Datetime;
 import moe.fluffy.app.types.EventsType;
@@ -42,7 +64,6 @@ import moe.fluffy.app.types.SerializableBundle;
 public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 	private final String TAG = "log_BottomSheetEventFragment";
 
-	private View viewAddEventPopup;
 	private DateTimeWheelView dateTimeWheelView;
 	private SimpleCallback listener;
 
@@ -69,21 +90,11 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 	@Override
 	public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		Log.d(TAG, "onCreateView: test");
-		viewAddEventPopup = inflater.inflate(R.layout.calendar_add_event_bottom, container, false);
+		View viewAddEventPopup = inflater.inflate(R.layout.calendar_add_event_bottom, container, false);
 		ImageButton btnConfirm = viewAddEventPopup.findViewById(R.id.imgbtnCalendarSave);
 		EditText etBody = viewAddEventPopup.findViewById(R.id.etCalendarBody);
 		Switch swAlarm = viewAddEventPopup.findViewById(R.id.swCalendarAlarm);
 		dateTimeWheelView = new DateTimeWheelView(viewAddEventPopup, 54);
-		/*Window w = getWindow();
-		if (w != null) {
-			w.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-				/*w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-						WindowManager.LayoutParams.FLAG_FULLSCREEN);
-				w.requestFeature(Window.FEATURE_NO_TITLE);
-		}
-
-		dialog.setContentView(viewAddEventPopup);*/
-		//timePicker.setIs24HourView(true);
 		Bundle bundle = getArguments();
 		if (bundle != null) {
 			SerializableBundle serializableBundle = (SerializableBundle) bundle.getSerializable(keyName);
@@ -101,11 +112,6 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 			dateTimeWheelView.setPicker(preDaytime);
 		}
 		dateTimeWheelView.setItemsVisible(3);
-		/*FragmentManager childManager = getChildFragmentManager();
-		FragmentTransaction childTransaction = childManager.beginTransaction();
-		pvTime = new TimePickerFragment();*/
-		/*bundle.putSerializable("1", new SerializableBundle(mFrameLayout));
-		pvTime.setArguments(bundle);*/
 		initPopupColorPick(viewAddEventPopup);
 		initCategoryButton(viewAddEventPopup);
 		etBody.setOnFocusChangeListener((view, hasFocus) ->
@@ -125,8 +131,6 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 			this.dismiss();
 		});
 
-		/*childTransaction.replace(R.id.viewCalendarPick, pvTime);
-		childTransaction.commitAllowingStateLoss();*/
 		return viewAddEventPopup;
 	}
 
@@ -146,7 +150,6 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 			w.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 					WindowManager.LayoutParams.FLAG_FULLSCREEN);
 			w.requestFeature(Window.FEATURE_NO_TITLE);
-			//w.setBackgroundDrawableResource(R.drawable.round_background);
 		}
 		d.setOnShowListener(dialog -> {
 			BottomSheetDialog d1 = (BottomSheetDialog) dialog;
@@ -176,12 +179,6 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 		super.onCreate(savedInstanceState);
 	}
 
-	/*@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		mFrameLayout = mView.findViewById(R.id.fragment_date_picker);
-		initTimePicker();
-	}*/
 
 	private void initCategoryButton(View viewAddEventPopup) {
 		Button btnEvent, btnNote, btnSymptom, btnWater;

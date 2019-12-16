@@ -126,6 +126,7 @@
 		android:layout_marginTop="1317px"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/text_medical_number"
+		android:textAlignment="center"
 		android:textColor="#B96320"
 		android:textSize="60px"
 		app:layout_constraintStart_toStartOf="parent"

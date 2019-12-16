@@ -75,10 +75,10 @@ public class BloodTestDrawable extends Drawable {
 		private int getLeft(int width) {
 			int left = (int) Math.ceil((double) width / (1 + scaleBase * 2) * valueScale);
 			if (left < (getWidth(width))) {
-				left = getWidth(width);
+				left = getWidth(width) / 2;
 			}
 			if (left + getWidth(width) > width) {
-				left = width - getWidth(width);
+				left = width - getWidth(width) / 2;
 			}
 			return left;
 		}

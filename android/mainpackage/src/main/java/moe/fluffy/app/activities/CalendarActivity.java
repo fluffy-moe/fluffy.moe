@@ -41,7 +41,7 @@ import java.util.ArrayList;
 
 import moe.fluffy.app.BuildConfig;
 import moe.fluffy.app.R;
-import moe.fluffy.app.assistant.BottomSheetEventFragment;
+import moe.fluffy.app.fragment.BottomSheetEventFragment;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.Datetime;
 import moe.fluffy.app.types.EventDashboardType;

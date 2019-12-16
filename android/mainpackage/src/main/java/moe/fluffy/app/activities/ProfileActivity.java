@@ -19,18 +19,21 @@
  */
 package moe.fluffy.app.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import moe.fluffy.app.R;
+import moe.fluffy.app.fragment.AccountManagementBottomSheetFragment;
 
 public class ProfileActivity extends AppCompatActivity {
 
+
+	ImageButton imgbtnMore;
 
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
@@ -47,6 +50,11 @@ public class ProfileActivity extends AppCompatActivity {
 
 	void init() {
 		initNavigationBar();
+		imgbtnMore = findViewById(R.id.imgbtnProfileDot);
+		imgbtnMore.setOnClickListener(v -> {
+			AccountManagementBottomSheetFragment sheetFragment = new AccountManagementBottomSheetFragment();
+			sheetFragment.show(getSupportFragmentManager(), sheetFragment.getTag());
+		});
 	}
 
 
