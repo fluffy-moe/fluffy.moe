@@ -1,13 +1,11 @@
-package moe.fluffy.app.assistant;
+package moe.fluffy.app.views;
 
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
-import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.bigkoo.pickerview.adapter.NumericWheelAdapter;
 import com.bigkoo.pickerview.listener.ISelectTimeCallback;
-import com.bigkoo.pickerview.utils.ChinaDate;
 import com.contrarywind.view.WheelView;
 
 import org.jetbrains.annotations.NotNull;

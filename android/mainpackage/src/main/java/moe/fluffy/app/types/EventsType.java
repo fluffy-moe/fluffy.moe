@@ -33,7 +33,7 @@ import androidx.annotation.Nullable;
 import com.codbking.calendar.CalendarBean;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.assistant.DateTimeWheelView;
+import moe.fluffy.app.views.DateTimeWheelView;
 
 public class EventsType {
 	private DateWithMark date;

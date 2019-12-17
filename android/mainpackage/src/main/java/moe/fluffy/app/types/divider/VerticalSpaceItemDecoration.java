@@ -1,4 +1,4 @@
-package moe.fluffy.app.types;
+package moe.fluffy.app.types.divider;
 
 import android.graphics.Rect;
 import android.view.View;

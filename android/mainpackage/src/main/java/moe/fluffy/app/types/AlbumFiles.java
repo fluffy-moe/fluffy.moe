@@ -35,55 +35,42 @@ public class AlbumFiles {
 			columnLatitude, columnLongitude, columnSize, columnDuration, columnThumbPath,
 			columnMediaType, columnChecked, columnDisable;
 
-/*	public static class dbFriendlyAlbumFiles {
-		private String mPath, mBucketName, mMimeType;
-		private long mAddDate;
-		private float mLatitude;
-		private float mLongitude;
-		private long mSize;
-		private long mDuration;
-		private String mThumbPath;
-		private int mMediaType;
-		private boolean isChecked;
-		private boolean isDisable;
-
-		dbFriendlyAlbumFiles(Cursor cursor) {
-			mPath = cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnPath));
-			mBucketName = cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnBucketName));
-			mMimeType = cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnMimeType));
-			mAddDate = cursor.getLong(cursor.getColumnIndexOrThrow(AlbumFiles.columnAddDate));
-			mLatitude = cursor.getFloat(cursor.getColumnIndexOrThrow(AlbumFiles.columnLatitude));
-			mLongitude = cursor.getFloat(cursor.getColumnIndexOrThrow(AlbumFiles.columnLongitude));
-			mSize = cursor.getLong(cursor.getColumnIndexOrThrow(AlbumFiles.columnSize));
-			mDuration = cursor.getLong(cursor.getColumnIndexOrThrow(AlbumFiles.columnDuration));
-			mThumbPath = cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnThumbPath));
-			mMediaType = cursor.getInt(cursor.getColumnIndexOrThrow(AlbumFiles.columnMediaType));
-			isChecked = Boolean.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnChecked)));
-			isDisable = Boolean.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnDisable)));
-		}
-
-		public ContentValues getContentValues() {
-			ContentValues cv = new ContentValues();
-			cv.put(AlbumFiles.columnPath, mPath);
-			cv.put(AlbumFiles.columnBucketName, mBucketName);
-			cv.put(AlbumFiles.columnMimeType, mMimeType);
-			cv.put(AlbumFiles.columnAddDate, mAddDate);
-			cv.put(AlbumFiles.columnLatitude, mLatitude);
-			cv.put(AlbumFiles.columnLongitude, mLongitude);
-			cv.put(AlbumFiles.columnSize, mSize);
-			cv.put(AlbumFiles.columnDuration, mDuration);
-			cv.put(AlbumFiles.columnThumbPath, mThumbPath);
-			cv.put(AlbumFiles.columnMediaType, mMediaType);
-			cv.put(AlbumFiles.columnChecked, isChecked);
-			cv.put(AlbumFiles.columnDisable, isDisable);
-			return cv;
-		}
-
-	}*/
 
 	public static class dbFriendlyAlbumFiles extends AlbumFile {
 
 		private Integer id;
+
+		public dbFriendlyAlbumFiles(AlbumFile a) {
+			setPath(a.getPath());
+			setBucketName(a.getBucketName());
+			setMimeType(a.getMimeType());
+			setAddDate(a.getAddDate());
+			setLatitude(a.getLatitude());
+			setLongitude(a.getLongitude());
+			setSize(a.getSize());
+			setDuration(a.getDuration());
+			setThumbPath(a.getThumbPath());
+			setMediaType(a.getMediaType());
+			setChecked(a.isChecked());
+			setDisable(a.isDisable());
+		}
+
+		public AlbumFile getAlbumFile() {
+			AlbumFile albumFile = new AlbumFile();
+			albumFile.setPath(getPath());
+			albumFile.setBucketName(getBucketName());
+			albumFile.setMimeType(getMimeType());
+			albumFile.setAddDate(getAddDate());
+			albumFile.setLatitude(getLatitude());
+			albumFile.setLongitude(getLongitude());
+			albumFile.setSize(getSize());
+			albumFile.setDuration(getDuration());
+			albumFile.setThumbPath(getThumbPath());
+			albumFile.setMediaType(getMediaType());
+			albumFile.setChecked(isChecked());
+			albumFile.setDisable(isDisable());
+			return albumFile;
+		}
 
 		public dbFriendlyAlbumFiles(Cursor cursor) {
 			id = cursor.getInt(cursor.getColumnIndexOrThrow(AlbumFiles.columnId));
@@ -146,28 +133,38 @@ public class AlbumFiles {
 		return dbFriendlyAlbumFiles;
 	}
 
+	public AlbumFiles() {
+		dbFriendlyAlbumFiles = new ArrayList<>();
+	}
+
+	public AlbumFiles(ArrayList<AlbumFile> albumFiles) {
+		dbFriendlyAlbumFiles = new ArrayList<>();
+		update(albumFiles);
+	}
+
+	public AlbumFiles update(ArrayList<AlbumFile> albumFiles) {
+		dbFriendlyAlbumFiles.clear();
+		for (AlbumFile albumFile : albumFiles) {
+			dbFriendlyAlbumFiles.add(new dbFriendlyAlbumFiles(albumFile));
+		}
+		return this;
+	}
+
+	public int size() {
+		return dbFriendlyAlbumFiles.size();
+	}
+
 	public ArrayList<dbFriendlyAlbumFiles> getList() {
 		return dbFriendlyAlbumFiles;
 	}
 
+	public AlbumFile get(int position) {
+		return dbFriendlyAlbumFiles.get(position).getAlbumFile();
+	}
+
 	public ArrayList<AlbumFile> getAlbumList() {
 		ArrayList<AlbumFile> list = new ArrayList<>();
-		dbFriendlyAlbumFiles.forEach(file -> {
-			AlbumFile albumFile = new AlbumFile();
-			albumFile.setPath(file.getPath());
-			albumFile.setBucketName(file.getBucketName());
-			albumFile.setMimeType(file.getMimeType());
-			albumFile.setAddDate(file.getAddDate());
-			albumFile.setLatitude(file.getLatitude());
-			albumFile.setLongitude(file.getLongitude());
-			albumFile.setSize(file.getSize());
-			albumFile.setDuration(file.getDuration());
-			albumFile.setThumbPath(file.getThumbPath());
-			albumFile.setMediaType(file.getMediaType());
-			albumFile.setChecked(file.isChecked());
-			albumFile.setDisable(file.isDisable());
-			list.add(albumFile);
-		});
+		dbFriendlyAlbumFiles.forEach(file -> list.add(file.getAlbumFile()));
 		return list;
 	}
 }

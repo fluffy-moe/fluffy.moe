@@ -59,7 +59,7 @@ import moe.fluffy.app.types.DeinsectizaionType;
 import moe.fluffy.app.types.HttpRawResponse;
 import moe.fluffy.app.types.NetworkRequestType;
 import moe.fluffy.app.types.VaccinationType;
-import moe.fluffy.app.types.VerticalSpaceItemDecoration;
+import moe.fluffy.app.types.divider.VerticalSpaceItemDecoration;
 
 public class MedicalActivity extends AppCompatActivity {
 

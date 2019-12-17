@@ -28,6 +28,18 @@ android {
     applicationVariants.all { variant ->
         variant.buildConfigField 'boolean', 'isDemoMode', 'true'
     }
+/*
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layouts/activitys',
+                            'src/main/res/layouts/others',
+                            'src/main/res/layouts',
+                            'src/main/res'
+                    ]
+        }
+    }*/
 }
 
 dependencies {

@@ -53,7 +53,7 @@ import java.util.Calendar;
 
 import moe.fluffy.app.activities.HomeActivity;
 import moe.fluffy.app.R;
-import moe.fluffy.app.assistant.DateTimeWheelView;
+import moe.fluffy.app.views.DateTimeWheelView;
 import moe.fluffy.app.assistant.SimpleCallback;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.Date;

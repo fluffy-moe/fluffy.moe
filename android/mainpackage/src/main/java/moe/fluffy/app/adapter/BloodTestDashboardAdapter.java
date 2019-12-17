@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 import moe.fluffy.app.R;
 import moe.fluffy.app.types.BloodTestDashboardType;
-import moe.fluffy.app.types.VerticalSpaceItemDecoration;
+import moe.fluffy.app.types.divider.VerticalSpaceItemDecoration;
 
 public class BloodTestDashboardAdapter extends RecyclerView.Adapter<BloodTestDashboardAdapter.ViewType> {
 	private ArrayList<BloodTestDashboardType> bloodTestDashboardTypes;

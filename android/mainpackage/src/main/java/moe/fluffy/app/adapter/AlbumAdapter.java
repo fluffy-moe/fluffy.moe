@@ -1,12 +1,9 @@
 package moe.fluffy.app.adapter;
 
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,81 +11,40 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
 import com.yanzhenjie.album.impl.OnItemClickListener;
-import com.yanzhenjie.album.util.AlbumUtils;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.types.AlbumFiles;
 
-public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ImageViewHolder> {
 
 	private static final String TAG = "log_AlbumAdapter";
-	
-	private LayoutInflater mInflater;
-	private OnItemClickListener mItemClickListener;
 
-	private List<AlbumFile> mAlbumFiles;
+	private AlbumFiles albumFiles;
 
-	public AlbumAdapter(Context context, OnItemClickListener itemClickListener) {
-		this.mInflater = LayoutInflater.from(context);
-		this.mItemClickListener = itemClickListener;
+	public AlbumAdapter(AlbumFiles _albumFiles){
+		albumFiles = _albumFiles;
 	}
 
-	public void notifyDataSetChanged(List<AlbumFile> imagePathList) {
-		this.mAlbumFiles = imagePathList;
-		super.notifyDataSetChanged();
+	@NonNull
+	@Override
+	public AlbumAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_album, parent, false);
+		return new ImageViewHolder(v, (view, position) -> {
+
+		});
 	}
 
 	@Override
-	public int getItemViewType(int position) {
-		AlbumFile albumFile = mAlbumFiles.get(position);
-		if (albumFile.getMediaType() == AlbumFile.TYPE_IMAGE) {
-			return AlbumFile.TYPE_IMAGE;
-		} else {
-			return AlbumFile.TYPE_VIDEO;
-		}
-	}
-
-	@NotNull
-	@Override
-	public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		switch (viewType) {
-			case AlbumFile.TYPE_IMAGE: {
-				return new ImageViewHolder(mInflater.inflate(R.layout.item_content_image, parent, false), mItemClickListener);
-			}
-			case AlbumFile.TYPE_VIDEO: {
-				return new VideoViewHolder(mInflater.inflate(R.layout.item_content_video, parent, false), mItemClickListener);
-			}
-			default: {
-				throw new AssertionError("This should not be the case.");
-			}
-		}
-	}
-
-	@Override
-	public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-		Log.v(TAG, "onBindViewHolder: bind");
-		int viewType = getItemViewType(position);
-		switch (viewType) {
-			case AlbumFile.TYPE_IMAGE: {
-				((ImageViewHolder) holder).setData(mAlbumFiles.get(position));
-				break;
-			}
-			case AlbumFile.TYPE_VIDEO: {
-				((VideoViewHolder) holder).setData(mAlbumFiles.get(position));
-				break;
-			}
-		}
+	public void onBindViewHolder(@NonNull AlbumAdapter.ImageViewHolder holder, int position) {
+		holder.setData(albumFiles.get(position));
 	}
 
 	@Override
 	public int getItemCount() {
-		return mAlbumFiles == null ? 0 : mAlbumFiles.size();
+		return albumFiles.size();
 	}
 
-	private static class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+	public static class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 		private final OnItemClickListener mItemClickListener;
 		private ImageView mIvImage;
@@ -104,36 +60,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 			Album.getAlbumConfig().
 					getAlbumLoader().
 					load(mIvImage, albumFile);
-		}
-
-		@Override
-		public void onClick(View v) {
-			if (mItemClickListener != null) {
-				mItemClickListener.onItemClick(v, getAdapterPosition());
-			}
-		}
-	}
-
-	private static class VideoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-		private final OnItemClickListener mItemClickListener;
-
-		private ImageView mIvImage;
-		private TextView mTvDuration;
-
-		VideoViewHolder(View itemView, OnItemClickListener itemClickListener) {
-			super(itemView);
-			this.mItemClickListener = itemClickListener;
-			this.mIvImage = itemView.findViewById(com.yanzhenjie.album.R.id.iv_album_content_image);
-			this.mTvDuration = itemView.findViewById(com.yanzhenjie.album.R.id.tv_duration);
-			itemView.setOnClickListener(this);
-		}
-
-		void setData(AlbumFile albumFile) {
-			Album.getAlbumConfig().
-					getAlbumLoader().
-					load(mIvImage, albumFile);
-			mTvDuration.setText(AlbumUtils.convertDuration(albumFile.getDuration()));
 		}
 
 		@Override
