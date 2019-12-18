@@ -27,6 +27,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import com.codbking.calendar.CalendarUtil;
@@ -60,10 +61,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private final static String CREATE_FOOD_HISTORY = "CREATE TABLE `food` (`id` INTEGER PRIMARY KEY AUTOINCREMENT," +
 			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `name` TEXT, `note` TEXT, `liked` TEXT, " +
 			"`barcode` TEXT, `source` TEXT)";
-	private final static String CREATE_ALBUM_TABLE = "CREATE TABLE `album` (`id` INTEGER PRIMARY KEY " +
-			"AUTOINCREMENT, `Path` TEXT, `BucketName` TEXT, `MimeType` TEXT, `AddDate` INTEGER, " +
+	private final static String CREATE_ALBUM_TABLE = "CREATE TABLE `album` (" +
+			"`Path` TEXT, `BucketName` TEXT, `MimeType` TEXT, `AddDate` INTEGER, " +
 			"`Latitude` REAL, `Longitude` REAL, `Size` INTEGER, `Duration` INTEGER, `ThumbPath` TEXT, " +
-			"`MediaType` INTEGER, `Checked` TEXT, `Disable` TEXT);";
+			"`MediaType` INTEGER, `Checked` TEXT, `Disable` TEXT, `category` INTEGER);";
 	private final static String DROP_STATEMENT = "DROP TABLE IF EXISTS ";
 
 	private final static String TAG = "log_Database";
@@ -223,6 +224,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		SQLiteDatabase s = this.getWritableDatabase();
 		s.insert(TABLE_ALBUM, null, dbFriendlyAlbumFiles.getContentValues());
 		s.close();
+	}
+
+	public void updateAblum(@NonNull AlbumFiles albumFiles) {
+		ArrayList<ContentValues> cvList = new ArrayList<>();
+		albumFiles.getList().forEach(item -> {
+			cvList.add(item.getContentValues());
+		});
+		SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+		if (albumFiles.getCategory() != null) {
+			sqLiteDatabase.execSQL(getString(R.string.dbDeleteWhereSthIs, TABLE_ALBUM, R.string.dbAlbumCategory),
+					new String[]{String.valueOf(albumFiles.getCategory())});
+		}
+		cvList.forEach(item -> {
+			sqLiteDatabase.insert(TABLE_ALBUM, null, item);
+		});
+		sqLiteDatabase.close();
 	}
 
 	public ArrayList<AlbumFiles.dbFriendlyAlbumFiles> getAblums() {

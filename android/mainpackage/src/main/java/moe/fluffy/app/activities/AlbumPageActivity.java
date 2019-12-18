@@ -52,7 +52,11 @@ public class AlbumPageActivity extends AppCompatActivity {
 
 	AlbumAdapter albumAdapter;
 
+	private Integer category;
+
 	private static boolean albumInited;
+
+	public static String INT_CATEGORY = "DZFMZR2oWX";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +76,12 @@ public class AlbumPageActivity extends AppCompatActivity {
 	}
 
 	void init() {
-		albumFiles = new AlbumFiles();
+		category = getIntent().getIntExtra(INT_CATEGORY, -1);
+		if (category == -1)
+			category = null;
+
+		albumFiles = new AlbumFiles().setCategory(category);
+
 		btnSelectPhoto = findViewById(R.id.btnSelectPhoto);
 		rvImages = findViewById(R.id.rvAlbumList);
 		rvImages.setLayoutManager(new GridLayoutManager(this, 3));

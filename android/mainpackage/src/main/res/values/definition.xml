@@ -52,6 +52,7 @@
 	<string name="dbRawQueryAccurateDay">SELECT * FROM `%s` WHERE `year` = ? AND `month` = ? AND `day` = ?</string>
 	<string name="dbRawQueryEventsBeyondYear">SELECT * FROM `%s` WHERE `year` > ?</string>
 	<string name="dbRawQuery">SELECT * FROM `%s`</string>
+	<string name="dbDeleteWhereSthIs">DELETE FROM `%s` WHERE `%s` = ?</string>
 	<string name="dbQuery">%s = ?</string>
 	<string name="dbQueryKey">key = ?</string>
 	<string name="dbOptionsKeyName">key</string>
@@ -81,6 +82,7 @@
 	<string name="dbAlbumMediaType">MediaType</string>
 	<string name="dbAlbumChecked">Checked</string>
 	<string name="dbAlbumDisable">Disable</string>
+	<string name="dbAlbumCategory">category</string>
 
 	<string name="dbFoodHistoryName">name</string>
 	<string name="dbFoodHistoryNote">note</string>

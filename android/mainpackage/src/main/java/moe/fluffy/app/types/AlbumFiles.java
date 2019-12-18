@@ -34,15 +34,19 @@ import moe.fluffy.app.R;
 public class AlbumFiles {
 	private static String columnId, columnPath, columnBucketName, columnMimeType, columnAddDate,
 			columnLatitude, columnLongitude, columnSize, columnDuration, columnThumbPath,
-			columnMediaType, columnChecked, columnDisable;
+			columnMediaType, columnChecked, columnDisable, columnCategory;
 
 	private static final String TAG = "log_AlbumFiles";
 
+	public Integer getCategory() {
+		return category;
+	}
+
 	public static class dbFriendlyAlbumFiles extends AlbumFile {
 
-		private Integer id;
+		private Integer id, category;
 
-		public dbFriendlyAlbumFiles(AlbumFile a) {
+		public dbFriendlyAlbumFiles(AlbumFile a, int _category) {
 			setPath(a.getPath());
 			setBucketName(a.getBucketName());
 			setMimeType(a.getMimeType());
@@ -55,6 +59,7 @@ public class AlbumFiles {
 			setMediaType(a.getMediaType());
 			setChecked(a.isChecked());
 			setDisable(a.isDisable());
+			category = _category;
 		}
 
 		public AlbumFile getAlbumFile() {
@@ -88,6 +93,7 @@ public class AlbumFiles {
 			setMediaType(cursor.getInt(cursor.getColumnIndexOrThrow(AlbumFiles.columnMediaType)));
 			setChecked(Boolean.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnChecked))));
 			setDisable(Boolean.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnDisable))));
+			category = cursor.getInt(cursor.getColumnIndexOrThrow(AlbumFiles.columnCategory));
 		}
 
 		public ContentValues getContentValues() {
@@ -106,6 +112,7 @@ public class AlbumFiles {
 			cv.put(AlbumFiles.columnMediaType, getMediaType());
 			cv.put(AlbumFiles.columnChecked, isChecked());
 			cv.put(AlbumFiles.columnDisable, isDisable());
+			cv.put(AlbumFiles.columnCategory, category);
 			return cv;
 		}
 
@@ -125,6 +132,7 @@ public class AlbumFiles {
 		columnMediaType = context.getString(R.string.dbAlbumMediaType);
 		columnChecked = context.getString(R.string.dbAlbumChecked);
 		columnDisable = context.getString(R.string.dbAlbumDisable);
+		columnCategory = context.getString(R.string.dbAlbumCategory);
 	}
 
 	private ArrayList<dbFriendlyAlbumFiles> dbFriendlyAlbumFiles;
@@ -133,6 +141,7 @@ public class AlbumFiles {
 
 	private ArrayList<ThumbViewInfo> thumbViewInfos;
 
+	private Integer category;
 
 	public ArrayList<dbFriendlyAlbumFiles> setAlbumList(
 			ArrayList<dbFriendlyAlbumFiles> files) {
@@ -165,9 +174,14 @@ public class AlbumFiles {
 	public AlbumFiles update(ArrayList<AlbumFile> albumFiles) {
 		dbFriendlyAlbumFiles.clear();
 		for (AlbumFile albumFile : albumFiles) {
-			dbFriendlyAlbumFiles.add(new dbFriendlyAlbumFiles(albumFile));
+			dbFriendlyAlbumFiles.add(new dbFriendlyAlbumFiles(albumFile, category));
 		}
 		isNeedUpdateThumbViewInfo = true;
+		return this;
+	}
+
+	public AlbumFiles setCategory(Integer category) {
+		this.category = category;
 		return this;
 	}
 
