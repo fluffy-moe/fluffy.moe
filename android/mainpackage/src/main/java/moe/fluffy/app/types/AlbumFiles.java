@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import moe.fluffy.app.R;
 
 public class AlbumFiles {
-	private static String columnId, columnPath, columnBucketName, columnMimeType, columnAddDate,
+	private static String columnPath, columnBucketName, columnMimeType, columnAddDate,
 			columnLatitude, columnLongitude, columnSize, columnDuration, columnThumbPath,
 			columnMediaType, columnChecked, columnDisable, columnCategory;
 
@@ -44,7 +44,7 @@ public class AlbumFiles {
 
 	public static class dbFriendlyAlbumFiles extends AlbumFile {
 
-		private Integer id, category;
+		private Integer category;
 
 		public dbFriendlyAlbumFiles(AlbumFile a, int _category) {
 			setPath(a.getPath());
@@ -80,7 +80,7 @@ public class AlbumFiles {
 		}
 
 		public dbFriendlyAlbumFiles(Cursor cursor) {
-			id = cursor.getInt(cursor.getColumnIndexOrThrow(AlbumFiles.columnId));
+			//id = cursor.getInt(cursor.getColumnIndexOrThrow(AlbumFiles.columnId));
 			setPath(cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnPath)));
 			setBucketName(cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnBucketName)));
 			setMimeType(cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnMimeType)));
@@ -98,8 +98,8 @@ public class AlbumFiles {
 
 		public ContentValues getContentValues() {
 			ContentValues cv = new ContentValues();
-			if (id != null)
-				cv.put(AlbumFiles.columnId, id);
+			/*if (id != null)
+				cv.put(AlbumFiles.columnId, id);*/
 			cv.put(AlbumFiles.columnPath, getPath());
 			cv.put(AlbumFiles.columnBucketName, getBucketName());
 			cv.put(AlbumFiles.columnMimeType, getMimeType());
@@ -119,7 +119,7 @@ public class AlbumFiles {
 	}
 
 	public static void initColumnName(Context context) {
-		columnId = context.getString(R.string.dbAlbumId);
+		//columnId = context.getString(R.string.dbAlbumId);
 		columnPath = context.getString(R.string.dbAlbumPath);
 		columnBucketName = context.getString(R.string.dbAlbumBucketName);
 		columnMimeType = context.getString(R.string.dbAlbumMimeType);

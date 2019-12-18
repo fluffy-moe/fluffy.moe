@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".album_photos">
+
+	<TextView
+		android:id="@+id/txtAlbumPhotosTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="125px"
+		android:layout_marginTop="74px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Albums"
+		android:textColor="#565656"
+		android:textSize="101px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/imgbtnAlbumPhotosBack"
+		android:layout_width="66px"
+		android:layout_height="66px"
+		android:layout_marginStart="36px"
+		android:layout_marginTop="116px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/back" />
+
+	<TextView
+		android:id="@+id/txtAlbumPhotosContent"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="157px"
+		android:layout_marginTop="405px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="Life Record"
+		android:textColor="#565656"
+		android:textSize="75px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/txtAlbumPhotosDate"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="720px"
+		android:layout_marginTop="428px"
+		android:fontFamily="@font/segoe_ui_semibold"
+		android:text="15 Photos · 2018/05/10"
+		android:textColor="#B96320"
+		android:textSize="50px"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<androidx.recyclerview.widget.RecyclerView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="157px"
+		android:layout_marginTop="549px"
+		android:layout_marginEnd="157px"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
