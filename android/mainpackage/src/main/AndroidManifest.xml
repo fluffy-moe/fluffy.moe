@@ -17,7 +17,7 @@
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 		tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-		<activity android:name=".activities.AlbumPageActivity"></activity>
+		<activity android:name=".activities.AlbumPageActivity" />
 		<activity android:name=".activities.EditAccountActivity" />
 		<activity android:name=".activities.TestCameraActivity" />
 		<activity

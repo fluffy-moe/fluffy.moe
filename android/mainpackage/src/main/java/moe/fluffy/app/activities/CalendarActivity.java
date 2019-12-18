@@ -75,7 +75,6 @@ public class CalendarActivity extends AppCompatActivity {
 	EventDashboardAdapter eventDashboardAdapter;
 
 	private static class click {
-		private static Long lastTimestamp;
 		private static Date date;
 		click() {
 			updateTimestamp(null);
@@ -84,11 +83,14 @@ public class CalendarActivity extends AppCompatActivity {
 		static void updateTimestamp(CalendarBean bean) {
 			if (bean != null)
 				date = new Date(bean);
-			lastTimestamp = new java.util.Date().getTime();
+			else {
+				date = Date.getToday();
+			}
+			//lastTimestamp = new java.util.Date().getTime();
 		}
 
 		static boolean checkClick(CalendarBean bean) {
-			return lastTimestamp != null && date != null && new java.util.Date().getTime() - lastTimestamp < 500 && date.equals(bean);
+			return date != null && date.equals(bean);
 		}
 	}
 

@@ -33,12 +33,12 @@
 		android:id="@+id/txtEventEvent"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="195px"
 		android:layout_marginTop="222px"
 		android:fontFamily="@font/segoe_ui_bold"
 		android:text="@string/text_event"
 		android:textColor="#FFFFFF"
 		android:textSize="60px"
+		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,13 +46,13 @@
 		android:id="@+id/txtEventRecord"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="92px"
 		android:layout_marginTop="330px"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/hint_for_event"
 		android:textAlignment="center"
 		android:textColor="#565656"
 		android:textSize="52px"
+		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

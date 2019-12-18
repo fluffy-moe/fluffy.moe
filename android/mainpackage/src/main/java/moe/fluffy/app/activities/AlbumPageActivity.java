@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.previewlibrary.GPreviewBuilder;
+import com.previewlibrary.ZoomMediaLoader;
 import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumConfig;
 import com.yanzhenjie.album.AlbumFile;
@@ -64,6 +66,7 @@ public class AlbumPageActivity extends AppCompatActivity {
 		if (!albumInited) {
 			Album.initialize(AlbumConfig
 					.newBuilder(this).setAlbumLoader(new MediaLoader()).build());
+			ZoomMediaLoader.getInstance().init(new AlbumAdapter.ImageLoader());
 			albumInited = true;
 		}
 	}
@@ -77,7 +80,14 @@ public class AlbumPageActivity extends AppCompatActivity {
 		btnSelectPhoto.setOnClickListener(v -> {
 			selectPhoto();
 		});
-		albumAdapter = new AlbumAdapter(albumFiles);
+		albumAdapter = new AlbumAdapter(albumFiles, (view, position) -> {
+			GPreviewBuilder.from(this)
+					.setData(albumFiles.getThumbViewInfo())
+					.setCurrentIndex(position)
+					.setSingleFling(true)
+					.setType(GPreviewBuilder.IndicatorType.Dot)
+					.start();
+		});
 		rvImages.setAdapter(albumAdapter);
 	}
 

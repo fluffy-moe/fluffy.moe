@@ -24,6 +24,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.previewlibrary.enitity.ThumbViewInfo;
 import com.yanzhenjie.album.AlbumFile;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class AlbumFiles {
 			columnLatitude, columnLongitude, columnSize, columnDuration, columnThumbPath,
 			columnMediaType, columnChecked, columnDisable;
 
+	private static final String TAG = "log_AlbumFiles";
 
 	public static class dbFriendlyAlbumFiles extends AlbumFile {
 
@@ -127,6 +129,11 @@ public class AlbumFiles {
 
 	private ArrayList<dbFriendlyAlbumFiles> dbFriendlyAlbumFiles;
 
+	private boolean isNeedUpdateThumbViewInfo;
+
+	private ArrayList<ThumbViewInfo> thumbViewInfos;
+
+
 	public ArrayList<dbFriendlyAlbumFiles> setAlbumList(
 			ArrayList<dbFriendlyAlbumFiles> files) {
 		dbFriendlyAlbumFiles = files;
@@ -142,11 +149,25 @@ public class AlbumFiles {
 		update(albumFiles);
 	}
 
+	public ArrayList<ThumbViewInfo> getThumbViewInfo() {
+		if (isNeedUpdateThumbViewInfo) {
+			if (thumbViewInfos == null)
+				thumbViewInfos = new ArrayList<>();
+			thumbViewInfos.clear();
+			dbFriendlyAlbumFiles.forEach(file -> {
+				thumbViewInfos.add(new ThumbViewInfo(file.getPath()));
+			});
+			isNeedUpdateThumbViewInfo = false;
+		}
+		return thumbViewInfos;
+	}
+
 	public AlbumFiles update(ArrayList<AlbumFile> albumFiles) {
 		dbFriendlyAlbumFiles.clear();
 		for (AlbumFile albumFile : albumFiles) {
 			dbFriendlyAlbumFiles.add(new dbFriendlyAlbumFiles(albumFile));
 		}
+		isNeedUpdateThumbViewInfo = true;
 		return this;
 	}
 
