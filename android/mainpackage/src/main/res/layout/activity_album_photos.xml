@@ -3,8 +3,7 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context=".album_photos">
+	android:layout_height="match_parent">
 
 	<TextView
 		android:id="@+id/txtAlbumPhotosTitle"
@@ -50,6 +49,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginStart="720px"
 		android:layout_marginTop="428px"
+		android:clickable="true"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="15 Photos · 2018/05/10"
 		android:textColor="#B96320"
@@ -58,6 +58,7 @@
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/rvAlbumList"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="157px"

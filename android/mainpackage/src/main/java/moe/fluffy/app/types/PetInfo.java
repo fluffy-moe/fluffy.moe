@@ -23,7 +23,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.text.Editable;
 
-import androidx.annotation.StringRes;
+import androidx.annotation.NonNull;
 
 import moe.fluffy.app.R;
 
@@ -37,7 +37,7 @@ public class PetInfo {
 	private int weight;
 	private Date birthday;
 
-	public static void initStrings(Context context) {
+	public static void initColumn(@NonNull Context context) {
 		columnName = context.getString(R.string.dbOptionsPetName);
 		columnBreed = context.getString(R.string.dbOptionsPetBreed);
 		columnBirthday = context.getString(R.string.dbOptionsPetBirthday);

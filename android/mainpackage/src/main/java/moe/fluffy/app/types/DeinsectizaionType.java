@@ -21,6 +21,8 @@ package moe.fluffy.app.types;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,7 +35,7 @@ public class DeinsectizaionType {
 
 	private static String columnNobivac, columnDate, columnStatus;
 
-	public static void initColumnName(Context context) {
+	public static void initColumn(@NonNull Context context) {
 		columnDate = context.getString(R.string.jsonFieldDate);
 		columnNobivac = context.getString(R.string.jsonFieldNobivac);
 		columnStatus = context.getString(R.string.jsonFieldStatus);

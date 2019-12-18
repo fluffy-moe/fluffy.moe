@@ -28,6 +28,7 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 
 import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.codbking.calendar.CalendarBean;
@@ -46,7 +47,7 @@ public class EventsType {
 
 	private static String TAG = "log_EventsType";
 
-	public static void getColumnName(Context context){
+	public static void initColumn(@NonNull Context context){
 		columnYear = context.getString(R.string.dbEventsYear);
 		columnMonth = context.getString(R.string.dbEventsMonth);
 		columnDay = context.getString(R.string.dbEventsDay);

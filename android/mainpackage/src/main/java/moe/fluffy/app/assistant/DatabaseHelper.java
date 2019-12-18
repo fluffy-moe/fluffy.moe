@@ -28,6 +28,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import com.codbking.calendar.CalendarUtil;
@@ -37,6 +38,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.types.AlbumCoverType;
 import moe.fluffy.app.types.AlbumFiles;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.EventsType;
@@ -51,6 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private final static String TABLE_OPTION = "option";
 	private final static String TABLE_EVENTS = "events";
 	private final static String TABLE_FOOD_HISTORY = "food";
+	private final static String TABLE_PHOTOS = "photos";
 	private final static String TABLE_ALBUM = "album";
 	private final static String CREATE_OPTION = "CREATE TABLE `option` (`key` TEXT PRIMARY KEY, `value` TEXT)";
 	private final static String CREATE_PET = "CREATE TABLE `pet` (`name` TEXT PRIMARY KEY, `birthday` TEXT, `breed` TEXT, `type` TEXT, " +
@@ -61,10 +64,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private final static String CREATE_FOOD_HISTORY = "CREATE TABLE `food` (`id` INTEGER PRIMARY KEY AUTOINCREMENT," +
 			"`year` INTEGER, `month` INTEGER, `day` INTEGER, `name` TEXT, `note` TEXT, `liked` TEXT, " +
 			"`barcode` TEXT, `source` TEXT)";
-	private final static String CREATE_ALBUM_TABLE = "CREATE TABLE `album` (" +
+	private final static String CREATE_PHOTO_TABLE = "CREATE TABLE `photos` (" +
 			"`Path` TEXT, `BucketName` TEXT, `MimeType` TEXT, `AddDate` INTEGER, " +
 			"`Latitude` REAL, `Longitude` REAL, `Size` INTEGER, `Duration` INTEGER, `ThumbPath` TEXT, " +
 			"`MediaType` INTEGER, `Checked` TEXT, `Disable` TEXT, `category` INTEGER);";
+	private final static String CREATE_ALBUM_TABLE = "CREATE TABLE `album` (`category` INTEGER PRIMARY KEY AUTOINCREMENT, " +
+			"`date` TEXT NOT NULL, `name` TEXT NOT NULL)";
+
 	private final static String DROP_STATEMENT = "DROP TABLE IF EXISTS ";
 
 	private final static String TAG = "log_Database";
@@ -80,6 +86,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_PET);
 		db.execSQL(CREATE_EVENTS);
 		db.execSQL(CREATE_FOOD_HISTORY);
+		db.execSQL(CREATE_PHOTO_TABLE);
 		db.execSQL(CREATE_ALBUM_TABLE);
 		ContentValues cv = new ContentValues();
 		for (String str: new String[]{getString(R.string.dbOptionUser),
@@ -90,6 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 		cv = new PetInfo("", "", getString(R.string.dbDefaultBirthday), getString(R.string.typeCat), false, false, 1).getContextValues();
 		db.insert(TABLE_PET, null, cv);
+		db.insert(TABLE_ALBUM, null, new AlbumCoverType("Sample").getContentValue());
 	}
 
 	// TODO: backup then drop next time
@@ -99,6 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(DROP_STATEMENT + TABLE_PET);
 		db.execSQL(DROP_STATEMENT + TABLE_EVENTS);
 		db.execSQL(DROP_STATEMENT + TABLE_FOOD_HISTORY);
+		db.execSQL(DROP_STATEMENT + TABLE_PHOTOS);
 		db.execSQL(DROP_STATEMENT + TABLE_ALBUM);
 		onCreate(db);
 	}
@@ -220,32 +229,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		s.close();
 	}
 
-	public void insertAblum(AlbumFiles.dbFriendlyAlbumFiles dbFriendlyAlbumFiles) {
+	public void insertPhotos(AlbumFiles.dbFriendlyAlbumFiles dbFriendlyAlbumFiles) {
 		SQLiteDatabase s = this.getWritableDatabase();
-		s.insert(TABLE_ALBUM, null, dbFriendlyAlbumFiles.getContentValues());
+		s.insert(TABLE_PHOTOS, null, dbFriendlyAlbumFiles.getContentValues());
 		s.close();
 	}
 
-	public void updateAblum(@NonNull AlbumFiles albumFiles) {
+	public void updatePhotos(@NonNull AlbumFiles albumFiles) {
 		ArrayList<ContentValues> cvList = new ArrayList<>();
 		albumFiles.getList().forEach(item -> {
 			cvList.add(item.getContentValues());
 		});
 		SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 		if (albumFiles.getCategory() != null) {
-			sqLiteDatabase.execSQL(getString(R.string.dbDeleteWhereSthIs, TABLE_ALBUM, R.string.dbAlbumCategory),
+			sqLiteDatabase.execSQL(getString(R.string.dbDeleteWhereSthIs, TABLE_PHOTOS, getString(R.string.dbAlbumCategory)),
 					new String[]{String.valueOf(albumFiles.getCategory())});
 		}
 		cvList.forEach(item -> {
-			sqLiteDatabase.insert(TABLE_ALBUM, null, item);
+			sqLiteDatabase.insert(TABLE_PHOTOS, null, item);
 		});
 		sqLiteDatabase.close();
 	}
 
-	public ArrayList<AlbumFiles.dbFriendlyAlbumFiles> getAblums() {
+	public ArrayList<AlbumFiles.dbFriendlyAlbumFiles> getPhotos(@Nullable Integer category) {
 		SQLiteDatabase s = this.getReadableDatabase();
 		ArrayList<AlbumFiles.dbFriendlyAlbumFiles> arrayList = new ArrayList<>();
-		Cursor cursor = s.rawQuery(getString(R.string.dbRawQuery, TABLE_ALBUM), null);
+		Cursor cursor;
+		if (category == null)
+			cursor = s.rawQuery(getString(R.string.dbRawQuery, TABLE_PHOTOS), null);
+		else
+			cursor = s.rawQuery(getString(R.string.dbDeleteWhereSthIs, TABLE_PHOTOS, getString(R.string.dbAlbumCategory)),
+					new String[]{String.valueOf(category)});
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			do {
@@ -254,6 +268,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 		cursor.close();
 		return arrayList;
+	}
+
+	public AlbumCoverType createAlbum(String name) {
+		AlbumCoverType albumCoverType = new AlbumCoverType(name);
+		SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+		sqLiteDatabase.insert(TABLE_ALBUM, null, albumCoverType.getContentValue());
+		Cursor cursor = sqLiteDatabase.rawQuery(getString(R.string.dbLastInsert), null);
+		cursor.moveToFirst();
+		Integer category = cursor.getInt(cursor.getColumnIndexOrThrow(cursor.getColumnNames()[0]));
+		albumCoverType.setCategory(category);
+		cursor.close();
+		return albumCoverType;
+	}
+
+	public ArrayList<AlbumCoverType> getAlbums() {
+		ArrayList<AlbumCoverType> albumCoverTypes = new ArrayList<>();
+		SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+		Cursor cursor = sqLiteDatabase.rawQuery(getString(R.string.dbRawQuery, TABLE_ALBUM), null);
+		if (cursor.getCount() > 0) {
+			cursor.moveToFirst();
+			do {
+				albumCoverTypes.add(new AlbumCoverType(cursor));
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		return albumCoverTypes;
+	}
+
+	public Integer getAlbumSize(@NonNull Integer category) {
+		SQLiteDatabase s = this.getReadableDatabase();
+		Cursor cursor = s.rawQuery(getString(R.string.dbCountQuery, TABLE_PHOTOS, getString(R.string.dbAlbumCategory)), new String[]{String.valueOf(category)});
+		cursor.moveToFirst();
+		Integer count = cursor.getInt(cursor.getColumnIndexOrThrow(cursor.getColumnNames()[0]));
+		cursor.close();
+		return count;
 	}
 
 	public void insertEvent(EventsType event){

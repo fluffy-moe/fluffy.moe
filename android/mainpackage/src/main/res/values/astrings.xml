@@ -144,5 +144,6 @@
 	<string name="text_examine_item_for_bloodtest">TextView</string>
 	<string name="text_result_for_bloodtest">TextView</string>
 	<string name="dpOptionsPetBreed">Breed</string>
+	<string name="text_photo_count">%d photo%s</string>
 
 </resources>

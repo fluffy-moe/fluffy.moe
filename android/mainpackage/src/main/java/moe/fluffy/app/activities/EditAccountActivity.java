@@ -45,6 +45,10 @@ public class EditAccountActivity extends AppCompatActivity {
 	}
 
 	private void init() {
+		dog = findViewById(R.id.imgbtnAccountDog);
+		bird = findViewById(R.id.imgbtnAccountBird);
+		cat = findViewById(R.id.imgbtnAccountCat);
+		other = findViewById(R.id.imgbtnAccountOther);
 
 	}
 }

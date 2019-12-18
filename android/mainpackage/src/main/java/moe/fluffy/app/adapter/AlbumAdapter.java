@@ -38,8 +38,8 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ImageViewHol
 		{
 			options = new RequestOptions()
 					.centerCrop()
-					/*.placeholder(R.drawable.ic_default_image)
-					.error(R.drawable.ic_default_image)*/
+					.placeholder(R.drawable.no_image)
+					.error(R.drawable.no_image)
 					.priority(Priority.HIGH);
 		}
 		@Override
@@ -52,7 +52,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ImageViewHol
 						@Override
 						public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
 							simpleTarget.onResourceReady(resource);
-
 						}
 
 						@Override

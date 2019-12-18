@@ -42,6 +42,7 @@ import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.types.AlbumCoverType;
 import moe.fluffy.app.types.AlbumFiles;
 import moe.fluffy.app.types.BloodTestDashboardType;
 import moe.fluffy.app.types.Date;
@@ -68,14 +69,15 @@ public class HomeActivity extends AppCompatActivity {
 
 	void initColumns() {
 		ConnectPath.loadConfig(this);
-		PetInfo.initStrings(this);
+		PetInfo.initColumn(this);
 		Date.initWeekName(this);
-		EventsType.getColumnName(this);
+		EventsType.initColumn(this);
 		VaccinationType.initColumn(this);
-		DeinsectizaionType.initColumnName(this);
+		DeinsectizaionType.initColumn(this);
 		FoodViewType.initColumn(this);
-		AlbumFiles.initColumnName(this);
+		AlbumFiles.initColumn(this);
 		BloodTestDashboardType.initColumn(this);
+		AlbumCoverType.initColumn(this);
 	}
 
 	void init() {

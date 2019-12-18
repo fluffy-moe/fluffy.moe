@@ -24,12 +24,15 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import androidx.annotation.NonNull;
+
 import com.previewlibrary.enitity.ThumbViewInfo;
 import com.yanzhenjie.album.AlbumFile;
 
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.assistant.DatabaseHelper;
 
 public class AlbumFiles {
 	private static String columnPath, columnBucketName, columnMimeType, columnAddDate,
@@ -118,7 +121,7 @@ public class AlbumFiles {
 
 	}
 
-	public static void initColumnName(Context context) {
+	public static void initColumn(@NonNull Context context) {
 		//columnId = context.getString(R.string.dbAlbumId);
 		columnPath = context.getString(R.string.dbAlbumPath);
 		columnBucketName = context.getString(R.string.dbAlbumBucketName);
@@ -182,6 +185,11 @@ public class AlbumFiles {
 
 	public AlbumFiles setCategory(Integer category) {
 		this.category = category;
+		return this;
+	}
+
+	public AlbumFiles queryFromDatabase(DatabaseHelper dbHelper) {
+		dbFriendlyAlbumFiles =  dbHelper.getPhotos(category);
 		return this;
 	}
 

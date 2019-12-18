@@ -23,23 +23,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.adapter.AlbumCoverAdapter;
 import moe.fluffy.app.fragment.AccountManagementBottomSheetFragment;
+import moe.fluffy.app.types.AlbumCoverType;
 
 public class ProfileActivity extends AppCompatActivity {
 	private static final String TAG = "log_ProfileActivity";
 
 	ImageButton imgbtnMore;
 
-	Button btn1, btn2;
 
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
+
+	RecyclerView rvAlbums;
+	ArrayList<AlbumCoverType> albumCoverTypes;
+	AlbumCoverAdapter albumCoverAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,19 +60,21 @@ public class ProfileActivity extends AppCompatActivity {
 	}
 
 	void init() {
-		btn1 = findViewById(R.id.btn1);
-		btn2 = findViewById(R.id.btn2);
+		rvAlbums = findViewById(R.id.rvAlbumList);
 
-		btn1.setOnClickListener(v -> {
-			startActivity(new Intent(this, AlbumPageActivity.class));
-		});
+		albumCoverTypes = HomeActivity.dbHelper.getAlbums();
 
-		initNavigationBar();
+		albumCoverAdapter = new AlbumCoverAdapter(albumCoverTypes, new Intent(this, AlbumPageActivity.class));
+		rvAlbums.setLayoutManager(new GridLayoutManager(this, 2));
+		rvAlbums.setAdapter(albumCoverAdapter);
+
+
 		imgbtnMore = findViewById(R.id.imgbtnProfileDot);
 		imgbtnMore.setOnClickListener(v -> {
 			AccountManagementBottomSheetFragment sheetFragment = new AccountManagementBottomSheetFragment();
 			sheetFragment.show(getSupportFragmentManager(), sheetFragment.getTag());
 		});
+		initNavigationBar();
 	}
 
 

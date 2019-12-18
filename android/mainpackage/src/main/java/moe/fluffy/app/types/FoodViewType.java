@@ -23,6 +23,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import androidx.annotation.NonNull;
+
 import moe.fluffy.app.R;
 
 
@@ -36,7 +38,7 @@ public class FoodViewType {
 	private static String columnFoodName, columnFoodNote, columnYear, columnMonth, columnDay,
 			columnImageSource, columnLiked, fmtDate, columnBarcode, columnId = "id";
 
-	public static void initColumn(Context context) {
+	public static void initColumn(@NonNull Context context) {
 		columnFoodName = context.getString(R.string.dbFoodHistoryName);
 		columnFoodNote = context.getString(R.string.dbFoodHistoryNote);
 		columnYear = context.getString(R.string.dbEventsYear);

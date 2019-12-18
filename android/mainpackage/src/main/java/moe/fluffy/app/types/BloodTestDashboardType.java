@@ -21,6 +21,8 @@ package moe.fluffy.app.types;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +40,7 @@ public class BloodTestDashboardType {
 			columnExamineName, columnResultValueReferenceDown, columnResultValueReferenceUp,
 			columnResultUnit;
 
-	public static void initColumn(Context context) {
+	public static void initColumn(@NonNull Context context) {
 		columnTestName = context.getString(R.string.jsonFieldBloodTestName);
 		columnDate = context.getString(R.string.jsonFieldDate);
 		columnSubItems = context.getString(R.string.jsonFieldBloodTestResult);

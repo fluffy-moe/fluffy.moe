@@ -21,6 +21,8 @@ package moe.fluffy.app.types;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,7 +38,7 @@ public class VaccinationType {
 
 	private static String columnNobivac, columnInjectionSite, columnDoctor, columnDate, columnStatus;
 
-	public static void initColumn(Context context) {
+	public static void initColumn(@NonNull Context context) {
 		columnNobivac = context.getString(R.string.jsonFieldNobivac);
 		columnInjectionSite = context.getString(R.string.jsonFieldInjectionSite);
 		columnDoctor = context.getString(R.string.jsonFieldDoctor);

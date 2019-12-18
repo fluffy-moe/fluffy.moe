@@ -1,8 +1,27 @@
+/*
+ ** Copyright (C) 2019 KunoiSayami
+ **
+ ** This file is part of Fluffy and is released under
+ ** the AGPL v3 License: https://www.gnu.org/licenses/agpl-3.0.txt
+ **
+ ** This program is free software: you can redistribute it and/or modify
+ ** it under the terms of the GNU Affero General Public License as published by
+ ** the Free Software Foundation, either version 3 of the License, or
+ ** any later version.
+ **
+ ** This program is distributed in the hope that it will be useful,
+ ** but WITHOUT ANY WARRANTY; without even the implied warranty of
+ ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ ** GNU Affero General Public License for more details.
+ **
+ ** You should have received a copy of the GNU Affero General Public License
+ ** along with this program. If not, see <https://www.gnu.org/licenses/>.
+ */
 package moe.fluffy.app.activities;
 
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -34,15 +53,15 @@ public class AlbumPageActivity extends AppCompatActivity {
 		@Override
 		public void load(ImageView imageView, String url) {
 			Glide.with(imageView.getContext())
-					.load(url)/*
-					.error(R.drawable.placeholder)
-					.placeholder(R.drawable.placeholder)
-					.crossFade()*/
+					.load(url)
+					.error(R.drawable.no_image)
+					.placeholder(R.drawable.no_image)
 					.into(imageView);
 		}
 	}
 
-	Button btnSelectPhoto;
+	//Button btnSelectPhoto;
+	TextView txtTitle, txtDateAndSize;
 
 	ArrayList<AlbumFile> mAlbumFiles;
 
@@ -61,7 +80,7 @@ public class AlbumPageActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_album);
+		setContentView(R.layout.activity_album_photos);
 		initAlbum();
 		init();
 	}
@@ -80,13 +99,15 @@ public class AlbumPageActivity extends AppCompatActivity {
 		if (category == -1)
 			category = null;
 
-		albumFiles = new AlbumFiles().setCategory(category);
+		albumFiles = new AlbumFiles()
+				.setCategory(category)
+				.queryFromDatabase(HomeActivity.dbHelper);
 
-		btnSelectPhoto = findViewById(R.id.btnSelectPhoto);
+		txtDateAndSize = findViewById(R.id.txtAlbumPhotosDate);
 		rvImages = findViewById(R.id.rvAlbumList);
 		rvImages.setLayoutManager(new GridLayoutManager(this, 3));
 		rvImages.setHasFixedSize(true);
-		btnSelectPhoto.setOnClickListener(v -> {
+		txtDateAndSize.setOnClickListener(v -> {
 			selectPhoto();
 		});
 		albumAdapter = new AlbumAdapter(albumFiles, (view, position) -> {
@@ -112,7 +133,6 @@ public class AlbumPageActivity extends AppCompatActivity {
 					albumFiles.update(result);
 					albumAdapter.notifyDataSetChanged();
 				})
-				.onCancel(result -> {})
 				.start();
 	}
 
