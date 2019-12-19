@@ -23,24 +23,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.AlbumCoverAdapter;
+import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.fragment.AccountManagementBottomSheetFragment;
 import moe.fluffy.app.types.AlbumCoverType;
+import moe.fluffy.app.types.divider.PaddingItemDecoration;
 
 public class ProfileActivity extends AppCompatActivity {
 	private static final String TAG = "log_ProfileActivity";
 
 	ImageButton imgbtnMore;
 
+
+	Button btnAddAlbum;
 
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
@@ -61,13 +66,21 @@ public class ProfileActivity extends AppCompatActivity {
 
 	void init() {
 		rvAlbums = findViewById(R.id.rvAlbumList);
+		btnAddAlbum = findViewById(R.id.btnAddAlbum);
 
 		albumCoverTypes = HomeActivity.dbHelper.getAlbums();
 
 		albumCoverAdapter = new AlbumCoverAdapter(albumCoverTypes,
 				new Intent(this, AlbumPageActivity.class));
-		rvAlbums.setLayoutManager(new GridLayoutManager(this, 2));
+		rvAlbums.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+		rvAlbums.addItemDecoration(new PaddingItemDecoration(73));
 		rvAlbums.setAdapter(albumCoverAdapter);
+
+		btnAddAlbum.setOnClickListener(v-> {
+			AlbumCoverType albumCoverType = HomeActivity.dbHelper.createAlbum(Utils.generateRandomString());
+			albumCoverTypes.add(albumCoverType);
+			albumCoverAdapter.notifyItemInserted(albumCoverTypes.size() - 1);
+		});
 
 		imgbtnMore = findViewById(R.id.imgbtnProfileDot);
 		imgbtnMore.setOnClickListener(v -> {

@@ -160,10 +160,20 @@
 
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/rvAlbumList"
-		android:layout_width="wrap_content"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="1582px"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
+
+	<Button
+		android:id="@+id/btnAddAlbum"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="32dp"
+		android:text="Button"
+		app:layout_constraintBottom_toBottomOf="@+id/txtProfileAlbums"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="@+id/txtProfileAlbums" />
 </androidx.constraintlayout.widget.ConstraintLayout>
