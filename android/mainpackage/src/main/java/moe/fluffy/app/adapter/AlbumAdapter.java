@@ -82,7 +82,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ImageViewHol
 	@NonNull
 	@Override
 	public AlbumAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_album, parent, false);
+		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_photo_preview, parent, false);
 		return new ImageViewHolder(v, onClickListener);
 	}
 

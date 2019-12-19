@@ -202,8 +202,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 					getCursorString(cursor, getString(R.string.dbOptionsPetBreed)),
 					getCursorString(cursor, getString(R.string.dbOptionsPetBirthday)),
 					getCursorString(cursor, getString(R.string.dbOptionPetType)),
-					Boolean.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsPetGenderM)))),
-					Boolean.valueOf(cursor.getString(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsPetSpayed)))),
+					Boolean.valueOf(getCursorString(cursor, getString(R.string.dbOptionsPetGenderM))),
+					Boolean.valueOf(getCursorString(cursor, getString(R.string.dbOptionsPetSpayed))),
 					cursor.getInt(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsPetWeight)))
 			);
 			cursor.close();
@@ -279,6 +279,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		Integer category = cursor.getInt(cursor.getColumnIndexOrThrow(cursor.getColumnNames()[0]));
 		albumCoverType.setCategory(category);
 		cursor.close();
+		sqLiteDatabase.close();
 		return albumCoverType;
 	}
 
@@ -294,6 +295,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 		cursor.close();
 		return albumCoverTypes;
+	}
+
+	@Nullable
+	public AlbumCoverType getAlbumFromCategory(@Nullable Integer category) {
+		if (category == null) return null;
+		SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+		Cursor cursor = sqLiteDatabase.rawQuery(
+				getString(R.string.dbRawQuery, TABLE_ALBUM, getString(R.string.dbAlbumCategory)), new String[]{String.valueOf(category)});
+		if (cursor.getCount() == 0) {
+			cursor.close();
+			return null;
+		}
+		cursor.moveToFirst();
+		AlbumCoverType albumCoverType = new AlbumCoverType(cursor);
+		cursor.close();
+		return albumCoverType;
 	}
 
 	public Integer getAlbumSize(@NonNull Integer category) {

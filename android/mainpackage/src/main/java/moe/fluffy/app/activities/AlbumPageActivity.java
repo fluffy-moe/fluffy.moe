@@ -39,7 +39,10 @@ import java.util.ArrayList;
 
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.AlbumAdapter;
+import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.types.AlbumCoverType;
 import moe.fluffy.app.types.AlbumFiles;
+import moe.fluffy.app.types.Date;
 
 public class AlbumPageActivity extends AppCompatActivity {
 
@@ -96,20 +99,29 @@ public class AlbumPageActivity extends AppCompatActivity {
 
 	void init() {
 		category = getIntent().getIntExtra(INT_CATEGORY, -1);
-		if (category == -1)
-			category = null;
+		if (category == -1) {
+			//category = null;
+			PopupDialog.build(this, new RuntimeException("Category should not be null"));
+			finish();
+		}
 
+		// init album
 		albumFiles = new AlbumFiles()
 				.setCategory(category)
 				.queryFromDatabase(HomeActivity.dbHelper);
 
+		txtTitle = findViewById(R.id.txtAlbumTitle);
 		txtDateAndSize = findViewById(R.id.txtAlbumPhotosDate);
 		rvImages = findViewById(R.id.rvAlbumList);
+
 		rvImages.setLayoutManager(new GridLayoutManager(this, 3));
 		rvImages.setHasFixedSize(true);
 		txtDateAndSize.setOnClickListener(v -> {
 			selectPhoto();
 		});
+		int count = albumFiles.getCount();
+		AlbumCoverType albumCoverType = HomeActivity.dbHelper.getAlbumFromCategory(category);
+		txtDateAndSize.setText(getString(R.string.fmt_album_page_date,  count, count > 1 ? "s" : "", albumCoverType == null ? Date.getToday().toString() : albumCoverType.getDate()));
 		albumAdapter = new AlbumAdapter(albumFiles, (view, position) -> {
 			GPreviewBuilder.from(this)
 					.setData(albumFiles.getThumbViewInfo())

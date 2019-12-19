@@ -52,12 +52,12 @@ public class AlbumCoverAdapter extends RecyclerView.Adapter<AlbumCoverAdapter.Vi
 	@Override
 	public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 		View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_album_cover, parent, false);
-		return new ViewHolder(convertView, intent);
+		return new ViewHolder(convertView);
 	}
 
 	@Override
 	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-		holder.setProp(covers.get(position), v->{
+		holder.setProp(covers.get(position), v -> {
 			Log.v(TAG, "onBindViewHolder: Onclick");
 			intent.putExtra(AlbumPageActivity.INT_CATEGORY, covers.get(position).getCategory());
 			v.getContext().startActivity(intent);
@@ -75,17 +75,14 @@ public class AlbumCoverAdapter extends RecyclerView.Adapter<AlbumCoverAdapter.Vi
 
 		View itemView;
 
-		private Intent intent;
-		private Integer category;
-		ViewHolder(@NonNull View itemView, @NonNull Intent intent) {
+		ViewHolder(@NonNull View itemView) {
 			super(itemView);
 			this.itemView = itemView;
-			this.intent = intent;
 		}
 
 		private static String parsePhotoCount(Context context, Integer count) {
 			//return context.getString(R.string.text_photo_count, count, "s");
-			return context.getString(R.string.text_photo_count, count, count > 1 ? "s" :"");
+			return context.getString(R.string.fmt_photo_count, count, count > 1 ? "s" :"");
 		}
 
 		ViewHolder setProp(@NonNull AlbumCoverType albumCoverType, View.OnClickListener onClickListener) {
@@ -96,7 +93,6 @@ public class AlbumCoverAdapter extends RecyclerView.Adapter<AlbumCoverAdapter.Vi
 			Integer count = HomeActivity.dbHelper.getAlbumSize(albumCoverType.getCategory());
 			counts.setText(parsePhotoCount(itemView.getContext(), count));
 			date.setText(albumCoverType.getDate());
-			category = albumCoverType.getCategory();
 			itemView.setOnClickListener(onClickListener);
 			return this;
 		}

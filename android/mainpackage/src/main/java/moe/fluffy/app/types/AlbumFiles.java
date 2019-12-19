@@ -45,6 +45,10 @@ public class AlbumFiles {
 		return category;
 	}
 
+	public int getCount() {
+		return dbFriendlyAlbumFiles.size();
+	}
+
 	public static class dbFriendlyAlbumFiles extends AlbumFile {
 
 		private Integer category;

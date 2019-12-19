@@ -52,6 +52,7 @@
 	<string name="dbRawQueryAccurateDay">SELECT * FROM `%s` WHERE `year` = ? AND `month` = ? AND `day` = ?</string>
 	<string name="dbRawQueryEventsBeyondYear">SELECT * FROM `%s` WHERE `year` > ?</string>
 	<string name="dbRawQuery">SELECT * FROM `%s`</string>
+	<string name="dbRawQueryBySth">SELECT * FROM `%s` WHERE `%s` = ?</string>
 	<string name="dbCountQuery">SELECT COUNT(*) FROM `%s` WHERE `%s` = ?</string>
 	<string name="dbDeleteWhereSthIs">DELETE FROM `%s` WHERE `%s` = ?</string>
 	<string name="dbLastInsert">SELECT last_insert_rowid()</string>

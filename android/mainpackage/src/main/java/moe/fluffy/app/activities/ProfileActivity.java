@@ -64,10 +64,10 @@ public class ProfileActivity extends AppCompatActivity {
 
 		albumCoverTypes = HomeActivity.dbHelper.getAlbums();
 
-		albumCoverAdapter = new AlbumCoverAdapter(albumCoverTypes, new Intent(this, AlbumPageActivity.class));
+		albumCoverAdapter = new AlbumCoverAdapter(albumCoverTypes,
+				new Intent(this, AlbumPageActivity.class));
 		rvAlbums.setLayoutManager(new GridLayoutManager(this, 2));
 		rvAlbums.setAdapter(albumCoverAdapter);
-
 
 		imgbtnMore = findViewById(R.id.imgbtnProfileDot);
 		imgbtnMore.setOnClickListener(v -> {
@@ -88,16 +88,16 @@ public class ProfileActivity extends AppCompatActivity {
 		imgbtnNavBarUser.setImageResource(R.drawable.home_orange);
 
 		imgbtnNavBarCamera.setOnClickListener(v ->
-				startActivity(new Intent(ProfileActivity.this, BootstrapScannerActivity.class)));
+				startActivity(new Intent(this, BootstrapScannerActivity.class)));
 
 		imgbtnNavBarArticle.setOnClickListener(v ->
-				startActivity(new Intent(ProfileActivity.this, ArticleActivity.class)));
+				startActivity(new Intent(this, ArticleActivity.class)));
 
 		imgbtnNavBarCalendar.setOnClickListener(v ->
-				startActivity(new Intent(ProfileActivity.this, CalendarActivity.class)));
+				startActivity(new Intent(this, CalendarActivity.class)));
 
 		imgbtnNavBarMedical.setOnClickListener(v ->
-				startActivity(new Intent(ProfileActivity.this, MedicalActivity.class)));
+				startActivity(new Intent(this, MedicalActivity.class)));
 
 	}
 }
