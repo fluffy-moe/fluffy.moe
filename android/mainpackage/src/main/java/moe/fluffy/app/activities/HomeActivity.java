@@ -19,7 +19,6 @@
  */
 package moe.fluffy.app.activities;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -53,7 +52,6 @@ import moe.fluffy.app.types.PetInfo;
 import moe.fluffy.app.types.VaccinationItem;
 
 public class HomeActivity extends AppCompatActivity {
-	@SuppressLint("StaticFieldLeak")
 	public static DatabaseHelper dbHelper;
 	private static String TAG = "log_HomeActivity";
 
@@ -82,7 +80,7 @@ public class HomeActivity extends AppCompatActivity {
 
 	void init() {
 		Connect.setUserAgent(UserAgent.getInstance(this).getUserAgentString(""));
-		dbHelper = new DatabaseHelper(this);
+		dbHelper = DatabaseHelper.getInstance(this);
 		initColumns();
 		createFolder();
 
@@ -155,7 +153,7 @@ public class HomeActivity extends AppCompatActivity {
 	@Override
 	protected void onDestroy() {
 		if (dbHelper != null)
-			dbHelper.close();
+			DatabaseHelper.closeDatabase();
 		super.onDestroy();
 	}
 }

@@ -42,9 +42,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import moe.fluffy.app.activities.FoodHistoryActivity;
-import moe.fluffy.app.activities.HomeActivity;
 import moe.fluffy.app.R;
+import moe.fluffy.app.activities.FoodHistoryActivity;
+import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.SimpleCallback;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.FoodView;
@@ -89,7 +89,7 @@ public class FoodAdapter extends ArrayAdapter<FoodView> {
 			} else {
 				saveBitmap(bmp, it.getImageSource());
 			}
-			HomeActivity.dbHelper.writeFoodHistory(it);
+			DatabaseHelper.getInstance().writeFoodHistory(it);
 			if (listener != null) {
 				listener.OnFinished(it);
 			}

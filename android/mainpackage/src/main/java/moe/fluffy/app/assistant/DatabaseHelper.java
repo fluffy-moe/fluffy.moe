@@ -46,6 +46,8 @@ import moe.fluffy.app.types.FoodView;
 import moe.fluffy.app.types.PetInfo;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+	private static DatabaseHelper dbHelper;
+	private static boolean destroyed;
 	private Context context;
 	private static final int DATABASE_VERSION = 1;
 	private final static String DATABASE_NAME = "f1uf4y.db";
@@ -229,13 +231,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		s.close();
 	}
 
-	public void insertPhotos(AlbumFiles.dbFriendlyAlbumFiles dbFriendlyAlbumFiles) {
+	public void insertPhoto(AlbumFiles.dbFriendlyAlbumFile dbFriendlyAlbumFile) {
 		SQLiteDatabase s = this.getWritableDatabase();
-		s.insert(TABLE_PHOTOS, null, dbFriendlyAlbumFiles.getContentValues());
+		s.insert(TABLE_PHOTOS, null, dbFriendlyAlbumFile.getContentValues());
+		s.close();
+	}
+
+	public void insertPhotos(@NonNull AlbumFiles albumFiles) {
+		insertPhotos(albumFiles.getList(), albumFiles.getCategory());
+	}
+
+	public void insertPhotos(@NonNull ArrayList<AlbumFiles.dbFriendlyAlbumFile> albumFiles, Integer category) {
+		SQLiteDatabase s = this.getWritableDatabase();
+		s.execSQL(getString(R.string.dbDeleteWhereSthIs, TABLE_PHOTOS, getString(R.string.dbAlbumCategory)),
+				new String[]{String.valueOf(category)});
+		albumFiles.forEach(albumFile -> {
+			s.insert(TABLE_PHOTOS, null, albumFile.getContentValues());
+		});
 		s.close();
 	}
 
 	public void updatePhotos(@NonNull AlbumFiles albumFiles) {
+		Log.v(TAG, "updatePhotos: Update category => " + albumFiles.getCategory());
 		ArrayList<ContentValues> cvList = new ArrayList<>();
 		albumFiles.getList().forEach(item -> {
 			cvList.add(item.getContentValues());
@@ -251,9 +268,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		sqLiteDatabase.close();
 	}
 
-	public ArrayList<AlbumFiles.dbFriendlyAlbumFiles> getPhotos(@Nullable Integer category) {
+	public ArrayList<AlbumFiles.dbFriendlyAlbumFile> getPhotos(@Nullable Integer category) {
 		SQLiteDatabase s = this.getReadableDatabase();
-		ArrayList<AlbumFiles.dbFriendlyAlbumFiles> arrayList = new ArrayList<>();
+		ArrayList<AlbumFiles.dbFriendlyAlbumFile> arrayList = new ArrayList<>();
 		Cursor cursor;
 		if (category == null)
 			cursor = s.rawQuery(getString(R.string.dbRawQuery, TABLE_PHOTOS), null);
@@ -263,7 +280,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			do {
-				arrayList.add(new AlbumFiles.dbFriendlyAlbumFiles(cursor));
+				arrayList.add(new AlbumFiles.dbFriendlyAlbumFile(cursor));
 			} while (cursor.moveToNext());
 		}
 		cursor.close();
@@ -298,7 +315,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	@NonNull
-	public AlbumCover getAlbumFromCategoryOrThrow(@Nullable Integer category) {
+	public AlbumCover getAlbumFromCategoryOrThrow(@NonNull Integer category) {
 		AlbumCover r = getAlbumFromCategory(category);
 		if (r == null)
 			throw new NullPointerException("Throw! category => " + category);
@@ -353,19 +370,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return arrayList;
 	}
 
-	public static int getYearBeforeMonth(int year, int month) {
+	private static int getYearBeforeMonth(int year, int month) {
 		return month != 1 ? year: year -1;
 	}
 
-	public static int getYearAfterMonth(int year, int month) {
+	private static int getYearAfterMonth(int year, int month) {
 		return month != 12 ? year: year + 1;
 	}
 
-	public static int getBeforeMonth(int month) {
+	private static int getBeforeMonth(int month) {
 		return month != 1 ? month - 1 : 12;
 	}
 
-	public static int getAfterMonth(int month) {
+	private static int getAfterMonth(int month) {
 		return month != 12 ? month + 1 : 1;
 	}
 
@@ -439,5 +456,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 		c.close();
 		return foodList;
+	}
+
+	@NonNull
+	public static DatabaseHelper getInstance() {
+		if (destroyed) {
+			throw new RuntimeException("Database has been destroyed");
+		}
+		if (dbHelper == null) {
+			throw new NullPointerException("dbHelp not initialized");
+		}
+		return dbHelper;
+	}
+
+	@NonNull
+	public static DatabaseHelper getInstance(@NonNull Context context) {
+		if (destroyed) {
+			throw new RuntimeException("Database has been destroyed");
+		}
+		if (dbHelper == null) {
+			dbHelper = new DatabaseHelper(context);
+		}
+		return dbHelper;
+	}
+
+	public static DatabaseHelper closeDatabase() {
+		if (dbHelper == null) {
+			throw new NullPointerException("Database has been closed");
+		}
+		dbHelper.close();
+		destroyed = true;
+		return dbHelper;
 	}
 }

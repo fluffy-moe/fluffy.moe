@@ -34,6 +34,7 @@ import java.util.ArrayList;
 
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.AlbumCoverAdapter;
+import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.fragment.AlbumManagementFragment;
 import moe.fluffy.app.types.AlbumCover;
@@ -68,7 +69,7 @@ public class ProfileActivity extends AppCompatActivity {
 		rvAlbums = findViewById(R.id.rvAlbumList);
 		btnAddAlbum = findViewById(R.id.btnAddAlbum);
 
-		albumCovers = HomeActivity.dbHelper.getAlbums();
+		albumCovers = DatabaseHelper.getInstance().getAlbums();
 
 		albumCoverAdapter = new AlbumCoverAdapter(albumCovers,
 				new Intent(this, AlbumPageActivity.class));
@@ -77,7 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
 		rvAlbums.setAdapter(albumCoverAdapter);
 
 		btnAddAlbum.setOnClickListener(v-> {
-			AlbumCover albumCover = HomeActivity.dbHelper.createAlbum(Utils.generateRandomString(5));
+			AlbumCover albumCover = DatabaseHelper.getInstance().createAlbum(Utils.generateRandomString(5));
 			albumCovers.add(albumCover);
 			albumCoverAdapter.notifyItemInserted(albumCovers.size() - 1);
 		});

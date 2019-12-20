@@ -34,7 +34,7 @@ import java.util.ArrayList;
 
 import moe.fluffy.app.R;
 import moe.fluffy.app.activities.AlbumPageActivity;
-import moe.fluffy.app.activities.HomeActivity;
+import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.types.AlbumCover;
 
 public class AlbumCoverAdapter extends RecyclerView.Adapter<AlbumCoverAdapter.ViewHolder> {
@@ -90,7 +90,7 @@ public class AlbumCoverAdapter extends RecyclerView.Adapter<AlbumCoverAdapter.Vi
 					date = itemView.findViewById(R.id.txtAlbumDate),
 					counts = itemView.findViewById(R.id.txtAlbumPhotoCount);
 			title.setText(albumCover.getName());
-			Integer count = HomeActivity.dbHelper.getAlbumSize(albumCover.getCategory());
+			Integer count = DatabaseHelper.getInstance().getAlbumSize(albumCover.getCategory());
 			counts.setText(parsePhotoCount(itemView.getContext(), count));
 			date.setText(albumCover.getDate());
 			itemView.setOnClickListener(onClickListener);

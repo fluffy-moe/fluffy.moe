@@ -22,6 +22,7 @@ package moe.fluffy.app.activities;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +42,7 @@ import java.util.ArrayList;
 
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.AlbumAdapter;
+import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.types.AlbumCover;
 import moe.fluffy.app.types.AlbumFiles;
@@ -66,6 +68,7 @@ public class AlbumPageActivity extends AppCompatActivity {
 
 	//Button btnSelectPhoto;
 	TextView txtTitle, txtDateAndSize;
+	ImageButton imgbtnBack;
 
 	ArrayList<AlbumFile> mAlbumFiles;
 
@@ -112,19 +115,24 @@ public class AlbumPageActivity extends AppCompatActivity {
 		// init album
 		albumFiles = new AlbumFiles()
 				.setCategory(category)
-				.queryFromDatabase(HomeActivity.dbHelper);
+				.queryFromDatabase(DatabaseHelper.getInstance());
+
+		mAlbumFiles = albumFiles.getAlbumList();
+
 
 		txtTitle = findViewById(R.id.txtAlbumPhotosContent);
 		txtDateAndSize = findViewById(R.id.txtAlbumPhotosDate);
+		imgbtnBack = findViewById(R.id.imgbtnAlbumPhotosBack);
 		rvImages = findViewById(R.id.rvAlbumList);
 
 		rvImages.setLayoutManager(new GridLayoutManager(this, 3));
-		rvImages.setHasFixedSize(true);
+		//rvImages.setHasFixedSize(true);
 		txtDateAndSize.setOnClickListener(v -> {
 			selectPhoto();
 		});
+		imgbtnBack.setOnClickListener(v -> finish());
 		int count = albumFiles.getCount();
-		AlbumCover albumCover = HomeActivity.dbHelper.getAlbumFromCategoryOrThrow(category);
+		AlbumCover albumCover = DatabaseHelper.getInstance().getAlbumFromCategoryOrThrow(category);
 		txtTitle.setText(albumCover.getName());
 		txtDateAndSize.setText(getString(R.string.fmt_album_page_date,  count, count > 1 ? "s" : "", albumCover.getDate()));
 		albumAdapter = new AlbumAdapter(albumFiles, (view, position) -> {
@@ -142,12 +150,13 @@ public class AlbumPageActivity extends AppCompatActivity {
 		Album.album(this)
 				.multipleChoice()
 				.columnCount(2)
-				.camera(true)
-				.cameraVideoQuality(1)
+				//.camera(true)
+				//.cameraVideoQuality(1)
 				.checkedList(mAlbumFiles)
 				.onResult(result -> {
 					mAlbumFiles = result;
 					albumFiles.update(result);
+					DatabaseHelper.getInstance().updatePhotos(albumFiles);
 					albumAdapter.notifyDataSetChanged();
 				})
 				.start();

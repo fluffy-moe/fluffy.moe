@@ -35,8 +35,6 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import org.jetbrains.annotations.NotNull;
-
 import moe.fluffy.app.R;
 import moe.fluffy.app.activities.EditAccountActivity;
 
@@ -68,7 +66,7 @@ public class AccountManagementFragment extends BottomSheetDialogFragment {
 		return convertView;
 	}
 
-	@NotNull
+	@NonNull
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.AppBottomSheetDialogTheme);

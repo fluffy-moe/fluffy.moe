@@ -51,15 +51,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Calendar;
 
-import moe.fluffy.app.activities.HomeActivity;
 import moe.fluffy.app.R;
-import moe.fluffy.app.views.DateTimeWheelView;
+import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.SimpleCallback;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.Datetime;
 import moe.fluffy.app.types.EventsItem;
 import moe.fluffy.app.types.SerializableBundle;
+import moe.fluffy.app.views.DateTimeWheelView;
 
 public class AddEventFragment extends BottomSheetDialogFragment {
 	private final String TAG = "log_BottomSheetEventFragment";
@@ -118,7 +118,7 @@ public class AddEventFragment extends BottomSheetDialogFragment {
 		btnConfirm.setOnClickListener( l -> {
 			EventsItem et = new EventsItem(dateTimeWheelView, colorSelected, categorySelectedText,
 					etBody.getText().toString(), swAlarm.isChecked());
-			HomeActivity.dbHelper.insertEvent(et);
+			DatabaseHelper.getInstance().insertEvent(et);
 			//planedEvents.add(et);
 			if (et.getDayBody().moreThanOrEqual(Date.getToday())) {
 				if (listener != null)

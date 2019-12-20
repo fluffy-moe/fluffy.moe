@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.FoodAdapter;
 import moe.fluffy.app.assistant.Callback;
+import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.assistant.firebase.FirebaseOCR;
@@ -74,7 +75,7 @@ public class FoodHistoryActivity extends AppCompatActivity {
 	private void init() {
 		lvFoodHistory = findViewById(R.id.lvFoods);
 		initNavigationBar();
-		foodList = HomeActivity.dbHelper.getFoodHistory();
+		foodList = DatabaseHelper.getInstance().getFoodHistory();
 		foodAdapter = new FoodAdapter(this, foodList);
 		lvFoodHistory.setAdapter(foodAdapter);
 		/* // test code

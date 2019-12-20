@@ -23,8 +23,10 @@ package moe.fluffy.app.types;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.previewlibrary.enitity.ThumbViewInfo;
 import com.yanzhenjie.album.AlbumFile;
@@ -46,14 +48,14 @@ public class AlbumFiles {
 	}
 
 	public int getCount() {
-		return dbFriendlyAlbumFiles.size();
+		return dbFriendlyAlbumFile.size();
 	}
 
-	public static class dbFriendlyAlbumFiles extends AlbumFile {
+	public static class dbFriendlyAlbumFile extends AlbumFile {
 
 		private Integer category;
 
-		public dbFriendlyAlbumFiles(AlbumFile a, int _category) {
+		public dbFriendlyAlbumFile(AlbumFile a, int _category) {
 			setPath(a.getPath());
 			setBucketName(a.getBucketName());
 			setMimeType(a.getMimeType());
@@ -86,7 +88,7 @@ public class AlbumFiles {
 			return albumFile;
 		}
 
-		public dbFriendlyAlbumFiles(Cursor cursor) {
+		public dbFriendlyAlbumFile(Cursor cursor) {
 			//id = cursor.getInt(cursor.getColumnIndexOrThrow(AlbumFiles.columnId));
 			setPath(cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnPath)));
 			setBucketName(cursor.getString(cursor.getColumnIndexOrThrow(AlbumFiles.columnBucketName)));
@@ -142,7 +144,7 @@ public class AlbumFiles {
 		columnCategory = context.getString(R.string.dbAlbumCategory);
 	}
 
-	private ArrayList<dbFriendlyAlbumFiles> dbFriendlyAlbumFiles;
+	private ArrayList<dbFriendlyAlbumFile> dbFriendlyAlbumFile;
 
 	private boolean isNeedUpdateThumbViewInfo;
 
@@ -150,18 +152,18 @@ public class AlbumFiles {
 
 	private Integer category;
 
-	public ArrayList<dbFriendlyAlbumFiles> setAlbumList(
-			ArrayList<dbFriendlyAlbumFiles> files) {
-		dbFriendlyAlbumFiles = files;
-		return dbFriendlyAlbumFiles;
+	public ArrayList<dbFriendlyAlbumFile> setAlbumList(
+			ArrayList<dbFriendlyAlbumFile> files) {
+		dbFriendlyAlbumFile = files;
+		return dbFriendlyAlbumFile;
 	}
 
 	public AlbumFiles() {
-		dbFriendlyAlbumFiles = new ArrayList<>();
+		dbFriendlyAlbumFile = new ArrayList<>();
 	}
 
 	public AlbumFiles(ArrayList<AlbumFile> albumFiles) {
-		dbFriendlyAlbumFiles = new ArrayList<>();
+		dbFriendlyAlbumFile = new ArrayList<>();
 		update(albumFiles);
 	}
 
@@ -170,7 +172,7 @@ public class AlbumFiles {
 			if (thumbViewInfos == null)
 				thumbViewInfos = new ArrayList<>();
 			thumbViewInfos.clear();
-			dbFriendlyAlbumFiles.forEach(file -> {
+			dbFriendlyAlbumFile.forEach(file -> {
 				thumbViewInfos.add(new ThumbViewInfo(file.getPath()));
 			});
 			isNeedUpdateThumbViewInfo = false;
@@ -179,39 +181,40 @@ public class AlbumFiles {
 	}
 
 	public AlbumFiles update(ArrayList<AlbumFile> albumFiles) {
-		dbFriendlyAlbumFiles.clear();
+		dbFriendlyAlbumFile.clear();
 		for (AlbumFile albumFile : albumFiles) {
-			dbFriendlyAlbumFiles.add(new dbFriendlyAlbumFiles(albumFile, category));
+			dbFriendlyAlbumFile.add(new dbFriendlyAlbumFile(albumFile, category));
 		}
 		isNeedUpdateThumbViewInfo = true;
 		return this;
 	}
 
-	public AlbumFiles setCategory(Integer category) {
+	public AlbumFiles setCategory(@Nullable Integer category) {
 		this.category = category;
 		return this;
 	}
 
-	public AlbumFiles queryFromDatabase(DatabaseHelper dbHelper) {
-		dbFriendlyAlbumFiles =  dbHelper.getPhotos(category);
+	public AlbumFiles queryFromDatabase(@NonNull DatabaseHelper dbHelper) {
+		Log.v(TAG, "Request from database, category => " + category);
+		dbFriendlyAlbumFile =  dbHelper.getPhotos(category);
 		return this;
 	}
 
 	public int size() {
-		return dbFriendlyAlbumFiles.size();
+		return dbFriendlyAlbumFile.size();
 	}
 
-	public ArrayList<dbFriendlyAlbumFiles> getList() {
-		return dbFriendlyAlbumFiles;
+	public ArrayList<dbFriendlyAlbumFile> getList() {
+		return dbFriendlyAlbumFile;
 	}
 
 	public AlbumFile get(int position) {
-		return dbFriendlyAlbumFiles.get(position).getAlbumFile();
+		return dbFriendlyAlbumFile.get(position).getAlbumFile();
 	}
 
 	public ArrayList<AlbumFile> getAlbumList() {
 		ArrayList<AlbumFile> list = new ArrayList<>();
-		dbFriendlyAlbumFiles.forEach(file -> list.add(file.getAlbumFile()));
+		dbFriendlyAlbumFile.forEach(file -> list.add(file.getAlbumFile()));
 		return list;
 	}
 }

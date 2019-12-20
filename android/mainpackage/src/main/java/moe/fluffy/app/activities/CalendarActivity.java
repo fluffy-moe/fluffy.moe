@@ -41,13 +41,14 @@ import java.util.ArrayList;
 
 import moe.fluffy.app.BuildConfig;
 import moe.fluffy.app.R;
+import moe.fluffy.app.adapter.EventDashboardAdapter;
+import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.fragment.AddEventFragment;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.Datetime;
 import moe.fluffy.app.types.EventDashboardItem;
 import moe.fluffy.app.types.EventsItem;
 import moe.fluffy.app.types.SerializableBundle;
-import moe.fluffy.app.adapter.EventDashboardAdapter;
 
 import static moe.fluffy.app.assistant.Utils.px;
 
@@ -193,7 +194,7 @@ public class CalendarActivity extends AppCompatActivity {
 
 	void updateEventsDashboard(boolean requestUpdateAdapter) {
 		if (!requestUpdateAdapter)
-			planedEvents = HomeActivity.dbHelper.getCurrentAndFeatureEvent();
+			planedEvents = DatabaseHelper.getInstance().getCurrentAndFeatureEvent();
 
 		todayEvent.clear();
 		featureEvent.clear();
@@ -256,7 +257,7 @@ public class CalendarActivity extends AppCompatActivity {
 
 		//Log.d(TAG, "init: color_id => " + color_id);
 		underlineView.setBackgroundColor(
-				getColor(HomeActivity.dbHelper.getTodayColorID(bean.year, bean.moth, bean.day)));
+				getColor(DatabaseHelper.getInstance().getTodayColorID(bean.year, bean.moth, bean.day)));
 
 		return convertView;
 	}

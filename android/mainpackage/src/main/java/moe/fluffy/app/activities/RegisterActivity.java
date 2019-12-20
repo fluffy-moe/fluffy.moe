@@ -45,6 +45,7 @@ import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
+import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.HttpRawResponse;
@@ -249,7 +250,7 @@ public class RegisterActivity extends AppCompatActivity {
 			if (!BuildConfig.isDemoMode) {
 				try {
 					PetInfo p = new PetInfo(etName.getText(), etBreed.getText(), etBirthday.getText(), selected_type, genderM, Neutered, weightSelect);
-					HomeActivity.dbHelper.updatePetInfo(p);
+					DatabaseHelper.getInstance().updatePetInfo(p);
 				} catch (Exception ignore) {
 
 				}
