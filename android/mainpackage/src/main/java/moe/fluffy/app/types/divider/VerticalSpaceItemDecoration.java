@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 // https://stackoverflow.com/a/27037230
 public class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
 	private final int verticalSpaceHeight;
+	private static final String TAG = "log_VerticalSpaceItem";
 
 	public VerticalSpaceItemDecoration(int verticalSpaceHeight) {
 		this.verticalSpaceHeight = verticalSpaceHeight;

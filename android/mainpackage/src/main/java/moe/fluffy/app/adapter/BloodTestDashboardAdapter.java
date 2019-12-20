@@ -35,7 +35,11 @@ import moe.fluffy.app.types.BloodTestDashboard;
 import moe.fluffy.app.types.divider.VerticalSpaceItemDecoration;
 
 public class BloodTestDashboardAdapter extends RecyclerView.Adapter<BloodTestDashboardAdapter.ViewType> {
+	private static final String TAG = "log_BloodTestDashboardAdapt";
+
 	private ArrayList<BloodTestDashboard> bloodTestDashboards;
+
+
 	public BloodTestDashboardAdapter(ArrayList<BloodTestDashboard> items) {
 		bloodTestDashboards = items;
 	}
@@ -62,11 +66,13 @@ public class BloodTestDashboardAdapter extends RecyclerView.Adapter<BloodTestDas
 			lvTestItems.setHasFixedSize(true);
 
 			lvTestItems.setLayoutManager(layoutManager);
-			lvTestItems.addItemDecoration(new VerticalSpaceItemDecoration(15));
+
+			if (lvTestItems.getItemDecorationCount() == 0) // Already add decoration item, no need to add more
+				lvTestItems.addItemDecoration(new VerticalSpaceItemDecoration(15));
 
 			txtDate.setText(rootView.getContext().getString(R.string.fmt_date, it.getYear(), it.getMonth(), it.getDay()));
 			txtBloodTestName.setText(it.getBloodTestName());
-			lvTestItems.setAdapter(new BloodTestSubAdapter(it.getTestItems()));
+			lvTestItems.setAdapter(new BloodTestItemAdapter(it.getTestItems()));
 		}
 	}
 

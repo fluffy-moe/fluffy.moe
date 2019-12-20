@@ -34,9 +34,9 @@ import java.util.ArrayList;
 import moe.fluffy.app.R;
 import moe.fluffy.app.types.BloodTestItem;
 
-public class BloodTestSubAdapter extends RecyclerView.Adapter<BloodTestSubAdapter.ViewType> {
+public class BloodTestItemAdapter extends RecyclerView.Adapter<BloodTestItemAdapter.ViewType> {
 	private ArrayList<BloodTestItem> bloodTestItems;
-	BloodTestSubAdapter(ArrayList<BloodTestItem> l) {
+	BloodTestItemAdapter(ArrayList<BloodTestItem> l) {
 		bloodTestItems = l;
 	}
 

@@ -297,6 +297,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return albumCovers;
 	}
 
+	@NonNull
+	public AlbumCover getAlbumFromCategoryOrThrow(@Nullable Integer category) {
+		AlbumCover r = getAlbumFromCategory(category);
+		if (r == null)
+			throw new NullPointerException("Throw! category => " + category);
+		return r;
+	}
+
 	/**
 	 * This function will return album cover by query specify category.
 	 *

@@ -44,7 +44,6 @@ import moe.fluffy.app.adapter.AlbumAdapter;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.types.AlbumCover;
 import moe.fluffy.app.types.AlbumFiles;
-import moe.fluffy.app.types.Date;
 
 public class AlbumPageActivity extends AppCompatActivity {
 
@@ -115,7 +114,7 @@ public class AlbumPageActivity extends AppCompatActivity {
 				.setCategory(category)
 				.queryFromDatabase(HomeActivity.dbHelper);
 
-		txtTitle = findViewById(R.id.txtAlbumTitle);
+		txtTitle = findViewById(R.id.txtAlbumPhotosContent);
 		txtDateAndSize = findViewById(R.id.txtAlbumPhotosDate);
 		rvImages = findViewById(R.id.rvAlbumList);
 
@@ -125,8 +124,9 @@ public class AlbumPageActivity extends AppCompatActivity {
 			selectPhoto();
 		});
 		int count = albumFiles.getCount();
-		AlbumCover albumCover = HomeActivity.dbHelper.getAlbumFromCategory(category);
-		txtDateAndSize.setText(getString(R.string.fmt_album_page_date,  count, count > 1 ? "s" : "", albumCover == null ? Date.getToday().toString() : albumCover.getDate()));
+		AlbumCover albumCover = HomeActivity.dbHelper.getAlbumFromCategoryOrThrow(category);
+		txtTitle.setText(albumCover.getName());
+		txtDateAndSize.setText(getString(R.string.fmt_album_page_date,  count, count > 1 ? "s" : "", albumCover.getDate()));
 		albumAdapter = new AlbumAdapter(albumFiles, (view, position) -> {
 			GPreviewBuilder.from(this)
 					.setData(albumFiles.getThumbViewInfo())
