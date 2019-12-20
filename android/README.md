@@ -17,6 +17,17 @@
 - [x] Food history refresh fail
 - [ ] ~~Blood test page performance~~
 - [ ] Account edit page
+- [ ] Different profile background by pet type
+- [ ] Click Avatar to Change pet
+- [x] Album swipe (horizontal)
+- [ ] Add new album by add new photo
+- [x] Adjust user setting
+- [ ] Article favorite transplant
+- [ ] Article not show back button
+- [ ] Calendar disable swipe while collapsed
+- [x] Water type should auto add instructions
+- [ ] Center user name at medical page
+- [ ] Blood test view height should smaller than now
 
 ## Used library
 
@@ -27,3 +38,6 @@
 * [WrapContentListView](https://github.com/mzlogin/WrapContentListView) for scrollable event view etc.
 * [Android-PickerView](https://github.com/Bigkoo/Android-PickerView) for datetime picker
 * [Android-Image-Cropper](https://github.com/ArthurHub/Android-Image-Cropper) for crop image
+* [Album](https://github.com/yanzhenjie/Album) for album view
+* [Glide](https://github.com/bumptech/glide) for preview image
+* [ZoomPreviewPicture](https://github.com/yangchaojiang/ZoomPreviewPicture) for view image in album

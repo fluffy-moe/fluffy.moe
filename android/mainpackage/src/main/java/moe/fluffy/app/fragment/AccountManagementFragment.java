@@ -40,7 +40,7 @@ import org.jetbrains.annotations.NotNull;
 import moe.fluffy.app.R;
 import moe.fluffy.app.activities.EditAccountActivity;
 
-public class AccountManagementBottomSheetFragment extends BottomSheetDialogFragment {
+public class AccountManagementFragment extends BottomSheetDialogFragment {
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

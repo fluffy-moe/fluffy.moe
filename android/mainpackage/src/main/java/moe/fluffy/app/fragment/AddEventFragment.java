@@ -61,7 +61,7 @@ import moe.fluffy.app.types.Datetime;
 import moe.fluffy.app.types.EventsItem;
 import moe.fluffy.app.types.SerializableBundle;
 
-public class BottomSheetEventFragment extends BottomSheetDialogFragment {
+public class AddEventFragment extends BottomSheetDialogFragment {
 	private final String TAG = "log_BottomSheetEventFragment";
 
 	private DateTimeWheelView dateTimeWheelView;
@@ -76,21 +76,20 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 
 	private Datetime preDaytime;
 
-	public BottomSheetEventFragment() {
+	public AddEventFragment() {
 		super();
 	}
 
-	public BottomSheetEventFragment(Datetime d) {
+	public AddEventFragment(Datetime d) {
 		super();
 		preDaytime = d;
 	}
-
 
 	@Nullable
 	@Override
 	public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		Log.d(TAG, "onCreateView: test");
-		View viewAddEventPopup = inflater.inflate(R.layout.calendar_add_event_bottom, container, false);
+		View viewAddEventPopup = inflater.inflate(R.layout.bottom_calendar_add_event, container, false);
 		ImageButton btnConfirm = viewAddEventPopup.findViewById(R.id.imgbtnCalendarSave);
 		EditText etBody = viewAddEventPopup.findViewById(R.id.etCalendarBody);
 		Switch swAlarm = viewAddEventPopup.findViewById(R.id.swCalendarAlarm);

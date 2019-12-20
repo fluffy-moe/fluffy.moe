@@ -41,7 +41,7 @@ import java.util.ArrayList;
 
 import moe.fluffy.app.BuildConfig;
 import moe.fluffy.app.R;
-import moe.fluffy.app.fragment.BottomSheetEventFragment;
+import moe.fluffy.app.fragment.AddEventFragment;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.Datetime;
 import moe.fluffy.app.types.EventDashboardItem;
@@ -176,7 +176,7 @@ public class CalendarActivity extends AppCompatActivity {
 
 		/* addEventButton onClick */
 		btnAddEvent.setOnClickListener(_v -> {
-			BottomSheetDialogFragment eventFragment = new BottomSheetEventFragment(selected_date);
+			BottomSheetDialogFragment eventFragment = new AddEventFragment(selected_date);
 			Bundle bundle = new Bundle();
 			SerializableBundle bundle1 = new SerializableBundle(o -> {
 				EventsItem et = (EventsItem) o;
@@ -185,7 +185,7 @@ public class CalendarActivity extends AppCompatActivity {
 				mCalendarDateView.setAdapter(this::getCalendarView);
 				mCalendarDateView.updateView();
 			});
-			bundle.putSerializable(BottomSheetEventFragment.keyName, bundle1);
+			bundle.putSerializable(AddEventFragment.keyName, bundle1);
 			eventFragment.setArguments(bundle);
 			eventFragment.show(getSupportFragmentManager(), eventFragment.getTag());
 		});

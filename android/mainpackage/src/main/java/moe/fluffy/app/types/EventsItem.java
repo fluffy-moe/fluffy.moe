@@ -43,7 +43,7 @@ public class EventsItem {
 	private boolean alarm;
 
 	private static String columnYear, columnMonth, columnDay, columnCategory, columnBody, columnHour,
-			columnMinute, columnColor, columnAlarm;
+			columnMinute, columnColor, columnAlarm, strWater, fmtWaterIntro;
 
 	private static String TAG = "log_EventsType";
 
@@ -57,6 +57,8 @@ public class EventsItem {
 		columnMinute = context.getString(R.string.dbEventsMinute);
 		columnColor = context.getString(R.string.dbEventColor);
 		columnAlarm = context.getString(R.string.dbEventNeedAlarm);
+		strWater = context.getString(R.string.categoryWater);
+		fmtWaterIntro = context.getString(R.string.fmt_event_water_intro);
 	}
 
 	public EventsItem(DateWithMark d, String c, String b, boolean _alarm) {
@@ -125,6 +127,8 @@ public class EventsItem {
 	}
 
 	public String getBody() {
+		if (category.equals(strWater))
+			return String.format(fmtWaterIntro, body);
 		return body;
 	}
 

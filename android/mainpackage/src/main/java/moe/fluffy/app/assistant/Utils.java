@@ -248,6 +248,10 @@ public class Utils {
 	}
 
 
+	public static String generateRandomString() {
+		return generateRandomString(null);
+	}
+
 	public static String generateRandomString(@Nullable Integer max_length) {
 		if (random == null) {
 			random = new Random();

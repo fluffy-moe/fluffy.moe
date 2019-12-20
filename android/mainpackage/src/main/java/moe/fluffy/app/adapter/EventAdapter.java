@@ -38,8 +38,8 @@ import moe.fluffy.app.types.EventsItem;
 @SuppressLint("DefaultLocale")
 public class EventAdapter extends ArrayAdapter<EventsItem> {
 
-	public EventAdapter(Context context, ArrayList<EventsItem> adapters) {
-		super(context, android.R.layout.simple_list_item_1, adapters);
+	public EventAdapter(Context context, ArrayList<EventsItem> items) {
+		super(context, android.R.layout.simple_list_item_1, items);
 	}
 
 	@NonNull

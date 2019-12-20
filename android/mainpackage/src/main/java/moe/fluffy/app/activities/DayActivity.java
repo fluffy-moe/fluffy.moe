@@ -19,15 +19,15 @@
  */
 package moe.fluffy.app.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -44,6 +44,7 @@ import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.ReviewAdapter;
 import moe.fluffy.app.types.PastTimeReview;
 import moe.fluffy.app.types.SerializableBundle;
+import moe.fluffy.app.types.divider.HorizontalPaddingItemDecoration;
 
 public class DayActivity extends AppCompatActivity {
 
@@ -98,8 +99,9 @@ public class DayActivity extends AppCompatActivity {
 
 		RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
 		eventsView = findViewById(R.id.rvPastEvents);
-		eventsView.setHasFixedSize(true);
+		//eventsView.setHasFixedSize(true);
 		eventsView.setLayoutManager(layoutManager);
+		eventsView.addItemDecoration(new HorizontalPaddingItemDecoration(50));
 		eventsView.setAdapter(new ReviewAdapter(pastTimeReviews));
 
 		// init chart view
@@ -125,16 +127,16 @@ public class DayActivity extends AppCompatActivity {
 		imgbtnNavBarCalendar.setImageResource(R.drawable.calendar_orange);
 
 		imgbtnNavBarCamera.setOnClickListener(v ->
-				startActivity(new Intent(DayActivity.this, BootstrapScannerActivity.class)));
+				startActivity(new Intent(this, BootstrapScannerActivity.class)));
 
 		imgbtnNavBarArticle.setOnClickListener(v ->
-				startActivity(new Intent(DayActivity.this, ArticleActivity.class)));
+				startActivity(new Intent(this, ArticleActivity.class)));
 
 		imgbtnNavBarMedical.setOnClickListener(v ->
-				startActivity(new Intent(DayActivity.this, MedicalActivity.class)));
+				startActivity(new Intent(this, MedicalActivity.class)));
 
 		imgbtnNavBarUser.setOnClickListener(v ->
-				startActivity(new Intent(DayActivity.this, ProfileActivity.class)));
+				startActivity(new Intent(this, ProfileActivity.class)));
 
 	}
 }

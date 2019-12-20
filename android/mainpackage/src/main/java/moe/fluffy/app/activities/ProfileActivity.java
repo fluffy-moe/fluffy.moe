@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.AlbumCoverAdapter;
 import moe.fluffy.app.assistant.Utils;
-import moe.fluffy.app.fragment.AccountManagementBottomSheetFragment;
+import moe.fluffy.app.fragment.AccountManagementFragment;
 import moe.fluffy.app.types.AlbumCover;
 import moe.fluffy.app.types.divider.HorizontalPaddingItemDecoration;
 
@@ -84,7 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 		imgbtnMore = findViewById(R.id.imgbtnProfileDot);
 		imgbtnMore.setOnClickListener(v -> {
-			AccountManagementBottomSheetFragment sheetFragment = new AccountManagementBottomSheetFragment();
+			AccountManagementFragment sheetFragment = new AccountManagementFragment();
 			sheetFragment.show(getSupportFragmentManager(), sheetFragment.getTag());
 		});
 		initNavigationBar();
