@@ -1,7 +1,2 @@
-include ':mainpackage', ':WrapContentListView'
+include ':mainpackage'
 rootProject.name='Fluffy'
-include ':zxing-android-embedded'
-include ':android-user-agent'
-include ':codbking-calendar-lib'
-include ':pickerview', ':wheelview'
-include ':MPAndroidChart'

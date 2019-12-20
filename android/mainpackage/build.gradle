@@ -42,17 +42,16 @@ dependencies {
 
     implementation 'com.github.devlight:infinitecycleviewpager:1.0.2'
     implementation 'org.jetbrains:annotations:15.0'
-    implementation project(path: ':zxing-android-embedded')
-    implementation project(path: ':android-user-agent')
     implementation 'com.google.android.material:material:1.0.0'
-    implementation project(path: ':codbking-calendar-lib')
-    implementation project(path: ':WrapContentListView')
-    implementation project(path: ':pickerview')
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
-    //api 'com.journeyapps:zxing-android-embedded:4.0.0'
     implementation 'com.yanzhenjie:album:2.1.3'
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
     implementation 'com.ycjiang:imgepreviewlibrary:1.1.3'
+    api 'com.github.fluffy-moe:WrapContentListView:1.1'
+    api 'com.github.fluffy-moe:Android-PickerView:1.0'
+    api 'com.github.fluffy-moe:zxing-android-embedded:af5c16acd0'
+    api 'com.github.fluffy-moe:Calendar:2.0.1'
+    api 'com.github.fluffy-moe:android-user-agent:1.0'
 }
