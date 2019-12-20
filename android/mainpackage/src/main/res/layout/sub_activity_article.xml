@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ArticleActivity">
+    tools:context=".activities.ArticleActivity"
+    tools:ignore="PxUsage" >
 
     <ImageView
         android:id="@+id/imgbackgroundBook"
@@ -25,7 +26,7 @@
         android:textColor="#565656"
         android:textSize="101px"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageButton
         android:id="@+id/imgbtnDogBook"
@@ -131,56 +132,56 @@
         android:id="@+id/txtDogNumBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="189px"
         android:layout_marginTop="617px"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_dog_number_article"
         android:textAlignment="center"
         android:textColor="#565656"
         android:textSize="95px"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imgbtnDogBook"
+        app:layout_constraintStart_toStartOf="@+id/imgbtnDogBook"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtCatNumBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="510px"
         android:layout_marginTop="617px"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_cat_number_article"
         android:textAlignment="center"
         android:textColor="#565656"
         android:textSize="95px"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imgbtnCatBook"
+        app:layout_constraintStart_toStartOf="@+id/imgbtnCatBook"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtBirdNumBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="834px"
         android:layout_marginTop="617px"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_bird_number_article"
         android:textAlignment="center"
         android:textColor="#565656"
         android:textSize="95px"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imgbtnBirdBook"
+        app:layout_constraintStart_toStartOf="@+id/imgbtnBirdBook"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtOtherNumBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1147px"
         android:layout_marginTop="617px"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_other_number_article"
         android:textAlignment="center"
         android:textColor="#565656"
         android:textSize="95px"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imgbtnOtherBook"
+        app:layout_constraintStart_toStartOf="@+id/imgbtnOtherBook"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -228,7 +229,7 @@
             app:srcCompat="@drawable/article_search" />
 
         <Space
-            android:layout_width="15px"
+            android:layout_width="20px"
             android:layout_height="wrap_content" />
     </LinearLayout>
 

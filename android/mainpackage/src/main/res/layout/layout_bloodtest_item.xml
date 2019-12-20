@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="1075px"
-	android:layout_height="64px">
+	android:layout_height="60px">
 
 	<TextView
 		android:id="@+id/txtBloodItemName"
@@ -9,6 +9,7 @@
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
 		android:fontFamily="@font/segoe_ui_semibold"
+		android:gravity="top"
 		android:text="@string/text_examine_item_for_bloodtest"
 		android:textAlignment="center"
 		android:textSize="48px" />
@@ -24,6 +25,7 @@
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
 		android:fontFamily="@font/segoe_ui_semibold"
+		android:gravity="top"
 		android:text="@string/text_result_for_bloodtest"
 		android:textAlignment="center"
 		android:textSize="48px" />

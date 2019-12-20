@@ -71,7 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
 	ImageButton imgbtnCat, imgbtnDog, imgbtnBird, imgbtnOther;
 	ImageButton imgbtnPrevClicked, imgbtnBack;
 
-	boolean genderM = true, Neuterd = false;
+	boolean genderM = true, Neutered = false;
 
 	private String selected_type;
 
@@ -97,13 +97,13 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 		etName.setOnFocusChangeListener((v, hasFocus) ->
-				Utils.onFocusChange(hasFocus, RegisterActivity.this, etName, R.string.users_name, false));
+				Utils.onFocusChange(hasFocus, this, etName, R.string.users_name, false));
 		etEmail.setOnFocusChangeListener((v, hasFocus) ->
-				Utils.onFocusChange(hasFocus, RegisterActivity.this, etEmail, R.string.users_email, false));
+				Utils.onFocusChange(hasFocus, this, etEmail, R.string.users_email, false));
 		etPassword.setOnFocusChangeListener((v, hasFocus) ->
-				Utils.onFocusChange(hasFocus, RegisterActivity.this, etPassword, R.string.users_password, true));
+				Utils.onFocusChange(hasFocus, this, etPassword, R.string.users_password, true));
 		etPassword2.setOnFocusChangeListener((v, hasFocus) ->
-				Utils.onFocusChange(hasFocus, RegisterActivity.this, etPassword2, R.string.users_confirm_password, true));
+				Utils.onFocusChange(hasFocus, this, etPassword2, R.string.users_confirm_password, true));
 
 		imgbtnConfirm.setOnClickListener(v -> {
 			// TODO: Validation register params
@@ -219,12 +219,12 @@ public class RegisterActivity extends AppCompatActivity {
 				case R.id.rb_yes:
 					rbNeuterY.setBackground(getDrawable(R.drawable.radio_button_checked));
 					rbNeuterN.setBackground(null);
-					Neuterd = true;
+					Neutered = true;
 					break;
 				case R.id.rb_no:
 					rbNeuterN.setBackground(getDrawable(R.drawable.radio_button_checked));
 					rbNeuterY.setBackground(null);
-					Neuterd = false;
+					Neutered = false;
 			}
 		});
 
@@ -248,7 +248,7 @@ public class RegisterActivity extends AppCompatActivity {
 			// some verify method here
 			if (!BuildConfig.isDemoMode) {
 				try {
-					PetInfo p = new PetInfo(etName.getText(), etBreed.getText(), etBirthday.getText(), selected_type, genderM, Neuterd, weightSelect);
+					PetInfo p = new PetInfo(etName.getText(), etBreed.getText(), etBirthday.getText(), selected_type, genderM, Neutered, weightSelect);
 					HomeActivity.dbHelper.updatePetInfo(p);
 				} catch (Exception ignore) {
 

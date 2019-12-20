@@ -19,9 +19,6 @@
  */
 package moe.fluffy.app.activities;
 
-import androidx.annotation.DrawableRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +27,9 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import androidx.annotation.DrawableRes;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
 
@@ -42,12 +42,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.adapter.ImageAdapter;
 import moe.fluffy.app.assistant.JSONParser;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.Article;
 import moe.fluffy.app.types.ArticlesMap;
-import moe.fluffy.app.adapter.ImageAdapter;
 
 public class ArticleActivity extends AppCompatActivity {
 
@@ -68,7 +68,7 @@ public class ArticleActivity extends AppCompatActivity {
 	EditText etSearchBook;
 
 	ImageButton imgbtnDog, imgbtnBird, imgbtnCat, imgbtnOther;
-	ImageButton imgbtnSearch, imgbtnFavorite;
+	ImageButton imgbtnSearch;
 
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;

@@ -36,7 +36,7 @@ public class ShowArticleActivity extends Activity {
 	ImageView imgHeader;
 	TextView txtTitle, txtAuthor, txtBody, txtDay;
 
-	ImageButton imgbtnFavorite;
+	ImageButton imgbtnFavorite, imgbtnBack;
 
 	boolean bookmarked = false;
 
@@ -56,6 +56,8 @@ public class ShowArticleActivity extends Activity {
 		txtAuthor = findViewById(R.id.txtAuthor);
 		txtDay = findViewById(R.id.txtPublishTime);
 		txtBody = findViewById(R.id.txtArticleContent);
+		imgbtnBack = findViewById(R.id.imgbtnBackArticle);
+
 		int index = getIntent().getIntExtra(getString(R.string.IntentArticleIndex), -1);
 		if (index != -1) {
 			Article a = ArticleActivity.getArticles(index);
@@ -67,7 +69,10 @@ public class ShowArticleActivity extends Activity {
 		}
 		imgbtnFavorite = findViewById(R.id.imgbtnFavArticle);
 
+		imgbtnBack.setOnClickListener( v -> finish());
+
 		imgbtnFavorite.setOnClickListener(v -> {
+			// TODO: write favorite to database
 			if (bookmarked) {
 				imgbtnFavorite.setBackground(getDrawable(R.drawable.bookmark_gray));
 				bookmarked = false;

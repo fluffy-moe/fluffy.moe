@@ -22,12 +22,12 @@
 - [x] Album swipe (horizontal)
 - [ ] Add new album by add new photo
 - [x] Adjust user setting
-- [ ] Article favorite transplant
-- [ ] Article not show back button
+- [x] Article favorite transplant
+- [x] Article not show back button
 - [ ] Calendar disable swipe while collapsed
 - [x] Water type should auto add instructions
-- [ ] Center user name at medical page
-- [ ] Blood test view height should smaller than now
+- [x] Center user name at medical page
+- [x] Blood test view height should smaller than now
 
 ## Used library
 
