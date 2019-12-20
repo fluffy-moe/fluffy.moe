@@ -35,15 +35,15 @@ import java.util.ArrayList;
 import moe.fluffy.app.R;
 import moe.fluffy.app.activities.AlbumPageActivity;
 import moe.fluffy.app.activities.HomeActivity;
-import moe.fluffy.app.types.AlbumCoverType;
+import moe.fluffy.app.types.AlbumCover;
 
 public class AlbumCoverAdapter extends RecyclerView.Adapter<AlbumCoverAdapter.ViewHolder> {
 	private static final String TAG = "log_AlbumCoverAdapter";
 
-	private ArrayList<AlbumCoverType> covers;
+	private ArrayList<AlbumCover> covers;
 
 	private Intent intent;
-	public AlbumCoverAdapter(ArrayList<AlbumCoverType> covers, Intent intent) {
+	public AlbumCoverAdapter(ArrayList<AlbumCover> covers, Intent intent) {
 		this.covers = covers;
 		this.intent = intent;
 	}
@@ -85,14 +85,14 @@ public class AlbumCoverAdapter extends RecyclerView.Adapter<AlbumCoverAdapter.Vi
 			return context.getString(R.string.fmt_photo_count, count, count > 1 ? "s" :"");
 		}
 
-		ViewHolder setProp(@NonNull AlbumCoverType albumCoverType, View.OnClickListener onClickListener) {
+		ViewHolder setProp(@NonNull AlbumCover albumCover, View.OnClickListener onClickListener) {
 			TextView title = itemView.findViewById(R.id.txtAlbumTitle),
 					date = itemView.findViewById(R.id.txtAlbumDate),
 					counts = itemView.findViewById(R.id.txtAlbumPhotoCount);
-			title.setText(albumCoverType.getName());
-			Integer count = HomeActivity.dbHelper.getAlbumSize(albumCoverType.getCategory());
+			title.setText(albumCover.getName());
+			Integer count = HomeActivity.dbHelper.getAlbumSize(albumCover.getCategory());
 			counts.setText(parsePhotoCount(itemView.getContext(), count));
-			date.setText(albumCoverType.getDate());
+			date.setText(albumCover.getDate());
 			itemView.setOnClickListener(onClickListener);
 			return this;
 		}

@@ -42,15 +42,15 @@ import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.PopupDialog;
-import moe.fluffy.app.types.AlbumCoverType;
+import moe.fluffy.app.types.AlbumCover;
 import moe.fluffy.app.types.AlbumFiles;
-import moe.fluffy.app.types.BloodTestDashboardType;
+import moe.fluffy.app.types.BloodTestDashboard;
 import moe.fluffy.app.types.Date;
-import moe.fluffy.app.types.DeinsectizaionType;
-import moe.fluffy.app.types.EventsType;
-import moe.fluffy.app.types.FoodViewType;
+import moe.fluffy.app.types.DeinsectizaionItem;
+import moe.fluffy.app.types.EventsItem;
+import moe.fluffy.app.types.FoodView;
 import moe.fluffy.app.types.PetInfo;
-import moe.fluffy.app.types.VaccinationType;
+import moe.fluffy.app.types.VaccinationItem;
 
 public class HomeActivity extends AppCompatActivity {
 	@SuppressLint("StaticFieldLeak")
@@ -71,13 +71,13 @@ public class HomeActivity extends AppCompatActivity {
 		ConnectPath.loadConfig(this);
 		PetInfo.initColumn(this);
 		Date.initWeekName(this);
-		EventsType.initColumn(this);
-		VaccinationType.initColumn(this);
-		DeinsectizaionType.initColumn(this);
-		FoodViewType.initColumn(this);
+		EventsItem.initColumn(this);
+		VaccinationItem.initColumn(this);
+		DeinsectizaionItem.initColumn(this);
+		FoodView.initColumn(this);
 		AlbumFiles.initColumn(this);
-		BloodTestDashboardType.initColumn(this);
-		AlbumCoverType.initColumn(this);
+		BloodTestDashboard.initColumn(this);
+		AlbumCover.initColumn(this);
 	}
 
 	void init() {

@@ -19,27 +19,34 @@
  */
 package moe.fluffy.app.types;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.content.Context;
 
-public class AddressInfoType {
-	String name, address, phone;
+import moe.fluffy.app.assistant.BloodTestDrawable;
 
-	public AddressInfoType(JSONObject object) throws JSONException {
-		name = object.getString("name");
-		address = object.getString("address");
-		phone = object.getString("phone");
+public class BloodTestItem {
+	private String examineItem, itemUnit;
+	private double result;
+	private BloodTestDrawable.ScaleRect bloodTestDrawable;
+	BloodTestItem(String a, double b, double referenceDown, double referenceUp, String _itemUnit) {
+		examineItem = a;
+		result = b;
+		bloodTestDrawable = BloodTestDrawable.ScaleRect.build(b, referenceDown, referenceUp);
+		itemUnit = _itemUnit;
 	}
 
-	public String getName() {
-		return name;
+	public String getExamineItem() {
+		return examineItem;
 	}
 
-	public String getAddress() {
-		return address;
+	public double getResult() {
+		return result;
 	}
 
-	public String getPhone() {
-		return phone;
+	public BloodTestDrawable getGraph(Context context) {
+		return new BloodTestDrawable(context, bloodTestDrawable);
+	}
+
+	public String getUnit() {
+		return itemUnit;
 	}
 }

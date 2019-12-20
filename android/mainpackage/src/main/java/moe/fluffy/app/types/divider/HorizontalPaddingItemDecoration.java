@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
-public class PaddingItemDecoration extends RecyclerView.ItemDecoration {
+// https://stackoverflow.com/a/34297104
+public class HorizontalPaddingItemDecoration extends RecyclerView.ItemDecoration {
 	private final int size;
 
-	public PaddingItemDecoration(int size) {
+	public HorizontalPaddingItemDecoration(int size) {
 		this.size = size;
 	}
 

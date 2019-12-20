@@ -45,7 +45,7 @@ import java.util.HashMap;
 import moe.fluffy.app.BuildConfig;
 import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.JSONParser;
-import moe.fluffy.app.types.AddressInfoType;
+import moe.fluffy.app.types.AddressInfoItem;
 import moe.fluffy.app.adapter.AddressAdapter;
 
 public class SearchActivity extends AppCompatActivity {
@@ -153,9 +153,9 @@ public class SearchActivity extends AppCompatActivity {
 				JSONArray a = map_detail.getJSONObject("data")
 						.getJSONObject(select_city)
 						.getJSONArray(select_district);
-				ArrayList<AddressInfoType> addressInfoList = new ArrayList<>();
+				ArrayList<AddressInfoItem> addressInfoList = new ArrayList<>();
 				for (int i=0; i< a.length();i++) {
-					addressInfoList.add(new AddressInfoType(a.getJSONObject(i)));
+					addressInfoList.add(new AddressInfoItem(a.getJSONObject(i)));
 				}
 				init_listView(addressInfoList);
 			} catch (JSONException e) {
@@ -163,7 +163,7 @@ public class SearchActivity extends AppCompatActivity {
 			}
 		});
 		lvSearchResult.setOnItemClickListener((parent, view, position, id) ->{
-			AddressInfoType adp = (AddressInfoType) parent.getItemAtPosition(position);
+			AddressInfoItem adp = (AddressInfoItem) parent.getItemAtPosition(position);
 			Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + adp.getAddress());
 			Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
 			mapIntent.setPackage("com.google.android.apps.maps");
@@ -171,10 +171,10 @@ public class SearchActivity extends AppCompatActivity {
 		});
 	}
 
-	void init_listView(ArrayList<AddressInfoType> addressInfoArray) {
+	void init_listView(ArrayList<AddressInfoItem> addressInfoArray) {
 		final AddressAdapter addressAdapter = new AddressAdapter(this, new ArrayList<>());
 		this.lvSearchResult.setAdapter(addressAdapter);
-		for (AddressInfoType a: addressInfoArray) {
+		for (AddressInfoItem a: addressInfoArray) {
 			addressAdapter.add(a);
 		}
 	}

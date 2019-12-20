@@ -1,6 +1,5 @@
 package moe.fluffy.app.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.types.PastTimeReviewType;
+import moe.fluffy.app.types.PastTimeReview;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewType> {
 
-	private ArrayList<PastTimeReviewType> pastTimeReviewTypes;
+	private ArrayList<PastTimeReview> pastTimeReviews;
 	public static class ViewType extends RecyclerView.ViewHolder {
 		View rootView;
 		ViewType(View v) {
@@ -30,7 +29,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewType> 
 			t.setText(s);
 		}
 
-		void setProp(PastTimeReviewType pt) {
+		void setProp(PastTimeReview pt) {
 			TextView title = rootView.findViewById(R.id.txtEventEvent);
 			//		body = rootView.findViewById(R.id.txtEventRecord);
 			ImageView imgHeader = rootView.findViewById(R.id.imgbtnEventEvent);
@@ -40,8 +39,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewType> 
 		}
 	}
 
-	public ReviewAdapter(ArrayList<PastTimeReviewType> _pastTimeReviewTypes) {
-		pastTimeReviewTypes = _pastTimeReviewTypes;
+	public ReviewAdapter(ArrayList<PastTimeReview> _pastTimeReviews) {
+		pastTimeReviews = _pastTimeReviews;
 	}
 
 	@NonNull
@@ -53,12 +52,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewType> 
 
 	@Override
 	public void onBindViewHolder(@NonNull ViewType holder, int position) {
-		 PastTimeReviewType pt =  pastTimeReviewTypes.get(position);
+		 PastTimeReview pt =  pastTimeReviews.get(position);
 		 holder.setProp(pt);
 	}
 
 	@Override
 	public int getItemCount() {
-		return pastTimeReviewTypes.size();
+		return pastTimeReviews.size();
 	}
 }

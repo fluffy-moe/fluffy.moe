@@ -36,8 +36,8 @@ import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.AlbumCoverAdapter;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.fragment.AccountManagementBottomSheetFragment;
-import moe.fluffy.app.types.AlbumCoverType;
-import moe.fluffy.app.types.divider.PaddingItemDecoration;
+import moe.fluffy.app.types.AlbumCover;
+import moe.fluffy.app.types.divider.HorizontalPaddingItemDecoration;
 
 public class ProfileActivity extends AppCompatActivity {
 	private static final String TAG = "log_ProfileActivity";
@@ -51,7 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
 			imgbtnNavBarArticle, imgbtnNavBarUser;
 
 	RecyclerView rvAlbums;
-	ArrayList<AlbumCoverType> albumCoverTypes;
+	ArrayList<AlbumCover> albumCovers;
 	AlbumCoverAdapter albumCoverAdapter;
 
 	@Override
@@ -68,18 +68,18 @@ public class ProfileActivity extends AppCompatActivity {
 		rvAlbums = findViewById(R.id.rvAlbumList);
 		btnAddAlbum = findViewById(R.id.btnAddAlbum);
 
-		albumCoverTypes = HomeActivity.dbHelper.getAlbums();
+		albumCovers = HomeActivity.dbHelper.getAlbums();
 
-		albumCoverAdapter = new AlbumCoverAdapter(albumCoverTypes,
+		albumCoverAdapter = new AlbumCoverAdapter(albumCovers,
 				new Intent(this, AlbumPageActivity.class));
 		rvAlbums.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-		rvAlbums.addItemDecoration(new PaddingItemDecoration(73));
+		rvAlbums.addItemDecoration(new HorizontalPaddingItemDecoration(73));
 		rvAlbums.setAdapter(albumCoverAdapter);
 
 		btnAddAlbum.setOnClickListener(v-> {
-			AlbumCoverType albumCoverType = HomeActivity.dbHelper.createAlbum(Utils.generateRandomString());
-			albumCoverTypes.add(albumCoverType);
-			albumCoverAdapter.notifyItemInserted(albumCoverTypes.size() - 1);
+			AlbumCover albumCover = HomeActivity.dbHelper.createAlbum(Utils.generateRandomString(5));
+			albumCovers.add(albumCover);
+			albumCoverAdapter.notifyItemInserted(albumCovers.size() - 1);
 		});
 
 		imgbtnMore = findViewById(R.id.imgbtnProfileDot);

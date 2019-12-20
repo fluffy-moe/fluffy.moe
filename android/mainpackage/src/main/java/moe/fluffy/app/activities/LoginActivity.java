@@ -40,7 +40,7 @@ import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.HttpRawResponse;
-import moe.fluffy.app.types.NetworkRequestType;
+import moe.fluffy.app.types.NetworkRequest;
 import moe.fluffy.app.types.StaticDefinition;
 
 
@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 	private void login() {
 		try {
 			if (!BuildConfig.isDemoMode) {
-				new Connect(NetworkRequestType.generateLoginParams(etUser.getText(), etPassword.getText()),
+				new Connect(NetworkRequest.generateLoginParams(etUser.getText(), etPassword.getText()),
 						ConnectPath.login_path,
 						new Callback() {
 							@Override

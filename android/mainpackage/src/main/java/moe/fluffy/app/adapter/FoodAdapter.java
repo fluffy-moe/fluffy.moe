@@ -39,25 +39,23 @@ import androidx.annotation.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 
 import moe.fluffy.app.activities.FoodHistoryActivity;
 import moe.fluffy.app.activities.HomeActivity;
 import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.SimpleCallback;
 import moe.fluffy.app.assistant.Utils;
-import moe.fluffy.app.types.FoodViewType;
+import moe.fluffy.app.types.FoodView;
 
-public class FoodAdapter extends ArrayAdapter<FoodViewType> {
-	public FoodAdapter(Context context, @NotNull ArrayList<FoodViewType> foodList) {
+public class FoodAdapter extends ArrayAdapter<FoodView> {
+	public FoodAdapter(Context context, @NotNull ArrayList<FoodView> foodList) {
 		super(context, android.R.layout.simple_list_item_1, foodList);
 	}
 
 
-	public static AlertDialog generateDialog(Context context, @NotNull FoodViewType it, @NotNull FoodAdapter adapter,
+	public static AlertDialog generateDialog(Context context, @NotNull FoodView it, @NotNull FoodAdapter adapter,
 											 @Nullable SimpleCallback listener, @Nullable Bitmap bmp) {
 		View viewEditFood = LayoutInflater.from(context).inflate(R.layout.edit_food_item, null);
 		AlertDialog.Builder editFoodPopup = new AlertDialog.Builder(context);
@@ -123,7 +121,7 @@ public class FoodAdapter extends ArrayAdapter<FoodViewType> {
 	@Override
 	public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-		FoodViewType it = getItem(position);
+		FoodView it = getItem(position);
 
 		TextView txtTitle, txtNote, txtDate;
 		ImageButton imgbtnLike, imgbtnEdit;

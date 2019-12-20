@@ -36,7 +36,7 @@ import com.codbking.calendar.CalendarBean;
 import moe.fluffy.app.R;
 import moe.fluffy.app.views.DateTimeWheelView;
 
-public class EventsType {
+public class EventsItem {
 	private DateWithMark date;
 	private String category;
 	private String body;
@@ -59,39 +59,39 @@ public class EventsType {
 		columnAlarm = context.getString(R.string.dbEventNeedAlarm);
 	}
 
-	public EventsType(DateWithMark d, String c, String b, boolean _alarm) {
+	public EventsItem(DateWithMark d, String c, String b, boolean _alarm) {
 		date = d;
 		category = c;
 		body = b;
 		alarm = _alarm;
 	}
 
-	public EventsType(int _year, int _month, int _day, int _hour, int _minute, int color, String c, String b, boolean _alarm) {
+	public EventsItem(int _year, int _month, int _day, int _hour, int _minute, int color, String c, String b, boolean _alarm) {
 		this(new DateWithMark(_year, _month, _day, _hour, _minute, 0,0, color),
 				c,
 				b,
 				_alarm);
 	}
 
-	public EventsType(DateTimeWheelView t, int color, String c, String b, boolean _alarm) {
+	public EventsItem(DateTimeWheelView t, int color, String c, String b, boolean _alarm) {
 		this(new DateWithMark(t.getYear(), t.getMonth(), t.getDay(), t.getHour(), t.getMinute(), 0, 0, color), c, b, _alarm);
 	}
 
-	public EventsType(DatePicker dp, TimePicker tp, int color, String c, String b, boolean _alarm) {
+	public EventsItem(DatePicker dp, TimePicker tp, int color, String c, String b, boolean _alarm) {
 		this(new DateWithMark(dp.getYear(), dp.getMonth() + 1, dp.getDayOfMonth(), tp.getHour(), tp.getMinute(), 0, 0, color),
 				c,
 				b,
 				_alarm);
 	}
 
-	public EventsType(String strDate, String strTime, int color, String c, String b, boolean _alarm) {
+	public EventsItem(String strDate, String strTime, int color, String c, String b, boolean _alarm) {
 		this(new DateWithMark(strDate, strTime, color),
 				c,
 				b,
 				_alarm);
 	}
 
-	public EventsType(Cursor cursor) {
+	public EventsItem(Cursor cursor) {
 		int year, month, day, hour, minute;
 		year = cursor.getInt(cursor.getColumnIndexOrThrow(columnYear));
 		month = cursor.getInt(cursor.getColumnIndexOrThrow(columnMonth));

@@ -19,28 +19,31 @@
  */
 package moe.fluffy.app.types;
 
-import android.util.Log;
+import androidx.annotation.DrawableRes;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class EventDashboardType {
-
-	private static String TAG = "log_EventDashboard";
-
-	String title;
-	ArrayList<EventsType> events;
-
-	public EventDashboardType(boolean isToday, ArrayList<EventsType> _events) {
-		title = isToday? "Today": "Coming soon";
-		events = _events;
+public class Article {
+	public String title, author, date, body;
+	public String category;
+	@DrawableRes int coverId, headerId;
+	public Article(JSONObject j, @DrawableRes int cover, @DrawableRes int header) throws JSONException {
+		title = j.getString("title");
+		author = j.getString("author").split("/")[0];
+		date = j.getString("date");
+		body = j.getString("body");
+		category = j.getString("category");
+		coverId = cover;
+		headerId = header;
 	}
 
-	public String getTitle() {
-		return title;
+
+	public int getCoverId() {
+		return coverId;
 	}
 
-	public ArrayList<EventsType> getEvents() {
-		//Log.d(TAG, "getEvents: size => " + events.size());
-		return events;
+	public int getHeaderId() {
+		return headerId;
 	}
 }

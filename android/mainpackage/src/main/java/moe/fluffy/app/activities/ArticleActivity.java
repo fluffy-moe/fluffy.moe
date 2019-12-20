@@ -45,7 +45,7 @@ import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.JSONParser;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.Utils;
-import moe.fluffy.app.types.ArticleType;
+import moe.fluffy.app.types.Article;
 import moe.fluffy.app.types.ArticlesMap;
 import moe.fluffy.app.adapter.ImageAdapter;
 
@@ -89,7 +89,7 @@ public class ArticleActivity extends AppCompatActivity {
 		lst.clear();
 		ImageAdapter im = new ImageAdapter(lst, mapResource, getBaseContext());
 		for (int i = 0; i < articles.getList().size(); i++) {
-			ArticleType a = articles.getList().get(i);
+			Article a = articles.getList().get(i);
 			// Check request article category type
 			if (requireCategory != null) {
 				if (!a.category.equals(requireCategory))
@@ -197,7 +197,7 @@ public class ArticleActivity extends AppCompatActivity {
 								getResources().getIdentifier(j.getString(getString(R.string.jsonCarouseResourceName)), "drawable", this.getPackageName());
 						@DrawableRes int headerId =
 								getResources().getIdentifier(j.getString(getString(R.string.jsonTitleImageResourceName)), "drawable", this.getPackageName());
-						articles.push(new ArticleType(j, coverId, headerId));
+						articles.push(new Article(j, coverId, headerId));
 						String category = j.getString(getString(R.string.jsonCategory));
 						Integer count_category = countArticles.get(category);
 						if (count_category != null) {
@@ -218,7 +218,7 @@ public class ArticleActivity extends AppCompatActivity {
 		}
 	}
 
-	static ArticleType getArticles(int index) {
+	static Article getArticles(int index) {
 		return articles.getList().get(index);
 	}
 

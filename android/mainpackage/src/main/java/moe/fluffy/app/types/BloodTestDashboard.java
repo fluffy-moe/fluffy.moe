@@ -31,10 +31,10 @@ import java.util.ArrayList;
 
 import moe.fluffy.app.R;
 
-public class BloodTestDashboardType {
+public class BloodTestDashboard {
 	private String bloodTestName;
 	private Date date;
-	private ArrayList<BloodTestSubType> testItems;
+	private ArrayList<BloodTestItem> testItems;
 
 	private static String columnTestName, columnDate, columnSubItems, columnResultValue,
 			columnExamineName, columnResultValueReferenceDown, columnResultValueReferenceUp,
@@ -51,20 +51,20 @@ public class BloodTestDashboardType {
 		columnResultUnit = context.getString(R.string.jsonFieldBloodTestResultUnit);
 	}
 
-	BloodTestDashboardType(Date _date, String testName, ArrayList<BloodTestSubType> items) {
+	BloodTestDashboard(Date _date, String testName, ArrayList<BloodTestItem> items) {
 		date = _date;
 		bloodTestName = testName;
 		testItems = items;
 	}
 
-	public BloodTestDashboardType(JSONObject j) throws JSONException {
+	public BloodTestDashboard(JSONObject j) throws JSONException {
 		date = new Date(j.getJSONObject(columnDate));
 		bloodTestName = j.getString(columnTestName);
 		testItems = new ArrayList<>();
 		JSONArray results = j.getJSONArray(columnSubItems);
 		for (int i = 0; i < results.length(); i++) {
 			JSONObject result = results.getJSONObject(i);
-			testItems.add(new BloodTestSubType(result.getString(columnExamineName),
+			testItems.add(new BloodTestItem(result.getString(columnExamineName),
 					result.getDouble(columnResultValue),
 					result.getDouble(columnResultValueReferenceDown),
 					result.getDouble(columnResultValueReferenceUp),
@@ -89,7 +89,7 @@ public class BloodTestDashboardType {
 		return date.getDay();
 	}
 
-	public ArrayList<BloodTestSubType> getTestItems() {
+	public ArrayList<BloodTestItem> getTestItems() {
 		return testItems;
 	}
 }

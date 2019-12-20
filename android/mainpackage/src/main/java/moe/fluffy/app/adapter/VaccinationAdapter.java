@@ -36,21 +36,21 @@ import java.util.ArrayList;
 
 import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.PopupDialog;
-import moe.fluffy.app.types.VaccinationType;
+import moe.fluffy.app.types.VaccinationItem;
 
-public class VaccinationAdapter extends ArrayAdapter<VaccinationType> {
+public class VaccinationAdapter extends ArrayAdapter<VaccinationItem> {
 	private static final String TAG = "VaccinationAdapter";
 
-	public VaccinationAdapter(Context context, ArrayList<VaccinationType> arrayList) {
+	public VaccinationAdapter(Context context, ArrayList<VaccinationItem> arrayList) {
 		super(context, android.R.layout.simple_list_item_1, arrayList);
 	}
 
 	@ColorRes
 	private int getColorRes(int status) {
 		switch (status) {
-			case VaccinationType.RED:
+			case VaccinationItem.RED:
 				return R.color.colorVacRed;
-			case VaccinationType.GREEN:
+			case VaccinationItem.GREEN:
 				return R.color.colorVacGreen;
 			default:
 				return R.color.colorVacUndefined;
@@ -60,7 +60,7 @@ public class VaccinationAdapter extends ArrayAdapter<VaccinationType> {
 	@NonNull
 	@Override
 	public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-		VaccinationType it = getItem(position);
+		VaccinationItem it = getItem(position);
 
 		TextView txtDate, txtNobivac, txtInjectSite, txtDoctor;
 		ImageView imgBackground;

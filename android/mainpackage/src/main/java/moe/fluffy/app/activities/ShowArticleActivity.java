@@ -28,7 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.types.ArticleType;
+import moe.fluffy.app.types.Article;
 
 
 public class ShowArticleActivity extends Activity {
@@ -58,7 +58,7 @@ public class ShowArticleActivity extends Activity {
 		txtBody = findViewById(R.id.txtArticleContent);
 		int index = getIntent().getIntExtra(getString(R.string.IntentArticleIndex), -1);
 		if (index != -1) {
-			ArticleType a = ArticleActivity.getArticles(index);
+			Article a = ArticleActivity.getArticles(index);
 			imgHeader.setImageResource(a.getHeaderId());
 			txtTitle.setText(a.title);
 			txtAuthor.setText(a.author);

@@ -14,6 +14,7 @@
 		android:layout_marginTop="0px"
 		android:background="@drawable/catprofile"
 		android:scaleType="fitXY"
+		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,10 +47,10 @@
 		android:id="@+id/imgProfileCatPhoto"
 		android:layout_width="267px"
 		android:layout_height="270px"
-		android:layout_marginStart="587px"
 		android:layout_marginTop="856px"
 		android:background="@null"
 		android:scaleType="fitXY"
+		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:srcCompat="@drawable/catphoto" />
@@ -122,13 +123,13 @@
 		android:id="@+id/txtProfileMemberNumber"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="539px"
 		android:layout_marginTop="1317px"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/text_medical_number"
 		android:textAlignment="center"
 		android:textColor="#B96320"
 		android:textSize="60px"
+		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -149,12 +150,13 @@
 		android:id="@+id/txtProfileName"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="580px"
 		android:layout_marginTop="1150px"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/text_name_for_profile"
+		android:textAlignment="center"
 		android:textColor="#565656"
 		android:textSize="80px"
+		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 

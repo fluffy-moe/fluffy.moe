@@ -28,7 +28,7 @@ import org.json.JSONObject;
 
 import moe.fluffy.app.R;
 
-public class VaccinationType {
+public class VaccinationItem {
 	public static final int GREEN = 1, RED = 0, UNDEFINED = -1;
 
 	private Date date;
@@ -46,7 +46,7 @@ public class VaccinationType {
 		columnStatus = context.getString(R.string.jsonFieldStatus);
 	}
 
-	VaccinationType(Date d, String a, String b, String c, int e) {
+	VaccinationItem(Date d, String a, String b, String c, int e) {
 		date = d;
 		nobivac = a;
 		injectionSite = b;
@@ -61,7 +61,7 @@ public class VaccinationType {
 	 * @param j json from server
 	 * @throws JSONException Exception while get json value
 	 */
-	public VaccinationType(JSONObject j) throws JSONException {
+	public VaccinationItem(JSONObject j) throws JSONException {
 		this(new Date(j.getJSONObject(columnDate)),
 				j.getString(columnNobivac),
 				j.getString(columnInjectionSite),

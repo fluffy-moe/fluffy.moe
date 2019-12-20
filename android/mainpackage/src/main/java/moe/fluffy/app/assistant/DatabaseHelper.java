@@ -38,11 +38,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.types.AlbumCoverType;
+import moe.fluffy.app.types.AlbumCover;
 import moe.fluffy.app.types.AlbumFiles;
 import moe.fluffy.app.types.Date;
-import moe.fluffy.app.types.EventsType;
-import moe.fluffy.app.types.FoodViewType;
+import moe.fluffy.app.types.EventsItem;
+import moe.fluffy.app.types.FoodView;
 import moe.fluffy.app.types.PetInfo;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -97,7 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		}
 		cv = new PetInfo("", "", getString(R.string.dbDefaultBirthday), getString(R.string.typeCat), false, false, 1).getContextValues();
 		db.insert(TABLE_PET, null, cv);
-		db.insert(TABLE_ALBUM, null, new AlbumCoverType("Sample").getContentValue());
+		db.insert(TABLE_ALBUM, null, new AlbumCover("Sample").getContentValue());
 	}
 
 	// TODO: backup then drop next time
@@ -270,47 +270,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return arrayList;
 	}
 
-	public AlbumCoverType createAlbum(String name) {
-		AlbumCoverType albumCoverType = new AlbumCoverType(name);
+	public AlbumCover createAlbum(String name) {
+		AlbumCover albumCover = new AlbumCover(name);
 		SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-		sqLiteDatabase.insert(TABLE_ALBUM, null, albumCoverType.getContentValue());
+		sqLiteDatabase.insert(TABLE_ALBUM, null, albumCover.getContentValue());
 		Cursor cursor = sqLiteDatabase.rawQuery(getString(R.string.dbLastInsert), null);
 		cursor.moveToFirst();
 		Integer category = cursor.getInt(cursor.getColumnIndexOrThrow(cursor.getColumnNames()[0]));
-		albumCoverType.setCategory(category);
+		albumCover.setCategory(category);
 		cursor.close();
 		sqLiteDatabase.close();
-		return albumCoverType;
+		return albumCover;
 	}
 
-	public ArrayList<AlbumCoverType> getAlbums() {
-		ArrayList<AlbumCoverType> albumCoverTypes = new ArrayList<>();
+	public ArrayList<AlbumCover> getAlbums() {
+		ArrayList<AlbumCover> albumCovers = new ArrayList<>();
 		SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 		Cursor cursor = sqLiteDatabase.rawQuery(getString(R.string.dbRawQuery, TABLE_ALBUM), null);
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			do {
-				albumCoverTypes.add(new AlbumCoverType(cursor));
+				albumCovers.add(new AlbumCover(cursor));
 			} while (cursor.moveToNext());
 		}
 		cursor.close();
-		return albumCoverTypes;
+		return albumCovers;
 	}
 
+	/**
+	 * This function will return album cover by query specify category.
+	 *
+	 * @param category nullable integer
+	 * @return null if category is null, otherwise return {@link AlbumCover} if query successful
+	 */
 	@Nullable
-	public AlbumCoverType getAlbumFromCategory(@Nullable Integer category) {
+	public AlbumCover getAlbumFromCategory(@Nullable Integer category) {
 		if (category == null) return null;
+		Log.v(TAG, "getAlbumFromCategory: category => " + category);
 		SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 		Cursor cursor = sqLiteDatabase.rawQuery(
-				getString(R.string.dbRawQuery, TABLE_ALBUM, getString(R.string.dbAlbumCategory)), new String[]{String.valueOf(category)});
+				getString(R.string.dbRawQueryBySth, TABLE_ALBUM, getString(R.string.dbAlbumCategory)), new String[]{String.valueOf(category)});
 		if (cursor.getCount() == 0) {
 			cursor.close();
 			return null;
 		}
 		cursor.moveToFirst();
-		AlbumCoverType albumCoverType = new AlbumCoverType(cursor);
+		AlbumCover albumCover = new AlbumCover(cursor);
 		cursor.close();
-		return albumCoverType;
+		return albumCover;
 	}
 
 	public Integer getAlbumSize(@NonNull Integer category) {
@@ -322,16 +329,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return count;
 	}
 
-	public void insertEvent(EventsType event){
+	public void insertEvent(EventsItem event){
 		SQLiteDatabase s = this.getWritableDatabase();
 		// TODO: should we limit an event per a day?
 		s.insert(TABLE_EVENTS, null, event.getContentValues());
 		s.close();
 	}
 
-	public ArrayList<EventsType> getCurrentAndFeatureEvent() {
+	public ArrayList<EventsItem> getCurrentAndFeatureEvent() {
 		SQLiteDatabase s = this.getReadableDatabase();
-		ArrayList<EventsType> arrayList = new ArrayList<>();
+		ArrayList<EventsItem> arrayList = new ArrayList<>();
 		Date d = new Date(CalendarUtil.getYMD(new java.util.Date()));
 		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsBeyondYear, new String[]{String.valueOf(d.getYear())}));
 		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsBeyondYearMonth, new String[]{String.valueOf(d.getYear()), String.valueOf(d.getMonth())}));
@@ -354,10 +361,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return month != 12 ? month + 1 : 1;
 	}
 
-	public ArrayList<EventsType> getEventInfo(int year, int month) {
+	public ArrayList<EventsItem> getEventInfo(int year, int month) {
 		//colorCache = new ColorCache(year, month);
 		SQLiteDatabase s = this.getReadableDatabase();
-		ArrayList<EventsType> arrayList = new ArrayList<>();
+		ArrayList<EventsItem> arrayList = new ArrayList<>();
 
 		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsFromYearMonth,
 				new String[]{String.valueOf(year), String.valueOf(month)}));
@@ -369,13 +376,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return arrayList;
 	}
 
-	private ArrayList<EventsType> _getEvent(SQLiteDatabase s, @StringRes int strId, String[] args) {
-		ArrayList<EventsType> a = new ArrayList<>();
+	private ArrayList<EventsItem> _getEvent(SQLiteDatabase s, @StringRes int strId, String[] args) {
+		ArrayList<EventsItem> a = new ArrayList<>();
 		Cursor c = s.rawQuery(getString(strId, TABLE_EVENTS), args);
 		if (c.getCount() != 0) {
 			c.moveToFirst();
 			do {
-				a.add(new EventsType(c));
+				a.add(new EventsItem(c));
 			} while (c.moveToNext());
 		}
 		c.close();
@@ -399,7 +406,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return color;
 	}
 
-	public void writeFoodHistory(FoodViewType fd) {
+	public void writeFoodHistory(FoodView fd) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		if (fd.needInsert()) {
 			long last_insert = db.insert(TABLE_FOOD_HISTORY, null, fd.getContentValues());
@@ -411,15 +418,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.close();
 	}
 
-	public ArrayList<FoodViewType> getFoodHistory() {
-		ArrayList<FoodViewType> foodList = new ArrayList<>();
+	public ArrayList<FoodView> getFoodHistory() {
+		ArrayList<FoodView> foodList = new ArrayList<>();
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor c = db.rawQuery(getString(R.string.dbRawQuery, TABLE_FOOD_HISTORY), null);
 		Log.d(TAG, "getFoodHistory: count: => " +c.getCount());
 		if (c.getCount() != 0){
 			c.moveToFirst();
 			do {
-				foodList.add(new FoodViewType(c));
+				foodList.add(new FoodView(c));
 			} while (c.moveToNext());
 		}
 		c.close();

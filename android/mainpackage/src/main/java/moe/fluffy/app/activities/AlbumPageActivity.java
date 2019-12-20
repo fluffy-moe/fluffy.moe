@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.AlbumAdapter;
 import moe.fluffy.app.assistant.PopupDialog;
-import moe.fluffy.app.types.AlbumCoverType;
+import moe.fluffy.app.types.AlbumCover;
 import moe.fluffy.app.types.AlbumFiles;
 import moe.fluffy.app.types.Date;
 
@@ -120,8 +120,8 @@ public class AlbumPageActivity extends AppCompatActivity {
 			selectPhoto();
 		});
 		int count = albumFiles.getCount();
-		AlbumCoverType albumCoverType = HomeActivity.dbHelper.getAlbumFromCategory(category);
-		txtDateAndSize.setText(getString(R.string.fmt_album_page_date,  count, count > 1 ? "s" : "", albumCoverType == null ? Date.getToday().toString() : albumCoverType.getDate()));
+		AlbumCover albumCover = HomeActivity.dbHelper.getAlbumFromCategory(category);
+		txtDateAndSize.setText(getString(R.string.fmt_album_page_date,  count, count > 1 ? "s" : "", albumCover == null ? Date.getToday().toString() : albumCover.getDate()));
 		albumAdapter = new AlbumAdapter(albumFiles, (view, position) -> {
 			GPreviewBuilder.from(this)
 					.setData(albumFiles.getThumbViewInfo())

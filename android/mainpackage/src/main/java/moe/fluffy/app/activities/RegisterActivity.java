@@ -48,7 +48,7 @@ import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.HttpRawResponse;
-import moe.fluffy.app.types.NetworkRequestType;
+import moe.fluffy.app.types.NetworkRequest;
 import moe.fluffy.app.types.PetInfo;
 
 /**
@@ -115,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 			try {
 				new Connect(
-						NetworkRequestType.generateRegisterParams(
+						NetworkRequest.generateRegisterParams(
 								etName.getText().toString(), etPassword.getText().toString(), etEmail.getText().toString()
 						),
 						ConnectPath.register_path,

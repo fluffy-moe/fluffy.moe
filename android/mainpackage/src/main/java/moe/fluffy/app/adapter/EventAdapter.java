@@ -33,19 +33,19 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.types.EventsType;
+import moe.fluffy.app.types.EventsItem;
 
 @SuppressLint("DefaultLocale")
-public class EventAdapter extends ArrayAdapter<EventsType> {
+public class EventAdapter extends ArrayAdapter<EventsItem> {
 
-	public EventAdapter(Context context, ArrayList<EventsType> adapters) {
+	public EventAdapter(Context context, ArrayList<EventsItem> adapters) {
 		super(context, android.R.layout.simple_list_item_1, adapters);
 	}
 
 	@NonNull
 	@Override
 	public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-		EventsType it = getItem(position);
+		EventsItem it = getItem(position);
 
 		TextView txtDay, txtWeek, txtTime, txtEvent;
 		View viewSideColor;

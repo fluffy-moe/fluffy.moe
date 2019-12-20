@@ -24,7 +24,7 @@ import androidx.annotation.StringRes;
 
 import moe.fluffy.app.R;
 
-public class PastTimeReviewType {
+public class PastTimeReview {
 	private final int type;
 	private final String text;
 
@@ -33,7 +33,7 @@ public class PastTimeReviewType {
 	public final static int NOTE = 3;
 	public final static int WATER = 4;
 
-	public PastTimeReviewType(int _type, String _text) {
+	public PastTimeReview(int _type, String _text) {
 		type = _type;
 		text = _text;
 	}

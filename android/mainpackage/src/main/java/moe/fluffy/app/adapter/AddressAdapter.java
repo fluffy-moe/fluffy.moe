@@ -30,16 +30,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.types.AddressInfoType;
+import moe.fluffy.app.types.AddressInfoItem;
 
-public class AddressAdapter extends ArrayAdapter<AddressInfoType> {
-	public AddressAdapter(Context context, ArrayList<AddressInfoType> adapters) {
+public class AddressAdapter extends ArrayAdapter<AddressInfoItem> {
+	public AddressAdapter(Context context, ArrayList<AddressInfoItem> adapters) {
 		super(context, android.R.layout.simple_list_item_1, adapters);
 	}
 
 	@Override
 	public View getView(int position, View covertView, ViewGroup parent) {
-		AddressInfoType it = getItem(position);
+		AddressInfoItem it = getItem(position);
 
 		if (covertView == null) {
 			covertView = LayoutInflater.from(getContext()).inflate(R.layout.search_result, parent, false);

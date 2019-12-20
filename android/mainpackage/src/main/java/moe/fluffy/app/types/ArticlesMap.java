@@ -1,16 +1,19 @@
 package moe.fluffy.app.types;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 public class ArticlesMap {
 	private static ArticlesMap instance = null;
 
-	private ArrayList<ArticleType> l;
+	private ArrayList<Article> l;
 
 	ArticlesMap() {
 		l = new ArrayList<>();
 	}
 
+	@NonNull
 	public static ArticlesMap getInstance(){
 		if (instance == null) {
 			instance = new ArticlesMap();
@@ -18,11 +21,11 @@ public class ArticlesMap {
 		return instance;
 	}
 
-	public void push(ArticleType a) {
+	public void push(Article a) {
 		l.add(a);
 	}
 
-	public ArrayList<ArticleType> getList() {
+	public ArrayList<Article> getList() {
 		return l;
 	}
 }

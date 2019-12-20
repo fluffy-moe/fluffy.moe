@@ -34,18 +34,18 @@ import org.mazhuang.wrapcontentlistview.WrapContentListView;
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.types.EventDashboardType;
+import moe.fluffy.app.types.EventDashboardItem;
 
-public class EventDashboardAdapter extends ArrayAdapter<EventDashboardType> {
+public class EventDashboardAdapter extends ArrayAdapter<EventDashboardItem> {
 	EventAdapter ea;
-	public EventDashboardAdapter(Context context, ArrayList<EventDashboardType> adapters) {
+	public EventDashboardAdapter(Context context, ArrayList<EventDashboardItem> adapters) {
 		super(context, android.R.layout.simple_list_item_1, adapters);
 	}
 
 	@NonNull
 	@Override
 	public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-		EventDashboardType it = getItem(position);
+		EventDashboardItem it = getItem(position);
 
 		TextView txtView;
 		WrapContentListView lvTasks;

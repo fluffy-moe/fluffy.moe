@@ -58,7 +58,7 @@ import moe.fluffy.app.assistant.SimpleCallback;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.Datetime;
-import moe.fluffy.app.types.EventsType;
+import moe.fluffy.app.types.EventsItem;
 import moe.fluffy.app.types.SerializableBundle;
 
 public class BottomSheetEventFragment extends BottomSheetDialogFragment {
@@ -117,7 +117,7 @@ public class BottomSheetEventFragment extends BottomSheetDialogFragment {
 		etBody.setOnFocusChangeListener((view, hasFocus) ->
 				Utils.onFocusChange(hasFocus, safeGetContext(), etBody, R.string.etCalendarAddEventHint, false));
 		btnConfirm.setOnClickListener( l -> {
-			EventsType et = new EventsType(dateTimeWheelView, colorSelected, categorySelectedText,
+			EventsItem et = new EventsItem(dateTimeWheelView, colorSelected, categorySelectedText,
 					etBody.getText().toString(), swAlarm.isChecked());
 			HomeActivity.dbHelper.insertEvent(et);
 			//planedEvents.add(et);

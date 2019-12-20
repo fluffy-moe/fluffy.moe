@@ -31,13 +31,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.types.BloodTestDashboardType;
+import moe.fluffy.app.types.BloodTestDashboard;
 import moe.fluffy.app.types.divider.VerticalSpaceItemDecoration;
 
 public class BloodTestDashboardAdapter extends RecyclerView.Adapter<BloodTestDashboardAdapter.ViewType> {
-	private ArrayList<BloodTestDashboardType> bloodTestDashboardTypes;
-	public BloodTestDashboardAdapter(ArrayList<BloodTestDashboardType> items) {
-		bloodTestDashboardTypes = items;
+	private ArrayList<BloodTestDashboard> bloodTestDashboards;
+	public BloodTestDashboardAdapter(ArrayList<BloodTestDashboard> items) {
+		bloodTestDashboards = items;
 	}
 
 	public static class ViewType extends RecyclerView.ViewHolder {
@@ -48,7 +48,7 @@ public class BloodTestDashboardAdapter extends RecyclerView.Adapter<BloodTestDas
 			rootView = itemView;
 		}
 
-		void setViewProp(BloodTestDashboardType it) {
+		void setViewProp(BloodTestDashboard it) {
 
 			TextView txtDate, txtBloodTestName;
 			//WrapContentListView lvTestItems;
@@ -79,11 +79,11 @@ public class BloodTestDashboardAdapter extends RecyclerView.Adapter<BloodTestDas
 
 	@Override
 	public void onBindViewHolder(@NonNull ViewType holder, int position) {
-		holder.setViewProp(bloodTestDashboardTypes.get(position));
+		holder.setViewProp(bloodTestDashboards.get(position));
 	}
 
 	@Override
 	public int getItemCount() {
-		return bloodTestDashboardTypes.size();
+		return bloodTestDashboards.size();
 	}
 }

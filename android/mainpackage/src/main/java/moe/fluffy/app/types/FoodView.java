@@ -28,7 +28,7 @@ import androidx.annotation.NonNull;
 import moe.fluffy.app.R;
 
 
-public class FoodViewType {
+public class FoodView {
 	private String foodName, foodNote, barcode;
 	private Date d;
 	private boolean liked;
@@ -50,11 +50,11 @@ public class FoodViewType {
 		columnBarcode = context.getString(R.string.dbFoodHistoryBarcode);
 	}
 
-	public FoodViewType(String _barcode, String note) {
+	public FoodView(String _barcode, String note) {
 		this(Date.getToday(), "", note, _barcode, false, null);
 	}
 
-	FoodViewType(Date date, String _foodName, String _foodFullName, String _barcode, boolean l, String _imageSource) {
+	FoodView(Date date, String _foodName, String _foodFullName, String _barcode, boolean l, String _imageSource) {
 		id = null;
 		barcode = _barcode;
 		d = date;
@@ -64,7 +64,7 @@ public class FoodViewType {
 		imageSource = _imageSource;
 	}
 
-	public FoodViewType(Cursor cursor) {
+	public FoodView(Cursor cursor) {
 		id = cursor.getLong(cursor.getColumnIndexOrThrow(columnId));
 		d = new Date(cursor.getInt(cursor.getColumnIndexOrThrow(columnYear)),
 				cursor.getInt(cursor.getColumnIndexOrThrow(columnMonth)),

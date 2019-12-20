@@ -9,8 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 // https://stackoverflow.com/a/27037230
 public class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
-	private boolean inited;
-
 	private final int verticalSpaceHeight;
 
 	public VerticalSpaceItemDecoration(int verticalSpaceHeight) {

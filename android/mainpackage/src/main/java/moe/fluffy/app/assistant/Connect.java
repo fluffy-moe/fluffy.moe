@@ -40,7 +40,7 @@ import java.util.Iterator;
 import javax.net.ssl.HttpsURLConnection;
 
 import moe.fluffy.app.types.HttpRawResponse;
-import moe.fluffy.app.types.NetworkRequestType;
+import moe.fluffy.app.types.NetworkRequest;
 
 class ConnectException extends Exception {
 	int status;
@@ -122,13 +122,13 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 		method = is_post? "POST" : "GET";
 	}
 
-	public Connect(NetworkRequestType nrt,
+	public Connect(NetworkRequest nrt,
 				   String _requestPath,
 				   Callback _listener) {
 		this(nrt.getHeaders(), nrt.getParams(), _requestPath, _listener, true);
 	}
 
-	Connect(NetworkRequestType nrt,
+	Connect(NetworkRequest nrt,
 			String _requestPath,
 			Callback _listener,
 			boolean is_post) {

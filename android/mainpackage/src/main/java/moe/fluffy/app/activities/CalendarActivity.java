@@ -44,8 +44,8 @@ import moe.fluffy.app.R;
 import moe.fluffy.app.fragment.BottomSheetEventFragment;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.Datetime;
-import moe.fluffy.app.types.EventDashboardType;
-import moe.fluffy.app.types.EventsType;
+import moe.fluffy.app.types.EventDashboardItem;
+import moe.fluffy.app.types.EventsItem;
 import moe.fluffy.app.types.SerializableBundle;
 import moe.fluffy.app.adapter.EventDashboardAdapter;
 
@@ -69,9 +69,9 @@ public class CalendarActivity extends AppCompatActivity {
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
 
-	private static ArrayList<EventsType> planedEvents;
-	ArrayList<EventsType> todayEvent = new ArrayList<>(), featureEvent = new ArrayList<>();
-	ArrayList<EventDashboardType> eventDashboardTypes = new ArrayList<>();
+	private static ArrayList<EventsItem> planedEvents;
+	ArrayList<EventsItem> todayEvent = new ArrayList<>(), featureEvent = new ArrayList<>();
+	ArrayList<EventDashboardItem> eventDashboardItems = new ArrayList<>();
 	EventDashboardAdapter eventDashboardAdapter;
 
 	private static class click {
@@ -141,7 +141,7 @@ public class CalendarActivity extends AppCompatActivity {
 
 	void init() {
 
-		eventDashboardAdapter = new EventDashboardAdapter(this, eventDashboardTypes);
+		eventDashboardAdapter = new EventDashboardAdapter(this, eventDashboardItems);
 		updateEventsDashboard(false);
 		lvEventDashboard.setAdapter(eventDashboardAdapter);
 
@@ -179,7 +179,7 @@ public class CalendarActivity extends AppCompatActivity {
 			BottomSheetDialogFragment eventFragment = new BottomSheetEventFragment(selected_date);
 			Bundle bundle = new Bundle();
 			SerializableBundle bundle1 = new SerializableBundle(o -> {
-				EventsType et = (EventsType) o;
+				EventsItem et = (EventsItem) o;
 				planedEvents.add(et);
 				updateEventsDashboard(true);
 				mCalendarDateView.setAdapter(this::getCalendarView);
@@ -197,7 +197,7 @@ public class CalendarActivity extends AppCompatActivity {
 
 		todayEvent.clear();
 		featureEvent.clear();
-		eventDashboardTypes.clear();
+		eventDashboardItems.clear();
 
 		planedEvents.forEach(eventsType -> {
 			if (eventsType.equals(Date.getToday())) {
@@ -207,10 +207,10 @@ public class CalendarActivity extends AppCompatActivity {
 			}
 		});
 		if (todayEvent.size() != 0) {
-			eventDashboardTypes.add(new EventDashboardType(true, todayEvent));
+			eventDashboardItems.add(new EventDashboardItem(true, todayEvent));
 		}
 		if (featureEvent.size() != 0) {
-			eventDashboardTypes.add(new EventDashboardType(false, featureEvent));
+			eventDashboardItems.add(new EventDashboardItem(false, featureEvent));
 		}
 
 		if (requestUpdateAdapter)

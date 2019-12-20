@@ -49,7 +49,6 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.RGBLuminanceSource;
 import com.google.zxing.Reader;
 import com.google.zxing.Result;
-import com.google.zxing.client.android.Intents;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.oned.MultiFormatUPCEANReader;
 
@@ -57,9 +56,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,9 +65,6 @@ import java.io.StringWriter;
 import java.net.URI;
 import java.util.Calendar;
 import java.util.Random;
-import java.util.stream.IntStream;
-
-import moe.fluffy.app.activities.FoodHistoryActivity;
 
 public class Utils {
 
@@ -79,7 +73,7 @@ public class Utils {
 
 	/* copied from com.codbking.calendar.example */
 	public static  int getColor(Context context,int res){
-		Resources r=context.getResources();
+		Resources r = context.getResources();
 		return r.getColor(res);
 	}
 
@@ -92,8 +86,8 @@ public class Utils {
 
 
 	public static int px(float dipValue) {
-		Resources r=Resources.getSystem();
-		final float scale =r.getDisplayMetrics().density;
+		Resources r = Resources.getSystem();
+		final float scale = r.getDisplayMetrics().density;
 		return (int) (dipValue * scale + 0.5f);
 	}
 
@@ -125,24 +119,24 @@ public class Utils {
 	}
 
 	public static StateListDrawable getRoundSelectorDrawable(int alpha, int color, int radir) {
-		Drawable pressDrawable = getRoundDrawalbe(alpha, color, radir);
-		Drawable normalDrawable = getRoundDrawalbe(color, radir);
+		Drawable pressDrawable = getRoundDrawable(alpha, color, radir);
+		Drawable normalDrawable = getRoundDrawable(color, radir);
 		return getStateListDrawable(pressDrawable, normalDrawable);
 	}
 
 	//获取带透明度的圆角矩形
-	public static Drawable getRoundDrawalbe(int alpha, int color, int radir) {
+	public static Drawable getRoundDrawable(int alpha, int color, int radius) {
 		int normalColor = Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color));
-		Drawable normalDrawable = getRoundDrawalbe(normalColor, radir);
-		return normalDrawable;
+		//Drawable normalDrawable = getRoundDrawable(normalColor, radius);
+		return getRoundDrawable(normalColor, radius);
 	}
 
 
 	//根据颜色获取圆角矩形
-	public static Drawable getRoundDrawalbe(int color, int radir) {
-		radir = px(radir);
+	public static Drawable getRoundDrawable(int color, int radius) {
+		radius = px(radius);
 		GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[]{color, color});
-		drawable.setCornerRadius(radir);
+		drawable.setCornerRadius(radius);
 		return drawable;
 	}
 
@@ -203,7 +197,7 @@ public class Utils {
 		}
 	}
 
-	public static Bitmap getBitmap(Context context, Intent intent) throws IOException {
+	public static Bitmap getBitmap(@NonNull Context context, @NonNull Intent intent) throws IOException {
 		Uri u = intent.getData();
 		InputStream is;
 		Bitmap bmp = null;
@@ -214,7 +208,7 @@ public class Utils {
 		return bmp;
 	}
 
-	public static Bitmap getBitmap(Context context, Uri uri) throws IOException {
+	public static Bitmap getBitmap(@NonNull Context context, @NonNull Uri uri) throws IOException {
 		Bitmap bmp;
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
 			ImageDecoder.Source source = ImageDecoder.createSource(context.getContentResolver(), uri);
@@ -226,8 +220,7 @@ public class Utils {
 	}
 
 	// https://stackoverflow.com/a/13133974
-	public static void saveFile(URI sourceUri, String destinationFilename)
-	{
+	public static void saveFile(@NonNull URI sourceUri, @NonNull String destinationFilename) {
 		String sourceFilename= sourceUri.getPath();
 		//String destinationFilename = android.os.Environment.getExternalStorageDirectory().getPath()+File.separatorChar+"abc.mp3";
 
@@ -255,17 +248,20 @@ public class Utils {
 	}
 
 
-	public static String generateRandomString() {
+	public static String generateRandomString(@Nullable Integer max_length) {
 		if (random == null) {
 			random = new Random();
 		}
+		if (max_length == null) {
+			max_length = 16;
+		}
 		StringBuilder stringBuilder = new StringBuilder();
-		for (int i=0; i< 16 ;i++)
+		for (int i=0; i< max_length ; i++)
 			stringBuilder.append((char)(65 + random.nextInt(26)));
 		return stringBuilder.toString();
 	}
 
-	public static String realDecode(Bitmap bitmap) {
+	public static String realDecode(@NonNull Bitmap bitmap) {
 		int width = bitmap.getWidth(), height = bitmap.getHeight();
 		int[] pixels = new int[width*height];
 		bitmap.getPixels(pixels, 0, width, 0, 0, width, height);
@@ -288,7 +284,7 @@ public class Utils {
 		return text;
 	}
 
-	public static String saveBitmap(Bitmap bmp, @NonNull String filePath) {
+	public static String saveBitmap(@NonNull Bitmap bmp, @NonNull String filePath) {
 		try (FileOutputStream out = new FileOutputStream(filePath)) {
 			bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
 		} catch (IOException e) {

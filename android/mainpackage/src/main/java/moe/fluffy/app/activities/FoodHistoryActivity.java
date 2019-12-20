@@ -31,8 +31,6 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.journeyapps.barcodescanner.Util;
-
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -40,21 +38,20 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import moe.fluffy.app.BuildConfig;
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.FoodAdapter;
 import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.Utils;
 import moe.fluffy.app.assistant.firebase.FirebaseOCR;
-import moe.fluffy.app.types.FoodViewType;
+import moe.fluffy.app.types.FoodView;
 import moe.fluffy.app.types.SerializableBundle;
 
 public class FoodHistoryActivity extends AppCompatActivity {
 
 	ListView lvFoodHistory;
 
-	ArrayList<FoodViewType> foodList;
+	ArrayList<FoodView> foodList;
 
 	FoodAdapter foodAdapter;
 
@@ -106,8 +103,8 @@ public class FoodHistoryActivity extends AppCompatActivity {
 					@Override
 					public void onSuccess(Object o) {
 						FirebaseOCR f = (FirebaseOCR) o;
-						FoodViewType it = new FoodViewType(barcode, f.getLastResult());
-						FoodAdapter.generateDialog(FoodHistoryActivity.this, it, foodAdapter, o1 -> foodList.add((FoodViewType) o1), realImage);
+						FoodView it = new FoodView(barcode, f.getLastResult());
+						FoodAdapter.generateDialog(FoodHistoryActivity.this, it, foodAdapter, o1 -> foodList.add((FoodView) o1), realImage);
 					}
 
 					@Override

@@ -243,9 +243,9 @@
 
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/rvPastEvents"
-		android:layout_width="476dp"
-		android:layout_height="248dp"
-		android:layout_marginTop="92dp"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="116dp"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />

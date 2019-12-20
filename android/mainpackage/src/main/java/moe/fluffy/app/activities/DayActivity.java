@@ -42,7 +42,7 @@ import java.util.Random;
 
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.ReviewAdapter;
-import moe.fluffy.app.types.PastTimeReviewType;
+import moe.fluffy.app.types.PastTimeReview;
 import moe.fluffy.app.types.SerializableBundle;
 
 public class DayActivity extends AppCompatActivity {
@@ -58,7 +58,7 @@ public class DayActivity extends AppCompatActivity {
 
 	RecyclerView eventsView;
 
-	ArrayList<PastTimeReviewType> pastTimeReviewTypes;
+	ArrayList<PastTimeReview> pastTimeReviews;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,16 +91,16 @@ public class DayActivity extends AppCompatActivity {
 			throw new RuntimeException("calendar bean should be set");
 		}
 		// TODO: init view here
-		pastTimeReviewTypes = new ArrayList<>();
+		pastTimeReviews = new ArrayList<>();
 		for (int i=0; i< 5; i++) {
-			pastTimeReviewTypes.add(new PastTimeReviewType(new Random().nextInt(4) + 1, "test"));
+			pastTimeReviews.add(new PastTimeReview(new Random().nextInt(4) + 1, "test"));
 		}
 
 		RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
 		eventsView = findViewById(R.id.rvPastEvents);
 		eventsView.setHasFixedSize(true);
 		eventsView.setLayoutManager(layoutManager);
-		eventsView.setAdapter(new ReviewAdapter(pastTimeReviewTypes));
+		eventsView.setAdapter(new ReviewAdapter(pastTimeReviews));
 
 		// init chart view
 		lineChart = findViewById(R.id.viewWaterAnalysis);

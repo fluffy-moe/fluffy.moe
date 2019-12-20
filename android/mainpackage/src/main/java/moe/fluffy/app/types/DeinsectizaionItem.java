@@ -28,7 +28,7 @@ import org.json.JSONObject;
 
 import moe.fluffy.app.R;
 
-public class DeinsectizaionType {
+public class DeinsectizaionItem {
 	private Date date;
 	private String deinsectizaion;
 	private int status;
@@ -41,13 +41,13 @@ public class DeinsectizaionType {
 		columnStatus = context.getString(R.string.jsonFieldStatus);
 	}
 
-	DeinsectizaionType(String _date, String _deinsectizaion, int _status) {
+	DeinsectizaionItem(String _date, String _deinsectizaion, int _status) {
 		date = new Date(_date);
 		deinsectizaion = _deinsectizaion;
 		status = _status;
 	}
 
-	public DeinsectizaionType(JSONObject j) throws JSONException {
+	public DeinsectizaionItem(JSONObject j) throws JSONException {
 		date = new Date(j.getJSONObject(columnDate));
 		deinsectizaion = j.getString(columnNobivac);
 		status = j.getInt(columnStatus);

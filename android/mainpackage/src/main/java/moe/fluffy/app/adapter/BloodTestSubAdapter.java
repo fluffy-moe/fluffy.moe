@@ -32,12 +32,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.types.BloodTestSubType;
+import moe.fluffy.app.types.BloodTestItem;
 
 public class BloodTestSubAdapter extends RecyclerView.Adapter<BloodTestSubAdapter.ViewType> {
-	private ArrayList<BloodTestSubType> bloodTestSubTypes;
-	BloodTestSubAdapter(ArrayList<BloodTestSubType> l) {
-		bloodTestSubTypes = l;
+	private ArrayList<BloodTestItem> bloodTestItems;
+	BloodTestSubAdapter(ArrayList<BloodTestItem> l) {
+		bloodTestItems = l;
 	}
 
 	public static class ViewType extends RecyclerView.ViewHolder {
@@ -49,7 +49,7 @@ public class BloodTestSubAdapter extends RecyclerView.Adapter<BloodTestSubAdapte
 		}
 
 		@SuppressLint("DefaultLocale")
-		void setViewProp(BloodTestSubType it) {
+		void setViewProp(BloodTestItem it) {
 
 			TextView txtItemName, txtItemValue;
 			ImageView vReferenceView;
@@ -73,12 +73,12 @@ public class BloodTestSubAdapter extends RecyclerView.Adapter<BloodTestSubAdapte
 
 	@Override
 	public void onBindViewHolder(@NonNull ViewType holder, int position) {
-		holder.setViewProp(bloodTestSubTypes.get(position));
+		holder.setViewProp(bloodTestItems.get(position));
 	}
 
 	@Override
 	public int getItemCount() {
-		return bloodTestSubTypes.size();
+		return bloodTestItems.size();
 	}
 
 

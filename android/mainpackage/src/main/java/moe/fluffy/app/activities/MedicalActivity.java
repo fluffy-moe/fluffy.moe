@@ -54,11 +54,11 @@ import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.JSONParser;
 import moe.fluffy.app.assistant.PopupDialog;
-import moe.fluffy.app.types.BloodTestDashboardType;
-import moe.fluffy.app.types.DeinsectizaionType;
+import moe.fluffy.app.types.BloodTestDashboard;
+import moe.fluffy.app.types.DeinsectizaionItem;
 import moe.fluffy.app.types.HttpRawResponse;
-import moe.fluffy.app.types.NetworkRequestType;
-import moe.fluffy.app.types.VaccinationType;
+import moe.fluffy.app.types.NetworkRequest;
+import moe.fluffy.app.types.VaccinationItem;
 import moe.fluffy.app.types.divider.VerticalSpaceItemDecoration;
 
 public class MedicalActivity extends AppCompatActivity {
@@ -84,9 +84,9 @@ public class MedicalActivity extends AppCompatActivity {
 	RecyclerView lvBloodTestItems;
 	
 	JSONObject medicalObject;
-	ArrayList<VaccinationType> vacArray;
-	ArrayList<DeinsectizaionType> deiArray;
-	ArrayList<BloodTestDashboardType> btArray;
+	ArrayList<VaccinationItem> vacArray;
+	ArrayList<DeinsectizaionItem> deiArray;
+	ArrayList<BloodTestDashboard> btArray;
 
 	BroadcastReceiver updateDataReceiver;
 
@@ -116,15 +116,15 @@ public class MedicalActivity extends AppCompatActivity {
 				}
 				JSONArray m = medicalObject.getJSONArray(getString(R.string.jsonDeinsectizaionRoot));
 				for (int i = 0; i < m.length() ; i++) {
-					deiArray.add(new DeinsectizaionType(m.getJSONObject(i)));
+					deiArray.add(new DeinsectizaionItem(m.getJSONObject(i)));
 				}
 				m = medicalObject.getJSONArray(getString(R.string.jsonVaccinationRoot));
 				for (int i=0;i<m.length();i++) {
-					vacArray.add(new VaccinationType(m.getJSONObject(i)));
+					vacArray.add(new VaccinationItem(m.getJSONObject(i)));
 				}
 				m = medicalObject.getJSONArray(getString(R.string.jsonBloodTestRoot));
 				for (int i=0 ;i < m.length() ;i++) {
-					btArray.add(new BloodTestDashboardType(m.getJSONObject(i)));
+					btArray.add(new BloodTestDashboard(m.getJSONObject(i)));
 				}
 			} catch (JSONException e) {
 				PopupDialog.build(this, e);
@@ -157,7 +157,7 @@ public class MedicalActivity extends AppCompatActivity {
 		updateDataReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
-				new Connect(NetworkRequestType.generateFetchMedicalInformation(null), ConnectPath.fetch_medical_information, new Callback() {
+				new Connect(NetworkRequest.generateFetchMedicalInformation(null), ConnectPath.fetch_medical_information, new Callback() {
 					@Override
 					public void onSuccess(Object o) {
 						HttpRawResponse raw = (HttpRawResponse) o;

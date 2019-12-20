@@ -27,7 +27,7 @@ import androidx.annotation.NonNull;
 
 import moe.fluffy.app.R;
 
-public class AlbumCoverType {
+public class AlbumCover {
 	private String name;
 	private Integer category;
 	private Date date;
@@ -40,18 +40,18 @@ public class AlbumCoverType {
 		columnName = context.getString(R.string.dbAlbumName);
 	}
 
-	public AlbumCoverType(String _name) {
+	public AlbumCover(String _name) {
 		this(_name, null, Date.getToday().toString());
 
 	}
 
-	public AlbumCoverType(String _name, Integer category, String dateString) {
+	public AlbumCover(String _name, Integer category, String dateString) {
 		name = _name;
 		this.category = category;
 		date = new Date(dateString);
 	}
 
-	public AlbumCoverType(Cursor cursor) {
+	public AlbumCover(Cursor cursor) {
 		name = cursor.getString(cursor.getColumnIndexOrThrow(columnName));
 		date = new Date(cursor.getString(cursor.getColumnIndexOrThrow(columnDate)));
 		category = cursor.getInt(cursor.getColumnIndexOrThrow(columnCategory));
@@ -78,7 +78,7 @@ public class AlbumCoverType {
 		return date.toString();
 	}
 
-	public AlbumCoverType setCategory(@NonNull Integer category) {
+	public AlbumCover setCategory(@NonNull Integer category) {
 		this.category = category;
 		return this;
 	}
