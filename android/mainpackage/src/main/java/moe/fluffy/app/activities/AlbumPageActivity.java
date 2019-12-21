@@ -49,6 +49,8 @@ import moe.fluffy.app.types.AlbumFiles;
 
 public class AlbumPageActivity extends AppCompatActivity {
 
+	private static final String TAG = "log_AlbumPageActivity";
+
 	private static class MediaLoader implements AlbumLoader {
 
 		@Override
@@ -136,7 +138,7 @@ public class AlbumPageActivity extends AppCompatActivity {
 		txtDateAndSize.setText(getString(R.string.fmt_album_page_date,  count, count > 1 ? "s" : "", albumCover.getDate()));
 		albumAdapter = new AlbumAdapter(albumFiles, (view, position) -> {
 			GPreviewBuilder.from(this)
-					.setData(albumFiles.getThumbViewInfo())
+					.setData(albumFiles.getThumbViewInfo(true))
 					.setCurrentIndex(position)
 					.setSingleFling(true)
 					.setType(GPreviewBuilder.IndicatorType.Dot)
