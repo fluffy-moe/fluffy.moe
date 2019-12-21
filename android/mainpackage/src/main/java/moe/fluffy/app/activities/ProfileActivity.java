@@ -26,6 +26,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,6 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 	ImageButton imgbtnMore;
 
+	public static final int SHOW_ALBUM_DETAIL = 0x12;
 
 	Button btnAddAlbum;
 
@@ -72,7 +74,12 @@ public class ProfileActivity extends AppCompatActivity {
 		albumCovers = DatabaseHelper.getInstance().getAlbums();
 
 		albumCoverAdapter = new AlbumCoverAdapter(albumCovers,
-				new Intent(this, AlbumPageActivity.class));
+				o -> {
+					Integer category = (Integer) o;
+					Intent intent = new Intent(this, AlbumPageActivity.class);
+					intent.putExtra(AlbumPageActivity.INT_CATEGORY, category);
+					startActivityForResult(intent, SHOW_ALBUM_DETAIL);
+				});
 		rvAlbums.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 		rvAlbums.addItemDecoration(new HorizontalPaddingItemDecoration(73));
 		rvAlbums.setAdapter(albumCoverAdapter);
@@ -91,6 +98,14 @@ public class ProfileActivity extends AppCompatActivity {
 		initNavigationBar();
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+		if (requestCode == SHOW_ALBUM_DETAIL) {
+			albumCoverAdapter.update(DatabaseHelper.getInstance().getAlbums());
+			albumCoverAdapter.notifyDataSetChanged();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 
 	void initNavigationBar() {
 		imgbtnNavBarCamera = findViewById(R.id.imgbtnCameraPage);

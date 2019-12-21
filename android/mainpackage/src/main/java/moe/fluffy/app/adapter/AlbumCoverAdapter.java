@@ -20,8 +20,6 @@
 package moe.fluffy.app.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +31,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.activities.AlbumPageActivity;
 import moe.fluffy.app.assistant.DatabaseHelper;
+import moe.fluffy.app.assistant.SimpleCallback;
 import moe.fluffy.app.types.AlbumCover;
 
 public class AlbumCoverAdapter extends RecyclerView.Adapter<AlbumCoverAdapter.ViewHolder> {
@@ -42,10 +40,10 @@ public class AlbumCoverAdapter extends RecyclerView.Adapter<AlbumCoverAdapter.Vi
 
 	private ArrayList<AlbumCover> covers;
 
-	private Intent intent;
-	public AlbumCoverAdapter(ArrayList<AlbumCover> covers, Intent intent) {
+	private SimpleCallback listener;
+	public AlbumCoverAdapter(ArrayList<AlbumCover> covers, @NonNull SimpleCallback listener) {
 		this.covers = covers;
-		this.intent = intent;
+		this.listener = listener;
 	}
 
 	@NonNull
@@ -58,11 +56,14 @@ public class AlbumCoverAdapter extends RecyclerView.Adapter<AlbumCoverAdapter.Vi
 	@Override
 	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 		holder.setProp(covers.get(position), v -> {
-			Log.v(TAG, "onBindViewHolder: Onclick");
-			intent.putExtra(AlbumPageActivity.INT_CATEGORY, covers.get(position).getCategory());
-			v.getContext().startActivity(intent);
+			listener.OnFinished(covers.get(position).getCategory());
 		} );
 
+	}
+
+	public AlbumCoverAdapter update(ArrayList<AlbumCover> covers) {
+		this.covers = covers;
+		return this;
 	}
 
 	@Override
