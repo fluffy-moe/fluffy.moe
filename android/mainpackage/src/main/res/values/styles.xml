@@ -10,6 +10,16 @@
 	</style>
 
 
+	<style name="AppDialogTheme"
+		parent="Theme.AppCompat.Dialog.Alert">
+		<item name="alertDialogStyle">@style/AppDialogBackground</item>
+	</style>
+
+	<style name="AppDialogBackground"
+		parent="Widget.AppCompat.ButtonBar.AlertDialog">
+		<item name="android:background">@drawable/round_background</item>
+	</style>
+
 	<style name="AppBottomSheetDialogTheme"
 		parent="Theme.Design.Light.BottomSheetDialog">
 		<item name="bottomSheetStyle">@style/AppModalStyle</item>

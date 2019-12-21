@@ -42,7 +42,7 @@ public class AccountManagementFragment extends BottomSheetDialogFragment {
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View convertView = LayoutInflater.from(getContext()).inflate(R.layout.bottom_account_management, container, false);
+		View convertView = inflater.inflate(R.layout.bottom_account_management, container, false);
 		ImageButton imgbtnEditAccount, imgbtnFavoriteArticle, imgbtnLogout;
 		imgbtnEditAccount = convertView.findViewById(R.id.imgbtnEditAccount);
 		imgbtnFavoriteArticle = convertView.findViewById(R.id.imgbtnYourArticle);
