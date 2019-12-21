@@ -19,8 +19,11 @@
  */
 package moe.fluffy.app.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.DatePicker;
@@ -45,7 +48,6 @@ import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.Utils;
-import moe.fluffy.app.fragment.DatetimePickFragment;
 import moe.fluffy.app.types.HttpRawResponse;
 import moe.fluffy.app.types.NetworkRequest;
 import moe.fluffy.app.types.PetInfo;
@@ -181,33 +183,24 @@ public class RegisterActivity extends AppCompatActivity {
 		etBirthday.setFocusable(false); // https://stackoverflow.com/a/14091107
 		int[] c = CalendarUtil.getYMD(new Date());
 		etBirthday.setText(String.format("%s/%s/%s", c[0], c[1], c[2]));
-		etBirthday.setOnClickListener(v -> {
-			DatetimePickFragment datetimePickFragment = new DatetimePickFragment();
-			datetimePickFragment.setListener(o -> {
-				DatePicker datePicker = datetimePickFragment.getDatePicker();
-				etBirthday.setText(String.format("%s/%s/%s", datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth()));
-				datetimePickFragment.dismiss();
-			});
-			datetimePickFragment.show(getSupportFragmentManager(), datetimePickFragment.getTag());
-		});
-		/*etBirthday.setOnClickListener(_v -> {
+		etBirthday.setOnClickListener(_v -> {
 			final View dialogView = LayoutInflater.from(this).inflate(R.layout.datetimepicker_with_button, null);
-			final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+			final Dialog alertDialog = new Dialog(this, R.style.MyDialog);
 
+			alertDialog.setContentView(dialogView);
 			dialogView.findViewById(R.id.btnPickConfirm).setOnClickListener(v -> {
 				DatePicker datePicker = dialogView.findViewById(R.id.dpEventInsert);
 				etBirthday.setText(String.format("%s/%s/%s", datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth()));
 				alertDialog.dismiss();
 			});
-			alertDialog.setView(dialogView);
+			//alertDialog.setView(dialogView);
 			alertDialog.show();
 			Window w = alertDialog.getWindow();
 			if (w == null)
 				throw new RuntimeException("Window should not null");
 			//w.setLayout(770, 700);
-			w.setLayout(900, 1200);
 			w.setBackgroundDrawableResource(R.drawable.round_background);
-		});*/
+		});
 
 		rgGender.setOnCheckedChangeListener((group, checkedId) -> {
 			switch (checkedId) {

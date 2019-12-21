@@ -42,13 +42,12 @@ public class BloodTestDrawable extends Drawable {
 		boolean isNegativeNumber, isSuperNumber;
 		private final static float scaleBase = 0.33f;
 
-
 		ScaleRect(double value, double referenceDown, double referenceUp) {
 			if (referenceUp < referenceDown)
 				throw new IllegalArgumentException("referenceUp should more than referenceDown");
 			valueScale = Math.abs(value - referenceDown) / (referenceUp - referenceDown);
-			Log.v(TAG, "ScaleRect: referenceDown => "+ referenceDown + " referenceUp => " + referenceUp + " value => " + value);
-			Log.v(TAG, "ScaleRect: valueScare => " + valueScale);
+			//Log.v(TAG, "ScaleRect: referenceDown => "+ referenceDown + " referenceUp => " + referenceUp + " value => " + value);
+			//Log.v(TAG, "ScaleRect: valueScare => " + valueScale);
 			isNegativeNumber = value < referenceDown;
 			isSuperNumber = value > referenceUp;
 			if (isSuperNumber) {
@@ -64,8 +63,8 @@ public class BloodTestDrawable extends Drawable {
 				valueScale += (1 + scaleBase);
 			else
 				valueScale += scaleBase;
-			Log.v(TAG, "ScaleRect: valueScare => " + valueScale);
-			Log.v(TAG, "ScaleRect: is super number => " + isSuperNumber + ", is negative number => " + isNegativeNumber);
+			//Log.v(TAG, "ScaleRect: valueScare => " + valueScale);
+			//Log.v(TAG, "ScaleRect: is super number => " + isSuperNumber + ", is negative number => " + isNegativeNumber);
 		}
 
 		private static int getWidth(int width) {
