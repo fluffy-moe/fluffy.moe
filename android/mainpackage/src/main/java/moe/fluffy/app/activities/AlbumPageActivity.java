@@ -119,7 +119,6 @@ public class AlbumPageActivity extends AppCompatActivity {
 
 		mAlbumFiles = albumFiles.getAlbumList();
 
-
 		txtTitle = findViewById(R.id.txtAlbumPhotosContent);
 		txtDateAndSize = findViewById(R.id.txtAlbumPhotosDate);
 		imgbtnBack = findViewById(R.id.imgbtnAlbumPhotosBack);

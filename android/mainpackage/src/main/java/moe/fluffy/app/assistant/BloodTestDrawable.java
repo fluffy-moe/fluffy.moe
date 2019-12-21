@@ -26,7 +26,6 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -51,7 +50,8 @@ public class BloodTestDrawable extends Drawable {
 			isNegativeNumber = value < referenceDown;
 			isSuperNumber = value > referenceUp;
 			if (isSuperNumber) {
-				//valueScale -= 1;
+				if (valueScale > (1 + scaleBase))
+					valueScale = (1 + scaleBase);
 				valueScale = valueScale - (int)valueScale;
 			}
 			if ((isNegativeNumber || isSuperNumber) && valueScale > scaleBase) {
@@ -83,7 +83,7 @@ public class BloodTestDrawable extends Drawable {
 		}
 
 		Rect getRect(int width, int height) {
-			Log.v(TAG, "getRect: getWidth => " + getWidth(width) + " getLeft => " + getLeft(width));
+			//Log.v(TAG, "getRect: getWidth => " + getWidth(width) + " getLeft => " + getLeft(width));
 			int rectWidth = getWidth(width);
 			return new Rect(getLeft(width) - (rectWidth / 2), 0, getLeft(width) + rectWidth / 2, height);
 			//return rect;
@@ -94,7 +94,7 @@ public class BloodTestDrawable extends Drawable {
 		}
 	}
 
-	//private final Paint redPaint;
+	// TODO: make static
 	private final Paint targetPaint, writePaint;
 
 	private ScaleRect scaleRect;

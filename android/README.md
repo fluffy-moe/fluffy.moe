@@ -5,11 +5,11 @@
 - [ ] ~~Refresh calendar after add event~~
 - [ ] Using single activity to start other activities
 - [ ] ~~Optimize calendar get today color speed~~
-- [ ] Onclick radio button in complete register page
+- [x] Onclick radio button in complete register page
 - [ ] Register network request
 - [ ] Login request
 - [ ] Firebase cloud message id report
-- [ ] In-app gallery
+- [x] In-app gallery
 - [x] Firebase OCR take photo page (Maybe call camera and in-app cut tool -> Firebase ML read text)
 - [ ] Forget password page
 - [ ] Fetch information from server
@@ -20,7 +20,7 @@
 - [ ] Different profile background by pet type
 - [ ] Click Avatar to Change pet
 - [x] Album swipe (horizontal)
-- [ ] Add new album by add new photo
+- [ ] ~~Add new album by add new photo~~
 - [x] Adjust user setting
 - [x] Article favorite transplant
 - [x] Article not show back button

@@ -275,7 +275,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if (category == null)
 			cursor = s.rawQuery(getString(R.string.dbRawQuery, TABLE_PHOTOS), null);
 		else
-			cursor = s.rawQuery(getString(R.string.dbDeleteWhereSthIs, TABLE_PHOTOS, getString(R.string.dbAlbumCategory)),
+			cursor = s.rawQuery(getString(R.string.dbRawQueryBySth, TABLE_PHOTOS, getString(R.string.dbAlbumCategory)),
 					new String[]{String.valueOf(category)});
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
@@ -347,7 +347,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public Integer getAlbumSize(@NonNull Integer category) {
 		SQLiteDatabase s = this.getReadableDatabase();
-		Cursor cursor = s.rawQuery(getString(R.string.dbCountQuery, TABLE_PHOTOS, getString(R.string.dbAlbumCategory)), new String[]{String.valueOf(category)});
+		Cursor cursor = s.rawQuery(getString(R.string.dbCountQuery, TABLE_PHOTOS, getString(R.string.dbAlbumCategory)),
+				new String[]{String.valueOf(category)});
 		cursor.moveToFirst();
 		Integer count = cursor.getInt(cursor.getColumnIndexOrThrow(cursor.getColumnNames()[0]));
 		cursor.close();
