@@ -59,7 +59,7 @@
 
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/rvAlbumList"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="157px"
 		android:layout_marginTop="549px"
@@ -67,4 +67,16 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageButton
+		android:id="@+id/imgbtnAlbumPhotosMenu"
+		android:layout_width="100px"
+		android:layout_height="100px"
+		android:layout_marginStart="1253px"
+		android:layout_marginTop="111px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

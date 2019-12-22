@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".album_management">
+
+	<ImageButton
+		android:id="@+id/imgbtnAlbumManagementSelectPhoto"
+		android:layout_width="504px"
+		android:layout_height="73px"
+		android:layout_marginStart="210px"
+		android:layout_marginTop="220px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/select_photo" />
+
+	<ImageButton
+		android:id="@+id/imgbtnAlbumManagementRenameAlbum"
+		android:layout_width="496px"
+		android:layout_height="73px"
+		android:layout_marginStart="210px"
+		android:layout_marginTop="369px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/rename_album" />
+
+	<ImageButton
+		android:id="@+id/imgbtnAlbumManagementDeleteAlbum"
+		android:layout_width="361px"
+		android:layout_height="73px"
+		android:layout_marginStart="210px"
+		android:layout_marginTop="572px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/delete_album" />
+
+	<ImageView
+		android:id="@+id/imgAlbumManagementLine"
+		android:layout_width="893px"
+		android:layout_height="0px"
+		android:layout_marginStart="338px"
+		android:layout_marginTop="345px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/profileline" />
+
+	<ImageView
+		android:id="@+id/imgAlbumManagementLineLine"
+		android:layout_width="893px"
+		android:layout_height="0px"
+		android:layout_marginStart="338px"
+		android:layout_marginTop="521px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/profileline" />
+
+	<ImageView
+		android:id="@+id/imgAlbumManagementThickLine"
+		android:layout_width="286px"
+		android:layout_height="0px"
+		android:layout_marginStart="578px"
+		android:layout_marginTop="35px"
+		android:background="@null"
+		android:scaleType="fitXY"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/profilethickline" />
+
+	<View
+		android:layout_width="43dp"
+		android:layout_height="25dp"
+		android:layout_marginStart="216dp"
+		android:layout_marginTop="256dp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
