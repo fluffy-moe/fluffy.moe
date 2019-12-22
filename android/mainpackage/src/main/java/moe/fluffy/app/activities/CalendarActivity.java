@@ -19,6 +19,7 @@
  */
 package moe.fluffy.app.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -220,11 +221,16 @@ public class CalendarActivity extends AppCompatActivity {
 
 	private
 	String getMonthString(int num) {
+		return getMonthString(this, num);
+	}
+
+	public static
+	String getMonthString(Context context, int num) {
 		if (BuildConfig.DEBUG && !(num > 0 && num < 13)) {
 			Log.e(TAG, "getMonthString: assert error occurred. num => " + num);
 			throw new AssertionError();
 		}
-		return getResources().getStringArray(R.array.month)[num - 1];
+		return context.getResources().getStringArray(R.array.month)[num - 1];
 	}
 
 	private View getCalendarView(View convertView, ViewGroup parentView, CalendarBean bean) {

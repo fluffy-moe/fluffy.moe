@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,6 +42,7 @@ import java.util.Random;
 
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.ReviewAdapter;
+import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.PastTimeReview;
 import moe.fluffy.app.types.SerializableBundle;
 import moe.fluffy.app.types.divider.HorizontalPaddingItemDecoration;
@@ -90,11 +92,20 @@ public class DayActivity extends AppCompatActivity {
 		if (sb == null) {
 			throw new RuntimeException("calendar bean should be set");
 		}
+
+		Date date = sb.getDate();
+		TextView txtTitle = findViewById(R.id.txtWaterTitle),
+				txtYear = findViewById(R.id.txtWaterSmallTitle);
+		txtTitle.setText(String.format("%s %s", CalendarActivity.getMonthString(this, date.getMonth()), date.getDay()));
+		txtYear.setText(String.valueOf(date.getYear()));
+
 		// TODO: init view here
 		pastTimeReviews = new ArrayList<>();
 		for (int i=0; i< 5; i++) {
 			pastTimeReviews.add(new PastTimeReview(new Random().nextInt(4) + 1, "test"));
 		}
+
+		findViewById(R.id.imgbtnBack).setOnClickListener(v -> finish());
 
 		RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
 		eventsView = findViewById(R.id.rvPastEvents);
