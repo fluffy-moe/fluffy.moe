@@ -185,7 +185,7 @@ public class RegisterActivity extends AppCompatActivity {
 		etBirthday.setText(String.format("%s/%s/%s", c[0], c[1], c[2]));
 		etBirthday.setOnClickListener(_v -> {
 			final View dialogView = LayoutInflater.from(this).inflate(R.layout.datetimepicker_with_button, null);
-			final Dialog alertDialog = new Dialog(this, R.style.MyDialog);
+			final Dialog alertDialog = new Dialog(this, R.style.round_dialog);
 
 			alertDialog.setContentView(dialogView);
 			dialogView.findViewById(R.id.btnPickConfirm).setOnClickListener(v -> {
@@ -198,7 +198,6 @@ public class RegisterActivity extends AppCompatActivity {
 			Window w = alertDialog.getWindow();
 			if (w == null)
 				throw new RuntimeException("Window should not null");
-			//w.setLayout(770, 700);
 			w.setBackgroundDrawableResource(R.drawable.round_background);
 		});
 

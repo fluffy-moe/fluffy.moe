@@ -23,7 +23,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
@@ -37,7 +36,7 @@ import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.AlbumCoverAdapter;
 import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.Utils;
-import moe.fluffy.app.fragment.AlbumManagementFragment;
+import moe.fluffy.app.fragment.AccountManagementFragment;
 import moe.fluffy.app.types.AlbumCover;
 import moe.fluffy.app.types.divider.HorizontalPaddingItemDecoration;
 
@@ -48,7 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 	public static final int SHOW_ALBUM_DETAIL = 0x12;
 
-	Button btnAddAlbum;
+	ImageButton btnAddAlbum;
 
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
@@ -69,7 +68,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 	void init() {
 		rvAlbums = findViewById(R.id.rvAlbumList);
-		btnAddAlbum = findViewById(R.id.btnAddAlbum);
+		btnAddAlbum = findViewById(R.id.imgbtnProfileAddAlbum);
 
 		albumCovers = DatabaseHelper.getInstance().getAlbums();
 
@@ -92,7 +91,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 		imgbtnMore = findViewById(R.id.imgbtnProfileDot);
 		imgbtnMore.setOnClickListener(v -> {
-			AlbumManagementFragment sheetFragment = new AlbumManagementFragment();
+			AccountManagementFragment sheetFragment = new AccountManagementFragment();
 			sheetFragment.show(getSupportFragmentManager(), sheetFragment.getTag());
 		});
 		initNavigationBar();

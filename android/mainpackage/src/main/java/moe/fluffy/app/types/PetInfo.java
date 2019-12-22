@@ -33,7 +33,7 @@ public class PetInfo {
 
 	// TODO: Gender, Spayed or Neutered, Weight column
 	private String name, breed, type;
-	private boolean gendarMan, isSpayed;
+	private boolean genderMan, isSpayed;
 	private int weight;
 	private Date birthday;
 
@@ -56,7 +56,7 @@ public class PetInfo {
 		breed = _breed;
 		birthday = _birthday;
 		type = _type;
-		gendarMan = g;
+		genderMan = g;
 		isSpayed = spayed;
 		weight = w;
 	}
@@ -81,8 +81,8 @@ public class PetInfo {
 		return type;
 	}
 
-	public boolean getGendar() {
-		return gendarMan;
+	public boolean getGender() {
+		return genderMan;
 	}
 
 	public boolean getSpayed() {
@@ -100,7 +100,7 @@ public class PetInfo {
 		cv.put(columnBreed, breed);
 		cv.put(columnBirthday, birthday.toString());
 		cv.put(columnType, type);
-		cv.put(columnGendar, String.valueOf(gendarMan));
+		cv.put(columnGendar, String.valueOf(genderMan));
 		cv.put(columnSpayed, String.valueOf(isSpayed));
 		cv.put(columnWeight, weight);
 		return cv;

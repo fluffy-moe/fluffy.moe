@@ -44,6 +44,7 @@ import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.AlbumAdapter;
 import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.fragment.AlbumManagementFragment;
 import moe.fluffy.app.types.AlbumCover;
 import moe.fluffy.app.types.AlbumFiles;
 
@@ -70,7 +71,7 @@ public class AlbumPageActivity extends AppCompatActivity {
 
 	//Button btnSelectPhoto;
 	TextView txtTitle, txtDateAndSize;
-	ImageButton imgbtnBack;
+	ImageButton imgbtnBack, imgbtnMenu;
 
 	ArrayList<AlbumFile> mAlbumFiles;
 
@@ -125,11 +126,17 @@ public class AlbumPageActivity extends AppCompatActivity {
 		txtDateAndSize = findViewById(R.id.txtAlbumPhotosDate);
 		imgbtnBack = findViewById(R.id.imgbtnAlbumPhotosBack);
 		rvImages = findViewById(R.id.rvAlbumList);
+		imgbtnMenu = findViewById(R.id.imgbtnAlbumPhotosMenu);
 
 		rvImages.setLayoutManager(new GridLayoutManager(this, 3));
 		//rvImages.setHasFixedSize(true);
-		txtDateAndSize.setOnClickListener(v -> {
-			selectPhoto();
+
+		imgbtnMenu.setOnClickListener(v -> {
+			AlbumManagementFragment fragment = new AlbumManagementFragment(o -> selectPhoto(), o -> {
+				DatabaseHelper.getInstance().deleteAlbum(category);
+				finish();
+			});
+			fragment.show(getSupportFragmentManager(), fragment.getTag());
 		});
 		imgbtnBack.setOnClickListener(v -> finish());
 		int count = albumFiles.getCount();

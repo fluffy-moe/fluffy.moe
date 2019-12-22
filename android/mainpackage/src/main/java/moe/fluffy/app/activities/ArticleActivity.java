@@ -103,7 +103,7 @@ public class ArticleActivity extends AppCompatActivity {
 			lst.add(a.getCoverId());
 			final int _i = i;
 			mapResource.put(a.getCoverId(), v -> {
-				Intent intent = new Intent(ArticleActivity.this, ShowArticleActivity.class);
+				Intent intent = new Intent(this, ShowArticleActivity.class);
 				intent.putExtra(getString(R.string.IntentArticleIndex), _i);
 				startActivity(intent);
 			});
@@ -122,11 +122,13 @@ public class ArticleActivity extends AppCompatActivity {
 		imgbtnNavBarArticle.setImageResource(R.drawable.book_orange);
 
 		imgbtnNavBarCamera.setOnClickListener(v ->
-				startActivity(new Intent(ArticleActivity.this, BootstrapScannerActivity.class)));
+				startActivity(new Intent(this, BootstrapScannerActivity.class)));
 		imgbtnNavBarCalendar.setOnClickListener(v ->
-				startActivity(new Intent(ArticleActivity.this, CalendarActivity.class)));
+				startActivity(new Intent(this, CalendarActivity.class)));
 		imgbtnNavBarMedical.setOnClickListener(v ->
-				startActivity(new Intent(ArticleActivity.this, MedicalActivity.class)));
+				startActivity(new Intent(this, MedicalActivity.class)));
+		imgbtnNavBarUser.setOnClickListener(v ->
+				startActivity(new Intent(this, ProfileActivity.class)));
 
 	}
 
@@ -147,7 +149,7 @@ public class ArticleActivity extends AppCompatActivity {
 		initBottomView();
 
 		etSearchBook.setOnFocusChangeListener((view, hasFocus) ->
-				Utils.onFocusChange(hasFocus, ArticleActivity.this, etSearchBook, R.string.searchBookEditText, false));
+				Utils.onFocusChange(hasFocus, this, etSearchBook, R.string.searchBookEditText, false));
 
 		imgbtnSearch.setOnClickListener(v ->
 				initCarousel(null, etSearchBook.getText().toString()));

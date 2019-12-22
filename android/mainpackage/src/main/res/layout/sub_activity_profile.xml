@@ -170,7 +170,7 @@
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<ImageButton
-		android:id="@+id/imgbtnProfileAddPhotos"
+		android:id="@+id/imgbtnProfileAddAlbum"
 		android:layout_width="100px"
 		android:layout_height="100px"
 		android:layout_marginStart="1200px"

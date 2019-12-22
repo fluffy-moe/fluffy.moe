@@ -314,6 +314,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return albumCovers;
 	}
 
+	public void deleteAlbum(@NonNull Integer category) {
+		SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+		sqLiteDatabase.execSQL(getString(R.string.dbDeleteWhereSthIs, TABLE_ALBUM, getString(R.string.dbAlbumCategory)), new String[]{String.valueOf(category)});
+		sqLiteDatabase.execSQL(getString(R.string.dbDeleteWhereSthIs, TABLE_PHOTOS, getString(R.string.dbAlbumCategory)), new String[]{String.valueOf(category)});
+		sqLiteDatabase.close();
+	}
+
 	@NonNull
 	public AlbumCover getAlbumFromCategoryOrThrow(@NonNull Integer category) {
 		AlbumCover r = getAlbumFromCategory(category);

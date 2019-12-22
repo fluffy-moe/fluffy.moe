@@ -39,4 +39,7 @@
 	<color name="colorBloodTestBackground">#F6EBDD</color>
 	<!-- medical end -->
 
+	<color name="colorBtnBlue">#545871</color>
+	<color name="colorBtnWhite">#F0F1F5</color>
+
 </resources>

@@ -8,6 +8,7 @@
 	<string name="pets_name">Pet\'s name</string>
 	<string name="pets_breed">Pet\'s breed</string>
 	<string name="users_name">user\'s name</string>
+	<string name="logout_text">Log out</string>
 
 	<string name="petTypeNotSelected">You must select a pet type!</string>
 

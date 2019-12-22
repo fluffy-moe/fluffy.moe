@@ -2,9 +2,6 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<!-- copied from: https://www.jianshu.com/p/784f84958efe -->
-	<size
-		android:height="100dp"
-		android:width="100dp"/>
 
 	<solid
 		android:color="#FFFFFF" />

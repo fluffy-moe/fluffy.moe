@@ -139,16 +139,16 @@ public class FoodHistoryActivity extends AppCompatActivity {
 		imgbtnNavBarCamera.setImageResource(R.drawable.camera_orange);
 
 		imgbtnNavBarCamera.setOnClickListener(v ->
-				startActivity(new Intent(FoodHistoryActivity.this, BootstrapScannerActivity.class)));
+				startActivity(new Intent(this, BootstrapScannerActivity.class)));
 
 		imgbtnNavBarMedical.setOnClickListener(v ->
-				startActivity(new Intent(FoodHistoryActivity.this, MedicalActivity.class)));
+				startActivity(new Intent(this, MedicalActivity.class)));
 
 		imgbtnNavBarArticle.setOnClickListener(v ->
-				startActivity(new Intent(FoodHistoryActivity.this, ArticleActivity.class)));
+				startActivity(new Intent(this, ArticleActivity.class)));
 
 		imgbtnNavBarCalendar.setOnClickListener(v ->
-				startActivity(new Intent(FoodHistoryActivity.this, CalendarActivity.class)));
+				startActivity(new Intent(this, CalendarActivity.class)));
 
 	}
 }

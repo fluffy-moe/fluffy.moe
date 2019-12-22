@@ -168,7 +168,8 @@ public class AlbumFiles {
 	}
 
 	public ArrayList<ThumbViewInfo> getThumbViewInfo(boolean forceUpdate) {
-		isNeedUpdateThumbViewInfo = forceUpdate;
+		if (forceUpdate)
+			isNeedUpdateThumbViewInfo = forceUpdate;
 		return getThumbViewInfo();
 	}
 

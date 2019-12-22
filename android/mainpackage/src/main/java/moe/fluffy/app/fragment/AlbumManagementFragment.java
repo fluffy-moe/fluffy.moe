@@ -20,7 +20,6 @@
 package moe.fluffy.app.fragment;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,32 +34,40 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.activities.EditAccountActivity;
+import moe.fluffy.app.types.RoundDialog;
 
-public class AccountManagementFragment extends BottomSheetDialogFragment {
+public class AlbumManagementFragment extends BottomSheetDialogFragment {
+
+	private View.OnClickListener selectPhotoListener, confirmDeleteListener;
+
+	public AlbumManagementFragment(@NonNull View.OnClickListener selectPhotoListener, @NonNull View.OnClickListener confirmDeleteListener) {
+		this.selectPhotoListener = selectPhotoListener;
+		this.confirmDeleteListener = confirmDeleteListener;
+	}
+
 	@Nullable
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		View convertView = inflater.inflate(R.layout.bottom_account_management, container, false);
-		ImageButton imgbtnEditAccount, imgbtnFavoriteArticle, imgbtnLogout;
-		imgbtnEditAccount = convertView.findViewById(R.id.imgbtnEditAccount);
-		imgbtnFavoriteArticle = convertView.findViewById(R.id.imgbtnYourArticle);
-		imgbtnLogout = convertView.findViewById(R.id.imgbtnLogOut);
-		imgbtnLogout.setOnClickListener(l -> {
-			final View dialogView = inflater.inflate(R.layout.dialog_temple, null);
-			Dialog logoutConfirm = new Dialog(inflater.getContext(), R.style.round_dialog);
-			logoutConfirm.setContentView(dialogView);
-			ImageButton imgbtnCancel, imgbtnConfirm;
-			imgbtnCancel = dialogView.findViewById(R.id.btnCancel);
-			imgbtnConfirm = dialogView.findViewById(R.id.btnConfirm);
-			imgbtnCancel.setOnClickListener(v -> logoutConfirm.dismiss());
-			imgbtnConfirm.setOnClickListener(v -> {
-				// do something
-				logoutConfirm.dismiss();
-			});
-			logoutConfirm.show();
+		View convertView = inflater.inflate(R.layout.bottom_album_management, container, false);
+		ImageButton imgbtnEditAlbum, imgbtnSelectPhoto, imgbtnDeleteAlbum;
+		imgbtnEditAlbum = convertView.findViewById(R.id.imgbtnRenameAlbum);
+		imgbtnSelectPhoto = convertView.findViewById(R.id.imgbtnSelectPhoto);
+		imgbtnDeleteAlbum = convertView.findViewById(R.id.imgbtnDeleteAlbum);
+
+		imgbtnEditAlbum.setOnClickListener(l -> {
+
 		});
-		imgbtnEditAccount.setOnClickListener(v -> startActivity(new Intent(getContext(), EditAccountActivity.class)));
+
+		imgbtnSelectPhoto.setOnClickListener(selectPhotoListener);
+
+		imgbtnDeleteAlbum.setOnClickListener(l -> {
+			RoundDialog dialog = new RoundDialog(inflater.getContext());
+			dialog.initDialog(inflater, "Confirm delete", "Confirm", v -> {
+				dialog.dismiss();
+				confirmDeleteListener.onClick(v);
+			}, null).show();
+		});
+		//imgbtnEditAlbum.setOnClickListener(v -> startActivity(new Intent(getContext(), EditAccountActivity.class)));
 		return convertView;
 	}
 
