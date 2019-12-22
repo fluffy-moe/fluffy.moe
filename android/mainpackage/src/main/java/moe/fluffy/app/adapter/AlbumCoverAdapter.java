@@ -23,10 +23,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -34,6 +37,7 @@ import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.SimpleCallback;
 import moe.fluffy.app.types.AlbumCover;
+import moe.fluffy.app.types.AlbumFiles;
 
 public class AlbumCoverAdapter extends RecyclerView.Adapter<AlbumCoverAdapter.ViewHolder> {
 	private static final String TAG = "log_AlbumCoverAdapter";
@@ -90,8 +94,16 @@ public class AlbumCoverAdapter extends RecyclerView.Adapter<AlbumCoverAdapter.Vi
 			TextView title = itemView.findViewById(R.id.txtAlbumTitle),
 					date = itemView.findViewById(R.id.txtAlbumDate),
 					counts = itemView.findViewById(R.id.txtAlbumPhotoCount);
+			ImageView imgView = itemView.findViewById(R.id.imgItemAlbumCover);
 			title.setText(albumCover.getName());
 			Integer count = DatabaseHelper.getInstance().getAlbumSize(albumCover.getCategory());
+			if (count != null && count != 0) {
+				AlbumFiles.dbFriendlyAlbumFile file = DatabaseHelper.getInstance().getOnePhoto(albumCover.getCategory());
+				if (file != null)
+					Glide.with(itemView)
+							.load(file.getPath())
+							.into(imgView);
+			}
 			counts.setText(parsePhotoCount(itemView.getContext(), count));
 			date.setText(albumCover.getDate());
 			itemView.setOnClickListener(onClickListener);

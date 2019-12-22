@@ -21,8 +21,10 @@ package moe.fluffy.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
@@ -35,7 +37,7 @@ import java.util.ArrayList;
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.AlbumCoverAdapter;
 import moe.fluffy.app.assistant.DatabaseHelper;
-import moe.fluffy.app.assistant.Utils;
+import moe.fluffy.app.dialogs.EditTextDialog;
 import moe.fluffy.app.fragment.AccountManagementFragment;
 import moe.fluffy.app.types.AlbumCover;
 import moe.fluffy.app.types.divider.HorizontalPaddingItemDecoration;
@@ -84,9 +86,13 @@ public class ProfileActivity extends AppCompatActivity {
 		rvAlbums.setAdapter(albumCoverAdapter);
 
 		btnAddAlbum.setOnClickListener(v-> {
-			AlbumCover albumCover = DatabaseHelper.getInstance().createAlbum(Utils.generateRandomString(5));
-			albumCovers.add(albumCover);
-			albumCoverAdapter.notifyItemInserted(albumCovers.size() - 1);
+			EditTextDialog.build(this, _editText -> {
+				EditText editText = (EditText) _editText;
+				Log.v(TAG, "init: getCoversCount => " + albumCovers.size());
+				AlbumCover albumCover = DatabaseHelper.getInstance().createAlbum(editText.getText().toString());
+				albumCovers.add(albumCover);
+				albumCoverAdapter.notifyItemInserted(albumCovers.size() - 1);
+			}, null, "New album", "Add").show();
 		});
 
 		imgbtnMore = findViewById(R.id.imgbtnProfileDot);
@@ -100,7 +106,8 @@ public class ProfileActivity extends AppCompatActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 		if (requestCode == SHOW_ALBUM_DETAIL) {
-			albumCoverAdapter.update(DatabaseHelper.getInstance().getAlbums());
+			albumCovers = DatabaseHelper.getInstance().getAlbums();
+			albumCoverAdapter.update(albumCovers);
 			albumCoverAdapter.notifyDataSetChanged();
 		}
 		super.onActivityResult(requestCode, resultCode, data);

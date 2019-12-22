@@ -26,6 +26,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -314,10 +315,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return albumCovers;
 	}
 
+	public AlbumFiles.dbFriendlyAlbumFile getOnePhoto(@Nullable Integer category) {
+		if (category == null) return null;
+		SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+		Cursor cursor = sqLiteDatabase.rawQuery(getString(R.string.dbRawQueryBySthLimit1, TABLE_PHOTOS, getString(R.string.dbAlbumCategory)),
+				new String[]{String.valueOf(category)});
+		if (cursor.getCount() == 1) {
+			cursor.moveToFirst();
+			AlbumFiles.dbFriendlyAlbumFile albumFile = new AlbumFiles.dbFriendlyAlbumFile(cursor);
+			cursor.close();
+			return albumFile;
+		}
+		return null;
+	}
+
+	/**
+	 * Call this method to delete album by category
+	 * @param category Non Null integer category that specify category what to delete
+	 */
 	public void deleteAlbum(@NonNull Integer category) {
 		SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 		sqLiteDatabase.execSQL(getString(R.string.dbDeleteWhereSthIs, TABLE_ALBUM, getString(R.string.dbAlbumCategory)), new String[]{String.valueOf(category)});
 		sqLiteDatabase.execSQL(getString(R.string.dbDeleteWhereSthIs, TABLE_PHOTOS, getString(R.string.dbAlbumCategory)), new String[]{String.valueOf(category)});
+		sqLiteDatabase.close();
+	}
+
+	public void editAlbumName(@NonNull Integer category, @NonNull EditText editText) {
+		editAlbumName(category, editText.getText().toString());
+	}
+
+	public void editAlbumName(@NonNull Integer category, String newName) {
+		SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+		sqLiteDatabase.execSQL(getString(R.string.dbUpdateSomeWhereBySth, TABLE_ALBUM,
+				getString(R.string.dbAlbumName), getString(R.string.dbAlbumCategory)),
+				new String[]{newName, String.valueOf(category)});
 		sqLiteDatabase.close();
 	}
 

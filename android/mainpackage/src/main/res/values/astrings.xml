@@ -147,5 +147,6 @@
 	<string name="dpOptionsPetBreed">Breed</string>
 	<string name="fmt_photo_count">%d photo%s</string>
 	<string name="fmt_album_page_date">%d photo%s · %s</string>
+	<string name="text_write_the_name">write the name</string>
 
 </resources>

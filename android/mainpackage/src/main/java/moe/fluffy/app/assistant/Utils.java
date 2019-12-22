@@ -52,8 +52,6 @@ import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.oned.MultiFormatUPCEANReader;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
@@ -176,12 +174,11 @@ public class Utils {
 	}
 
 	public static void onFocusChange(boolean hasFocus,
-									 @NotNull Context context,
-									 @NotNull EditText et,
-									 @StringRes int original_string_id,
+									 @NonNull EditText et,
+									 @NonNull String original_string,
 									 boolean isPasswordField) {
 		if (hasFocus) {
-			if (et.getText().toString().equals(context.getString(original_string_id))) {
+			if (et.getText().toString().equals(original_string)) {
 				et.setText("");
 				// https://stackoverflow.com/a/9893496
 				if (isPasswordField)
@@ -189,12 +186,20 @@ public class Utils {
 			}
 		} else {
 			if (et.getText().length() == 0) {
-				et.setText(original_string_id);
+				et.setText(original_string);
 				if (isPasswordField)
 					et.setInputType(InputType.TYPE_CLASS_TEXT);
 
 			}
 		}
+	}
+	
+	public static void onFocusChange(boolean hasFocus,
+									 @NonNull Context context,
+									 @NonNull EditText et,
+									 @StringRes int original_string_id,
+									 boolean isPasswordField) {
+		onFocusChange(hasFocus, et, context.getString(original_string_id), isPasswordField);
 	}
 
 	public static Bitmap getBitmap(@NonNull Context context, @NonNull Intent intent) throws IOException {

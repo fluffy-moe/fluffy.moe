@@ -34,31 +34,38 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import moe.fluffy.app.R;
-import moe.fluffy.app.types.RoundDialog;
+import moe.fluffy.app.dialogs.RoundDialog;
 
 public class AlbumManagementFragment extends BottomSheetDialogFragment {
 
-	private View.OnClickListener selectPhotoListener, confirmDeleteListener;
+	private View.OnClickListener editAlbumListener, selectPhotoListener, confirmDeleteListener;
 
-	public AlbumManagementFragment(@NonNull View.OnClickListener selectPhotoListener, @NonNull View.OnClickListener confirmDeleteListener) {
+	public AlbumManagementFragment(@NonNull View.OnClickListener editAlbumListener,
+								   @NonNull View.OnClickListener selectPhotoListener,
+								   @NonNull View.OnClickListener confirmDeleteListener) {
+		this.editAlbumListener = editAlbumListener;
 		this.selectPhotoListener = selectPhotoListener;
 		this.confirmDeleteListener = confirmDeleteListener;
 	}
 
 	@Nullable
 	@Override
-	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+							 @Nullable Bundle savedInstanceState) {
 		View convertView = inflater.inflate(R.layout.bottom_album_management, container, false);
 		ImageButton imgbtnEditAlbum, imgbtnSelectPhoto, imgbtnDeleteAlbum;
 		imgbtnEditAlbum = convertView.findViewById(R.id.imgbtnRenameAlbum);
 		imgbtnSelectPhoto = convertView.findViewById(R.id.imgbtnSelectPhoto);
 		imgbtnDeleteAlbum = convertView.findViewById(R.id.imgbtnDeleteAlbum);
 
-		imgbtnEditAlbum.setOnClickListener(l -> {
-
+		imgbtnEditAlbum.setOnClickListener( v -> {
+			editAlbumListener.onClick(v);
+			dismiss();
 		});
-
-		imgbtnSelectPhoto.setOnClickListener(selectPhotoListener);
+		imgbtnSelectPhoto.setOnClickListener( v -> {
+			selectPhotoListener.onClick(v);
+			dismiss();
+		});
 
 		imgbtnDeleteAlbum.setOnClickListener(l -> {
 			RoundDialog dialog = new RoundDialog(inflater.getContext());
@@ -67,7 +74,6 @@ public class AlbumManagementFragment extends BottomSheetDialogFragment {
 				confirmDeleteListener.onClick(v);
 			}, null).show();
 		});
-		//imgbtnEditAlbum.setOnClickListener(v -> startActivity(new Intent(getContext(), EditAccountActivity.class)));
 		return convertView;
 	}
 

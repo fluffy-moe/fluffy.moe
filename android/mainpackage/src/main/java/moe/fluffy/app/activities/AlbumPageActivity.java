@@ -22,6 +22,7 @@ package moe.fluffy.app.activities;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.AlbumAdapter;
 import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.dialogs.EditTextDialog;
 import moe.fluffy.app.fragment.AlbumManagementFragment;
 import moe.fluffy.app.types.AlbumCover;
 import moe.fluffy.app.types.AlbumFiles;
@@ -132,7 +134,16 @@ public class AlbumPageActivity extends AppCompatActivity {
 		//rvImages.setHasFixedSize(true);
 
 		imgbtnMenu.setOnClickListener(v -> {
-			AlbumManagementFragment fragment = new AlbumManagementFragment(o -> selectPhoto(), o -> {
+			AlbumManagementFragment fragment = new AlbumManagementFragment(
+					o -> {
+						EditTextDialog.build(this, etName -> {
+							EditText newName = (EditText)etName;
+							DatabaseHelper.getInstance().editAlbumName(category, newName);
+							txtTitle.setText(newName.getText().toString());
+						}, txtTitle.getText()).show();
+					},
+					o -> selectPhoto(),
+					o -> {
 				DatabaseHelper.getInstance().deleteAlbum(category);
 				finish();
 			});

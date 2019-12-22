@@ -55,6 +55,8 @@
 	<string name="dbRawQueryBySth">SELECT * FROM `%s` WHERE `%s` = ?</string>
 	<string name="dbCountQuery">SELECT COUNT(*) FROM `%s` WHERE `%s` = ?</string>
 	<string name="dbDeleteWhereSthIs">DELETE FROM `%s` WHERE `%s` = ?</string>
+	<string name="dbUpdateSomeWhereBySth">UPDATE `%s` SET `%s` = ? WHERE `%s` = ?</string>
+	<string name="dbRawQueryBySthLimit1">SELECT * FROM `%s` WHERE `%s` = ? LIMIT 1</string>
 	<string name="dbLastInsert">SELECT last_insert_rowid()</string>
 	<string name="dbQuery">%s = ?</string>
 	<string name="dbQueryKey">key = ?</string>
