@@ -34,7 +34,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,11 +71,11 @@ public class DayActivity extends AppCompatActivity {
 	}
 
 
-	private List<Entry> getList() {
+	private List<Entry> getRandomList() {
 		Random r = new Random();
 		List<Entry> entries = new ArrayList<>();
 		for (int i = 0; i < 7 ; i ++) {
-			entries.add(new Entry(i, r.nextFloat()));
+			entries.add(new Entry(i, r.nextInt(20) +  50));
 		}
 		return entries;
 	}
@@ -101,16 +100,21 @@ public class DayActivity extends AppCompatActivity {
 		eventsView = findViewById(R.id.rvPastEvents);
 		//eventsView.setHasFixedSize(true);
 		eventsView.setLayoutManager(layoutManager);
-		eventsView.addItemDecoration(new HorizontalPaddingItemDecoration(50));
+		eventsView.addItemDecoration(new HorizontalPaddingItemDecoration(110));
 		eventsView.setAdapter(new ReviewAdapter(pastTimeReviews));
 
 		// init chart view
 		lineChart = findViewById(R.id.viewWaterAnalysis);
 		lineChart.getDescription().setEnabled(false);
-		LineDataSet ls = new LineDataSet(getList(), "test");
+		lineChart.getXAxis().setEnabled(false);
+		lineChart.getAxisRight().setEnabled(false);
+		lineChart.setDrawBorders(false);
+		lineChart.setTouchEnabled(false);
+		LineDataSet ls = new LineDataSet(getRandomList(), "Water");
 		ls.setDrawCircles(false);
 		ls.setLineWidth(2f);
-		ls.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+		lineChart.setDrawGridBackground(false);
+		ls.setColor(getColor(R.color.colorChart));
 		ArrayList<ILineDataSet> sets = new ArrayList<>();
 		sets.add(ls);
 		lineChart.setData(new LineData(sets));

@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -50,7 +51,7 @@ public class AccountManagementFragment extends BottomSheetDialogFragment {
 			final View dialogView = inflater.inflate(R.layout.dialog_temple, null);
 			Dialog logoutConfirm = new Dialog(inflater.getContext(), R.style.round_dialog);
 			logoutConfirm.setContentView(dialogView);
-			ImageButton imgbtnCancel, imgbtnConfirm;
+			Button imgbtnCancel, imgbtnConfirm;
 			imgbtnCancel = dialogView.findViewById(R.id.btnCancel);
 			imgbtnConfirm = dialogView.findViewById(R.id.btnConfirm);
 			imgbtnCancel.setOnClickListener(v -> logoutConfirm.dismiss());

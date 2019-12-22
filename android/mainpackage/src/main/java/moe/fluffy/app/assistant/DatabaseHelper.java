@@ -340,6 +340,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		sqLiteDatabase.close();
 	}
 
+	/**
+	 * Use this method to change album name
+	 * @param category integer
+	 * @param editText EditText that can get new name
+	 */
 	public void editAlbumName(@NonNull Integer category, @NonNull EditText editText) {
 		editAlbumName(category, editText.getText().toString());
 	}

@@ -32,6 +32,7 @@
         android:layout_marginTop="21px"
         android:fontFamily="@font/segoe_ui"
         android:text="@string/text_day_for_event"
+        android:textAlignment="center"
         android:textColor="#565656"
         android:textSize="75px"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +59,7 @@
         android:layout_marginTop="71px"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_time_for_event"
+        android:textAlignment="center"
         android:textSize="38px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -66,11 +68,12 @@
         android:id="@+id/txtEventItems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="505px"
+        android:layout_marginStart="420px"
         android:layout_marginTop="58px"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_case_for_event"
         android:textColor="#565656"
+        app:layout_constraintEnd_toEndOf="@+id/imgCalendarTodayBackground2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
