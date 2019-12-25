@@ -32,8 +32,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
-import com.codbking.calendar.CalendarUtil;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -408,9 +406,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public ArrayList<EventsItem> getCurrentAndFeatureEvent() {
 		SQLiteDatabase s = this.getReadableDatabase();
 		ArrayList<EventsItem> arrayList = new ArrayList<>();
-		Date d = new Date(CalendarUtil.getYMD(new java.util.Date()));
+		Date d = Date.getToday();
 		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsBeyondYear, new String[]{String.valueOf(d.getYear())}));
-		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsBeyondYearMonth, new String[]{String.valueOf(d.getYear()), String.valueOf(d.getMonth())}));
+		arrayList.addAll(_getEvent(s, R.string.dbRawQueryEventsBeyondYearMonth,
+				new String[]{String.valueOf(d.getYear()), String.valueOf(d.getMonth())}));
 		return arrayList;
 	}
 

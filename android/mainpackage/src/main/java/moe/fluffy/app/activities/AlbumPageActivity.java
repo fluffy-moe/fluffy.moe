@@ -85,6 +85,8 @@ public class AlbumPageActivity extends AppCompatActivity {
 
 	private Integer category;
 
+	String createDate;
+
 	private static boolean albumInited;
 
 	public static String INT_CATEGORY = "DZFMZR2oWX";
@@ -152,8 +154,9 @@ public class AlbumPageActivity extends AppCompatActivity {
 		imgbtnBack.setOnClickListener(v -> finish());
 		int count = albumFiles.getCount();
 		AlbumCover albumCover = DatabaseHelper.getInstance().getAlbumFromCategoryOrThrow(category);
+		createDate = albumCover.getDate();
 		txtTitle.setText(albumCover.getName());
-		txtDateAndSize.setText(getString(R.string.fmt_album_page_date,  count, count > 1 ? "s" : "", albumCover.getDate()));
+		txtDateAndSize.setText(getDateString(count, createDate));
 		albumAdapter = new AlbumAdapter(albumFiles, (view, position) -> {
 			GPreviewBuilder.from(this)
 					.setData(albumFiles.getThumbViewInfo(true))
@@ -163,6 +166,10 @@ public class AlbumPageActivity extends AppCompatActivity {
 					.start();
 		});
 		rvImages.setAdapter(albumAdapter);
+	}
+
+	private String getDateString(int count, String date) {
+		return getString(R.string.fmt_album_page_date,  count, count > 1 ? "s" : "", date);
 	}
 
 	void selectPhoto() {
@@ -176,6 +183,7 @@ public class AlbumPageActivity extends AppCompatActivity {
 					mAlbumFiles = result;
 					albumFiles.update(result);
 					DatabaseHelper.getInstance().updatePhotos(albumFiles);
+					txtDateAndSize.setText(getDateString(result.size(), createDate));
 					albumAdapter.notifyDataSetChanged();
 				})
 				.start();

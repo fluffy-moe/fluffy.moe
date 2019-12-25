@@ -52,7 +52,6 @@ import moe.fluffy.app.types.PetInfo;
 import moe.fluffy.app.types.VaccinationItem;
 
 public class HomeActivity extends AppCompatActivity {
-	public static DatabaseHelper dbHelper;
 	private static String TAG = "log_HomeActivity";
 
 	@Override
@@ -80,7 +79,7 @@ public class HomeActivity extends AppCompatActivity {
 
 	void init() {
 		Connect.setUserAgent(UserAgent.getInstance(this).getUserAgentString(""));
-		dbHelper = DatabaseHelper.getInstance(this);
+		DatabaseHelper.getInstance(this);
 		initColumns();
 		createFolder();
 
@@ -102,11 +101,8 @@ public class HomeActivity extends AppCompatActivity {
 				v -> startActivity(new Intent(this, FoodHistoryActivity.class)));
 		findViewById(R.id.btnChangeToProfile).setOnClickListener(
 				v -> startActivity(new Intent(this, ProfileActivity.class)));
-		findViewById(R.id.btnChangeToTest).setOnClickListener(
-				v -> startActivity(new Intent(this, TestCameraActivity.class)));
-
 		ImageView img = findViewById(R.id.imgDrawable);
-		BloodTestDrawable drawable = new BloodTestDrawable(this, 70, 60, 80);
+		BloodTestDrawable drawable = new BloodTestDrawable(this, 80, 60, 80);
 		img.setImageDrawable(drawable);
 		initFirebase();
 	}
@@ -152,7 +148,6 @@ public class HomeActivity extends AppCompatActivity {
 
 	@Override
 	protected void onDestroy() {
-		if (dbHelper != null)
 			DatabaseHelper.closeDatabase();
 		super.onDestroy();
 	}
