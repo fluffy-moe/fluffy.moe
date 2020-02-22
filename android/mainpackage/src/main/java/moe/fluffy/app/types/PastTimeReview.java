@@ -1,5 +1,5 @@
 /*
- ** Copyright (C) 2019 KunoiSayami
+ ** Copyright (C) 2019-2020 KunoiSayami
  **
  ** This file is part of Fluffy and is released under
  ** the AGPL v3 License: https://www.gnu.org/licenses/agpl-3.0.txt

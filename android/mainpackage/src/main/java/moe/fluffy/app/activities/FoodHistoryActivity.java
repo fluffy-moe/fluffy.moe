@@ -1,5 +1,5 @@
 /*
- ** Copyright (C) 2019 KunoiSayami
+ ** Copyright (C) 2019-2020 KunoiSayami
  **
  ** This file is part of Fluffy and is released under
  ** the AGPL v3 License: https://www.gnu.org/licenses/agpl-3.0.txt
@@ -24,6 +24,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -49,6 +50,8 @@ import moe.fluffy.app.types.FoodView;
 import moe.fluffy.app.types.SerializableBundle;
 
 public class FoodHistoryActivity extends AppCompatActivity {
+
+	private static final String TAG = "log_FoodHistoryActivity";
 
 	ListView lvFoodHistory;
 
@@ -104,6 +107,7 @@ public class FoodHistoryActivity extends AppCompatActivity {
 					@Override
 					public void onSuccess(Object o) {
 						FirebaseOCR f = (FirebaseOCR) o;
+						Log.v(TAG, "onSuccess: " + f.getLastResult());
 						FoodView it = new FoodView(barcode, f.getLastResult());
 						FoodAdapter.generateDialog(FoodHistoryActivity.this, it, foodAdapter, o1 -> foodList.add((FoodView) o1), realImage);
 					}

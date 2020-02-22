@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # host.py
-# Copyright (C) 2019 KunoiSayami
+# Copyright (C) 2019-2020 KunoiSayami
 #
-# This module is part of 1081-NoticeDemo and is released under
+# This module is part of Fluffy and is released under
 # the AGPL v3 License: https://www.gnu.org/licenses/agpl-3.0.txt
 #
 # This program is free software: you can redistribute it and/or modify
@@ -159,7 +159,7 @@ class Server(_exServer):
 				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		elif d['t'] == 'update_vac':
 			if d['id'] != '':
-				Server.conn.execute("UPDATE `vaccination_record` SET `date`=%s, `product`=%s, `injection_site`=%s,`doctor`=%s WHERE `id`=%s", 
+				Server.conn.execute("UPDATE `vaccination_record` SET `date` = %s, `product` = %s, `injection_site` = %s,`doctor` = %s WHERE `id` = %s",
 									(d['date'], d['prodoct'], d['injection_site'], d['doctor'],d['id']))
 				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
@@ -168,49 +168,49 @@ class Server(_exServer):
 				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		elif d['t'] == 'update_dein':
 			if d['id'] !='':
-				Server.conn.execute("UPDATE `deinsectzation_record` SET `date`=%s, `product`=%s, `doctor`=%s WHERE `id`=%s",
+				Server.conn.execute("UPDATE `deinsectzation_record` SET `date` = %s, `product` = %s, `doctor` = %s WHERE `id` = %s",
 									(d['date'], d['product'], d['doctor'], d['id']))
 				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
-				Server.conn.excute("INSERT `deinsectzation_record` (`date`, `product`, `doctor`) VALUE(%s, %s, %s)",
+				Server.conn.excute("INSERT `deinsectzation_record` (`date`, `product`, `doctor`) VALUE (%s, %s, %s)",
 									(d['date'], d['product'], d['doctor']))
 				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		elif d['t'] == 'update_hs':
 			if d['id'] !='':
-				Server.conn.excute("UPDATE `hospital_admission_record` SET `start_date`=%s, `end_date`=%s WHERE `id`=%s",
+				Server.conn.excute("UPDATE `hospital_admission_record` SET `start_date` = %s, `end_date` = %s WHERE `id` = %s",
 									(d['start_date'], d['end_date'], d['id']))
 				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
-				Server.conn.excute("INSERT `hospital_admission_record` (`start_date`, `end_date`) VALUE(%s, %s)",
-									(d['start_date'], d['end_date']))			
+				Server.conn.excute("INSERT `hospital_admission_record` (`start_date`, `end_date`) VALUE (%s, %s)",
+									(d['start_date'], d['end_date']))
 				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		elif d['t'] =='update_opc':
 			if d['id'] !='':
-				Server.conn.excute("UPDATE `outpatient_clinic_record` SET `date`=%s, `symptom`=%s WHERE `id`=%s",
+				Server.conn.excute("UPDATE `outpatient_clinic_record` SET `date` = %s, `symptom` = %s WHERE `id` = %s",
 									(d['date'], d['symptom'], d['id']))
 				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
-				Server.conn.excute("INSERT `outpatient_clinic_record` (`date`, `symptom`) VALUE(%s, %s)",
-									(d['date'], d['symptom']))	
+				Server.conn.excute("INSERT `outpatient_clinic_record` (`date`, `symptom`) VALUE (%s, %s)",
+									(d['date'], d['symptom']))
 				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		elif d['t'] == 'update_hem':
 			if d['id'] !='':
-				Server.conn.excute("UPDATE `hematology_test_record` SET `date`=%s, `RBC`=%s, `HCT`=%s, `CGB`=%s, `MCH`=%s, `MCHC`=%s WHERE `id`=%s",
+				Server.conn.excute("UPDATE `hematology_test_record` SET `date` = %s, `RBC` = %s, `HCT` = %s, `CGB` = %s, `MCH` = %s, `MCHC` = %s WHERE `id` = %s",
 									(d['date'], d['RBC'], d['HCT'], d['CGB'], d['MCH'], d['MCHC'], d['id']))
 				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
-				Server.conn.excute("INSERT `hematology_test_record` (`date`, `RBC`, `HCT`, `CGB`, `MCH`, `MCHC`) VALUE(%s, %s, %s, %s, %s, %s)",
-									(d['date'], d['RBC'], d['HCT'], d['CGB'], d['MCH'], d['MCHC']))	
+				Server.conn.excute("INSERT `hematology_test_record` (`date`, `RBC`, `HCT`, `CGB`, `MCH`, `MCHC`) VALUE (%s, %s, %s, %s, %s, %s)",
+									(d['date'], d['RBC'], d['HCT'], d['CGB'], d['MCH'], d['MCHC']))
 				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		elif d['t'] == 'update_kid':
 			if d['id'] !='':
-				Server.conn.excute("UPDATE `kidney_test_record` SET `date`=%s, `CREA`=%s, `BUM`=%s, `PHOS`=%s, `CA`=%s, `ALB`=%s, `CHOL`=%s, `PCT`=%s WHERE `id`=%s",
+				Server.conn.excute("UPDATE `kidney_test_record` SET `date` = %s, `CREA` = %s, `BUM` = %s, `PHOS` = %s, `CA` = %s, `ALB` = %s, `CHOL` = %s, `PCT` = %s WHERE `id` = %s",
 									(d['date'], d['CREA'], d['BUM'], d['PHOS'], d['CA'], d['ALB'], d['CHOL'], d['PCT'], d['id']))
 				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
-				Server.conn.excute("INSERT `kidney_test_record` (`date`, `CREA`, `BUM`, `PHOS`, `CA`, `ALB`, `CHOL`, `PCT`) VALUE(%s, %s, %s, %s, %s, %s, %s, %s)",
+				Server.conn.excute("INSERT `kidney_test_record` (`date`, `CREA`, `BUM`, `PHOS`, `CA`, `ALB`, `CHOL`, `PCT`) VALUE (%s, %s, %s, %s, %s, %s, %s, %s)",
 									(d['date'], d['CREA'], d['BUM'], d['PHOS'], d['CA'], d['ALB'], d['CHOL'], d['PCT']))
-				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])					
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		return HTTP_STATUS_CODES.ERROR_INVALID_REQUEST
 
 	def handle_manage_request(self, d: dict):
