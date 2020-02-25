@@ -18,35 +18,37 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 import datetime
-import random
 import hashlib
+import json
 import os
+import random
 import time
-from libpy3.mysqldb import mysqldb
+import zlib
 from configparser import ConfigParser
 from http.server import HTTPServer
-from server import Server as _exServer
+from typing import List, Tuple, Union
+
+from fcmbackend import FcmService
 from http_status_code import HTTP_STATUS_CODES
-import fcmbackend
-import json
-import zlib
+from libpy3.mysqldb import mysqldb as MySqlDB
+from server import Server as _exServer
 
 expire_day = 2 * 60 * 60 * 24
 
 class Server(_exServer):
 	def log_login_attmept(self, user: str, b: bool):
-		Server.conn.execute("INSERT INTO `log_login` (`attempt_user`, `success`) VALUE (%s, %s)", (user, 'Y' if b else 'N'))
+		MySqlDB.get_instance().execute("INSERT INTO `log_login` (`attempt_user`, `success`) VALUE (%s, %s)", (user, 'Y' if b else 'N'))
 		if b:
-			Server.conn.execute("UPDATE `accounts` SET `last_login` = CURRENT_TIMESTAMP() WHERE `username` = %s", user)
+			MySqlDB.get_instance().execute("UPDATE `accounts` SET `last_login` = CURRENT_TIMESTAMP() WHERE `username` = %s", user)
 
-	def verify_user_session(self, A_auth: str):
+	def verify_user_session(self, A_auth: str) -> Tuple[bool, Tuple[int, List, dict], Union[None, Tuple]]:
 		if A_auth is None:
 			return False, HTTP_STATUS_CODES.ERROR_USER_SESSION_MISSING, None
-		sqlObj = Server.conn.query1("SELECT `user_id`, `timestamp` FROM `user_session` WHERE `session` = %s", A_auth)
+		sqlObj = MySqlDB.get_instance().query1("SELECT `user_id`, `timestamp` FROM `user_session` WHERE `session` = %s", A_auth)
 		if sqlObj is None:
 			return False, HTTP_STATUS_CODES.ERROR_USER_SESSION_INVALID, None
 		# Update session timestamp if session still in use
-		Server.conn.execute("UPDATE `user_session` SET `timestamp` = CURRENT_TIMESTAMP() WHERE `session` = %s", A_auth)
+		MySqlDB.get_instance().execute("UPDATE `user_session` SET `timestamp` = CURRENT_TIMESTAMP() WHERE `session` = %s", A_auth)
 		if (datetime.datetime.now() - sqlObj['timestamp']).total_seconds() > expire_day:
 			return False, HTTP_STATUS_CODES.ERROR_USER_SESSION_EXPIRED, sqlObj
 		return True, HTTP_STATUS_CODES.SUCCESS_VERIFY_SESSION, sqlObj
@@ -58,12 +60,12 @@ class Server(_exServer):
 			if A_auth is None:
 				user_id = 0
 			else:
-				sqlObj = Server.conn.query1("SELECT `user_id` FROM `user_session` WHERE `session` = %s", A_auth)
+				sqlObj = MySqlDB.get_instance().query1("SELECT `user_id` FROM `user_session` WHERE `session` = %s", A_auth)
 				if sqlObj is None:
 					user_id = 0
 				else:
 					user_id = sqlObj['user_id']
-			sqlObj = Server.conn.query("SELECT `title`, `body`, `timestamp` FROM `notifications` WHERE "
+			sqlObj = MySqlDB.get_instance().query("SELECT `title`, `body`, `timestamp` FROM `notifications` WHERE "
 				"(`affected_user` LIKE '%%{}%%' OR `affected_user` = 'all') AND `timestamp` > DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 15 DAY) ".format(user_id) +
 				"AND `available` = 'Y' ORDER BY `id` DESC LIMIT 15")
 			return HTTP_STATUS_CODES.SUCCESS_FETCH_NOTIFICATIONS([{'title': x['title'], 'body': x['body'], 'timestamp': str(x['timestamp'])} for x in sqlObj])
@@ -75,7 +77,7 @@ class Server(_exServer):
 
 		# Process user login
 		if self.path == '/login':
-			sqlObj = Server.conn.query1("SELECT * FROM `accounts` WHERE `username` = %s", jsonObject['user'])
+			sqlObj = MySqlDB.get_instance().query1("SELECT * FROM `accounts` WHERE `username` = %s", jsonObject['user'])
 			if sqlObj is None:
 				self.log_login_attmept(jsonObject['user'], False)
 				return HTTP_STATUS_CODES.ERROR_INVALID_PASSWORD_OR_USER
@@ -86,16 +88,16 @@ class Server(_exServer):
 				else:
 					self.log_login_attmept(jsonObject['user'], True)
 					session = self.generate_new_session_str(jsonObject['user'])
-					Server.conn.execute("INSERT INTO `user_session` (`session`, `user_id`) VALUE (%s, %s)", (session, sqlObj['id']))
+					MySqlDB.get_instance().execute("INSERT INTO `user_session` (`session`, `user_id`) VALUE (%s, %s)", (session, sqlObj['id']))
 					return HTTP_STATUS_CODES.SUCCESS_LOGIN(jsonObject['user'], session)
 
 		# Process register user
 		elif self.path == '/register':
 			if len(jsonObject['user']) > 16:
 				return HTTP_STATUS_CODES.ERROR_USERNAME_TOO_LONG
-			sqlObj = Server.conn.query1("SELECT * FROM `accounts` WHERE `username` = %s", jsonObject['user'])
+			sqlObj = MySqlDB.get_instance().query1("SELECT * FROM `accounts` WHERE `username` = %s", jsonObject['user'])
 			if sqlObj is None:
-				Server.conn.execute("INSERT INTO `accounts` (`username`, `password`) VALUE (%s, %s)",
+				MySqlDB.get_instance().execute("INSERT INTO `accounts` (`username`, `password`) VALUE (%s, %s)",
 					(jsonObject['user'], jsonObject['password']))
 				return HTTP_STATUS_CODES.SUCCESS_REGISTER
 			else:
@@ -107,13 +109,13 @@ class Server(_exServer):
 			if not r: return rt_value
 			if not len(jsonObject['token']):
 				return HTTP_STATUS_CODES.ERROR_400_BAD_REQUEST
-			sqlObj1 = Server.conn.query1("SELECT `user_id` FROM `firebasetoken` WHERE `token` = %s", jsonObject['token'])
+			sqlObj1 = MySqlDB.get_instance().query1("SELECT `user_id` FROM `firebasetoken` WHERE `token` = %s", jsonObject['token'])
 			if sqlObj1 is None:
-				Server.conn.execute("INSERT INTO `firebasetoken` (`user_id`, `token`) VALUE (%s, %s)", (sqlObj['user_id'], jsonObject['token']))
+				MySqlDB.get_instance().execute("INSERT INTO `firebasetoken` (`user_id`, `token`) VALUE (%s, %s)", (sqlObj['user_id'], jsonObject['token']))
 			elif sqlObj['user_id'] != sqlObj1['user_id']:
-				Server.conn.execute("UPDATE `firebasetoken` SET `user_id` = %s WHERE `token` = %s", (sqlObj['user_id'], jsonObject['token']))
+				MySqlDB.get_instance().execute("UPDATE `firebasetoken` SET `user_id` = %s WHERE `token` = %s", (sqlObj['user_id'], jsonObject['token']))
 			else:
-				Server.conn.execute("UPDATE `firebasetoken` SET `register_date` = CURRENT_TIMESTAMP() WHERE `token` = %s", jsonObject['token'])
+				MySqlDB.get_instance().execute("UPDATE `firebasetoken` SET `register_date` = CURRENT_TIMESTAMP() WHERE `token` = %s", jsonObject['token'])
 			return HTTP_STATUS_CODES.SUCCESS_REGISTER_FIREBASE_ID
 
 		# Process verify user session string
@@ -125,7 +127,7 @@ class Server(_exServer):
 		elif self.path == '/logout':
 			if A_auth is None:
 				return HTTP_STATUS_CODES.ERROR_USER_SESSION_MISSING
-			Server.conn.execute("DELETE FROM `user_session` WHERE `session` = %s", A_auth)
+			MySqlDB.get_instance().execute("DELETE FROM `user_session` WHERE `session` = %s", A_auth)
 			return HTTP_STATUS_CODES.SUCCESS_LOGOUT
 
 		elif self.path == '/admin':
@@ -141,76 +143,76 @@ class Server(_exServer):
 			return HTTP_STATUS_CODES.ERROR_400_BAD_REQUEST
 		if d['t'] == 'update_person':
 			if d['uid'] != '':
-				Server.conn.execute("UPDATE `feeder_information` SET `realname` = %s, `phone` = %s, `address` = %s, `email` = %s WHERE `id` = %s",
+				MySqlDB.get_instance().execute("UPDATE `feeder_information` SET `realname` = %s, `phone` = %s, `address` = %s, `email` = %s WHERE `id` = %s",
 					(d['name'], d['phone'], d['email'], d['address'], d['uid']))
 				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
-				Server.conn.execute("INSERT `feeder_information` (`realname`, `phone`, `address`, `email`) VALUE (%s, %s, %s, %s)",
+				MySqlDB.get_instance().execute("INSERT `feeder_information` (`realname`, `phone`, `address`, `email`) VALUE (%s, %s, %s, %s)",
 					(d['name'], d['phone'], d['email'], d['address']))
-				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(MySqlDB.get_instance().query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		elif d['t'] == 'update_pet':
 			if d['pet_no'] != '':
-				Server.conn.execute("UPDATE `pet_information` SET `name` = %s, `gender` = %s, `breed` = %s, `color` = %s, `birthday` = %s, `weight` = %s, `neuter` = %s WHERE `id` = %s",
+				MySqlDB.get_instance().execute("UPDATE `pet_information` SET `name` = %s, `gender` = %s, `breed` = %s, `color` = %s, `birthday` = %s, `weight` = %s, `neuter` = %s WHERE `id` = %s",
 									(d['petname'], d['gender'], d['varity'], d['color'], d['birthday'], d['weight'], d['neuter'], d['pet_no']))
 				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
-				Server.conn.execute("INSERT `pet_information` (`belong`, `name`, `gender`, `breed`, `color`, `birthday`, `weight`, `neuter`) VALUE (%s, %s, %s, %s, %s, %s, %s, %s)",
+				MySqlDB.get_instance().execute("INSERT `pet_information` (`belong`, `name`, `gender`, `breed`, `color`, `birthday`, `weight`, `neuter`) VALUE (%s, %s, %s, %s, %s, %s, %s, %s)",
 									(d['belong'], d['petname'], d['gender'], d['varity'], d['color'], d['birthday'], d['weight'], d['neuter']))
-				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(MySqlDB.get_instance().query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		elif d['t'] == 'update_vac':
 			if d['id'] != '':
-				Server.conn.execute("UPDATE `vaccination_record` SET `date` = %s, `product` = %s, `injection_site` = %s,`doctor` = %s WHERE `id` = %s",
+				MySqlDB.get_instance().execute("UPDATE `vaccination_record` SET `date` = %s, `product` = %s, `injection_site` = %s,`doctor` = %s WHERE `id` = %s",
 									(d['date'], d['prodoct'], d['injection_site'], d['doctor'],d['id']))
 				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
-				Server.conn.execute("INSERT `vaccination_record` (`date`, `product`, `injection_site`, `doctor`) VALUE (%s, %s,%s,%s)",
+				MySqlDB.get_instance().execute("INSERT `vaccination_record` (`date`, `product`, `injection_site`, `doctor`) VALUE (%s, %s,%s,%s)",
 									(d['date'], d['prodoct'], d['injection_site'], d['doctor']))
-				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(MySqlDB.get_instance().query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		elif d['t'] == 'update_dein':
 			if d['id'] !='':
-				Server.conn.execute("UPDATE `deinsectzation_record` SET `date` = %s, `product` = %s, `doctor` = %s WHERE `id` = %s",
+				MySqlDB.get_instance().execute("UPDATE `deinsectzation_record` SET `date` = %s, `product` = %s, `doctor` = %s WHERE `id` = %s",
 									(d['date'], d['product'], d['doctor'], d['id']))
 				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
-				Server.conn.excute("INSERT `deinsectzation_record` (`date`, `product`, `doctor`) VALUE (%s, %s, %s)",
+				MySqlDB.get_instance().execute("INSERT `deinsectzation_record` (`date`, `product`, `doctor`) VALUE (%s, %s, %s)",
 									(d['date'], d['product'], d['doctor']))
-				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(MySqlDB.get_instance().query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		elif d['t'] == 'update_hs':
 			if d['id'] !='':
-				Server.conn.excute("UPDATE `hospital_admission_record` SET `start_date` = %s, `end_date` = %s WHERE `id` = %s",
+				MySqlDB.get_instance().execute("UPDATE `hospital_admission_record` SET `start_date` = %s, `end_date` = %s WHERE `id` = %s",
 									(d['start_date'], d['end_date'], d['id']))
 				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
-				Server.conn.excute("INSERT `hospital_admission_record` (`start_date`, `end_date`) VALUE (%s, %s)",
+				MySqlDB.get_instance().execute("INSERT `hospital_admission_record` (`start_date`, `end_date`) VALUE (%s, %s)",
 									(d['start_date'], d['end_date']))
-				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(MySqlDB.get_instance().query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		elif d['t'] =='update_opc':
 			if d['id'] !='':
-				Server.conn.excute("UPDATE `outpatient_clinic_record` SET `date` = %s, `symptom` = %s WHERE `id` = %s",
+				MySqlDB.get_instance().execute("UPDATE `outpatient_clinic_record` SET `date` = %s, `symptom` = %s WHERE `id` = %s",
 									(d['date'], d['symptom'], d['id']))
 				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
-				Server.conn.excute("INSERT `outpatient_clinic_record` (`date`, `symptom`) VALUE (%s, %s)",
+				MySqlDB.get_instance().execute("INSERT `outpatient_clinic_record` (`date`, `symptom`) VALUE (%s, %s)",
 									(d['date'], d['symptom']))
-				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(MySqlDB.get_instance().query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		elif d['t'] == 'update_hem':
 			if d['id'] !='':
-				Server.conn.excute("UPDATE `hematology_test_record` SET `date` = %s, `RBC` = %s, `HCT` = %s, `CGB` = %s, `MCH` = %s, `MCHC` = %s WHERE `id` = %s",
+				MySqlDB.get_instance().execute("UPDATE `hematology_test_record` SET `date` = %s, `RBC` = %s, `HCT` = %s, `CGB` = %s, `MCH` = %s, `MCHC` = %s WHERE `id` = %s",
 									(d['date'], d['RBC'], d['HCT'], d['CGB'], d['MCH'], d['MCHC'], d['id']))
 				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
-				Server.conn.excute("INSERT `hematology_test_record` (`date`, `RBC`, `HCT`, `CGB`, `MCH`, `MCHC`) VALUE (%s, %s, %s, %s, %s, %s)",
+				MySqlDB.get_instance().execute("INSERT `hematology_test_record` (`date`, `RBC`, `HCT`, `CGB`, `MCH`, `MCHC`) VALUE (%s, %s, %s, %s, %s, %s)",
 									(d['date'], d['RBC'], d['HCT'], d['CGB'], d['MCH'], d['MCHC']))
-				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(MySqlDB.get_instance().query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		elif d['t'] == 'update_kid':
 			if d['id'] !='':
-				Server.conn.excute("UPDATE `kidney_test_record` SET `date` = %s, `CREA` = %s, `BUM` = %s, `PHOS` = %s, `CA` = %s, `ALB` = %s, `CHOL` = %s, `PCT` = %s WHERE `id` = %s",
+				MySqlDB.get_instance().execute("UPDATE `kidney_test_record` SET `date` = %s, `CREA` = %s, `BUM` = %s, `PHOS` = %s, `CA` = %s, `ALB` = %s, `CHOL` = %s, `PCT` = %s WHERE `id` = %s",
 									(d['date'], d['CREA'], d['BUM'], d['PHOS'], d['CA'], d['ALB'], d['CHOL'], d['PCT'], d['id']))
 				return HTTP_STATUS_CODES.SUCCESS_UPDATE_INFO
 			else:
-				Server.conn.excute("INSERT `kidney_test_record` (`date`, `CREA`, `BUM`, `PHOS`, `CA`, `ALB`, `CHOL`, `PCT`) VALUE (%s, %s, %s, %s, %s, %s, %s, %s)",
+				MySqlDB.get_instance().execute("INSERT `kidney_test_record` (`date`, `CREA`, `BUM`, `PHOS`, `CA`, `ALB`, `CHOL`, `PCT`) VALUE (%s, %s, %s, %s, %s, %s, %s, %s)",
 									(d['date'], d['CREA'], d['BUM'], d['PHOS'], d['CA'], d['ALB'], d['CHOL'], d['PCT']))
-				return HTTP_STATUS_CODES.SUCCESS_INSERT(Server.conn.query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
+				return HTTP_STATUS_CODES.SUCCESS_INSERT(MySqlDB.get_instance().query1("SELECT LAST_INSERT_ID() AS `id`")['id'])
 		return HTTP_STATUS_CODES.ERROR_INVALID_REQUEST
 
 	def handle_manage_request(self, d: dict):
@@ -221,32 +223,32 @@ class Server(_exServer):
 			return HTTP_STATUS_CODES.ERROR_400_BAD_REQUEST
 		if d['t'] == 'firebase_post':
 			if d['select_user'] == 'all':
-				sqlObj = Server.conn.query("SELECT `token` FROM `firebasetoken` WHERE `register_date` > DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 2 MONTH)")
+				sqlObj = MySqlDB.get_instance().query("SELECT `token` FROM `firebasetoken` WHERE `register_date` > DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 2 MONTH)")
 				if len(sqlObj) == 1:
-					r = Server.fcmbackend.push_services(sqlObj[0]['token'], d['title'], d['body'])
+					r = FcmService.get_instance().push_services(sqlObj[0]['token'], d['title'], d['body'])
 				else:
-					r = Server.fcmbackend.push_services([x['token'] for x in sqlObj], d['title'], d['body'])
+					r = FcmService.get_instance().push_services([x['token'] for x in sqlObj], d['title'], d['body'])
 			else: # part of user
 				devices = []
 				for user in d['select_user']:
-					sqlObj = Server.conn.query("SELECT `token` FROM `firebasetoken` WHERE `user_id` = %s AND `register_date` > DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 2 MONTH)", user)
+					sqlObj = MySqlDB.get_instance().query("SELECT `token` FROM `firebasetoken` WHERE `user_id` = %s AND `register_date` > DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 2 MONTH)", user)
 					devices.extend(x['token'] for x in sqlObj)
 				if len(devices) == 1:
-					r = Server.fcmbackend.push_services(devices[0], d['title'], d['body'])
+					r = FcmService.get_instance().push_services(devices[0], d['title'], d['body'])
 				else:
-					r = Server.fcmbackend.push_services(devices, d['title'], d['body'])
+					r = FcmService.get_instance().push_services(devices, d['title'], d['body'])
 			if r['failure'] > 0:
 				if r['success'] == 0:
 					return HTTP_STATUS_CODES.ERROR_SEND_FIREBASE_NOTIFICATION_FAILURE
 				else:
 					return HTTP_STATUS_CODES.ERROR_SEND_FIREBASE_NOTIFICATION_PARTILAL_FAILURE
 			u = ','.join(d['select_user']) if d['select_user'] != 'all' else 'all'
-			Server.conn.execute("INSERT INTO `notifications` (`title`, `body`, `affected_user`) VALUE (%s, %s, %s)",
+			MySqlDB.get_instance().execute("INSERT INTO `notifications` (`title`, `body`, `affected_user`) VALUE (%s, %s, %s)",
 				(d['title'], d['body'], u))
 			return HTTP_STATUS_CODES.SUCCESS_200OK
 		elif d['t'] == 'notification_manage':
-			Server.conn.execute("UPDATE `notifications` SET `available` = 'N' WHERE `id` IN ({})".format(', '.join(d['unchecked'])))
-			Server.conn.execute("UPDATE `notifications` SET `available` = 'Y' WHERE `id` IN ({})".format(', '.join(d['checked'])))
+			MySqlDB.get_instance().execute("UPDATE `notifications` SET `available` = 'N' WHERE `id` IN ({})".format(', '.join(d['unchecked'])))
+			MySqlDB.get_instance().execute("UPDATE `notifications` SET `available` = 'Y' WHERE `id` IN ({})".format(', '.join(d['checked'])))
 			return HTTP_STATUS_CODES.SUCCESS_200OK
 		return HTTP_STATUS_CODES.ERROR_400_BAD_REQUEST
 
@@ -265,36 +267,36 @@ class Server(_exServer):
 		return hex(zlib.crc32(s.encode()) & 0xffffffff)[2:].upper()
 
 	def get_userid_from_username(self, user_name: str):
-		sqlObj = Server.conn.query1("SELECT `id` FROM `accounts` WHERE `username` = %s AND `enabled` = 'Y'", user_name)
+		sqlObj = MySqlDB.get_instance().query1("SELECT `id` FROM `accounts` WHERE `username` = %s AND `enabled` = 'Y'", user_name)
 		if sqlObj is not None:
 			return sqlObj['id']
 		return None
 
 class appServer:
 	def __init__(self):
-		self.config = ConfigParser()
-		self.config.read('config.ini')
+		config = ConfigParser()
+		config.read('config.ini')
 
-		self.mysql_conn = mysqldb(
-			self.config['mysql']['host'],
-			self.config['mysql']['user'],
-			self.config['mysql']['password'],
-			self.config['mysql']['database'],
+		self.mysql_conn = MySqlDB.init_instance(
+			config['mysql']['host'],
+			config['mysql']['user'],
+			config['mysql']['password'],
+			config['mysql']['database'],
 			autocommit=True
 		)
 
 		self.mdict = {}
-		if self.config.has_option('server', 'trust_ip'):
-			self.mdict['trust_ip'] = list(map(str, self.config['server']['trust_ip'].split(',')))
+		if config.has_option('server', 'trust_ip'):
+			self.mdict['trust_ip'] = list(map(str, config['server']['trust_ip'].split(',')))
 
-		self.fcmService = fcmbackend.fcmService(self.config['firebase']['api_key'])
+		self.fcmService = FcmService.init_instance(config['firebase']['api_key'])
 
-		setattr(Server, 'conn', self.mysql_conn)
+		#setattr(Server, 'conn', self.mysql_conn)
 		setattr(Server, 'mdict', self.mdict)
-		setattr(Server, 'fcmbackend', self.fcmService)
+		#setattr(Server, 'fcmbackend', self.fcmService)
 
 		self.server_handle = HTTPServer(
-			(self.config['server']['address'], int(self.config['server']['port'])),
+			(config['server']['address'], config.getint('server', 'port')),
 			Server)
 
 	def run(self):

@@ -155,7 +155,7 @@ function init_onclick() {
 			neuter: is_neuter
 		}, (result) => {
 			if (rev_pet_id.value === '') {
-				console.log('test');
+				//console.log('test');
 				rev_pet_id.value = reslove_result(result);
 				dropdown_pet_select.innerHTML = dropdown_pet_select.innerHTML.replace('<option>new</option>',
 					'<option value="'+ rev_pet_id.value +'">' + txt_info_animalname.value + '</option>');
@@ -261,7 +261,7 @@ function init_onclick() {
 		update_kid_info(pet_data_store[dropdown_pet_select.value].kidney_test[select_kid_history.value]);
 	});
 
-	$('btn_add_vac_info').click(() => {
+	$('#btn_add_vac_info').click(() => {
 		if (select_vac_history.innerHTML.search('<option>new</option>') === -1) {
 			select_vac_history.innerHTML += '<option>new</option>';
 		}
@@ -273,7 +273,7 @@ function init_onclick() {
 		rev_vac_id.value = '';
 	});
 
-	$('btn_add_dei_info').click(() => {
+	$('#btn_add_dei_info').click(() => {
 		if (select_dei_history.innerHTML.search('<option>new</option>') === -1) {
 			select_dei_history.innerHTML += '<option>new</option>';
 		}
@@ -284,7 +284,7 @@ function init_onclick() {
 		rev_dei_id.value = '';
 	});
 
-	$('btn_add_hos_info').click(() => {
+	$('#btn_add_hos_info').click(() => {
 		if (select_hs_history.innerHTML.search('<option>new</option>') === -1) {
 			select_hs_history.innerHTML += '<option>new</option>';
 		}
@@ -294,7 +294,7 @@ function init_onclick() {
 		rev_hs_id.value = '';
 	});
 
-	$('btn_add_opc_info').click(() => {
+	$('#btn_add_opc_info').click(() => {
 		if (select_opc_history.innerHTML.search('<option>new</option>') === -1) {
 			select_opc_history.innerHTML += '<option>new</option>';
 		}
@@ -304,37 +304,37 @@ function init_onclick() {
 		rev_opc_id.value = '';
 	});
 
-	$('btn_add_hem_info').click(() => {
+	$('#btn_add_hem_info').click(() => {
 		if (select_hem_history.innerHTML.search('<option>new</option>') === -1) {
 			select_hem_history.innerHTML += '<option>new</option>';
 		}
 		d = new Date();
 		txt_info_hematologydate.value = d.getYear() + '/' + d.getMonth() + '/' + d.getDay();
-		txt_info_RBC.value;
-		txt_info_HCT.value;
-		txt_info_CGB.value;
-		txt_info_MCH.value;
-		txt_info_MCHC.value;
+		txt_info_RBC.value = '';
+		txt_info_HCT.value = '';
+		txt_info_CGB.value = '';
+		txt_info_MCH.value = '';
+		txt_info_MCHC.value = '';
 		rev_hem_id.value = '';
 	});
 
-	$('btn_add_kid_info').click(() => {
+	$('#btn_add_kid_info').click(() => {
 		if (select_kid_history.innerHTML.search('<option>new</option>') === -1) {
 			select_kid_history.innerHTML += '<option>new</option>';
 		}
 		d = new Date();
 		txt_info_kidneydate.value = d.getYear() + '/' + d.getMonth() + '/' + d.getDay();
-		txt_info_CREA.value;
-		txt_info_BUM.value;
-		txt_info_PHOS.value;
-		txt_info_CA.value;
-		txt_info_ALB.value;
-		txt_info_CHOL.value;
-		txt_info_PCT.value;
+		txt_info_CREA.value = '';
+		txt_info_BUM.value = '';
+		txt_info_PHOS.value = '';
+		txt_info_CA.value = '';
+		txt_info_ALB.value = '';
+		txt_info_CHOL.value = '';
+		txt_info_PCT.value = '';
 		rev_kid_id.value = '';
 	});
 
-	$('btn_update_vac_info').click(() => {
+	$('#btn_update_vac_info').click(() => {
 		do_POST('update_vac', {
 			id: rev_vac_id.value,
 			date: txt_info_vacdate.value,
@@ -344,7 +344,7 @@ function init_onclick() {
 		});
 	});
 
-	$('btn_update_dein_info').click(() => {
+	$('#btn_update_dein_info').click(() => {
 		do_POST('update_dein', {
 			id: rev_dein_id.value,
 			date: txt_info_desdate.value,
@@ -353,7 +353,7 @@ function init_onclick() {
 		});
 	});
 
-	$('btn_update_hs_info').click(() => {
+	$('#btn_update_hs_info').click(() => {
         do_POST('update_hs',{
 			id: rev_hs_id.value,
 			start_date: txt_info_hospitaldate.value,
@@ -361,7 +361,7 @@ function init_onclick() {
 		});
 	});
 
-	$('btn_update_opc_info').click(() => {
+	$('#btn_update_opc_info').click(() => {
         do_POST('update_opc',{
 			id: rev_opc_id.value,
 			date: txt_info_outpatientdate.value,
@@ -369,7 +369,7 @@ function init_onclick() {
 		});
 	});
 
-    $('btn_update_hem_info').click(() => {
+    $('#btn_update_hem_info').click(() => {
         do_POST('update_hem',{
 			id: rev_hem_id.value,
 			date: txt_info_hematologydate.value,
@@ -381,10 +381,10 @@ function init_onclick() {
 		});
 	});
 
-	$('btn_update_kid_info').click(() => {
+	$('#btn_update_kt_info').click(() => {
         do_POST('update_kid',{
 			id: rev_kid_id.value,
-			date: txt_info_kidneydate.value,
+			date: $('#info_kiddate').val(),
 			CREA: txt_info_CREA.value,
 			BUM: txt_info_BUM.value,
 			PHOS: txt_info_PHOS.value,
@@ -395,7 +395,7 @@ function init_onclick() {
 		});
 	});
 
-	$('btn_del_vac_info').click(() => {
+	$('#btn_del_vac_info').click(() => {
 		var c = confirm("Are you sure you want to delete?");
 		if (c === true) {
 			do_POST('del_vac_info', {
@@ -409,7 +409,7 @@ function init_onclick() {
 		}
 	});
 
-	$('btn_del_dei_info').click(() => {
+	$('#btn_del_dei_info').click(() => {
 		var c = confirm("Are you sure you want to delete?");
 		if (c === true) {
 			do_POST('del_dei_info', {
@@ -422,7 +422,7 @@ function init_onclick() {
 		}
 	});
 
-	$('btn_del_hos_info').click(() => {
+	$('#btn_del_hos_info').click(() => {
 		var c = confirm("Are you sure you want to delete?");
 		if (c === true) {
 			do_POST('del_hos_info', {
@@ -434,7 +434,7 @@ function init_onclick() {
 		}
 	});
 
-	$('btn_del_opc_info').click(() => {
+	$('#btn_del_opc_info').click(() => {
 		var c = confirm("Are you sure you want to delete?");
 		if (c === true) {
 			do_POST('del_opc_info', {
@@ -446,7 +446,7 @@ function init_onclick() {
 		}
 	});
 
-	$('btn_del_hem_info').click(() => {
+	$('#btn_del_hem_info').click(() => {
 		var c = confirm("Are you sure you want to delete?");
 		if (c === true) {
 			do_POST('del_hem_info', {
@@ -462,7 +462,7 @@ function init_onclick() {
 		}
 	});
 
-	$('btn_del_kid_info').click(() => {
+	$('#btn_del_kid_info').click(() => {
 		var c = confirm("Are you sure you want to delete?");
 		if (c === true) {
 			do_POST('del_kid_info', {
@@ -490,11 +490,11 @@ function init_onclick() {
 function get_user_info() {
 	user_id = findGetParameter('user');
 	rev_user_id.value = user_id;
-	console.log(user_id);
+	//console.log(user_id);
 	var rt;
 	if (user_id !== null) {
 		rt = $.getJSON('/request.php?t=user_detail&user_id=' + user_id + '&' + new Date().getTime(), function(json_data) {
-			console.log(json_data);
+			//console.log(json_data);
 			var user_info = json_data.data.user;
 			txt_info_name.value = user_info['realname'];
 			txt_info_email.value = user_info['email'];
@@ -544,6 +544,7 @@ function toggle_kid_info(is_exist){
 	rd_kid_nothave.checked = !is_exist;
 	table_Kidney_record.style.display = (is_exist?"block":"none");
 }
+
 function update_vac_info(vac_info) {
 	rev_vac_id.value = vac_info.id;
 	txt_info_vacdate.value = vac_info.date;
@@ -575,15 +576,18 @@ function update_opc_info(opc_info){
 
 function update_hem_info(hem_info){
 	rev_hem_id.value = hem_info.id;
+	$('#info_hemdate').val(hem_info.date);
 	txt_info_RBC.value = hem_info.RBC;
 	txt_info_HCT.value = hem_info.HCT;
-	txt_info_PHOS.value = hem_info.CGB;
+	txt_info_PHOS.value = hem_info.PHOS;
+	txt_info_CGB.value = hem_info.CGB;
 	txt_info_MCH.value = hem_info.MCH;
 	txt_info_MCHC.value = hem_info.MCHC;
 }
 
 function update_kid_info(kid_info){
 	rev_kid_id.value = kid_info.id;
+	$('#info_kiddate').val(kid_info.date);
 	txt_info_CREA.value = kid_info.CREA;
 	txt_info_BUM.value = kid_info.BUM;
 	txt_info_PHOS.value = kid_info.PHOS;
@@ -631,7 +635,7 @@ function update_website_pet_info(pet_info) {
 	var info = pet_info.info, vac_info = pet_info.vaccination,
 		dei_info = pet_info.deinsectzation, hs_info = pet_info.hospital_admission,
 		opc_info = pet_info.outpatient_clinic, hem_info = pet_info.hematology_test,
-		kid_info = pet_info.kidney_test;;
+		kid_info = pet_info.kidney_test;
 	txt_info_animalname.value = info.name;
 	txt_info_birthday.value = info.birthday;
 	txt_info_color.value = info.color;
@@ -652,7 +656,7 @@ function update_website_pet_info(pet_info) {
 		}
 		select_vac_history.innerHTML = _tmp;
 		update_vac_info(vac_info[0]);
-	} else {	
+	} else {
 		toggle_vac_info(false);
 	}
 
@@ -668,12 +672,13 @@ function update_website_pet_info(pet_info) {
 	} else {
 		toggle_dein_info(false);
 	}
+
 	if (hs_info.length > 0) {
 		toggle_hs_info(true);
 		select_hs_history.innerHTML = '';
 		var _tmp = '';
 		for (var i = 0; i < hs_info.length; i++) {
-			_tmp += '<option value="' + i + '">'+ hs_info[i].date +'</option>';
+			_tmp += '<option value="' + i + '">'+ hs_info[i].start_date +'</option>';
 		}
 		update_hs_info(hs_info[0]);
 		select_hs_history.innerHTML = _tmp;
@@ -725,7 +730,7 @@ function update_website_pet_info(pet_info) {
 
 function get_pet_info() {
 	$.getJSON('/request.php?t=pet_detail&user_id=' + user_id + '&' + new Date().getTime(), function(json_data) {
-		console.log(json_data);
+		//console.log(json_data);
 		pet_data_store = json_data.data;
 		if (json_data.data.length > 0) {
 			var tmp_dropdown_select = '';
@@ -751,7 +756,7 @@ function do_POST(t, payload, callback = (result) => {console.log(result);}) {
 
 /**
  * Reference: https://stackoverflow.com/a/5448595
- * 
+ *
  * @param {String} parameterName which want get from url
  */
 function findGetParameter(parameterName) {

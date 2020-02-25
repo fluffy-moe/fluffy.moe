@@ -19,8 +19,9 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 import time
 from pyfcm import FCMNotification
+from typing import Union, List
 
-class fcmService:
+class _FcmService:
 	def __init__(self, api_key: str):
 		self.push_service = FCMNotification(api_key)
 	
@@ -29,3 +30,16 @@ class fcmService:
 			return self.push_service.notify_single_device(device_id, message_title=title, message_body=body)
 		else:
 			return self.push_service.notify_multiple_devices(device_id, message_title=title, message_body=body)
+
+class FcmService(_FcmService):
+	_self = None
+
+	@staticmethod
+	def init_instance(api_key: str) -> _FcmService:
+		FcmService._self = _FcmService(api_key)
+		return FcmService._self
+	
+	@staticmethod
+	def get_instance() -> _FcmService:
+		return FcmService._self
+
