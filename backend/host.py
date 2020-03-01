@@ -28,6 +28,7 @@ from configparser import ConfigParser
 from http.server import HTTPServer
 from typing import List, Tuple, Union
 
+import Objects
 from fcmbackend import FcmService
 from http_status_code import HTTP_STATUS_CODES
 from libpy3.mysqldb import mysqldb as MySqlDB
@@ -93,12 +94,13 @@ class Server(_exServer):
 
 		# Process register user
 		elif self.path == '/register':
-			if len(jsonObject['user']) > 16:
+			obj = Objects.UserObject(jsonObject)
+			if len(obj) > 16:
 				return HTTP_STATUS_CODES.ERROR_USERNAME_TOO_LONG
-			sqlObj = MySqlDB.get_instance().query1("SELECT * FROM `accounts` WHERE `username` = %s", jsonObject['user'])
+			sqlObj = MySqlDB.get_instance().query1("SELECT * FROM `accounts` WHERE `username` = %s", obj.user)
 			if sqlObj is None:
 				MySqlDB.get_instance().execute("INSERT INTO `accounts` (`username`, `password`) VALUE (%s, %s)",
-					(jsonObject['user'], jsonObject['password']))
+					(obj.user, obj.password))
 				return HTTP_STATUS_CODES.SUCCESS_REGISTER
 			else:
 				return HTTP_STATUS_CODES.ERROR_USERNAME_ALREADY_EXIST
@@ -107,15 +109,16 @@ class Server(_exServer):
 		elif self.path == '/register_firebase':
 			r, rt_value, sqlObj = self.verify_user_session(A_auth)
 			if not r: return rt_value
-			if not len(jsonObject['token']):
+			obj = Objects.FirebaseIDObj(jsonObject)
+			if not len(obj):
 				return HTTP_STATUS_CODES.ERROR_400_BAD_REQUEST
-			sqlObj1 = MySqlDB.get_instance().query1("SELECT `user_id` FROM `firebasetoken` WHERE `token` = %s", jsonObject['token'])
+			sqlObj1 = MySqlDB.get_instance().query1("SELECT `user_id` FROM `firebasetoken` WHERE `token` = %s", obj.token)
 			if sqlObj1 is None:
-				MySqlDB.get_instance().execute("INSERT INTO `firebasetoken` (`user_id`, `token`) VALUE (%s, %s)", (sqlObj['user_id'], jsonObject['token']))
+				MySqlDB.get_instance().execute("INSERT INTO `firebasetoken` (`user_id`, `token`) VALUE (%s, %s)", (sqlObj['user_id'], obj.token))
 			elif sqlObj['user_id'] != sqlObj1['user_id']:
-				MySqlDB.get_instance().execute("UPDATE `firebasetoken` SET `user_id` = %s WHERE `token` = %s", (sqlObj['user_id'], jsonObject['token']))
+				MySqlDB.get_instance().execute("UPDATE `firebasetoken` SET `user_id` = %s WHERE `token` = %s", (sqlObj['user_id'], obj.token))
 			else:
-				MySqlDB.get_instance().execute("UPDATE `firebasetoken` SET `register_date` = CURRENT_TIMESTAMP() WHERE `token` = %s", jsonObject['token'])
+				MySqlDB.get_instance().execute("UPDATE `firebasetoken` SET `register_date` = CURRENT_TIMESTAMP() WHERE `token` = %s", obj.token)
 			return HTTP_STATUS_CODES.SUCCESS_REGISTER_FIREBASE_ID
 
 		# Process verify user session string
@@ -137,7 +140,7 @@ class Server(_exServer):
 
 	def handle_manage_html_post(self, d: dict):
 		# Not behind reversed proxy, bypass it
-		if self.headers.get('X-Real-IP') and self.headers.get('X-Real-IP') not in Server.mdict['trust_ip']:
+		if self.headers.get('X-Real-IP') and Objects.PassThroughArgs.get_instance().check_ip_trust(self.headers.get('X-Real-IP')):
 			return HTTP_STATUS_CODES.ERROR_403_FORBIDDEN
 		if 't' not in d:
 			return HTTP_STATUS_CODES.ERROR_400_BAD_REQUEST
@@ -217,7 +220,7 @@ class Server(_exServer):
 
 	def handle_manage_request(self, d: dict):
 		# Not behind reversed proxy, bypass it
-		if self.headers.get('X-Real-IP') and self.headers.get('X-Real-IP') not in Server.mdict['trust_ip']:
+		if self.headers.get('X-Real-IP') and Objects.PassThroughArgs.get_instance().check_ip_trust(self.headers.get('X-Real-IP')):
 			return HTTP_STATUS_CODES.ERROR_403_FORBIDDEN
 		if 't' not in d:
 			return HTTP_STATUS_CODES.ERROR_400_BAD_REQUEST
@@ -285,15 +288,9 @@ class appServer:
 			autocommit=True
 		)
 
-		self.mdict = {}
-		if config.has_option('server', 'trust_ip'):
-			self.mdict['trust_ip'] = list(map(str, config['server']['trust_ip'].split(',')))
+		Objects.PassThroughArgs.init_instance(list(map(lambda x: x.strip(), config.get('server', 'trust_ip', fallback='').split(','))))
 
 		self.fcmService = FcmService.init_instance(config['firebase']['api_key'])
-
-		#setattr(Server, 'conn', self.mysql_conn)
-		setattr(Server, 'mdict', self.mdict)
-		#setattr(Server, 'fcmbackend', self.fcmService)
 
 		self.server_handle = HTTPServer(
 			(config['server']['address'], config.getint('server', 'port')),
