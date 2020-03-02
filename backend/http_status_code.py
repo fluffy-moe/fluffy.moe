@@ -99,6 +99,9 @@ class http_status_codes:
 	def SUCCESS_FETCH_NOTIFICATIONS(self, jsonObj: str) -> Tuple[int, List, dict]:
 		return (200, [jsonObj,], self.generate_error_dict(0, ''))
 
+	def SUCCESS_FETCH_PATH(self, jsonObj: str) -> Tuple[int, List, dict]:
+		return (200, [jsonObj,], self.generate_error_dict(0, ''))
+
 	@property
 	def ERROR_FIREBASE_TOKEN_LENGTH_TOO_SHORT(self) -> Tuple[int, List, dict]:
 		return (400, [], self.generate_error_dict(8, 'Firebase token length too short'))

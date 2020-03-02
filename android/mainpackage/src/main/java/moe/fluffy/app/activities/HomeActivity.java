@@ -41,6 +41,7 @@ import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.PopupDialog;
+import moe.fluffy.app.assistant.UserManagement;
 import moe.fluffy.app.types.AlbumCover;
 import moe.fluffy.app.types.AlbumFiles;
 import moe.fluffy.app.types.BloodTestDashboard;
@@ -104,9 +105,15 @@ public class HomeActivity extends AppCompatActivity {
 		ImageView img = findViewById(R.id.imgDrawable);
 		BloodTestDrawable drawable = new BloodTestDrawable(this, 80, 60, 80);
 		img.setImageDrawable(drawable);
+		initAccount();
 		initFirebase();
 	}
 
+	void initAccount() {
+		UserManagement user = UserManagement.getInstance();
+		user.setSession(DatabaseHelper.getInstance().getSessionString());
+		user.setUsername(DatabaseHelper.getInstance().getLoginedUser());
+	}
 
 	void initFirebase() {
 		FirebaseInstanceId.getInstance().getInstanceId()

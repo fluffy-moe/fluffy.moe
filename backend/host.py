@@ -36,6 +36,15 @@ from server import Server as _exServer
 
 expire_day = 2 * 60 * 60 * 24
 
+class paths:
+	LOGIN = '/login'
+	REGISTER = '/register'
+	UPDATE_FIREBASE_ID = '/firebase_id_update'
+	LOGOUT = '/logout'
+	INFO = '/info'
+	FETCH_PATH = '/update_path'
+	VERIFY = '/verify'
+
 class Server(_exServer):
 	def log_login_attmept(self, user: str, b: bool):
 		MySqlDB.get_instance().execute("INSERT INTO `log_login` (`attempt_user`, `success`) VALUE (%s, %s)", (user, 'Y' if b else 'N'))
@@ -57,19 +66,22 @@ class Server(_exServer):
 	def _do_GET(self):
 		A_auth = self.headers.get('A-auth')
 
-		if self.path == '/fetchNotification':
-			if A_auth is None:
-				user_id = 0
-			else:
-				sqlObj = MySqlDB.get_instance().query1("SELECT `user_id` FROM `user_session` WHERE `session` = %s", A_auth)
-				if sqlObj is None:
-					user_id = 0
-				else:
-					user_id = sqlObj['user_id']
-			sqlObj = MySqlDB.get_instance().query("SELECT `title`, `body`, `timestamp` FROM `notifications` WHERE "
-				"(`affected_user` LIKE '%%{}%%' OR `affected_user` = 'all') AND `timestamp` > DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 15 DAY) ".format(user_id) +
-				"AND `available` = 'Y' ORDER BY `id` DESC LIMIT 15")
-			return HTTP_STATUS_CODES.SUCCESS_FETCH_NOTIFICATIONS([{'title': x['title'], 'body': x['body'], 'timestamp': str(x['timestamp'])} for x in sqlObj])
+		if self.path == paths.FETCH_PATH:
+			return HTTP_STATUS_CODES.SUCCESS_FETCH_PATH(json.dumps({x: getattr(paths, x) for x in paths.__dict__ if x[0] != '_'}))
+
+		#if self.path == '/fetchNotification':
+		#	if A_auth is None:
+		#		user_id = 0
+		#	else:
+		#		sqlObj = MySqlDB.get_instance().query1("SELECT `user_id` FROM `user_session` WHERE `session` = %s", A_auth)
+		#		if sqlObj is None:
+		#			user_id = 0
+		#		else:
+		#			user_id = sqlObj['user_id']
+		#	sqlObj = MySqlDB.get_instance().query("SELECT `title`, `body`, `timestamp` FROM `notifications` WHERE "
+		#		"(`affected_user` LIKE '%%{}%%' OR `affected_user` = 'all') AND `timestamp` > DATE_SUB(CURRENT_TIMESTAMP(), INTERVAL 15 DAY) ".format(user_id) +
+		#		"AND `available` = 'Y' ORDER BY `id` DESC LIMIT 15")
+		#	return HTTP_STATUS_CODES.SUCCESS_FETCH_NOTIFICATIONS([{'title': x['title'], 'body': x['body'], 'timestamp': str(x['timestamp'])} for x in sqlObj])
 
 		return HTTP_STATUS_CODES.ERROR_400_BAD_REQUEST
 
@@ -77,7 +89,7 @@ class Server(_exServer):
 		A_auth = self.headers.get('A-auth')
 
 		# Process user login
-		if self.path == '/login':
+		if self.path == paths.LOGIN:
 			sqlObj = MySqlDB.get_instance().query1("SELECT * FROM `accounts` WHERE `username` = %s", jsonObject['user'])
 			if sqlObj is None:
 				self.log_login_attmept(jsonObject['user'], False)
@@ -93,7 +105,7 @@ class Server(_exServer):
 					return HTTP_STATUS_CODES.SUCCESS_LOGIN(jsonObject['user'], session)
 
 		# Process register user
-		elif self.path == '/register':
+		elif self.path == paths.REGISTER:
 			obj = Objects.UserObject(jsonObject)
 			if len(obj) > 16:
 				return HTTP_STATUS_CODES.ERROR_USERNAME_TOO_LONG
@@ -122,12 +134,12 @@ class Server(_exServer):
 			return HTTP_STATUS_CODES.SUCCESS_REGISTER_FIREBASE_ID
 
 		# Process verify user session string
-		elif self.path == '/verify':
+		elif self.path == paths.VERIFY:
 			_r, rt_value, _ = self.verify_user_session(A_auth)
 			return rt_value
 
 		# Process user logout
-		elif self.path == '/logout':
+		elif self.path == paths.LOGOUT:
 			if A_auth is None:
 				return HTTP_STATUS_CODES.ERROR_USER_SESSION_MISSING
 			MySqlDB.get_instance().execute("DELETE FROM `user_session` WHERE `session` = %s", A_auth)
