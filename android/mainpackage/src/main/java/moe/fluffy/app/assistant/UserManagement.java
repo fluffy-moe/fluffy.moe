@@ -24,7 +24,7 @@ import androidx.annotation.NonNull;
 public class UserManagement {
 	private static UserManagement instance;
 
-	private String username, session;
+	private String username, session, fcmToken;
 
 	@NonNull
 	public static UserManagement getInstance() {
@@ -47,5 +47,13 @@ public class UserManagement {
 
 	public String getUsername() {
 		return username;
+	}
+
+	public String getFcmToken() {
+		return fcmToken;
+	}
+
+	public void setFcmToken(String fcmToken) {
+		this.fcmToken = fcmToken;
 	}
 }

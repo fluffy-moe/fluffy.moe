@@ -44,6 +44,7 @@ import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.DatabaseHelper;
+import moe.fluffy.app.assistant.Options;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.assistant.UserManagement;
 import moe.fluffy.app.types.AlbumCover;
@@ -89,6 +90,7 @@ public class HomeActivity extends AppCompatActivity {
 	 */
 	void init() {
 		DatabaseHelper.getInstance(this);
+		Options.initInstance();
 		initColumns();
 		createFolder();
 
@@ -119,11 +121,10 @@ public class HomeActivity extends AppCompatActivity {
 
 	void initAccount() {
 		Connect.setUserAgent(UserAgent.getInstance(this).getUserAgentString(""));
-		Connect c = new Connect(NetworkRequest.fetchPath(), "update_path", new Callback() {
+		new Connect(NetworkRequest.fetchPath(), "update_path", new Callback() {
 			@Override
 			public void onSuccess(Object o) {
-				HttpRawResponse rawResponse = (HttpRawResponse) o;
-				ConnectPath.pastePath(HomeActivity.this, rawResponse.getOptions());
+				ConnectPath.pastePath(HomeActivity.this, ((HttpRawResponse) o).getOptions());
 			}
 
 			@Override
@@ -135,7 +136,7 @@ public class HomeActivity extends AppCompatActivity {
 			public void onFinish(Object o, @Nullable Throwable e) {
 
 			}
-		}, false);
+		}, false).execute();
 		UserManagement user = UserManagement.getInstance();
 		user.setSession(DatabaseHelper.getInstance().getSessionString());
 		user.setUsername(DatabaseHelper.getInstance().getLoginedUser());
@@ -157,6 +158,7 @@ public class HomeActivity extends AppCompatActivity {
 						// Log and toast
 						String msg = String.format("token: %s", token);
 						Log.d(TAG, msg);
+						UserManagement.getInstance().setFcmToken(token);
 						//Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
 					}
 					catch (NullPointerException e) {

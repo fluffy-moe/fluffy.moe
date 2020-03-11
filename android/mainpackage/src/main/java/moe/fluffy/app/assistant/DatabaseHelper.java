@@ -531,4 +531,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		destroyed = true;
 		return dbHelper;
 	}
+
+	String queryOptions(String key) {
+		Cursor cursor = queryOptionsEx(key);
+		cursor.moveToFirst();
+		String str = cursor.getString(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsValueName)));
+		cursor.close();
+		return str;
+	}
+
+	Cursor queryOptionsEx(String key) {
+		return this.getReadableDatabase().query(TABLE_OPTION, new String[]{getString(R.string.dbOptionsKeyName)},
+				getString(R.string.dbQueryKey), new String[]{key}, null, null, null);
+	}
+
+	@Deprecated
+	Cursor _rawQuery(String sql) {
+		return this.getReadableDatabase().rawQuery(sql, null);
+	}
+
+	@Deprecated
+	Cursor _rawQuery(String sql, String [] args) {
+		return this.getReadableDatabase().rawQuery(sql, args);
+	}
+
+
+	private void _updateOptionsTable(String key, String value, boolean isUpdate) {
+		SQLiteDatabase s = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		cv.put(getString(R.string.dbOptionsKeyName), key);
+		cv.put(getString(R.string.dbOptionsValueName), value);
+		if (isUpdate)
+			s.update(TABLE_OPTION, cv, getString(R.string.dbQueryKey), new String[]{key});
+		else
+			s.insert(TABLE_OPTION, null, cv);
+		s.close();
+	}
+
+	void _writeOption(String key, String value) {
+		this._updateOptionsTable(key, value, false);
+	}
+
+	void _addOption(String key, String value) {
+		this._updateOptionsTable(key, value, true);
+	}
 }
