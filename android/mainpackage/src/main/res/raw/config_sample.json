@@ -1,14 +1,3 @@
 {
-	"server_address": "https://example.com/",
-	"pages": {
-		"login": "login",
-		"register": "register",
-		"token": "token",
-		"do": "update",
-		"refresh": "refresh",
-		"firebase_register": "register_firebase",
-		"verify_session": "verify",
-		"logout": "logout",
-		"fetch_notification": "fetchNotification"
-	}
+	"server_address": "https://example.com/"
 }

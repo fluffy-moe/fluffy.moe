@@ -31,12 +31,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.File;
+import java.util.HashMap;
 import java.util.Objects;
 
 import cz.ackee.useragent.UserAgent;
 import moe.fluffy.app.R;
 import moe.fluffy.app.assistant.BloodTestDrawable;
+import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
 import moe.fluffy.app.assistant.DatabaseHelper;
@@ -49,6 +53,8 @@ import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.DeinsectizaionItem;
 import moe.fluffy.app.types.EventsItem;
 import moe.fluffy.app.types.FoodView;
+import moe.fluffy.app.types.HttpRawResponse;
+import moe.fluffy.app.types.NetworkRequest;
 import moe.fluffy.app.types.PetInfo;
 import moe.fluffy.app.types.VaccinationItem;
 
@@ -78,8 +84,10 @@ public class HomeActivity extends AppCompatActivity {
 		AlbumCover.initColumn(this);
 	}
 
+	/**
+	 * Should show startup page to initiate connect page
+	 */
 	void init() {
-		Connect.setUserAgent(UserAgent.getInstance(this).getUserAgentString(""));
 		DatabaseHelper.getInstance(this);
 		initColumns();
 		createFolder();
@@ -102,14 +110,32 @@ public class HomeActivity extends AppCompatActivity {
 				v -> startActivity(new Intent(this, FoodHistoryActivity.class)));
 		findViewById(R.id.btnChangeToProfile).setOnClickListener(
 				v -> startActivity(new Intent(this, ProfileActivity.class)));
-		ImageView img = findViewById(R.id.imgDrawable);
+		/*ImageView img = findViewById(R.id.imgDrawable);
 		BloodTestDrawable drawable = new BloodTestDrawable(this, 80, 60, 80);
-		img.setImageDrawable(drawable);
+		img.setImageDrawable(drawable);*/
 		initAccount();
 		initFirebase();
 	}
 
 	void initAccount() {
+		Connect.setUserAgent(UserAgent.getInstance(this).getUserAgentString(""));
+		Connect c = new Connect(NetworkRequest.fetchPath(), "update_path", new Callback() {
+			@Override
+			public void onSuccess(Object o) {
+				HttpRawResponse rawResponse = (HttpRawResponse) o;
+				ConnectPath.pastePath(HomeActivity.this, rawResponse.getOptions());
+			}
+
+			@Override
+			public void onFailure(Object o, Throwable e) {
+				PopupDialog.build(HomeActivity.this, e);
+			}
+
+			@Override
+			public void onFinish(Object o, @Nullable Throwable e) {
+
+			}
+		}, false);
 		UserManagement user = UserManagement.getInstance();
 		user.setSession(DatabaseHelper.getInstance().getSessionString());
 		user.setUsername(DatabaseHelper.getInstance().getLoginedUser());

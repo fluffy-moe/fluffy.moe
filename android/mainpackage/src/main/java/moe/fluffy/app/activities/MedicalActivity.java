@@ -157,7 +157,8 @@ public class MedicalActivity extends AppCompatActivity {
 		lvItems = findViewById(R.id.lvMedicalNextTimeRecord);
 		lvBloodTestItems = findViewById(R.id.lvBloodTestRecord);
 
-		updateDataReceiver = new BroadcastReceiver() {
+		// TODO: fix update background
+		/*updateDataReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
 				new Connect(NetworkRequest.generateFetchMedicalInformation(null), ConnectPath.fetch_medical_information, new Callback() {
@@ -185,7 +186,7 @@ public class MedicalActivity extends AppCompatActivity {
 					}
 				}).execute();
 			}
-		};
+		};*/
 
 		initNavigationBar();
 

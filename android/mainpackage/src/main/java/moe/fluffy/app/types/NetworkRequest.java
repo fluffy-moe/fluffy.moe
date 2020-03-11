@@ -123,4 +123,14 @@ public class NetworkRequest {
 		params.put("email", email);
 		return new NetworkRequest(params, null);
 	}
+
+	private
+	static NetworkRequest _generateNormalRequest() {
+		return new NetworkRequest(null, null);
+	}
+
+	public
+	static NetworkRequest fetchPath() {
+		return _generateNormalRequest();
+	}
 }

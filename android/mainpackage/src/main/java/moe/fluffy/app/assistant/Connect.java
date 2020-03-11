@@ -128,7 +128,7 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 		this(nrt.getHeaders(), nrt.getParams(), _requestPath, _listener, true);
 	}
 
-	Connect(NetworkRequest nrt,
+	public Connect(NetworkRequest nrt,
 			String _requestPath,
 			Callback _listener,
 			boolean is_post) {

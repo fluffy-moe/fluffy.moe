@@ -3,16 +3,17 @@
 	tools:ignore="MissingTranslation">
 	<!-- Json field name -->
 	<string name="server_address_field">server_address</string>
-	<string name="login_field">login</string>
-	<string name="token_field">token</string>
+	<string name="login_field">LOGIN</string>
+	<!--<string name="token_field">token</string>
 	<string name="do_field">token</string>
-	<string name="refresh_field">refresh</string>
-	<string name="register_field">register</string>
-	<string name="logout_field">logout</string>
-	<string name="firebase_id_register_field">firebase_register</string>
-	<string name="verify_session_field">verify_session</string>
-	<string name="fetch_notification_field">fetch_notification</string>
-	<string name="fetch_medical_information">fetch_medical</string>
+	<string name="refresh_field">refresh</string>-->
+	<string name="register_field">REGISTER</string>
+	<string name="logout_field">LOGOUT</string>
+	<string name="firebase_id_register_field">UPDATE_FIREBASE_ID</string>
+	<string name="verify_session_field">VERIFY</string>
+	<string name="fetch_info_field">INFO</string>
+	<!--<string name="fetch_notification_field">fetch_notification</string>
+	<string name="fetch_medical_information">fetch_medical</string>-->
 	<!-- Json field name end -->
 
 	<!-- Intent -->
