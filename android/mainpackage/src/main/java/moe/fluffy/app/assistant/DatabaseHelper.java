@@ -36,6 +36,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import moe.fluffy.app.BuildConfig;
 import moe.fluffy.app.R;
 import moe.fluffy.app.types.AlbumCover;
 import moe.fluffy.app.types.AlbumFiles;
@@ -203,8 +204,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 					getCursorString(cursor, getString(R.string.dbOptionsPetBreed)),
 					getCursorString(cursor, getString(R.string.dbOptionsPetBirthday)),
 					getCursorString(cursor, getString(R.string.dbOptionPetType)),
-					Boolean.valueOf(getCursorString(cursor, getString(R.string.dbOptionsPetGenderM))),
-					Boolean.valueOf(getCursorString(cursor, getString(R.string.dbOptionsPetSpayed))),
+					Boolean.parseBoolean(getCursorString(cursor, getString(R.string.dbOptionsPetGenderM))),
+					Boolean.parseBoolean(getCursorString(cursor, getString(R.string.dbOptionsPetSpayed))),
 					cursor.getInt(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsPetWeight)))
 			);
 			cursor.close();
@@ -534,14 +535,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	String queryOptions(String key) {
 		Cursor cursor = queryOptionsEx(key);
+		assert cursor.getCount() > 0;
+		Log.v(TAG, "queryOptions: columncount =>" + cursor.getColumnNames()[0]);
 		cursor.moveToFirst();
+		//if (cursor.getCount() > 0)
 		String str = cursor.getString(cursor.getColumnIndexOrThrow(getString(R.string.dbOptionsValueName)));
 		cursor.close();
 		return str;
 	}
 
 	Cursor queryOptionsEx(String key) {
-		return this.getReadableDatabase().query(TABLE_OPTION, new String[]{getString(R.string.dbOptionsKeyName)},
+		return this.getReadableDatabase().query(TABLE_OPTION, new String[]{getString(R.string.dbOptionsValueName)},
 				getString(R.string.dbQueryKey), new String[]{key}, null, null, null);
 	}
 
@@ -569,10 +573,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	void _writeOption(String key, String value) {
-		this._updateOptionsTable(key, value, false);
+		this._updateOptionsTable(key, value, true);
 	}
 
 	void _addOption(String key, String value) {
-		this._updateOptionsTable(key, value, true);
+		this._updateOptionsTable(key, value, false);
+	}
+
+	void __dropOptions() {
+		if (BuildConfig.isDemoMode) {
+			Log.w(TAG, "initInstance: Drop options");
+			SQLiteDatabase s = this.getWritableDatabase();
+			s.delete(TABLE_OPTION, null, null);
+			s.close();
+		}
 	}
 }

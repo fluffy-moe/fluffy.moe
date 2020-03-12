@@ -89,9 +89,13 @@ public class HomeActivity extends AppCompatActivity {
 	 * Should show startup page to initiate connect page
 	 */
 	void init() {
+		Log.v(TAG, "init: initialize database");
 		DatabaseHelper.getInstance(this);
+		Log.v(TAG, "init: initialize options");
 		Options.initInstance();
+		Log.v(TAG, "init: initialize column names");
 		initColumns();
+		Log.v(TAG, "init: try creating folder");
 		createFolder();
 
 		findViewById(R.id.btnChangeToCamera).setOnClickListener(

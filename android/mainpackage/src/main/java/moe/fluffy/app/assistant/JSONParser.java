@@ -51,16 +51,16 @@ public class JSONParser {
 	}
 
 
-	static public JSONObject[] getJson(String json_text) throws JSONException{
+	static JSONObject[] getJson(String json_text) throws JSONException{
 		JSONObject[] jsonObjects = new JSONObject[2];
 		JSONObject obj = new JSONObject(json_text);
-		JSONObject pageObj = obj.getJSONObject("pages");
+		//JSONObject pageObj = obj.getJSONObject("pages");
 		jsonObjects[0] = obj;
-		jsonObjects[1] = pageObj;
+		//jsonObjects[1] = pageObj;
 		return jsonObjects;
 	}
 
-	static public HttpRawResponse networkJsonDecode(String json_text) {
+	static HttpRawResponse networkJsonDecode(String json_text) {
 		//Structure:
 		// RAW | STATUS | OPTIONS | ERRORS
 		HttpRawResponse httpRawResponse;

@@ -2,6 +2,7 @@
 
 
 ## TODO LIST (Strikethrough means wontfix)
+- [ ] Adapt other screen resolution
 - [ ] ~~Refresh calendar after add event~~
 - [ ] Using single activity to start other activities
 - [ ] ~~Optimize calendar get today color speed~~

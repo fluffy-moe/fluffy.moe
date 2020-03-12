@@ -20,23 +20,28 @@
 package moe.fluffy.app.assistant;
 
 import android.database.Cursor;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import org.jetbrains.annotations.Contract;
 
 public class Options {
+	private static final String TAG = "log_Options";
 	private static Options instance;
 
 	public static void initInstance() {
 		instance = new Options();
 		DatabaseHelper dbhelper = DatabaseHelper.getInstance();
 		Cursor c = dbhelper.queryOptionsEx("first_run");
-		if (c.getCount() == 0) {
+		if (true||c.getCount() == 0) {
+			dbhelper.__dropOptions();
 			dbhelper._addOption("first_run", parse(false));
 			dbhelper._addOption("remember_password", parse(false));
 			dbhelper._addOption("username", "");
 			dbhelper._addOption("password", "");
+			dbhelper._addOption("session", "");
+			dbhelper._addOption("user", ""); // TODO: check is duplicated?
 			instance.setRememberPassword(false);
 			instance.setFirstRun(true);
 		}
@@ -44,10 +49,7 @@ public class Options {
 			instance.setFirstRun(false);
 		}
 		c.close();
-		c = dbhelper.queryOptionsEx("remember_password");
-		c.moveToFirst();
-		instance.setRememberPassword(parse(c.getString(c.getColumnIndexOrThrow("value"))));
-		c.close();
+		instance.setRememberPassword(parse(dbhelper.queryOptions("remember_password")));
 		instance.setUsername(dbhelper.queryOptions("username"));
 		instance.setPassword(dbhelper.queryOptions("password"));
 	}

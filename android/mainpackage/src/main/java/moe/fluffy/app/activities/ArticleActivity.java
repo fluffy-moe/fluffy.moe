@@ -224,4 +224,10 @@ public class ArticleActivity extends AppCompatActivity {
 		return articles.getList().get(index);
 	}
 
+	@Override
+	public void startActivity(Intent intent) {
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+		super.startActivity(intent);
+		this.finish();
+	}
 }

@@ -237,7 +237,7 @@ public class Connect extends AsyncTask<URL, Integer, Long> {
 	}
 
 	/**
-	 *	Method that will execute on success
+	 *	Method will execute on success
 	 */
 	protected void onPostExecute(Long _reserved) {
 		super.onPostExecute(_reserved);
