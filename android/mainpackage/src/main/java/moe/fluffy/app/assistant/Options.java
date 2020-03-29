@@ -32,16 +32,16 @@ public class Options {
 
 	public static void initInstance() {
 		instance = new Options();
-		DatabaseHelper dbhelper = DatabaseHelper.getInstance();
-		Cursor c = dbhelper.queryOptionsEx("first_run");
-		if (true||c.getCount() == 0) {
-			dbhelper.__dropOptions();
-			dbhelper._addOption("first_run", parse(false));
-			dbhelper._addOption("remember_password", parse(false));
-			dbhelper._addOption("username", "");
-			dbhelper._addOption("password", "");
-			dbhelper._addOption("session", "");
-			dbhelper._addOption("user", ""); // TODO: check is duplicated?
+		DatabaseHelper dbHelper = DatabaseHelper.getInstance();
+		Cursor c = dbHelper.queryOptionsEx("first_run");
+		if (c.getCount() == 0) {
+			dbHelper.__dropOptions();
+			dbHelper._addOption("first_run", parse(false));
+			dbHelper._addOption("remember_password", parse(false));
+			dbHelper._addOption("username", "");
+			dbHelper._addOption("password", "");
+			dbHelper._addOption("session", "");
+			dbHelper._addOption("user", ""); // TODO: check is duplicated?
 			instance.setRememberPassword(false);
 			instance.setFirstRun(true);
 		}
@@ -49,9 +49,9 @@ public class Options {
 			instance.setFirstRun(false);
 		}
 		c.close();
-		instance.setRememberPassword(parse(dbhelper.queryOptions("remember_password")));
-		instance.setUsername(dbhelper.queryOptions("username"));
-		instance.setPassword(dbhelper.queryOptions("password"));
+		instance.setRememberPassword(parse(dbHelper.queryOptions("remember_password")));
+		instance.setUsername(dbHelper.queryOptions("username"));
+		instance.setPassword(dbHelper.queryOptions("password"));
 	}
 
 	private String username = "", password = "";

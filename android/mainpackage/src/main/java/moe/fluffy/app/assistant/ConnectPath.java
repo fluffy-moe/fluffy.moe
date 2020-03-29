@@ -52,10 +52,10 @@ public class ConnectPath {
 	}
 	private static void _loadConfig(Context context) {
 		try {
-			JSONObject[] jsonObjects = JSONParser.getJson(
+			JSONObject jsonObject = JSONParser.getJson(
 					JSONParser.szLoadJSONFromAsset(context.getResources().openRawResource(R.raw.config))
 			);
-			server_address = jsonObjects[0].getString(context.getString(R.string.server_address_field));
+			server_address = jsonObject.getString(context.getString(R.string.server_address_field));
 			Log.v(TAG, "_loadConfig: Server_address => " + server_address);
 			isInitialized = true;
 		} catch (IOException | JSONException e) {

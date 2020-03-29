@@ -50,14 +50,8 @@ public class JSONParser {
 		return json;
 	}
 
-
-	static JSONObject[] getJson(String json_text) throws JSONException{
-		JSONObject[] jsonObjects = new JSONObject[2];
-		JSONObject obj = new JSONObject(json_text);
-		//JSONObject pageObj = obj.getJSONObject("pages");
-		jsonObjects[0] = obj;
-		//jsonObjects[1] = pageObj;
-		return jsonObjects;
+	static JSONObject getJson(String json_text) throws JSONException{
+		return new JSONObject(json_text);
 	}
 
 	static HttpRawResponse networkJsonDecode(String json_text) {
