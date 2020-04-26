@@ -115,6 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
 			}
 
 			try {
+				// Register should be done here
 				new Connect(
 						NetworkRequest.generateRegisterParams(
 								etName.getText().toString(), etPassword.getText().toString(), etEmail.getText().toString()
@@ -255,6 +256,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 				}
 				putExtras(true, 0, "");
+				// Finish register pet
 			}
 			else
 				startActivity(new Intent(RegisterActivity.this, CalendarActivity.class));

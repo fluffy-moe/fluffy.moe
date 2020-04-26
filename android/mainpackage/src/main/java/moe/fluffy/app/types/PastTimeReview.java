@@ -25,6 +25,42 @@ import androidx.annotation.StringRes;
 import moe.fluffy.app.R;
 
 public class PastTimeReview {
+	private final String type;
+	private final String text;
+
+
+	public PastTimeReview(String type, String text) {
+		this.type = type;
+		this.text = text;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	@DrawableRes
+	public int  getDrawableId() {
+		switch (type) {
+			case "Event":
+				return R.drawable.event;
+			case "Symptom":
+				return R.drawable.symptom;
+			case "Note":
+				return R.drawable.note;
+			case "Water":
+				return R.drawable.water;
+			default:
+				throw new IllegalStateException("Unexpected value");
+		}
+	}
+}
+
+
+class PastTimeReviewEx {
 	private final int type;
 	private final String text;
 
@@ -33,7 +69,7 @@ public class PastTimeReview {
 	public final static int NOTE = 3;
 	public final static int WATER = 4;
 
-	public PastTimeReview(int _type, String _text) {
+	public PastTimeReviewEx(int _type, String _text) {
 		type = _type;
 		text = _text;
 	}

@@ -33,7 +33,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewType> 
 			TextView title = rootView.findViewById(R.id.txtEventEvent);
 			//		body = rootView.findViewById(R.id.txtEventRecord);
 			ImageView imgHeader = rootView.findViewById(R.id.imgbtnEventEvent);
-			title.setText(pt.getTitleId());
+			title.setText(pt.getType());
 			setText(pt.getText());
 			imgHeader.setImageResource(pt.getDrawableId());
 		}

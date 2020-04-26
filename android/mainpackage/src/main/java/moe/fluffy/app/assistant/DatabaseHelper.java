@@ -25,6 +25,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.EventLog;
 import android.util.Log;
 import android.widget.EditText;
 
@@ -402,6 +403,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		// TODO: should we limit an event per a day?
 		s.insert(TABLE_EVENTS, null, event.getContentValues());
 		s.close();
+	}
+
+	@Nullable
+	public ArrayList<EventsItem> getEventByDay(int year, int month, int day) {
+		SQLiteDatabase s = this.getReadableDatabase();
+		Cursor cursor = s.rawQuery(getString(R.string.dbRawQueryAccurateDay, TABLE_EVENTS), new String[]{String.valueOf(year), String.valueOf(month), String.valueOf(day)});
+		ArrayList<EventsItem> items = null;
+		if (cursor.getCount() > 0) {
+			items = new ArrayList<>();
+			cursor.moveToFirst();
+			do {
+				items.add(new EventsItem(cursor));
+			} while (cursor.moveToNext());
+		}
+		return items;
+	}
+
+	@Nullable
+	public ArrayList<EventsItem> getEventByDay(Date date) {
+		return getEventByDay(date.getYear(), date.getMonth(), date.getDay());
 	}
 
 	public ArrayList<EventsItem> getCurrentAndFeatureEvent() {

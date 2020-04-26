@@ -133,4 +133,9 @@ public class NetworkRequest {
 	static NetworkRequest fetchPath() {
 		return _generateNormalRequest();
 	}
+
+	public
+	static NetworkRequest generateRegisterUser(PetInfo petInfo) {
+		return new NetworkRequest(petInfo.getHashMap(), null);
+	}
 }

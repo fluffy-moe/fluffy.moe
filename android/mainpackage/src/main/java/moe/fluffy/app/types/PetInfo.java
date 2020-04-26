@@ -25,6 +25,8 @@ import android.text.Editable;
 
 import androidx.annotation.NonNull;
 
+import java.util.HashMap;
+
 import moe.fluffy.app.R;
 
 public class PetInfo {
@@ -104,5 +106,17 @@ public class PetInfo {
 		cv.put(columnSpayed, String.valueOf(isSpayed));
 		cv.put(columnWeight, weight);
 		return cv;
+	}
+
+	public HashMap<String, String> getHashMap() {
+		HashMap<String, String> hashMap = new HashMap<>();
+		hashMap.put(columnName, name);
+		hashMap.put(columnBreed, breed);
+		hashMap.put(columnBirthday, birthday.toString());
+		hashMap.put(columnType, type);
+		hashMap.put(columnGendar, String.valueOf(genderMan));
+		hashMap.put(columnSpayed, String.valueOf(isSpayed));
+		hashMap.put(columnWeight, Integer.toString(weight));
+		return hashMap;
 	}
 }

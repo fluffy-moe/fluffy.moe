@@ -42,7 +42,9 @@ import java.util.Random;
 
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.ReviewAdapter;
+import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.types.Date;
+import moe.fluffy.app.types.EventsItem;
 import moe.fluffy.app.types.PastTimeReview;
 import moe.fluffy.app.types.SerializableBundle;
 import moe.fluffy.app.types.divider.HorizontalPaddingItemDecoration;
@@ -99,10 +101,16 @@ public class DayActivity extends AppCompatActivity {
 		txtTitle.setText(String.format("%s %s", CalendarActivity.getMonthString(this, date.getMonth()), date.getDay()));
 		txtYear.setText(String.valueOf(date.getYear()));
 
-		// TODO: init view here
 		pastTimeReviews = new ArrayList<>();
-		for (int i=0; i< 5; i++) {
+		/*for (int i=0; i<4; i++) {
 			pastTimeReviews.add(new PastTimeReview(new Random().nextInt(4) + 1, "test"));
+		}*/
+
+		ArrayList<EventsItem> eventsItems = DatabaseHelper.getInstance().getEventByDay(date);
+		if (eventsItems != null) {
+			eventsItems.forEach(eventsItem ->
+				pastTimeReviews.add(new PastTimeReview(eventsItem.getCategory(), eventsItem.getBody()))
+			);
 		}
 
 		findViewById(R.id.imgbtnBack).setOnClickListener(v -> finish());
