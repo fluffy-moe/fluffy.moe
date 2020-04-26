@@ -26,10 +26,19 @@ import androidx.annotation.NonNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Random;
+
 import moe.fluffy.app.R;
+import moe.fluffy.app.assistant.RandomAssistant;
 
 public class VaccinationItem {
 	public static final int GREEN = 1, RED = 0, UNDEFINED = -1;
+
+	public final static String[] szSite = new String[]{"Right hind leg", "Left hind leg"};
+	public final static String[] szDoctor = new String[]{"Peter", "Jasmine", "Tina"};
+	public final static String[] szNobivac = new String[]{"Pervax", "RCP", "Medical"};
+
+
 
 	private Date date;
 	private String nobivac, injectionSite, doctor;
@@ -63,10 +72,15 @@ public class VaccinationItem {
 	 */
 	public VaccinationItem(JSONObject j) throws JSONException {
 		this(new Date(j.getJSONObject(columnDate)),
+				RandomAssistant.getInstance().choiceRandomString(szNobivac),
+				RandomAssistant.getInstance().choiceRandomString(szSite),
+				RandomAssistant.getInstance().choiceRandomString(szDoctor),
+				j.getInt(columnStatus));
+		/*this(new Date(j.getJSONObject(columnDate)),
 				j.getString(columnNobivac),
 				j.getString(columnInjectionSite),
 				j.getString(columnDoctor),
-				j.getInt(columnStatus));
+				j.getInt(columnStatus));*/
 	}
 
 	public int getYear() {
