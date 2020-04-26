@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="670px"
+	android:layout_width="700px"
 	android:layout_height="700px"
 	android:orientation="vertical">
 
 	<DatePicker
 		android:id="@+id/dpEventInsert"
-		android:layout_width="670px"
+		android:layout_width="700px"
 		android:layout_height="0dp"
 		android:layout_weight="1"
 		android:calendarViewShown="false"

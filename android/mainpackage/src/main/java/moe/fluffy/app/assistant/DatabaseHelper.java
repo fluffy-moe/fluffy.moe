@@ -34,6 +34,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -54,6 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private final static String DATABASE_NAME = "f1uf4y.db";
 	private final static String TABLE_PET = "pet";
 	private final static String TABLE_OPTION = "option";
+	private final static String TABLE_OPTION_EX = "option_ex";
 	private final static String TABLE_EVENTS = "events";
 	private final static String TABLE_FOOD_HISTORY = "food";
 	private final static String TABLE_PHOTOS = "photos";
@@ -73,6 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			"`MediaType` INTEGER, `Checked` TEXT, `Disable` TEXT, `category` INTEGER);";
 	private final static String CREATE_ALBUM_TABLE = "CREATE TABLE `album` (`category` INTEGER PRIMARY KEY AUTOINCREMENT, " +
 			"`date` TEXT NOT NULL, `name` TEXT NOT NULL)";
+	private final static String CREATE_OPTION_EX = "CREATE TABLE `option_ex` (`key` TEXT PRIMARY KEY, `value` TEXT)";
 
 	private final static String DROP_STATEMENT = "DROP TABLE IF EXISTS ";
 
@@ -91,6 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_FOOD_HISTORY);
 		db.execSQL(CREATE_PHOTO_TABLE);
 		db.execSQL(CREATE_ALBUM_TABLE);
+		db.execSQL(CREATE_OPTION_EX);
 		ContentValues cv = new ContentValues();
 		for (String str: new String[]{getString(R.string.dbOptionUser),
 				getString(R.string.dbOptionSession)}) {
@@ -449,6 +454,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static int getAfterMonth(int month) {
 		return month != 12 ? month + 1 : 1;
+	}
+
+	// FIXME: should store all info
+	public void insertPetInfoEx(PetInfoEx petInfoEx) {
+		SQLiteDatabase s = this.getWritableDatabase();
+		ContentValues cv = new ContentValues();
+		try {
+			cv.put("value", petInfoEx.getContentValues().toString());
+			cv.put("key", "petinfoex");
+			s.execSQL(DROP_STATEMENT + TABLE_OPTION_EX);
+			s.execSQL(CREATE_OPTION_EX);
+			s.insert(TABLE_OPTION_EX, null, cv);
+		} catch (JSONException ignore) {
+
+		}
+		s.close();
+	}
+
+	@Nullable
+	public PetInfoEx getPetInfoEx() {
+		SQLiteDatabase s = this.getReadableDatabase();
+		Cursor c = s.rawQuery("SELECT * FROM `" + TABLE_OPTION_EX +"` WHERE `key` = ?", new String[]{"petinfoex"});
+		PetInfoEx petInfoEx = null;
+		if (c.getCount() > 0) {
+			c.moveToFirst();
+			try {
+				petInfoEx = new PetInfoEx(new JSONObject(c.getString(c.getColumnIndex("value"))));
+			}
+			catch (Exception ignore) {
+
+			}
+		}
+		c.close();
+		return petInfoEx;
 	}
 
 	public ArrayList<EventsItem> getEventInfo(int year, int month) {

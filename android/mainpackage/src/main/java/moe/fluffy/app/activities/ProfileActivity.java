@@ -19,6 +19,7 @@
  */
 package moe.fluffy.app.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +39,7 @@ import java.util.ArrayList;
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.AlbumCoverAdapter;
 import moe.fluffy.app.assistant.DatabaseHelper;
+import moe.fluffy.app.assistant.PetInfoEx;
 import moe.fluffy.app.dialogs.EditTextDialog;
 import moe.fluffy.app.fragment.AccountManagementFragment;
 import moe.fluffy.app.types.AlbumCover;
@@ -53,6 +56,8 @@ public class ProfileActivity extends AppCompatActivity {
 
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
+
+	TextView textName, textBirthday, textWeight;
 
 	RecyclerView rvAlbums;
 	ArrayList<AlbumCover> albumCovers;
@@ -71,6 +76,10 @@ public class ProfileActivity extends AppCompatActivity {
 	void init() {
 		rvAlbums = findViewById(R.id.rvAlbumList);
 		btnAddAlbum = findViewById(R.id.imgbtnProfileAddAlbum);
+
+		textWeight = findViewById(R.id.txtProfileKg);
+		textName = findViewById(R.id.txtProfileName);
+		textBirthday = findViewById(R.id.txtProfileYearold);
 
 		albumCovers = DatabaseHelper.getInstance().getAlbums();
 
@@ -112,6 +121,19 @@ public class ProfileActivity extends AppCompatActivity {
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
+
+	@SuppressLint("SetTextI18n")
+	@Override
+	protected void onResume() {
+		super.onResume();
+		PetInfoEx petInfoEx = DatabaseHelper.getInstance().getPetInfoEx();
+		if (petInfoEx != null) {
+			//birthday.setText(petInfoEx.getBirthday().toString());
+			textName.setText(petInfoEx.getName());
+			textWeight.setText(petInfoEx.getWeight() + "kg");
+		}
+	}
+
 
 	void initNavigationBar() {
 		imgbtnNavBarCamera = findViewById(R.id.imgbtnCameraPage);

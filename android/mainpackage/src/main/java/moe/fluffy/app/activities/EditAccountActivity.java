@@ -19,9 +19,14 @@
  */
 package moe.fluffy.app.activities;
 
+import android.app.Dialog;
+import android.gesture.GestureStore;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -31,7 +36,10 @@ import android.widget.Switch;
 import androidx.appcompat.app.AppCompatActivity;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.assistant.DatabaseHelper;
+import moe.fluffy.app.assistant.PetInfoEx;
 import moe.fluffy.app.assistant.Utils;
+import moe.fluffy.app.types.Date;
 
 public class EditAccountActivity extends AppCompatActivity {
 
@@ -81,6 +89,13 @@ public class EditAccountActivity extends AppCompatActivity {
 
 		mNoticifaction = findViewById(R.id.swAccountNotification);
 
+		PetInfoEx petInfoEx = DatabaseHelper.getInstance().getPetInfoEx();
+		if (petInfoEx != null) {
+			birthday.setText(petInfoEx.getBirthday().toString());
+			name.setText(petInfoEx.getName());
+			weight.setText(String.valueOf(petInfoEx.getWeight()));
+		}
+
 		birthday.setFocusable(false);
 
 		rgGender.setOnCheckedChangeListener((group, checkedId) -> {
@@ -121,10 +136,39 @@ public class EditAccountActivity extends AppCompatActivity {
 		password.setOnFocusChangeListener((v, hasFocus) ->
 				Utils.onFocusChange(hasFocus, this, password, R.string.text_new_password, true));
 
+
+		birthday.setOnClickListener(_v -> {
+			final View dialogView = LayoutInflater.from(this).inflate(R.layout.datetimepicker_with_button, null);
+			final Dialog alertDialog = new Dialog(this, R.style.round_dialog);
+
+			alertDialog.setContentView(dialogView);
+			dialogView.findViewById(R.id.btnPickConfirm).setOnClickListener(v -> {
+				DatePicker datePicker = dialogView.findViewById(R.id.dpEventInsert);
+				birthday.setText(String.format("%s/%s/%s", datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth()));
+				alertDialog.dismiss();
+			});
+			//alertDialog.setView(dialogView);
+			alertDialog.show();
+			Window w = alertDialog.getWindow();
+			if (w == null)
+				throw new RuntimeException("Window should not null");
+			w.setBackgroundDrawableResource(R.drawable.round_background);
+		});
+
 		dog.setOnClickListener(v -> ChangeCategory(dog));
 		bird.setOnClickListener(v -> ChangeCategory(bird));
 		cat.setOnClickListener(v -> ChangeCategory(cat));
 		other.setOnClickListener(v -> ChangeCategory(other));
+
+		back.setOnClickListener(v -> {
+			String newName = name.getText().toString(), newBirthday = birthday.getText().toString(), newWeight = weight.getText().toString();
+			if (name.getText().toString().equals(getString(R.string.pets_name)))
+				newName = "Chubby";
+			if (weight.getText().toString().equals(getString(R.string.kilogram)))
+				newWeight = "53";
+			DatabaseHelper.getInstance().insertPetInfoEx(new PetInfoEx(newName, new Date(newBirthday), Integer.parseInt(newWeight)));
+			finish();
+		});
 	}
 
 	private void ChangeCategory(ImageButton imgbtn) {
