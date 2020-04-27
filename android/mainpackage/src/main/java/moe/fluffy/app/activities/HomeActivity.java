@@ -173,6 +173,7 @@ public class HomeActivity extends AppCompatActivity {
 
 	private void createFolder() {
 		String basePath = Environment.getExternalStorageDirectory().getAbsoluteFile() + "/fluffy/";
+		Log.d(TAG, "createFolder: " + Environment.getExternalStorageDirectory().getAbsoluteFile());
 		File dataDir = new File(basePath);
 		if (!dataDir.exists() && !dataDir.mkdir()) {
 			throw new RuntimeException("Cannot create folder");

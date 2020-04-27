@@ -160,12 +160,15 @@ public class EditAccountActivity extends AppCompatActivity {
 		cat.setOnClickListener(v -> ChangeCategory(cat));
 		other.setOnClickListener(v -> ChangeCategory(other));
 
+		// FIXME: Write all profile items to database
 		back.setOnClickListener(v -> {
 			String newName = name.getText().toString(), newBirthday = birthday.getText().toString(), newWeight = weight.getText().toString();
-			if (name.getText().toString().equals(getString(R.string.pets_name)))
+			if (newName.equals(getString(R.string.pets_name)))
 				newName = "Chubby";
-			if (weight.getText().toString().equals(getString(R.string.kilogram)))
+			if (newWeight.equals(getString(R.string.kilogram)))
 				newWeight = "53";
+			if (newBirthday.startsWith("MM"))
+				newBirthday = "2020/04/01";
 			DatabaseHelper.getInstance().insertPetInfoEx(new PetInfoEx(newName, new Date(newBirthday), Integer.parseInt(newWeight)));
 			finish();
 		});

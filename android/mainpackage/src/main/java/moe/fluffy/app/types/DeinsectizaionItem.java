@@ -52,9 +52,8 @@ public class DeinsectizaionItem {
 
 	public DeinsectizaionItem(JSONObject j) throws JSONException {
 		date = new Date(j.getJSONObject(columnDate));
-		//this.deinsectizaion = RandomAssistant.getInstance().choiceRandomString(VaccinationItem.szNobivac);
-		//this.deinsectizaion = RandomAssistant.getInstance().choiceRandomString(VaccinationItem.szDoctor);
-		deinsectizaion = j.getString(columnNobivac);
+		this.deinsectizaion = RandomAssistant.getInstance().choiceRandomString(VaccinationItem.szNobivac);
+		//deinsectizaion = j.getString(columnNobivac);
 		status = j.getInt(columnStatus);
 	}
 
