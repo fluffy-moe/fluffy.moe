@@ -7,7 +7,7 @@
 
 	<TextView
 		android:id="@+id/txtScannerTitle"
-		android:layout_width="138dp"
+		android:layout_width="140dp"
 		android:layout_height="26dp"
 		android:layout_marginStart="110dp"
 		android:layout_marginTop="18dp"
@@ -93,10 +93,10 @@
 
 	<ImageButton
 		android:id="@+id/imgbtnScannerBack"
-		android:layout_width="66px"
-		android:layout_height="66px"
-		android:layout_marginStart="41px"
-		android:layout_marginTop="86px"
+		android:layout_width="16dp"
+		android:layout_height="16dp"
+		android:layout_marginStart="10dp"
+		android:layout_marginTop="21dp"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
@@ -115,10 +115,10 @@
 
 	<TextureView
 		android:id="@+id/imgScannerPhoto"
-		android:layout_width="970px"
-		android:layout_height="970px"
-		android:layout_marginStart="235px"
-		android:layout_marginTop="485px"
+		android:layout_width="242dp"
+		android:layout_height="242dp"
+		android:layout_marginStart="58dp"
+		android:layout_marginTop="121dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
