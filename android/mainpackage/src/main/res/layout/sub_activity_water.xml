@@ -84,10 +84,10 @@
 
 	<ImageButton
 		android:id="@+id/imgbtnBack"
-		android:layout_width="58.02px"
-		android:layout_height="32.59px"
-		android:layout_marginStart="44.11px"
-		android:layout_marginTop="140.74px"
+		android:layout_width="14dp"
+		android:layout_height="8dp"
+		android:layout_marginStart="11dp"
+		android:layout_marginTop="35dp"
 		android:background="@drawable/back"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"

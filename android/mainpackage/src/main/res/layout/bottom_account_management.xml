@@ -80,8 +80,8 @@
 	<View
 		android:layout_width="46dp"
 		android:layout_height="9dp"
-		android:layout_marginStart="216dp"
-		android:layout_marginTop="276dp"
+		android:layout_marginStart="240dp"
+		android:layout_marginTop="204dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

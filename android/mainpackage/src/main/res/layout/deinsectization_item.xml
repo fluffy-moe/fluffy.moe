@@ -53,7 +53,7 @@
     <View
         android:id="@+id/viewDeinLine"
         android:layout_width="208dp"
-        android:layout_height="0dp"
+        android:layout_height="1dp"
         android:layout_marginStart="52dp"
         android:layout_marginTop="54dp"
         android:background="#E79E35"
@@ -64,7 +64,7 @@
         android:id="@+id/txtDeinProductName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="0dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_heartworm_medical_for_deinsectization"
