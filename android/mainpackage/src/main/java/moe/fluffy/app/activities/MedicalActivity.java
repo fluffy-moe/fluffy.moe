@@ -19,6 +19,7 @@
  */
 package moe.fluffy.app.activities;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -53,7 +54,9 @@ import moe.fluffy.app.adapter.VaccinationAdapter;
 import moe.fluffy.app.assistant.Callback;
 import moe.fluffy.app.assistant.Connect;
 import moe.fluffy.app.assistant.ConnectPath;
+import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.assistant.JSONParser;
+import moe.fluffy.app.assistant.PetInfoEx;
 import moe.fluffy.app.assistant.PopupDialog;
 import moe.fluffy.app.types.BloodTestDashboard;
 import moe.fluffy.app.types.DeinsectizaionItem;
@@ -221,6 +224,20 @@ public class MedicalActivity extends AppCompatActivity {
 		previousClickText = txtBar1;
 		previousView = vBarUnderline1;
 	}
+
+
+	@SuppressLint("SetTextI18n")
+	@Override
+	protected void onResume() {
+		super.onResume();
+		PetInfoEx petInfoEx = DatabaseHelper.getInstance().getPetInfoEx();
+		if (petInfoEx != null) {
+			//birthday.setText(petInfoEx.getBirthday().toString());
+			txtWelcome.setText("Hi, " + petInfoEx.getName());
+			//textWeight.setText(petInfoEx.getWeight() + "kg");
+		}
+	}
+
 
 	void initNavigationBar() {
 		imgbtnNavBarCamera = findViewById(R.id.imgbtnCameraPage);
