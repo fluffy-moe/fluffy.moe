@@ -3,28 +3,27 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:ignore="PxUsage" >
+	android:layout_height="match_parent">
 
 	<TextView
 		android:id="@+id/txtScannerTitle"
-		android:layout_width="555px"
-		android:layout_height="106px"
-		android:layout_marginStart="443px"
-		android:layout_marginTop="72px"
+		android:layout_width="138dp"
+		android:layout_height="26dp"
+		android:layout_marginStart="110dp"
+		android:layout_marginTop="18dp"
 		android:fontFamily="@font/segoe_ui_bold"
 		android:text="@string/title_for_scanner"
 		android:textColor="#545871"
-		android:textSize="80px"
+		android:textSize="20dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<ImageButton
 		android:id="@+id/imgbtnScannerRecord"
-		android:layout_width="490px"
-		android:layout_height="114px"
-		android:layout_marginStart="894px"
-		android:layout_marginTop="2400px"
+		android:layout_width="122dp"
+		android:layout_height="28dp"
+		android:layout_marginStart="223dp"
+		android:layout_marginTop="600dp"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
@@ -33,10 +32,10 @@
 
 	<ImageButton
 		android:id="@+id/imgbtnScannerDevice"
-		android:layout_width="490px"
-		android:layout_height="114px"
-		android:layout_marginStart="56px"
-		android:layout_marginTop="2400px"
+		android:layout_width="122dp"
+		android:layout_height="28dp"
+		android:layout_marginStart="14dp"
+		android:layout_marginTop="600dp"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
@@ -57,10 +56,10 @@
 
 	<ImageButton
 		android:id="@+id/imgbtnScannerBack"
-		android:layout_width="66px"
-		android:layout_height="66px"
-		android:layout_marginStart="41px"
-		android:layout_marginTop="86px"
+		android:layout_width="16dp"
+		android:layout_height="16dp"
+		android:layout_marginStart="10dp"
+		android:layout_marginTop="21dp"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"

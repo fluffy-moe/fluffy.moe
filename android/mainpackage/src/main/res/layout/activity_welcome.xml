@@ -18,10 +18,10 @@
 
     <ImageButton
         android:id="@+id/imgbtn_go"
-        android:layout_width="305px"
-        android:layout_height="114px"
-        android:layout_marginStart="965px"
-        android:layout_marginTop="1688px"
+        android:layout_width="76dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="241dp"
+        android:layout_marginTop="422dp"
         android:background="@null"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"

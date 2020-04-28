@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F0EFF5"
-    tools:ignore="PxUsage, RtlSymmetry" >
+    tools:ignore="RtlSymmetry" >
 
     <ImageView
         android:id="@+id/imgBackgroundPage1"
@@ -17,9 +17,9 @@
 
     <ImageView
         android:id="@+id/imgPetBasicsDialogMain4"
-        android:layout_width="1203px"
-        android:layout_height="2183px"
-        android:layout_marginStart="119px"
+        android:layout_width="300dp"
+        android:layout_height="545dp"
+        android:layout_marginStart="29dp"
         android:layout_marginTop="60dp"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,12 +30,12 @@
         android:id="@+id/txt_breed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="151px"
-        android:layout_marginTop="1147px"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="286dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/dpOptionsPetBreed"
         android:textColor="#565656"
-        android:textSize="46px"
+        android:textSize="11dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,12 +43,12 @@
         android:id="@+id/txt_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="151px"
-        android:layout_marginTop="1423px"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="355dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/dpOptionsPetGender"
         android:textColor="#565656"
-        android:textSize="46px"
+        android:textSize="11dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,13 +56,13 @@
         android:id="@+id/txt_petbasics2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="514px"
-        android:layout_marginTop="250px"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="62dp"
         android:fontFamily="@font/segoe_ui_bold"
         android:text="@string/title_pet_basics"
         android:textAlignment="center"
         android:textColor="#565656"
-        android:textSize="90px"
+        android:textSize="22dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,12 +70,12 @@
         android:id="@+id/txt_give"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="314px"
-        android:layout_marginTop="542px"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="135dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/introduction_petbasics"
         android:textColor="#565656"
-        android:textSize="65px"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,12 +83,12 @@
         android:id="@+id/txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="151px"
-        android:layout_marginTop="908px"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="227dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/dpOptionsPetName"
         android:textColor="#565656"
-        android:textSize="46px"
+        android:textSize="11dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,12 +96,12 @@
         android:id="@+id/txt_birthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="767px"
-        android:layout_marginTop="1140px"
+        android:layout_marginStart="191dp"
+        android:layout_marginTop="285dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/dpOptionsPetBirthday"
         android:textColor="#565656"
-        android:textSize="46px"
+        android:textSize="11dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -109,12 +109,12 @@
         android:id="@+id/txt_spayed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="767px"
-        android:layout_marginTop="1416px"
+        android:layout_marginStart="191dp"
+        android:layout_marginTop="354dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/dpOptionsPetSpayed"
         android:textColor="#565656"
-        android:textSize="46px"
+        android:textSize="11dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -122,60 +122,60 @@
         android:id="@+id/txt_weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="151px"
-        android:layout_marginTop="1687px"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="421dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/dpOptionsPetWeight"
         android:textColor="#565656"
-        android:textSize="46px"
+        android:textSize="11dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/et_name"
-        android:layout_width="531px"
-        android:layout_height="103px"
-        android:layout_marginStart="151px"
-        android:layout_marginTop="988px"
+        android:layout_width="132dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="247dp"
         android:background="@drawable/round_edittext"
         android:ems="10"
         android:inputType="textPersonName"
-        android:paddingStart="41px"
+        android:paddingStart="10dp"
         android:text="@string/pets_name"
         android:textColor="#969696"
-        android:textSize="44px"
+        android:textSize="11dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/et_breed"
-        android:layout_width="531px"
-        android:layout_height="103px"
-        android:layout_marginStart="151px"
-        android:layout_marginTop="1227px"
+        android:layout_width="132dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="306dp"
         android:background="@drawable/round_edittext"
         android:ems="10"
         android:inputType="textPersonName"
-        android:paddingStart="41px"
+        android:paddingStart="10dp"
         android:text="@string/pets_breed"
         android:textColor="#969696"
-        android:textSize="44px"
+        android:textSize="11dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/et_birthday"
-        android:layout_width="531px"
-        android:layout_height="103px"
-        android:layout_marginStart="758px"
-        android:layout_marginTop="1227px"
+        android:layout_width="132dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="189dp"
+        android:layout_marginTop="306dp"
         android:background="@drawable/round_edittext"
         android:ems="10"
         android:inputType="textPersonName"
-        android:paddingStart="41px"
+        android:paddingStart="10dp"
         android:text="@string/mm_dd_yyyy"
         android:textColor="#969696"
-        android:textSize="44px"
+        android:textSize="11dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -191,10 +191,10 @@
 
     <RadioGroup
         android:id="@+id/rbg_weight"
-        android:layout_width="1120px"
-        android:layout_height="103px"
-        android:layout_marginStart="151px"
-        android:layout_marginTop="1767px"
+        android:layout_width="280dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="441dp"
         android:background="@drawable/round_edittext"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
@@ -202,8 +202,8 @@
 
         <RadioButton
             android:id="@+id/rb_10kg"
-            android:layout_width="279.75px"
-            android:layout_height="103px"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
             android:background="@drawable/radio_button_checked"
             android:button="@null"
             android:text="@string/text_0_10kg"
@@ -212,8 +212,8 @@
 
         <RadioButton
             android:id="@+id/rb_20kg"
-            android:layout_width="279.75px"
-            android:layout_height="103px"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
             android:button="@null"
             android:text="@string/text_10_20kg"
             android:textAlignment="center"
@@ -221,8 +221,8 @@
 
         <RadioButton
             android:id="@+id/rb_30kg"
-            android:layout_width="279.75px"
-            android:layout_height="103px"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
             android:button="@null"
             android:text="@string/text_20_30kg"
             android:textAlignment="center"
@@ -230,8 +230,8 @@
 
         <RadioButton
             android:id="@+id/rb_40kg"
-            android:layout_width="279.75px"
-            android:layout_height="103px"
+            android:layout_width="70dp"
+            android:layout_height="25dp"
             android:button="@null"
             android:text="@string/text_30_40kg"
             android:textAlignment="center"
@@ -240,10 +240,10 @@
 
     <RadioGroup
         android:id="@+id/rbg_yes_no"
-        android:layout_width="531px"
-        android:layout_height="103px"
-        android:layout_marginStart="758px"
-        android:layout_marginTop="1503px"
+        android:layout_width="132dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="189dp"
+        android:layout_marginTop="375dp"
         android:background="@drawable/round_edittext"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
@@ -251,32 +251,32 @@
 
         <RadioButton
             android:id="@+id/rb_yes"
-            android:layout_width="265.5px"
-            android:layout_height="103px"
+            android:layout_width="66dp"
+            android:layout_height="25dp"
             android:button="@null"
             android:text="@string/text_yes"
             android:textAlignment="center"
             android:textColor="#969696"
-            android:textSize="44px" />
+            android:textSize="11dp" />
 
         <RadioButton
             android:id="@+id/rb_no"
-            android:layout_width="265.5px"
-            android:layout_height="103px"
+            android:layout_width="66dp"
+            android:layout_height="25dp"
             android:background="@drawable/radio_button_checked"
             android:button="@null"
             android:text="@string/text_no"
             android:textAlignment="center"
             android:textColor="#969696"
-            android:textSize="44px" />
+            android:textSize="11dp" />
     </RadioGroup>
 
     <RadioGroup
         android:id="@+id/rbg_gender"
-        android:layout_width="531px"
-        android:layout_height="103px"
-        android:layout_marginStart="151px"
-        android:layout_marginTop="1503px"
+        android:layout_width="132dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="375dp"
         android:background="@drawable/round_radio_button_group"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
@@ -284,32 +284,32 @@
 
         <RadioButton
             android:id="@+id/rb_female"
-            android:layout_width="265.5px"
-            android:layout_height="103px"
+            android:layout_width="66dp"
+            android:layout_height="25dp"
             android:button="@null"
             android:text="@string/text_female"
             android:textAlignment="center"
             android:textColor="#969696"
-            android:textSize="44px" />
+            android:textSize="11dp" />
 
         <RadioButton
             android:id="@+id/rb_male"
-            android:layout_width="265.5px"
-            android:layout_height="103px"
+            android:layout_width="66dp"
+            android:layout_height="25dp"
             android:background="@drawable/radio_button_checked"
             android:button="@null"
             android:text="@string/text_male"
             android:textAlignment="center"
             android:textColor="#969696"
-            android:textSize="44px" />
+            android:textSize="11dp" />
     </RadioGroup>
 
     <ImageButton
         android:id="@+id/imgbtnRegister2Back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161px"
-        android:layout_marginTop="2193px"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="548dp"
         android:background="@null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -319,8 +319,8 @@
         android:id="@+id/imgbtnRegister2Next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="975px"
-        android:layout_marginTop="2192px"
+        android:layout_marginStart="243dp"
+        android:layout_marginTop="548dp"
         android:background="@null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

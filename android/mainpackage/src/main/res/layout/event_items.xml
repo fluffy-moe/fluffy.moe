@@ -2,15 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="1250px"
-    android:layout_height="193px"
-    android:orientation="vertical"
-    tools:ignore="PxUsage">
+    android:layout_width="312dp"
+    android:layout_height="48dp"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imgCalendarTodayBackground2"
-        android:layout_width="1250px"
-        android:layout_height="193px"
+        android:layout_width="312dp"
+        android:layout_height="48dp"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,8 +17,8 @@
 
     <View
         android:id="@+id/viewTodayLineColor2"
-        android:layout_width="15px"
-        android:layout_height="193px"
+        android:layout_width="3dp"
+        android:layout_height="48dp"
         android:background="#FAD286"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,13 +27,13 @@
         android:id="@+id/txtDateEventItems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="65px"
-        android:layout_marginTop="21px"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/segoe_ui"
         android:text="@string/text_day_for_event"
         android:textAlignment="center"
         android:textColor="#565656"
-        android:textSize="75px"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,12 +41,12 @@
         android:id="@+id/txtWeekEventItems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="66px"
-        android:layout_marginTop="121px"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_weekdays_for_event"
         android:textColor="#969696"
-        android:textSize="38px"
+        android:textSize="9dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,12 +54,12 @@
         android:id="@+id/txtTimeEventItems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="248px"
-        android:layout_marginTop="71px"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="17dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_time_for_event"
         android:textAlignment="center"
-        android:textSize="38px"
+        android:textSize="9dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,8 +67,8 @@
         android:id="@+id/txtEventItems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="420px"
-        android:layout_marginTop="58px"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="14dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_case_for_event"
         android:textColor="#565656"

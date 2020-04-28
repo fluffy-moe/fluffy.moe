@@ -3,8 +3,7 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:ignore="PxUsage" >
+	android:layout_height="match_parent">
 
 	<!--<ImageView
 		android:id="@+id/imgWaterEventBackground"
@@ -61,12 +60,12 @@
 		android:id="@+id/txtWaterTitle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="128px"
-		android:layout_marginTop="94px"
+		android:layout_marginStart="32dp"
+		android:layout_marginTop="23dp"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/title_for_water"
 		android:textColor="#565656"
-		android:textSize="101px"
+		android:textSize="25dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,12 +73,12 @@
 		android:id="@+id/txtWaterSmallTitle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="140px"
-		android:layout_marginTop="239px"
+		android:layout_marginStart="35dp"
+		android:layout_marginTop="59dp"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/subtitle_for_water"
 		android:textColor="#565656"
-		android:textSize="50px"
+		android:textSize="12dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,10 +95,10 @@
 
 	<ImageButton
 		android:id="@+id/imgbtnWaterEdit"
-		android:layout_width="140px"
-		android:layout_height="140px"
-		android:layout_marginStart="1220px"
-		android:layout_marginTop="91px"
+		android:layout_width="35dp"
+		android:layout_height="35dp"
+		android:layout_marginStart="305dp"
+		android:layout_marginTop="22dp"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
@@ -211,12 +210,12 @@
 		android:id="@+id/txtWaterAnalysisTitle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="140px"
-		android:layout_marginTop="1128px"
+		android:layout_marginStart="35dp"
+		android:layout_marginTop="282dp"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/text_water_analysis"
 		android:textColor="#565656"
-		android:textSize="101px"
+		android:textSize="25dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -224,8 +223,8 @@
 		android:id="@+id/imgWaterAnalysisBackground"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="148px"
-		android:layout_marginTop="1360px"
+		android:layout_marginStart="37dp"
+		android:layout_marginTop="340dp"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
@@ -234,10 +233,10 @@
 
 	<com.github.mikephil.charting.charts.LineChart
 		android:id="@+id/viewWaterAnalysis"
-		android:layout_width="990px"
-		android:layout_height="748px"
-		android:layout_marginStart="226px"
-		android:layout_marginTop="1425px"
+		android:layout_width="247dp"
+		android:layout_height="187dp"
+		android:layout_marginStart="56dp"
+		android:layout_marginTop="356dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"/>
 

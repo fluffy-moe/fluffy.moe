@@ -2,22 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="1207px"
-    android:layout_height="438px"
+    android:layout_width="301dp"
+    android:layout_height="109dp"
     android:background="@drawable/food_items_background"
-    android:orientation="vertical"
-    tools:ignore="PxUsage">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/txtFoodBrand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45px"
-        android:layout_marginTop="88px"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="22dp"
         android:fontFamily="@font/segoe_ui_bold"
         android:text="TextView"
         android:textColor="#595959"
-        android:textSize="55px"
+        android:textSize="13dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,12 +24,12 @@
         android:id="@+id/txtFoodFlavor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="134px"
-        android:layout_marginTop="298px"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="74dp"
         android:fontFamily="@font/segoe_ui_bold"
         android:text="TextView"
         android:textColor="#707070"
-        android:textSize="45px"
+        android:textSize="11dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,12 +37,12 @@
         android:id="@+id/txtFoodName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="134px"
-        android:layout_marginTop="213px"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="53dp"
         android:fontFamily="@font/segoe_ui_bold"
         android:text="TextView"
         android:textColor="#707070"
-        android:textSize="45px"
+        android:textSize="11dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,8 +74,8 @@
         android:id="@+id/imgFood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="930px"
-        android:layout_marginTop="118px"
+        android:layout_marginStart="232dp"
+        android:layout_marginTop="29dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,8 +84,8 @@
         android:id="@+id/imgFoodCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="45px"
-        android:layout_marginTop="210px"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="52dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/check" />

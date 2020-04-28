@@ -2,16 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="1440px"
-	android:layout_height="864px"
-	tools:ignore="PxUsage">
+	android:layout_width="360dp"
+	android:layout_height="216dp">
 
 	<ImageButton
 		android:id="@+id/imgbtnRenameAlbum"
 		android:layout_width="wrap_content"
-		android:layout_height="73px"
-		android:layout_marginStart="210px"
-		android:layout_marginTop="220px"
+		android:layout_height="18dp"
+		android:layout_marginStart="52dp"
+		android:layout_marginTop="55dp"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
@@ -21,9 +20,9 @@
 	<ImageButton
 		android:id="@+id/imgbtnSelectPhoto"
 		android:layout_width="wrap_content"
-		android:layout_height="73px"
-		android:layout_marginStart="210px"
-		android:layout_marginTop="396px"
+		android:layout_height="18dp"
+		android:layout_marginStart="52dp"
+		android:layout_marginTop="99dp"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
@@ -33,9 +32,9 @@
 	<ImageButton
 		android:id="@+id/imgbtnDeleteAlbum"
 		android:layout_width="wrap_content"
-		android:layout_height="73px"
-		android:layout_marginStart="210px"
-		android:layout_marginTop="572px"
+		android:layout_height="18dp"
+		android:layout_marginStart="52dp"
+		android:layout_marginTop="143dp"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
@@ -43,10 +42,10 @@
 		app:srcCompat="@drawable/delete_album" />
 
 	<ImageView
-		android:layout_width="893px"
-		android:layout_height="0px"
-		android:layout_marginStart="338px"
-		android:layout_marginTop="345px"
+		android:layout_width="223dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="84dp"
+		android:layout_marginTop="86dp"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
@@ -54,10 +53,10 @@
 		app:srcCompat="@drawable/profileline" />
 
 	<ImageView
-		android:layout_width="893px"
-		android:layout_height="0px"
-		android:layout_marginStart="338px"
-		android:layout_marginTop="521px"
+		android:layout_width="223dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="84dp"
+		android:layout_marginTop="130dp"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
@@ -65,10 +64,10 @@
 		app:srcCompat="@drawable/profileline" />
 
 	<ImageView
-		android:layout_width="286px"
-		android:layout_height="0px"
-		android:layout_marginStart="578px"
-		android:layout_marginTop="35px"
+		android:layout_width="71dp"
+		android:layout_height="0dp"
+		android:layout_marginStart="144dp"
+		android:layout_marginTop="8dp"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"

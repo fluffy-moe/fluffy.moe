@@ -2,52 +2,52 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="1138px"
-	android:layout_height="569px">
+	android:layout_width="284dp"
+	android:layout_height="142dp">
 
 	<TextView
 		android:id="@+id/txtDialogTitle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="182px"
+		android:layout_marginTop="45dp"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/text_log_out_of_fluffy"
 		android:textAlignment="center"
 		android:textColor="#565656"
-		android:textSize="70px"
+		android:textSize="17dp"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<Button
 		android:id="@+id/btnCancel"
-		android:layout_width="305px"
-		android:layout_height="114px"
-		android:layout_marginStart="241px"
-		android:layout_marginTop="410px"
+		android:layout_width="76dp"
+		android:layout_height="28dp"
+		android:layout_marginStart="60dp"
+		android:layout_marginTop="102dp"
 		android:background="@drawable/round_button_white"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/album_cancel"
 		android:textAlignment="center"
 		android:textAllCaps="false"
 		android:textColor="@color/colorBtnBlue"
-		android:textSize="55px"
+		android:textSize="13dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<Button
 		android:id="@+id/btnConfirm"
-		android:layout_width="305px"
-		android:layout_height="114px"
-		android:layout_marginStart="579px"
-		android:layout_marginTop="410px"
+		android:layout_width="76dp"
+		android:layout_height="28dp"
+		android:layout_marginStart="144dp"
+		android:layout_marginTop="102dp"
 		android:background="@drawable/round_button_blue"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/logout_text"
 		android:textAlignment="center"
 		android:textAllCaps="false"
 		android:textColor="@color/colorBtnWhite"
-		android:textSize="55px"
+		android:textSize="13dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 

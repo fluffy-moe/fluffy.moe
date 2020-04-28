@@ -2,18 +2,18 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	android:layout_width="1135px"
-	android:layout_height="345px"
+	android:layout_width="283dp"
+	android:layout_height="86dp"
 	android:background="@drawable/location_type_background">
 
 	<TextView
 		android:id="@+id/txtSearchResultTitle"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="77px"
-		android:layout_marginTop="51px"
+		android:layout_marginStart="19dp"
+		android:layout_marginTop="12dp"
 		android:layout_marginEnd="32dp"
-		android:textSize="55px"
+		android:textSize="13dp"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.0"
 		app:layout_constraintStart_toStartOf="parent"
@@ -23,10 +23,10 @@
 		android:id="@+id/txtClinicName"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="77px"
-		android:layout_marginTop="156px"
+		android:layout_marginStart="19dp"
+		android:layout_marginTop="39dp"
 		android:textColor="#807878"
-		android:textSize="40px"
+		android:textSize="10dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,10 +34,10 @@
 		android:id="@+id/txtClinicPhone"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="77px"
-		android:layout_marginTop="242px"
+		android:layout_marginStart="19dp"
+		android:layout_marginTop="60dp"
 		android:textColor="#807878"
-		android:textSize="40px"
+		android:textSize="10dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 

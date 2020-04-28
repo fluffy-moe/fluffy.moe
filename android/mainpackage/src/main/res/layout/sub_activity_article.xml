@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ArticleActivity"
-    tools:ignore="PxUsage" >
+    tools:context=".activities.ArticleActivity">
 
     <ImageView
         android:id="@+id/imgbackgroundBook"
@@ -19,21 +18,21 @@
         android:id="@+id/txtArticle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128px"
-        android:layout_marginTop="94px"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="23dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_article"
         android:textColor="#565656"
-        android:textSize="101px"
+        android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageButton
         android:id="@+id/imgbtnDogBook"
-        android:layout_width="257px"
-        android:layout_height="242px"
-        android:layout_marginStart="114px"
-        android:layout_marginTop="595px"
+        android:layout_width="64dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="148dp"
         android:background="@null"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,10 +41,10 @@
 
     <ImageButton
         android:id="@+id/imgbtnCatBook"
-        android:layout_width="257px"
-        android:layout_height="242px"
-        android:layout_marginStart="433px"
-        android:layout_marginTop="595px"
+        android:layout_width="64dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="148dp"
         android:background="@null"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,10 +53,10 @@
 
     <ImageButton
         android:id="@+id/imgbtnBirdBook"
-        android:layout_width="257px"
-        android:layout_height="242px"
-        android:layout_marginStart="751px"
-        android:layout_marginTop="594px"
+        android:layout_width="64dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="187dp"
+        android:layout_marginTop="148dp"
         android:background="@null"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,10 +65,10 @@
 
     <ImageButton
         android:id="@+id/imgbtnOtherBook"
-        android:layout_width="257px"
-        android:layout_height="242px"
-        android:layout_marginStart="1070px"
-        android:layout_marginTop="594px"
+        android:layout_width="64dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="267dp"
+        android:layout_marginTop="148dp"
         android:background="@null"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,12 +79,12 @@
         android:id="@+id/txtDogBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="195px"
-        android:layout_marginTop="746px"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="186dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/typeDog"
         android:textColor="#565656"
-        android:textSize="50px"
+        android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,12 +92,12 @@
         android:id="@+id/txtCatBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="525px"
-        android:layout_marginTop="746px"
+        android:layout_marginStart="131dp"
+        android:layout_marginTop="186dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/typeCat"
         android:textColor="#565656"
-        android:textSize="50px"
+        android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -106,12 +105,12 @@
         android:id="@+id/txtBirdBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="834px"
-        android:layout_marginTop="746px"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="186dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/typeBird"
         android:textColor="#565656"
-        android:textSize="50px"
+        android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -119,12 +118,12 @@
         android:id="@+id/txtOtherBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1134px"
-        android:layout_marginTop="746px"
+        android:layout_marginStart="283dp"
+        android:layout_marginTop="186dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/typeOther"
         android:textColor="#565656"
-        android:textSize="50px"
+        android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -132,12 +131,12 @@
         android:id="@+id/txtDogNumBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="617px"
+        android:layout_marginTop="154dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_dog_number_article"
         android:textAlignment="center"
         android:textColor="#565656"
-        android:textSize="95px"
+        android:textSize="23dp"
         app:layout_constraintEnd_toEndOf="@+id/imgbtnDogBook"
         app:layout_constraintStart_toStartOf="@+id/imgbtnDogBook"
         app:layout_constraintTop_toTopOf="parent" />
@@ -146,12 +145,12 @@
         android:id="@+id/txtCatNumBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="617px"
+        android:layout_marginTop="154dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_cat_number_article"
         android:textAlignment="center"
         android:textColor="#565656"
-        android:textSize="95px"
+        android:textSize="23dp"
         app:layout_constraintEnd_toEndOf="@+id/imgbtnCatBook"
         app:layout_constraintStart_toStartOf="@+id/imgbtnCatBook"
         app:layout_constraintTop_toTopOf="parent" />
@@ -160,12 +159,12 @@
         android:id="@+id/txtBirdNumBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="617px"
+        android:layout_marginTop="154dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_bird_number_article"
         android:textAlignment="center"
         android:textColor="#565656"
-        android:textSize="95px"
+        android:textSize="23dp"
         app:layout_constraintEnd_toEndOf="@+id/imgbtnBirdBook"
         app:layout_constraintStart_toStartOf="@+id/imgbtnBirdBook"
         app:layout_constraintTop_toTopOf="parent" />
@@ -174,12 +173,12 @@
         android:id="@+id/txtOtherNumBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="617px"
+        android:layout_marginTop="154dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_other_number_article"
         android:textAlignment="center"
         android:textColor="#565656"
-        android:textSize="95px"
+        android:textSize="23dp"
         app:layout_constraintEnd_toEndOf="@+id/imgbtnOtherBook"
         app:layout_constraintStart_toStartOf="@+id/imgbtnOtherBook"
         app:layout_constraintTop_toTopOf="parent" />
@@ -188,21 +187,21 @@
         android:id="@+id/txtTipsForKeepingBook"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="98px"
-        android:layout_marginTop="965px"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="241dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/subtitle_for_article"
         android:textColor="#565656"
-        android:textSize="75px"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="791px"
-        android:layout_height="110px"
-        android:layout_marginStart="116px"
-        android:layout_marginTop="322px"
+        android:layout_width="197dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/article_search_linearlayout"
         android:gravity="center"
         android:orientation="horizontal"
@@ -211,33 +210,33 @@
 
         <EditText
             android:id="@+id/etSearchBook"
-            android:layout_width="613px"
-            android:layout_height="110px"
+            android:layout_width="0dp"
+            android:layout_height="27dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:ems="10"
             android:inputType="textPersonName"
-            android:paddingStart="73px"
+            android:paddingStart="18dp"
             android:text="@string/searchBookEditText" />
 
         <ImageButton
             android:id="@+id/imgbtnSearchBook"
-            android:layout_width="71px"
-            android:layout_height="71px"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:background="@null"
             android:scaleType="fitXY"
             app:srcCompat="@drawable/article_search" />
 
         <Space
-            android:layout_width="20px"
+            android:layout_width="5dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="1440px"
-        android:layout_height="1250px"
-        android:layout_marginTop="1050px"
+        android:layout_width="360dp"
+        android:layout_height="312dp"
+        android:layout_marginTop="262dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

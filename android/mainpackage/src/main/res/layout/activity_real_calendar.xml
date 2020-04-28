@@ -14,21 +14,21 @@
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<ImageView
-		android:layout_width="168px"
-		android:layout_height="169px"
-		android:layout_marginStart="1161px"
-		android:layout_marginTop="91px"
+		android:layout_width="42dp"
+		android:layout_height="42dp"
+		android:layout_marginStart="290dp"
+		android:layout_marginTop="22dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:srcCompat="@drawable/catphoto" />
 
 	<ImageButton
 		android:id="@+id/imgbtnAddEvent"
-		android:layout_width="96px"
-		android:layout_height="96px"
+		android:layout_width="24dp"
+		android:layout_height="24dp"
 		android:background="@drawable/ic_calendar_add"
-		android:layout_marginStart="1269px"
-		android:layout_marginTop="192px"
+		android:layout_marginStart="317dp"
+		android:layout_marginTop="48dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

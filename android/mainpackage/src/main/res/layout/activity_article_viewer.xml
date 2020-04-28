@@ -7,10 +7,10 @@
 
     <ImageView
         android:id="@+id/img_articlepic"
-        android:layout_width="1440px"
-        android:layout_height="920px"
-        android:layout_marginStart="0px"
-        android:layout_marginTop="0px"
+        android:layout_width="360dp"
+        android:layout_height="230dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,10 +18,10 @@
 
     <ImageButton
         android:id="@+id/imgbtnFavArticle"
-        android:layout_width="110px"
-        android:layout_height="110px"
-        android:layout_marginStart="1216px"
-        android:layout_marginTop="870px"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="304dp"
+        android:layout_marginTop="217dp"
         android:background="@drawable/bookmark_gray"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,25 +30,25 @@
     <TextView
         android:id="@+id/txtArticleTitle"
         android:layout_width="wrap_content"
-        android:layout_height="106px"
-        android:layout_marginStart="90px"
-        android:layout_marginTop="1053px"
+        android:layout_height="26dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="263dp"
         android:fontFamily="@font/segoe_ui_bold"
         android:textColor="#565656"
-        android:textSize="80px"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtAuthor"
         android:layout_width="wrap_content"
-        android:layout_height="60px"
-        android:layout_marginStart="952px"
-        android:layout_marginTop="1203px"
+        android:layout_height="15dp"
+        android:layout_marginStart="238dp"
+        android:layout_marginTop="300dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:textAlignment="center"
         android:textColor="#969696"
-        android:textSize="45px"
+        android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -56,9 +56,9 @@
     <TextView
         android:id="@+id/txtPublishTime"
         android:layout_width="wrap_content"
-        android:layout_height="60px"
-        android:layout_marginStart="1162px"
-        android:layout_marginTop="1263px"
+        android:layout_height="15dp"
+        android:layout_marginStart="290dp"
+        android:layout_marginTop="315dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:textAlignment="center"
         android:textColor="#969696"
@@ -69,20 +69,20 @@
 
     <ImageButton
         android:id="@+id/imgbtnBackArticle"
-        android:layout_width="78px"
-        android:layout_height="78px"
-        android:layout_marginStart="51px"
-        android:layout_marginTop="79px"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="19dp"
         android:background="@drawable/back_white"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="1273px"
-        android:layout_height="1204px"
-        android:layout_marginStart="90px"
-        android:layout_marginTop="1356px"
+        android:layout_width="318dp"
+        android:layout_height="301dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="339dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -98,7 +98,7 @@
                 android:fontFamily="@font/segoe_ui_semibold"
                 android:scrollbars="vertical"
                 android:textColor="#969696"
-                android:textSize="48px"
+                android:textSize="12dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

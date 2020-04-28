@@ -3,28 +3,27 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context=".favorite_article">
+	android:layout_height="match_parent">
 
 	<TextView
 		android:id="@+id/txtFavoriteArticleTitle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="128px"
-		android:layout_marginTop="94px"
+		android:layout_marginStart="32dp"
+		android:layout_marginTop="23dp"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="Your Article"
 		android:textColor="#565656"
-		android:textSize="101px"
+		android:textSize="25dp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<ImageButton
 		android:id="@+id/imgbtnFavoriteArticleBack"
-		android:layout_width="66px"
-		android:layout_height="66px"
-		android:layout_marginStart="28px"
-		android:layout_marginTop="128px"
+		android:layout_width="16dp"
+		android:layout_height="16dp"
+		android:layout_marginStart="7dp"
+		android:layout_marginTop="32dp"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"

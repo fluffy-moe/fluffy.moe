@@ -5,7 +5,7 @@
 	<include
 		layout="@layout/sub_activity_medical"
 		android:layout_width="wrap_content"
-		android:layout_height="2354px" />
+		android:layout_height="588dp" />
 
 	<include
 		layout="@layout/navigation_bar"
