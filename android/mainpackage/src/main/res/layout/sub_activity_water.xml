@@ -93,7 +93,7 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
-	<ImageButton
+	<!--<ImageButton
 		android:id="@+id/imgbtnWaterEdit"
 		android:layout_width="35dp"
 		android:layout_height="35dp"
@@ -103,7 +103,7 @@
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
-		app:srcCompat="@drawable/edit" />
+		app:srcCompat="@drawable/edit" />-->
 
 	<!--<ImageView
 		android:id="@+id/imgWaterSymptomBackground"
@@ -221,8 +221,8 @@
 
 	<ImageView
 		android:id="@+id/imgWaterAnalysisBackground"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		android:layout_width="285dp"
+		android:layout_height="220dp"
 		android:layout_marginStart="37dp"
 		android:layout_marginTop="340dp"
 		android:background="@null"
@@ -246,6 +246,19 @@
 		android:layout_height="wrap_content"
 		android:layout_marginTop="116dp"
 		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/textEventPlacement"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="156dp"
+		android:gravity="center"
+		android:text="Nothing to display\nAdd events on previous page"
+		android:textSize="20sp"
+		app:layout_constraintEnd_toEndOf="@+id/rvPastEvents"
+		app:layout_constraintHorizontal_bias="0.504"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 

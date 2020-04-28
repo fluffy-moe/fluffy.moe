@@ -90,7 +90,7 @@
 		android:id="@+id/txtBloodTestDate"
 		android:layout_width="145dp"
 		android:layout_height="0dp"
-		android:layout_marginStart="228dp"
+		android:layout_marginStart="200dp"
 		android:layout_marginTop="12dp"
 		android:fontFamily="@font/segoe_ui_bold"
 		android:text="@string/text_date_for_bloodtest"

@@ -21,6 +21,7 @@ package moe.fluffy.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -54,6 +55,8 @@ public class DayActivity extends AppCompatActivity {
 	private static final String TAG = "log_DayActivity";
 
 	public final static String keyName = "requestDay";
+
+	TextView txtPlacement;
 
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
@@ -101,6 +104,8 @@ public class DayActivity extends AppCompatActivity {
 		txtTitle.setText(String.format("%s %s", CalendarActivity.getMonthString(this, date.getMonth()), date.getDay()));
 		txtYear.setText(String.valueOf(date.getYear()));
 
+		txtPlacement = findViewById(R.id.textEventPlacement);
+
 		pastTimeReviews = new ArrayList<>();
 		/*for (int i=0; i<4; i++) {
 			pastTimeReviews.add(new PastTimeReview(new Random().nextInt(4) + 1, "test"));
@@ -111,6 +116,7 @@ public class DayActivity extends AppCompatActivity {
 			eventsItems.forEach(eventsItem ->
 				pastTimeReviews.add(new PastTimeReview(eventsItem.getCategory(), eventsItem.getBody()))
 			);
+			txtPlacement.setVisibility(View.INVISIBLE);
 		}
 
 		findViewById(R.id.imgbtnBack).setOnClickListener(v -> finish());
