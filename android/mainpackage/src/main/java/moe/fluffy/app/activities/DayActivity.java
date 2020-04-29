@@ -21,6 +21,7 @@ package moe.fluffy.app.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -32,6 +33,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -45,6 +47,7 @@ import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.ReviewAdapter;
 import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.types.Date;
+import moe.fluffy.app.types.Datetime;
 import moe.fluffy.app.types.EventsItem;
 import moe.fluffy.app.types.PastTimeReview;
 import moe.fluffy.app.types.SerializableBundle;
@@ -78,9 +81,19 @@ public class DayActivity extends AppCompatActivity {
 	}
 
 
-	private List<Entry> getRandomList() {
+	private List<Entry> getRandomList(Date _date) {
 		Random r = new Random();
 		List<Entry> entries = new ArrayList<>();
+		/*
+		int today = date.getDay();
+		for (int i = 7, days; i > 0 ; i --) {
+			days = today - i;
+			if (days < 1) {
+				days = Date.getPreviousMonthMaxDate(date.getMonth()) - 1 + days;
+			}
+			Log.v(TAG, "getRandomList: days => " + days);
+			entries.add(new Entry(days, r.nextInt(20) +  50));
+		}*/
 		for (int i = 0; i < 7 ; i ++) {
 			entries.add(new Entry(i, r.nextInt(20) +  50));
 		}
@@ -132,10 +145,11 @@ public class DayActivity extends AppCompatActivity {
 		lineChart = findViewById(R.id.viewWaterAnalysis);
 		lineChart.getDescription().setEnabled(false);
 		lineChart.getXAxis().setEnabled(false);
+		//lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
 		lineChart.getAxisRight().setEnabled(false);
 		lineChart.setDrawBorders(false);
 		lineChart.setTouchEnabled(false);
-		LineDataSet ls = new LineDataSet(getRandomList(), "Water");
+		LineDataSet ls = new LineDataSet(getRandomList(date), "Water");
 		ls.setDrawCircles(false);
 		ls.setLineWidth(2f);
 		lineChart.setDrawGridBackground(false);

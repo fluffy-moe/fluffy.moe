@@ -78,7 +78,7 @@ public class CameraActivity extends AppCompatActivity {
 	private String barcode;
 
 	public static String getSaveLocation() {
-		return Environment.getExternalStorageDirectory().getAbsolutePath() + "/.temp/pic.jpg";
+		return Environment.getExternalStorageDirectory().getAbsolutePath() + "/fluffy/pic.jpg";
 	}
 
 	@Override
