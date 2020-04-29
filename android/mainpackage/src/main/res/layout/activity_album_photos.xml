@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
@@ -34,11 +35,11 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="39dp"
-		android:layout_marginTop="101dp"
+		android:layout_marginTop="98dp"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="Life Record"
-		android:textColor="#565656"
-		android:textSize="18dp"
+		android:textColor="#704214"
+		android:textSize="23sp"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +48,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="180dp"
-		android:layout_marginTop="107dp"
+		android:layout_marginTop="115dp"
 		android:clickable="true"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="15 Photos · 2018/05/10"

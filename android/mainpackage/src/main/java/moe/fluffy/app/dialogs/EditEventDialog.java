@@ -44,7 +44,7 @@ public class EditEventDialog extends Dialog {
 	private static final String TAG = "log_EditEventDialog";
 	private ArrayList<EventsItem> eventsItems;
 
-	private ImageButton btnDone;
+	private ImageButton btnDone, btnClose;
 	private EditText etNewEvent, etNewSymptom, etNewNote, etNewWater;
 
 	private SimpleCallback callback;
@@ -81,6 +81,7 @@ public class EditEventDialog extends Dialog {
 		etNewNote = view.findViewById(R.id.etNewNote);
 		etNewWater = view.findViewById(R.id.etNewWater);
 		btnDone = view.findViewById(R.id.imgbtnNewUpdate);
+		btnClose = view.findViewById(R.id.imgbtnNewOut);
 
 		eventsItems.forEach((eventsItem -> {
 			getEditTextByEvent(eventsItem).setText(eventsItem.getBody());
@@ -97,8 +98,13 @@ public class EditEventDialog extends Dialog {
 			dismiss();
 			this.callback.OnFinished(null);
 		});
+
+		btnClose.setOnClickListener(v -> dismiss());
+
 		return this;
 	}
+
+
 
 	// FIXME: set width dynamic
 	@Override
@@ -106,6 +112,6 @@ public class EditEventDialog extends Dialog {
 		super.show();
 		Window window = this.getWindow();
 		if (window != null)
-			window.setLayout(292*3, 353*3);
+			window.setLayout(293*3, 354*3);
 	}
 }

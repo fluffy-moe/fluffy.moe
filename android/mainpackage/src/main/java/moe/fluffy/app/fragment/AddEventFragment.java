@@ -118,7 +118,7 @@ public class AddEventFragment extends BottomSheetDialogFragment {
 					etBody.getText().toString(), swAlarm.isChecked());
 			DatabaseHelper.getInstance().insertEvent(et);
 			//planedEvents.add(et);
-			if (et.getDayBody().moreThanOrEqual(Date.getToday())) {
+			if (et.getDateBody().moreThanOrEqual(Date.getToday())) {
 				if (listener != null)
 					listener.OnFinished(et);
 			}

@@ -22,7 +22,6 @@ package moe.fluffy.app.activities;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -34,7 +33,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -49,10 +47,10 @@ import moe.fluffy.app.adapter.ReviewAdapter;
 import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.dialogs.EditEventDialog;
 import moe.fluffy.app.types.Date;
-import moe.fluffy.app.types.Datetime;
 import moe.fluffy.app.types.EventsItem;
 import moe.fluffy.app.types.PastTimeReview;
 import moe.fluffy.app.types.SerializableBundle;
+import moe.fluffy.app.types.divider.HorizontalItemDecoration;
 import moe.fluffy.app.types.divider.HorizontalPaddingItemDecoration;
 
 public class DayActivity extends AppCompatActivity {
@@ -156,9 +154,11 @@ public class DayActivity extends AppCompatActivity {
 		eventsView = findViewById(R.id.rvPastEvents);
 		//eventsView.setHasFixedSize(true);
 		eventsView.setLayoutManager(layoutManager);
-		eventsView.addItemDecoration(new HorizontalPaddingItemDecoration(110));
+		//eventsView.addItemDecoration(new HorizontalPaddingItemDecoration(110));
 		reviewAdapter = new ReviewAdapter(pastTimeReviews);
 		eventsView.setAdapter(reviewAdapter);
+		if (eventsView.getItemDecorationCount() == 0)
+			eventsView.addItemDecoration(new HorizontalItemDecoration(150));
 
 		// init chart view
 		lineChart = findViewById(R.id.viewWaterAnalysis);

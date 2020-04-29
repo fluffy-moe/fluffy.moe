@@ -212,7 +212,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="35dp"
-		android:layout_marginTop="282dp"
+		android:layout_marginTop="255dp"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/text_water_analysis"
 		android:textColor="#565656"
@@ -225,7 +225,7 @@
 		android:layout_width="285dp"
 		android:layout_height="220dp"
 		android:layout_marginStart="37dp"
-		android:layout_marginTop="340dp"
+		android:layout_marginTop="313dp"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
@@ -237,15 +237,17 @@
 		android:layout_width="247dp"
 		android:layout_height="187dp"
 		android:layout_marginStart="56dp"
-		android:layout_marginTop="356dp"
+		android:layout_marginTop="329dp"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"/>
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/rvPastEvents"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="116dp"
+		android:layout_marginStart="37dp"
+		android:layout_marginTop="95dp"
+		android:layout_marginEnd="37dp"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
@@ -258,7 +260,7 @@
 		android:gravity="center"
 		android:text="Nothing to display\nAdd events on previous page"
 		android:textSize="20sp"
-		app:layout_constraintEnd_toEndOf="@+id/rvPastEvents"
+		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHorizontal_bias="0.504"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
