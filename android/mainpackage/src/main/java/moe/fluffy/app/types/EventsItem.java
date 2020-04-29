@@ -34,6 +34,7 @@ import androidx.annotation.Nullable;
 import com.codbking.calendar.CalendarBean;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.assistant.DatabaseHelper;
 import moe.fluffy.app.views.DateTimeWheelView;
 
 public class EventsItem {
@@ -106,6 +107,12 @@ public class EventsItem {
 		alarm = cursor.getString(cursor.getColumnIndexOrThrow(columnAlarm)).equals("true");
 	}
 
+	public EventsItem edit(String body) {
+		this.body = body;
+		DatabaseHelper.getInstance().editEvent(this);
+		return this;
+	}
+
 	public int getYear() {
 		return date.getYear();
 	}
@@ -118,7 +125,7 @@ public class EventsItem {
 		return date.getDay();
 	}
 
-	public Date getDayBody() {
+	public Date getDateBody() {
 		return date;
 	}
 

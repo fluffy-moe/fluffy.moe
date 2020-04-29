@@ -19,6 +19,7 @@
  */
 package moe.fluffy.app.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +47,7 @@ import java.util.Random;
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.ReviewAdapter;
 import moe.fluffy.app.assistant.DatabaseHelper;
+import moe.fluffy.app.dialogs.EditEventDialog;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.Datetime;
 import moe.fluffy.app.types.EventsItem;
@@ -64,11 +66,17 @@ public class DayActivity extends AppCompatActivity {
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
 
+	ImageButton imgbtnEdit;
+
 	LineChart lineChart;
 
 	RecyclerView eventsView;
 
 	ArrayList<PastTimeReview> pastTimeReviews;
+
+	ReviewAdapter reviewAdapter;
+
+	Date date;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,20 +88,34 @@ public class DayActivity extends AppCompatActivity {
 		initView();
 	}
 
+	private void updateEventsItems() {
+		updateEventsItems(true);
+	}
 
-	private List<Entry> getRandomList(Date _date) {
+	private void updateEventsItems(boolean init) {
+		ArrayList<EventsItem> eventsItems = DatabaseHelper.getInstance().getEventByDay(date);
+		if (eventsItems != null) {
+			if (!init)
+				pastTimeReviews.clear();
+			eventsItems.forEach(eventsItem ->
+					pastTimeReviews.add(new PastTimeReview(eventsItem.getCategory(), eventsItem.getBody()))
+			);
+			txtPlacement.setVisibility(View.INVISIBLE);
+
+			imgbtnEdit.setVisibility(View.VISIBLE);
+			imgbtnEdit.setOnClickListener(v -> {
+				Dialog dig = new EditEventDialog(this, eventsItems, l -> updateEventsItems(false));
+				dig.create();
+				dig.show();
+			});
+			if (!init)
+				reviewAdapter.notifyDataSetChanged();
+		}
+	}
+
+	private List<Entry> getRandomList() {
 		Random r = new Random();
 		List<Entry> entries = new ArrayList<>();
-		/*
-		int today = date.getDay();
-		for (int i = 7, days; i > 0 ; i --) {
-			days = today - i;
-			if (days < 1) {
-				days = Date.getPreviousMonthMaxDate(date.getMonth()) - 1 + days;
-			}
-			Log.v(TAG, "getRandomList: days => " + days);
-			entries.add(new Entry(days, r.nextInt(20) +  50));
-		}*/
 		for (int i = 0; i < 7 ; i ++) {
 			entries.add(new Entry(i, r.nextInt(20) +  50));
 		}
@@ -111,11 +133,13 @@ public class DayActivity extends AppCompatActivity {
 			throw new RuntimeException("calendar bean should be set");
 		}
 
-		Date date = sb.getDate();
+		date = sb.getDate();
 		TextView txtTitle = findViewById(R.id.txtWaterTitle),
 				txtYear = findViewById(R.id.txtWaterSmallTitle);
 		txtTitle.setText(String.format("%s %s", CalendarActivity.getMonthString(this, date.getMonth()), date.getDay()));
 		txtYear.setText(String.valueOf(date.getYear()));
+
+		imgbtnEdit = findViewById(R.id.imgbtnWaterEdit);
 
 		txtPlacement = findViewById(R.id.textEventPlacement);
 
@@ -124,13 +148,7 @@ public class DayActivity extends AppCompatActivity {
 			pastTimeReviews.add(new PastTimeReview(new Random().nextInt(4) + 1, "test"));
 		}*/
 
-		ArrayList<EventsItem> eventsItems = DatabaseHelper.getInstance().getEventByDay(date);
-		if (eventsItems != null) {
-			eventsItems.forEach(eventsItem ->
-				pastTimeReviews.add(new PastTimeReview(eventsItem.getCategory(), eventsItem.getBody()))
-			);
-			txtPlacement.setVisibility(View.INVISIBLE);
-		}
+		updateEventsItems();
 
 		findViewById(R.id.imgbtnBack).setOnClickListener(v -> finish());
 
@@ -139,7 +157,8 @@ public class DayActivity extends AppCompatActivity {
 		//eventsView.setHasFixedSize(true);
 		eventsView.setLayoutManager(layoutManager);
 		eventsView.addItemDecoration(new HorizontalPaddingItemDecoration(110));
-		eventsView.setAdapter(new ReviewAdapter(pastTimeReviews));
+		reviewAdapter = new ReviewAdapter(pastTimeReviews);
+		eventsView.setAdapter(reviewAdapter);
 
 		// init chart view
 		lineChart = findViewById(R.id.viewWaterAnalysis);
@@ -149,7 +168,7 @@ public class DayActivity extends AppCompatActivity {
 		lineChart.getAxisRight().setEnabled(false);
 		lineChart.setDrawBorders(false);
 		lineChart.setTouchEnabled(false);
-		LineDataSet ls = new LineDataSet(getRandomList(date), "Water");
+		LineDataSet ls = new LineDataSet(getRandomList(), "Water");
 		ls.setDrawCircles(false);
 		ls.setLineWidth(2f);
 		lineChart.setDrawGridBackground(false);

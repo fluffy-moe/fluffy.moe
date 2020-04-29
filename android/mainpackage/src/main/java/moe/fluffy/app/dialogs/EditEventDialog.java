@@ -19,28 +19,93 @@
  */
 package moe.fluffy.app.dialogs;
 
+import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 import moe.fluffy.app.R;
+import moe.fluffy.app.assistant.SimpleCallback;
+import moe.fluffy.app.types.EventsItem;
 
 public class EditEventDialog extends Dialog {
-	public EditEventDialog(@NonNull Context context) {
+	private static final String TAG = "log_EditEventDialog";
+	private ArrayList<EventsItem> eventsItems;
+
+	private ImageButton btnDone;
+	private EditText etNewEvent, etNewSymptom, etNewNote, etNewWater;
+
+	private SimpleCallback callback;
+
+	public EditEventDialog(@NonNull Context context, @NonNull ArrayList<EventsItem> eventsItems,
+						   @NonNull SimpleCallback callback) {
 		super(context, R.style.round_dialog);
+		View view = LayoutInflater.from(context).inflate(R.layout.dialog_new_event, null);
+		this.eventsItems = eventsItems;
+		this.callback = callback;
+		this.setContentView(view);
+		initDialog(view);
 	}
 
-	public EditEventDialog initDialog(@NonNull LayoutInflater inflater) {
-		View convertView = inflater.inflate(R.layout.dialog_new_event, null);
-		EditText etNewEvent, etNewSymptom, etNewNote, etNewWater;
-		etNewEvent = convertView.findViewById(R.id.etNewEvent);
-		etNewSymptom = convertView.findViewById(R.id.etNewSymptom);
-		etNewNote = convertView.findViewById(R.id.etNewNote);
-		etNewWater = convertView.findViewById(R.id.etNewWater);
+
+	private EditText getEditTextByEvent(EventsItem event) {
+		switch (event.getCategory()) {
+			case "Event":
+				return etNewEvent;
+			case "Symptom":
+				return etNewSymptom;
+			case "Note":
+				return etNewNote;
+			case "Water":
+				return etNewWater;
+		}
+		throw new IllegalStateException("exception");
+	}
+
+	public EditEventDialog initDialog(View view) {
+		//View convertView = view.inflate(R.layout.dialog_new_event, null);
+		etNewEvent = view.findViewById(R.id.etNewEvent);
+		etNewSymptom = view.findViewById(R.id.etNewSymptom);
+		etNewNote = view.findViewById(R.id.etNewNote);
+		etNewWater = view.findViewById(R.id.etNewWater);
+		btnDone = view.findViewById(R.id.imgbtnNewUpdate);
+
+		eventsItems.forEach((eventsItem -> {
+			getEditTextByEvent(eventsItem).setText(eventsItem.getBody());
+			Log.v(TAG, "initDialog: body => " + eventsItem.getBody());
+		}));
+
+		btnDone.setOnClickListener(v -> {
+			//if (eventsItems != null)
+			eventsItems.forEach(eventsItem -> {
+				if (!eventsItem.getBody().equals(getEditTextByEvent(eventsItem).getText().toString()))
+					eventsItem.edit(getEditTextByEvent(eventsItem).getText().toString());
+			});
+			Log.v(TAG, "initDialog: Done!");
+			dismiss();
+			this.callback.OnFinished(null);
+		});
 		return this;
+	}
+
+	// FIXME: set width dynamic
+	@Override
+	public void show() {
+		super.show();
+		Window window = this.getWindow();
+		if (window != null)
+			window.setLayout(292*3, 353*3);
 	}
 }

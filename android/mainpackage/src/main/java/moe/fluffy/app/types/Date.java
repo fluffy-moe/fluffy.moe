@@ -162,6 +162,11 @@ public class Date {
 		return day;
 	}
 
+	public String[] getStringSz() {
+		return new String[]{String.valueOf(this.year), String.valueOf(this.month), String.valueOf(this.day)};
+	}
+
+
 	public boolean equals(@Nullable CalendarBean c) {
 		if (c == null) return false;
 		return (c.year == this.year) && (c.moth == this.month) && (c.day == this.day);

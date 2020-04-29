@@ -25,7 +25,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.EventLog;
 import android.util.Log;
 import android.widget.EditText;
 
@@ -407,6 +406,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		SQLiteDatabase s = this.getWritableDatabase();
 		// TODO: should we limit an event per a day?
 		s.insert(TABLE_EVENTS, null, event.getContentValues());
+		s.close();
+	}
+
+	public void editEvent(EventsItem event) {
+		SQLiteDatabase s = this.getWritableDatabase();
+		s.update(TABLE_EVENTS, event.getContentValues(), "year = ? AND `month` = ? AND `day` = ?", event.getDateBody().getStringSz());
 		s.close();
 	}
 

@@ -93,7 +93,7 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
-	<!--<ImageButton
+	<ImageButton
 		android:id="@+id/imgbtnWaterEdit"
 		android:layout_width="35dp"
 		android:layout_height="35dp"
@@ -101,9 +101,10 @@
 		android:layout_marginTop="22dp"
 		android:background="@null"
 		android:scaleType="fitXY"
+		android:visibility="invisible"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
-		app:srcCompat="@drawable/edit" />-->
+		app:srcCompat="@drawable/edit" />
 
 	<!--<ImageView
 		android:id="@+id/imgWaterSymptomBackground"
