@@ -158,7 +158,7 @@ public class DayActivity extends AppCompatActivity {
 		reviewAdapter = new ReviewAdapter(pastTimeReviews);
 		eventsView.setAdapter(reviewAdapter);
 		if (eventsView.getItemDecorationCount() == 0)
-			eventsView.addItemDecoration(new HorizontalItemDecoration(150));
+			eventsView.addItemDecoration(new HorizontalItemDecoration(40));
 
 		// init chart view
 		lineChart = findViewById(R.id.viewWaterAnalysis);

@@ -84,27 +84,14 @@
 
 	<ImageButton
 		android:id="@+id/imgbtnBack"
-		android:layout_width="14dp"
-		android:layout_height="8dp"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
 		android:layout_marginStart="11dp"
 		android:layout_marginTop="35dp"
 		android:background="@drawable/back"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
-
-	<ImageButton
-		android:id="@+id/imgbtnWaterEdit"
-		android:layout_width="35dp"
-		android:layout_height="35dp"
-		android:layout_marginStart="305dp"
-		android:layout_marginTop="22dp"
-		android:background="@null"
-		android:scaleType="fitXY"
-		android:visibility="invisible"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		app:srcCompat="@drawable/edit" />
 
 	<!--<ImageView
 		android:id="@+id/imgWaterSymptomBackground"
@@ -206,6 +193,20 @@
 		android:textSize="52px"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" /> -->
+
+	<ImageButton
+		android:id="@+id/imgbtnWaterEdit"
+		android:layout_width="35dp"
+		android:layout_height="35dp"
+		android:layout_marginTop="23dp"
+		android:background="@null"
+		android:scaleType="fitXY"
+		android:visibility="invisible"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.886"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/edit" />
 
 	<TextView
 		android:id="@+id/txtWaterAnalysisTitle"

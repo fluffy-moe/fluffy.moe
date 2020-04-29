@@ -107,6 +107,10 @@ public class EventsItem {
 		alarm = cursor.getString(cursor.getColumnIndexOrThrow(columnAlarm)).equals("true");
 	}
 
+	public String getRawBody() {
+		return this.body;
+	}
+
 	public EventsItem edit(String body) {
 		this.body = body;
 		DatabaseHelper.getInstance().editEvent(this);

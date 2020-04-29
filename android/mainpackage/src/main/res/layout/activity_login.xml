@@ -10,6 +10,7 @@
         android:id="@+id/img_backgroundMain5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/grayer" />
@@ -41,13 +42,13 @@
         android:id="@+id/txtRegisterMain2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="137dp"
         android:layout_marginTop="72dp"
         android:fontFamily="@font/segoe_ui_bold"
         android:text="@string/login_title"
         android:textAlignment="center"
         android:textColor="#565656"
         android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,9 +98,9 @@
         android:id="@+id/imgbtnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="135dp"
         android:layout_marginTop="543dp"
         android:background="@null"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/login" />

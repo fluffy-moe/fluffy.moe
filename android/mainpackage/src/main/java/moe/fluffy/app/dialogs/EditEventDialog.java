@@ -84,14 +84,14 @@ public class EditEventDialog extends Dialog {
 		btnClose = view.findViewById(R.id.imgbtnNewOut);
 
 		eventsItems.forEach((eventsItem -> {
-			getEditTextByEvent(eventsItem).setText(eventsItem.getBody());
-			Log.v(TAG, "initDialog: body => " + eventsItem.getBody());
+			getEditTextByEvent(eventsItem).setText(eventsItem.getRawBody());
+			Log.v(TAG, "initDialog: body => " + eventsItem.getRawBody());
 		}));
 
 		btnDone.setOnClickListener(v -> {
 			//if (eventsItems != null)
 			eventsItems.forEach(eventsItem -> {
-				if (!eventsItem.getBody().equals(getEditTextByEvent(eventsItem).getText().toString()))
+				if (!eventsItem.getRawBody().equals(getEditTextByEvent(eventsItem).getText().toString()))
 					eventsItem.edit(getEditTextByEvent(eventsItem).getText().toString());
 			});
 			Log.v(TAG, "initDialog: Done!");

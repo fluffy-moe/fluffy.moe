@@ -54,7 +54,7 @@
 
 	<Spinner
 		android:id="@+id/spinnerCity"
-		android:layout_width="102dp"
+		android:layout_width="125dp"
 		android:layout_height="20dp"
 		android:layout_marginStart="112dp"
 		android:layout_marginTop="80dp"
@@ -64,7 +64,7 @@
 
 	<Spinner
 		android:id="@+id/spinnerDistrict"
-		android:layout_width="102dp"
+		android:layout_width="125dp"
 		android:layout_height="20dp"
 		android:layout_marginStart="112dp"
 		android:layout_marginTop="115dp"
