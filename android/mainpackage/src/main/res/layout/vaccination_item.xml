@@ -18,8 +18,8 @@
         android:id="@+id/imgVacCheck"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
         android:background="@drawable/tick"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -117,9 +117,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/dash"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/dash" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="208dp"
@@ -133,7 +133,7 @@
     <View
         android:layout_width="208dp"
         android:layout_height="1dp"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="82dp"
         android:background="#E79E35"
         app:layout_constraintStart_toStartOf="parent"

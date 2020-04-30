@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="286dp"
-        android:layout_marginTop="83dp"
+        android:layout_marginTop="85dp"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_4_5kg"
         android:textColor="#565656"

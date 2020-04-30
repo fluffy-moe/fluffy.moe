@@ -132,7 +132,7 @@ public class SearchActivity extends AppCompatActivity {
 
 		// https://stackoverflow.com/a/41810033
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(
-				this, android.R.layout.simple_list_item_1, cities);
+				this, android.R.layout.simple_spinner_dropdown_item, cities);
 		spinnerCity.setAdapter(spinnerArrayAdapter);
 
 		spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -154,7 +154,7 @@ public class SearchActivity extends AppCompatActivity {
 						.getJSONObject(select_city)
 						.getJSONArray(select_district);
 				ArrayList<AddressInfoItem> addressInfoList = new ArrayList<>();
-				for (int i=0; i< a.length();i++) {
+				for (int i=0; i< a.length(); i++) {
 					addressInfoList.add(new AddressInfoItem(a.getJSONObject(i)));
 				}
 				init_listView(addressInfoList);

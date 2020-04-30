@@ -3,14 +3,14 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="350dp"
-	android:layout_height="425dp">
+	android:layout_height="415dp">
 
 	<TextView
 		android:id="@+id/txtCalendarChoosedate"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="32dp"
-		android:layout_marginTop="44dp"
+		android:layout_marginTop="42dp"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/title_choose_date"
 		android:textColor="#565656"
@@ -23,7 +23,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="32dp"
-		android:layout_marginTop="189dp"
+		android:layout_marginTop="200dp"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/text_category"
 		android:textColor="#565656"
@@ -44,8 +44,9 @@
 
 	<LinearLayout
 		android:id="@+id/pickerLiner"
-		android:layout_width="280dp"
+		android:layout_width="255dp"
 		android:layout_height="117dp"
+		android:layout_marginStart="16dp"
 		android:layout_marginTop="100dp"
 		android:orientation="horizontal"
 		app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +97,7 @@
 		android:textColor="#565656"
 		android:textSize="16dp"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"/>
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<TextView
 		android:id="@+id/txtCalendarColor"
@@ -173,7 +174,7 @@
 		android:id="@+id/txtCalendarDay"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="100dp"
+		android:layout_marginStart="110dp"
 		android:layout_marginTop="80dp"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/text_month"
@@ -186,7 +187,7 @@
 		android:id="@+id/txtCalendarMonth"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="162dp"
+		android:layout_marginStart="168dp"
 		android:layout_marginTop="80dp"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/text_day"
@@ -199,7 +200,7 @@
 		android:id="@+id/txtCalendarHour"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="209dp"
+		android:layout_marginStart="212dp"
 		android:layout_marginTop="80dp"
 		android:fontFamily="@font/segoe_ui_semibold"
 		android:text="@string/text_hour"
@@ -354,10 +355,11 @@
 		app:layout_constraintEnd_toEndOf="parent" />
 
 	<View
-		android:layout_width="0dp"
-		android:layout_height="0dp"
+		android:layout_width="1dp"
+		android:layout_height="1dp"
 		android:layout_marginStart="197dp"
-		android:layout_marginTop="421dp"
+		android:layout_marginTop="400dp"
+		android:background="#FFFFFF"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 

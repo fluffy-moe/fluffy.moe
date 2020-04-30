@@ -19,8 +19,8 @@ public class HorizontalItemDecoration extends RecyclerView.ItemDecoration {
 							   @NotNull RecyclerView parent, @NotNull RecyclerView.State state) {
 		super.getItemOffsets(outRect, view, parent, state);
 
-		// Apply offset only to first item
-		if (parent.getChildAdapterPosition(view) == 0) {
+
+		if (parent.getChildAdapterPosition(view) != parent.getAdapter().getItemCount() - 1) {
 			outRect.right += size;
 		}
 	}
