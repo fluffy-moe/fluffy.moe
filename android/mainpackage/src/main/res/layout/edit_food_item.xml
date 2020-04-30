@@ -66,8 +66,8 @@
 		android:inputType="textPersonName"
 		android:paddingStart="41px"
 		android:text="@string/text_food_title"
-		android:textColor="#E9DBBA"
-		android:textSize="35px"
+		android:textColor="#000000"
+		android:textSize="42px"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,8 +83,8 @@
 		android:inputType="textPersonName"
 		android:paddingStart="41px"
 		android:text="@string/mm_dd_yyyy"
-		android:textColor="#E9DBBA"
-		android:textSize="35px"
+		android:textColor="#000000"
+		android:textSize="42px"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
@@ -100,19 +100,19 @@
 		android:inputType="textMultiLine"
 		android:paddingStart="41px"
 		android:text="@string/hint_for_note"
-		android:textColor="#E9DBBA"
-		android:textSize="35px"
+		android:textColor="#000000"
+		android:textSize="41px"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 
 	<ImageButton
 		android:id="@+id/imgbtnIdentificationConfirm"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginStart="425px"
-		android:layout_marginTop="861px"
+		android:layout_width="112dp"
+		android:layout_height="39dp"
+		android:layout_marginTop="890px"
 		android:background="@null"
 		android:scaleType="fitXY"
+		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:srcCompat="@drawable/confirm" />
@@ -122,7 +122,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="1082px"
-		android:layout_marginTop="38px"
+		android:layout_marginTop="127px"
 		android:background="@null"
 		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
@@ -136,7 +136,7 @@
 		android:layout_marginStart="725px"
 		android:layout_marginTop="204px"
 		android:background="@null"
-		android:scaleType="fitCenter"
+		android:scaleType="fitXY"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
 		app:srcCompat="@drawable/pic" />

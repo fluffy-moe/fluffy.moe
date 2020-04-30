@@ -21,6 +21,7 @@ package moe.fluffy.app.activities;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 		imgbtnConfirm.setOnClickListener(v -> {
 			// TODO: Validation register params
-			if (BuildConfig.DEBUG) {
+			if (BuildConfig.DEBUG || BuildConfig.isDemoMode) {
 				setContentView(R.layout.activity_choose_pet_type);
 				initChoosePetTypeView();
 				return ;

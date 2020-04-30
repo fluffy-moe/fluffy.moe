@@ -146,7 +146,7 @@
 		</com.codbking.calendar.CalendarDateView>
 
 		<include
-			layout="@layout/listview_events_view"
+			layout="@layout/listview_calendar_events_view"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content" />
 

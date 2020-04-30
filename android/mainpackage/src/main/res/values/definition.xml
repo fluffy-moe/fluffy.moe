@@ -118,7 +118,7 @@
 	<string name="categorySymptom">Symptom</string>
 	<string name="categoryWater">Water</string>
 	<string name="fmt_event_color">event_c%d</string>
-	<string name="fmt_event_water_intro">Today’s water consumption is %s ml</string>
+	<string name="fmt_event_water_intro">Water intake is %s ml</string>
 	<!-- category string end -->
 
 	<!-- Medical string -->

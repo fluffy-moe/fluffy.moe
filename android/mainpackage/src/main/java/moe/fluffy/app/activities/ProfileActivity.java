@@ -91,7 +91,7 @@ public class ProfileActivity extends AppCompatActivity {
 					startActivityForResult(intent, SHOW_ALBUM_DETAIL);
 				});
 		rvAlbums.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-		rvAlbums.addItemDecoration(new HorizontalPaddingItemDecoration(73));
+		//rvAlbums.addItemDecoration(new HorizontalPaddingItemDecoration(73));
 		rvAlbums.setAdapter(albumCoverAdapter);
 
 		btnAddAlbum.setOnClickListener(v-> {

@@ -42,7 +42,7 @@ public class AddressAdapter extends ArrayAdapter<AddressInfoItem> {
 		AddressInfoItem it = getItem(position);
 
 		if (covertView == null) {
-			covertView = LayoutInflater.from(getContext()).inflate(R.layout.search_result, parent, false);
+			covertView = LayoutInflater.from(getContext()).inflate(R.layout.item_search_result, parent, false);
 		}
 
 		TextView txtTitle = covertView.findViewById(R.id.txtSearchResultTitle),

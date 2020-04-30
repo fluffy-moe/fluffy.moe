@@ -67,7 +67,7 @@ public class BloodTestItemAdapter extends RecyclerView.Adapter<BloodTestItemAdap
 	@NonNull
 	@Override
 	public ViewType onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-		View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_bloodtest_item, parent, false);
+		View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_bloodtest, parent, false);
 		return new ViewType(convertView);
 	}
 

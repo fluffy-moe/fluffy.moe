@@ -67,7 +67,7 @@ public class VaccinationAdapter extends ArrayAdapter<VaccinationItem> {
 
 
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.vaccination_item, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_vaccination, parent, false);
 		}
 
 		txtDate = convertView.findViewById(R.id.txtVacTime);

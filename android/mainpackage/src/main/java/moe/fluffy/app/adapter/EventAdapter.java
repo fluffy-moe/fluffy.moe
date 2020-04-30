@@ -51,7 +51,7 @@ public class EventAdapter extends ArrayAdapter<EventsItem> {
 		View viewSideColor;
 
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_items, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_calendar_event, parent, false);
 		}
 
 		txtDay = convertView.findViewById(R.id.txtDateEventItems);

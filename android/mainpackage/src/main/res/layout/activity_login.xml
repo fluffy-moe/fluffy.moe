@@ -41,13 +41,13 @@
         android:id="@+id/txtRegisterMain2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="550px"
         android:layout_marginTop="290px"
         android:fontFamily="@font/segoe_ui_bold"
         android:text="@string/login_title"
         android:textAlignment="center"
         android:textColor="#565656"
         android:textSize="80px"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -112,7 +112,7 @@
         android:layout_marginTop="1178px"
         android:text="@string/text_forget_password"
         android:textColor="#D8A74E"
-        android:textSize="44px"
+        android:textSize="48px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -125,7 +125,7 @@
         android:clickable="true"
         android:text="@string/text_create_new_account"
         android:textColor="#D8A74E"
-        android:textSize="44px"
+        android:textSize="48px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

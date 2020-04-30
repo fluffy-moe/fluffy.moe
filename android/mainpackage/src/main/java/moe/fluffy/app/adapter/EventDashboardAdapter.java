@@ -51,7 +51,7 @@ public class EventDashboardAdapter extends ArrayAdapter<EventDashboardItem> {
 		WrapContentListView lvTasks;
 
 		if (convertView == null) {
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.event_today, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.dashboard_today, parent, false);
 		}
 
 		txtView = convertView.findViewById(R.id.txtCalendarViewTitle);

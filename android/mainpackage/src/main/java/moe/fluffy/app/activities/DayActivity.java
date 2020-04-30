@@ -19,8 +19,10 @@
  */
 package moe.fluffy.app.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -43,10 +45,12 @@ import java.util.Random;
 import moe.fluffy.app.R;
 import moe.fluffy.app.adapter.ReviewAdapter;
 import moe.fluffy.app.assistant.DatabaseHelper;
+import moe.fluffy.app.dialogs.EditEventDialog;
 import moe.fluffy.app.types.Date;
 import moe.fluffy.app.types.EventsItem;
 import moe.fluffy.app.types.PastTimeReview;
 import moe.fluffy.app.types.SerializableBundle;
+import moe.fluffy.app.types.divider.HorizontalItemDecoration;
 import moe.fluffy.app.types.divider.HorizontalPaddingItemDecoration;
 
 public class DayActivity extends AppCompatActivity {
@@ -55,14 +59,22 @@ public class DayActivity extends AppCompatActivity {
 
 	public final static String keyName = "requestDay";
 
+	TextView txtPlacement;
+
 	ImageButton imgbtnNavBarCamera, imgbtnNavBarMedical, imgbtnNavBarCalendar,
 			imgbtnNavBarArticle, imgbtnNavBarUser;
+
+	ImageButton imgbtnEdit;
 
 	LineChart lineChart;
 
 	RecyclerView eventsView;
 
 	ArrayList<PastTimeReview> pastTimeReviews;
+
+	ReviewAdapter reviewAdapter;
+
+	Date date;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +86,30 @@ public class DayActivity extends AppCompatActivity {
 		initView();
 	}
 
+	private void updateEventsItems() {
+		updateEventsItems(true);
+	}
+
+	private void updateEventsItems(boolean init) {
+		ArrayList<EventsItem> eventsItems = DatabaseHelper.getInstance().getEventByDay(date);
+		if (eventsItems != null) {
+			if (!init)
+				pastTimeReviews.clear();
+			eventsItems.forEach(eventsItem ->
+					pastTimeReviews.add(new PastTimeReview(eventsItem.getCategory(), eventsItem.getBody()))
+			);
+			txtPlacement.setVisibility(View.INVISIBLE);
+
+			imgbtnEdit.setVisibility(View.VISIBLE);
+			imgbtnEdit.setOnClickListener(v -> {
+				Dialog dig = new EditEventDialog(this, eventsItems, l -> updateEventsItems(false));
+				dig.create();
+				dig.show();
+			});
+			if (!init)
+				reviewAdapter.notifyDataSetChanged();
+		}
+	}
 
 	private List<Entry> getRandomList() {
 		Random r = new Random();
@@ -95,23 +131,22 @@ public class DayActivity extends AppCompatActivity {
 			throw new RuntimeException("calendar bean should be set");
 		}
 
-		Date date = sb.getDate();
+		date = sb.getDate();
 		TextView txtTitle = findViewById(R.id.txtWaterTitle),
 				txtYear = findViewById(R.id.txtWaterSmallTitle);
 		txtTitle.setText(String.format("%s %s", CalendarActivity.getMonthString(this, date.getMonth()), date.getDay()));
 		txtYear.setText(String.valueOf(date.getYear()));
+
+		imgbtnEdit = findViewById(R.id.imgbtnWaterEdit);
+
+		txtPlacement = findViewById(R.id.textEventPlacement);
 
 		pastTimeReviews = new ArrayList<>();
 		/*for (int i=0; i<4; i++) {
 			pastTimeReviews.add(new PastTimeReview(new Random().nextInt(4) + 1, "test"));
 		}*/
 
-		ArrayList<EventsItem> eventsItems = DatabaseHelper.getInstance().getEventByDay(date);
-		if (eventsItems != null) {
-			eventsItems.forEach(eventsItem ->
-				pastTimeReviews.add(new PastTimeReview(eventsItem.getCategory(), eventsItem.getBody()))
-			);
-		}
+		updateEventsItems();
 
 		findViewById(R.id.imgbtnBack).setOnClickListener(v -> finish());
 
@@ -119,13 +154,17 @@ public class DayActivity extends AppCompatActivity {
 		eventsView = findViewById(R.id.rvPastEvents);
 		//eventsView.setHasFixedSize(true);
 		eventsView.setLayoutManager(layoutManager);
-		eventsView.addItemDecoration(new HorizontalPaddingItemDecoration(110));
-		eventsView.setAdapter(new ReviewAdapter(pastTimeReviews));
+		//eventsView.addItemDecoration(new HorizontalPaddingItemDecoration(110));
+		reviewAdapter = new ReviewAdapter(pastTimeReviews);
+		eventsView.setAdapter(reviewAdapter);
+		if (eventsView.getItemDecorationCount() == 0)
+			eventsView.addItemDecoration(new HorizontalItemDecoration(40));
 
 		// init chart view
 		lineChart = findViewById(R.id.viewWaterAnalysis);
 		lineChart.getDescription().setEnabled(false);
 		lineChart.getXAxis().setEnabled(false);
+		//lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
 		lineChart.getAxisRight().setEnabled(false);
 		lineChart.setDrawBorders(false);
 		lineChart.setTouchEnabled(false);

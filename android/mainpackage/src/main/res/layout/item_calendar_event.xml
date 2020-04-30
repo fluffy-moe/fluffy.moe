@@ -69,11 +69,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="420px"
-        android:layout_marginTop="58px"
+        android:layout_marginTop="52px"
         android:fontFamily="@font/segoe_ui_semibold"
         android:text="@string/text_case_for_event"
         android:textColor="#565656"
+        android:textSize="56px"
         app:layout_constraintEnd_toEndOf="@+id/imgCalendarTodayBackground2"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

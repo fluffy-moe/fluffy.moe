@@ -280,8 +280,8 @@
 
 	<Switch
 		android:id="@+id/swCalendarAlarm"
-		android:layout_width="141px"
-		android:layout_height="70px"
+		android:layout_width="160px"
+		android:layout_height="80px"
 		android:layout_marginStart="1120px"
 		android:layout_marginTop="1275px"
 		android:textColor="#CED244"

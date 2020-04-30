@@ -58,7 +58,7 @@ public class FoodAdapter extends ArrayAdapter<FoodView> {
 	public static AlertDialog generateDialog(Context context, @NotNull FoodView it, @NotNull FoodAdapter adapter,
 											 @Nullable SimpleCallback listener, @Nullable Bitmap bmp) {
 		View viewEditFood = LayoutInflater.from(context).inflate(R.layout.edit_food_item, null);
-		AlertDialog.Builder editFoodPopup = new AlertDialog.Builder(context);
+		AlertDialog.Builder editFoodPopup = new AlertDialog.Builder(context, R.style.round_dialog);
 		editFoodPopup.setView(viewEditFood);
 		EditText etTitle, etNote, etTime;
 		ImageButton imgbtnChangeImage, imgbtnConfirmEdit, imageButtonClose;

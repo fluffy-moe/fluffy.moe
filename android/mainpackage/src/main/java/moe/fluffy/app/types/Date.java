@@ -59,6 +59,30 @@ public class Date {
 		day = today.getDay();
 	}
 
+	public static int getMaxDate(int month) {
+		switch (month) {
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 9:
+			case 11:
+				return 31;
+			case 2:
+				return 28;
+			default:
+				return 30;
+		}
+	}
+
+	public static int getPreviousMonthMaxDate(int month) {
+		int newMonth = month - 1;
+		if (newMonth < 1)
+			return getMaxDate(12);
+		return getMaxDate(newMonth);
+	}
+
 	public static Date getToday() {
 		if (today == null) {
 			today = new Date(CalendarUtil.getYMD(new java.util.Date()));
@@ -137,6 +161,11 @@ public class Date {
 	public int getDay() {
 		return day;
 	}
+
+	public String[] getStringSz() {
+		return new String[]{String.valueOf(this.year), String.valueOf(this.month), String.valueOf(this.day)};
+	}
+
 
 	public boolean equals(@Nullable CalendarBean c) {
 		if (c == null) return false;
