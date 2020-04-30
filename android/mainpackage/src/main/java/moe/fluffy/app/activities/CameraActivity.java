@@ -224,6 +224,10 @@ public class CameraActivity extends AppCompatActivity {
 			int rotation = getWindowManager().getDefaultDisplay().getRotation();
 			captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
 			file = new File(getSaveLocation());
+			if (file.exists()) {
+				// FIXME: file should override
+				file.delete();
+			}
 			ImageReader.OnImageAvailableListener readerListener = reader1 -> {
 				try (Image image = reader1.acquireLatestImage()) {
 					ByteBuffer buffer = image.getPlanes()[0].getBuffer();

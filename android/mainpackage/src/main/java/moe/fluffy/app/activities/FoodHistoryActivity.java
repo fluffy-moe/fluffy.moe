@@ -133,12 +133,12 @@ public class FoodHistoryActivity extends AppCompatActivity {
 		}
 	}
 
-	@Override
+	/*@Override
 	public void startActivity(Intent intent) {
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 		super.startActivity(intent);
 		this.finish();
-	}
+	}*/
 
 	void initNavigationBar() {
 		imgbtnNavBarCamera = findViewById(R.id.imgbtnCameraPage);

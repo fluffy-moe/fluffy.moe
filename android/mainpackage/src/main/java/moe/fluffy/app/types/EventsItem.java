@@ -46,6 +46,8 @@ public class EventsItem {
 	private static String columnYear, columnMonth, columnDay, columnCategory, columnBody, columnHour,
 			columnMinute, columnColor, columnAlarm, strWater, fmtWaterIntro;
 
+	private String previous_body;
+
 	private static String TAG = "log_EventsType";
 
 	public static void initColumn(@NonNull Context context){
@@ -94,6 +96,10 @@ public class EventsItem {
 				_alarm);
 	}
 
+	public String getPrevious_body() {
+		return previous_body;
+	}
+
 	public EventsItem(Cursor cursor) {
 		int year, month, day, hour, minute;
 		year = cursor.getInt(cursor.getColumnIndexOrThrow(columnYear));
@@ -112,6 +118,7 @@ public class EventsItem {
 	}
 
 	public EventsItem edit(String body) {
+		this.previous_body = this.body;
 		this.body = body;
 		DatabaseHelper.getInstance().editEvent(this);
 		return this;

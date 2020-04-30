@@ -90,7 +90,8 @@ public class HomeActivity extends AppCompatActivity {
 	 */
 	void init() {
 		Log.v(TAG, "init: initialize database");
-		DatabaseHelper.getInstance(this);
+		//DatabaseHelper.getInstance(this);
+		DatabaseHelper.createInstance(this);
 		Log.v(TAG, "init: initialize options");
 		Options.initInstance();
 		Log.v(TAG, "init: initialize column names");

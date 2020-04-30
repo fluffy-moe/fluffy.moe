@@ -36,7 +36,10 @@ import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import moe.fluffy.app.BuildConfig;
 import moe.fluffy.app.R;
@@ -411,7 +414,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public void editEvent(EventsItem event) {
 		SQLiteDatabase s = this.getWritableDatabase();
-		s.update(TABLE_EVENTS, event.getContentValues(), "year = ? AND `month` = ? AND `day` = ?", event.getDateBody().getStringSz());
+		ArrayList<String> sz = new ArrayList<>(Arrays.asList(event.getDateBody().getStringSz()));
+		sz.add(event.getPrevious_body());
+		sz.add(event.getCategory());
+		String[] _s  = sz.toArray(new String[0]);
+		s.update(TABLE_EVENTS, event.getContentValues(), "year = ? AND `month` = ? AND `day` = ? AND `body` = ? AND `category` = ?", _s);
 		s.close();
 	}
 
@@ -575,6 +582,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		if (dbHelper == null) {
 			throw new NullPointerException("dbHelp not initialized");
 		}
+		return dbHelper;
+	}
+
+	@NonNull
+	public static DatabaseHelper createInstance(@NonNull Context context) {
+		Log.v(TAG, "createInstance: Created");
+		dbHelper = new DatabaseHelper(context);
 		return dbHelper;
 	}
 
