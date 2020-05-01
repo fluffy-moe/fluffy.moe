@@ -103,7 +103,7 @@ public class ArticleActivity extends AppCompatActivity {
 			lst.add(a.getCoverId());
 			final int _i = i;
 			mapResource.put(a.getCoverId(), v -> {
-				Intent intent = new Intent(this, ShowArticleActivity.class);
+				Intent intent = new Intent(ArticleActivity.this, ShowArticleActivity.class);
 				intent.putExtra(getString(R.string.IntentArticleIndex), _i);
 				startActivity(intent);
 			});

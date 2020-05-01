@@ -35,6 +35,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.text.InputType;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.EditText;
 
@@ -209,6 +210,9 @@ public class Utils {
 		if (u != null) {
 			is = context.getContentResolver().openInputStream(u);
 			bmp = BitmapFactory.decodeStream(is);
+		}
+		else {
+			Log.e(TAG, "getBitmap: uri is null");
 		}
 		return bmp;
 	}

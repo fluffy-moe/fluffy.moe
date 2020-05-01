@@ -257,8 +257,8 @@ public class MedicalActivity extends AppCompatActivity {
 		imgbtnNavBarCalendar.setOnClickListener(v ->
 				startActivity(new Intent(MedicalActivity.this, CalendarActivity.class)));
 
-		imgbtnNavBarUser.setOnClickListener(v -> {
-				startActivity(new Intent(this, ProfileActivity.class));});
+		imgbtnNavBarUser.setOnClickListener(v ->
+				startActivity(new Intent(MedicalActivity.this, ProfileActivity.class)));
 
 	}
 
